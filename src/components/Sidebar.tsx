@@ -73,10 +73,10 @@ export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onP
       {/* Mobile top bar */}
       <div className="topbar">
         <button className="topbar-hamburger" onClick={() => setIsOpen(true)} aria-label="메뉴">
-          ☰
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
-        <h2>🐚 Buen Camino!</h2>
-        <span style={{ marginLeft: 'auto', fontSize: '0.8rem', color: 'var(--text-muted)' }}>{ddayText}</span>
+        <h2>🐚 Walk Camino Together</h2>
+        <span style={{ marginLeft: 'auto', fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 600 }}>{ddayText}</span>
       </div>
 
       {/* Overlay */}
@@ -88,46 +88,54 @@ export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onP
       {/* Sidebar */}
       <aside className={`sidebar ${isOpen ? 'open' : ''} ${isCollapsed ? 'collapsed' : ''}`}>
         <button className="sidebar-close" onClick={() => setIsOpen(false)}>
-          ✕
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
 
-        <div className="sidebar-brand">
-          <h1>🐚 {!isCollapsed && 'Buen Camino!'}</h1>
-          <p>포르투갈 · 스페인 25일</p>
+        {/* Top row: brand + dark mode toggle */}
+        <div className="sidebar-top">
+          <div className="sidebar-brand">
+            <h1>{isCollapsed ? '🐚' : '🐚 Walk Camino Together'}</h1>
+            {!isCollapsed && <p>포르투갈 · 스페인 25일</p>}
+          </div>
+          <button className="theme-btn" onClick={toggleTheme} title={isDark ? '라이트 모드' : '다크 모드'}>
+            {isDark ? '☀️' : '🌙'}
+          </button>
         </div>
 
         <div className="sidebar-dday">
           <div className="dday-number">{ddayText}</div>
-          <div className="dday-label">2026.07.05 출발</div>
+          {!isCollapsed && <div className="dday-label">2026.07.05 출발</div>}
         </div>
 
-        <div className="sidebar-progress">
-          <div className="progress-bar">
-            {PHASE_SEGMENTS.map((seg) => (
-              <div
-                key={seg.key}
-                className="progress-segment"
-                style={{
-                  flex: seg.days / TOTAL_DAYS,
-                  backgroundColor: PHASES[seg.key as keyof typeof PHASES]?.color,
-                }}
-                title={PHASES[seg.key as keyof typeof PHASES]?.label}
-                onClick={() => handlePhaseClick(seg.key)}
-              />
-            ))}
+        {!isCollapsed && (
+          <div className="sidebar-progress">
+            <div className="progress-bar">
+              {PHASE_SEGMENTS.map((seg) => (
+                <div
+                  key={seg.key}
+                  className="progress-segment"
+                  style={{
+                    flex: seg.days / TOTAL_DAYS,
+                    backgroundColor: PHASES[seg.key as keyof typeof PHASES]?.color,
+                  }}
+                  title={PHASES[seg.key as keyof typeof PHASES]?.label}
+                  onClick={() => handlePhaseClick(seg.key)}
+                />
+              ))}
+            </div>
+            <div className="progress-labels">
+              {PHASE_SEGMENTS.map((seg) => (
+                <span
+                  key={seg.key}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handlePhaseClick(seg.key)}
+                >
+                  {PHASES[seg.key as keyof typeof PHASES]?.label}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="progress-labels">
-            {PHASE_SEGMENTS.map((seg) => (
-              <span
-                key={seg.key}
-                style={{ cursor: 'pointer' }}
-                onClick={() => handlePhaseClick(seg.key)}
-              >
-                {PHASES[seg.key as keyof typeof PHASES]?.label}
-              </span>
-            ))}
-          </div>
-        </div>
+        )}
 
         <nav className="sidebar-nav">
           {NAV_ITEMS.map((item) => (
@@ -135,20 +143,21 @@ export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onP
               key={item.id}
               className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
               onClick={() => handleNavClick(item.id)}
+              title={isCollapsed ? item.label : undefined}
             >
               <span className="nav-item-icon">{item.icon}</span>
-              <span>{item.label}</span>
+              <span className="nav-item-label">{item.label}</span>
             </button>
           ))}
         </nav>
 
-        <button className="theme-toggle" onClick={toggleTheme}>
-          <span>{isDark ? '☀️' : '🌙'}</span>
-          <span>{isDark ? '라이트 모드' : '다크 모드'}</span>
-        </button>
-
-        <button className="sidebar-toggle" onClick={toggleCollapse} title={isCollapsed ? '펼치기' : '접기'}>
-          {isCollapsed ? '▶' : '◀'}
+        {/* Collapse toggle - prettier pill button */}
+        <button className="collapse-toggle" onClick={toggleCollapse} title={isCollapsed ? '메뉴 펼치기' : '메뉴 접기'}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+            style={{ transform: isCollapsed ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}>
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          {!isCollapsed && <span>접기</span>}
         </button>
       </aside>
     </>

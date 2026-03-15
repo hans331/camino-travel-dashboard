@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
 :root {
   --primary: #2D5016;
@@ -12,35 +12,35 @@
   --barcelona-col: #00897B;
   --camino: #2D5016;
 
-  --bg: #FAFBFC;
+  --bg: #ffffff;
   --bg-card: #ffffff;
-  --bg-sidebar: #1e293b;
-  --text: #2c2c2c;
-  --text-light: #666;
-  --text-muted: #999;
-  --border: #e0ddd5;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --bg-sidebar: #111827;
+  --text: #1f2937;
+  --text-light: #6b7280;
+  --text-muted: #9ca3af;
+  --border: #e5e7eb;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.08);
   --radius: 12px;
   --radius-sm: 8px;
 
   --sidebar-w: 240px;
-  --topbar-h: 56px;
+  --topbar-h: 52px;
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Inter', sans-serif;
+  --font-sans: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-display: 'Pretendard Variable', sans-serif;
 }
 
 [data-theme="dark"] {
   --bg: #0f172a;
   --bg-card: #1e293b;
-  --bg-sidebar: #0f172a;
+  --bg-sidebar: #020617;
   --text: #e2e8f0;
   --text-light: #94a3b8;
   --text-muted: #64748b;
-  --border: #334155;
-  --shadow: 0 2px 8px rgba(0,0,0,0.3);
-  --shadow-lg: 0 4px 16px rgba(0,0,0,0.4);
+  --border: #1e293b;
+  --shadow: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.5);
 }
 
 *, *::before, *::after {
@@ -99,45 +99,85 @@ body {
 
 /* Sidebar collapsed state */
 .sidebar.collapsed {
-  width: 60px;
+  width: 64px;
 }
-.sidebar.collapsed .sidebar-brand h1,
-.sidebar.collapsed .sidebar-brand p,
+.sidebar.collapsed .nav-item-label,
 .sidebar.collapsed .sidebar-dday .dday-label,
-.sidebar.collapsed .sidebar-progress,
-.sidebar.collapsed .nav-item span:not(.nav-item-icon) {
+.sidebar.collapsed .sidebar-progress {
   display: none;
 }
-.sidebar.collapsed .sidebar-brand {
-  padding: 16px 0;
+.sidebar.collapsed .sidebar-top {
+  flex-direction: column;
+  gap: 8px;
+}
+.sidebar.collapsed .sidebar-brand p {
+  display: none;
+}
+.sidebar.collapsed .sidebar-brand h1 {
+  font-size: 1.4rem;
 }
 .sidebar.collapsed .sidebar-dday .dday-number {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 .sidebar.collapsed .nav-item {
   justify-content: center;
   padding: 12px 0;
 }
 .sidebar.collapsed .nav-item-icon {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+}
+.sidebar.collapsed .collapse-toggle span {
+  display: none;
+}
+.main-content.sidebar-collapsed {
+  margin-left: 64px;
+}
+
+/* Sidebar top row: brand + dark mode */
+.sidebar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .sidebar-brand {
-  padding: 24px 20px 16px;
-  text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex: 1;
+  min-width: 0;
 }
 
 .sidebar-brand h1 {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
+  font-size: 1rem;
+  font-weight: 700;
   color: #fff;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sidebar-brand p {
-  font-size: 0.75rem;
-  color: #aaa;
+  font-size: 0.68rem;
+  color: #64748b;
+}
+
+.theme-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.theme-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .sidebar-close {
@@ -147,28 +187,33 @@ body {
   right: 12px;
   background: none;
   border: none;
-  color: #aaa;
-  font-size: 1.5rem;
+  color: #64748b;
   cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.2s;
+}
+.sidebar-close:hover {
+  color: #fff;
 }
 
 .sidebar-dday {
-  padding: 16px 20px;
+  padding: 12px 16px;
   text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .sidebar-dday .dday-number {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--secondary-light);
-  font-family: var(--font-display);
+  letter-spacing: -0.5px;
 }
 
 .sidebar-dday .dday-label {
-  font-size: 0.75rem;
-  color: #aaa;
-  margin-top: 2px;
+  font-size: 0.7rem;
+  color: #64748b;
+  margin-top: 1px;
 }
 
 .sidebar-progress {
@@ -241,51 +286,30 @@ body {
   text-align: center;
 }
 
-/* Sidebar toggle button */
-.sidebar-toggle {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.1);
-  border: none;
-  color: #94a3b8;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
+/* Collapse toggle - pretty pill at bottom */
+.collapse-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
+  margin: 8px 12px 16px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  cursor: pointer;
   transition: all 0.2s;
 }
-.sidebar-toggle:hover {
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-}
-
-/* Dark mode toggle in sidebar */
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 8px 20px;
-  border: none;
-  background: none;
+.collapse-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
   color: #94a3b8;
-  font-size: 0.8rem;
-  cursor: pointer;
-  width: 100%;
-  font-family: var(--font-sans);
-  transition: color 0.2s;
+  border-color: rgba(255, 255, 255, 0.15);
 }
-.theme-toggle:hover {
-  color: #fff;
-}
-.sidebar.collapsed .theme-toggle span:last-child {
-  display: none;
+.collapse-toggle svg {
+  flex-shrink: 0;
 }
 
 /* Mobile top bar */
@@ -1006,7 +1030,7 @@ body {
     width: var(--sidebar-w);
   }
 
-  .sidebar-toggle {
+  .collapse-toggle {
     display: none;
   }
 
