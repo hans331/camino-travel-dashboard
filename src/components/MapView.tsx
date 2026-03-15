@@ -80,23 +80,37 @@ function PolylineRenderer() {
   return null;
 }
 
-function FitBounds() {
+interface FitBoundsProps {
+  selectedPhase?: string | null;
+}
+
+function FitBounds({ selectedPhase }: FitBoundsProps) {
   const map = useMap();
 
   useEffect(() => {
     if (!map) return;
 
     const bounds = new google.maps.LatLngBounds();
-    for (const day of SCHEDULE) {
+    const days = selectedPhase
+      ? SCHEDULE.filter((day) => day.phase === selectedPhase)
+      : SCHEDULE;
+
+    if (days.length === 0) return;
+
+    for (const day of days) {
       bounds.extend({ lat: day.lat, lng: day.lng });
     }
     map.fitBounds(bounds, { top: 40, right: 40, bottom: 40, left: 40 });
-  }, [map]);
+  }, [map, selectedPhase]);
 
   return null;
 }
 
-export default function MapView() {
+interface MapViewProps {
+  selectedPhase?: string | null;
+}
+
+export default function MapView({ selectedPhase }: MapViewProps) {
   const [selectedDay, setSelectedDay] = useState<DayData | null>(null);
 
   const handleMarkerClick = useCallback((day: DayData) => {
@@ -122,7 +136,7 @@ export default function MapView() {
             streetViewControl={false}
             mapTypeControl={false}
           >
-            <FitBounds />
+            <FitBounds selectedPhase={selectedPhase} />
             <PolylineRenderer />
 
             {SCHEDULE.map((day) => {

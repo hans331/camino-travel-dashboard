@@ -15,11 +15,13 @@ const MapView = dynamic(() => import('@/components/MapView'), { ssr: false });
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('map');
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
 
   const renderContent = useCallback(() => {
     switch (activeTab) {
       case 'map':
-        return <MapView />;
+        return <MapView selectedPhase={selectedPhase} />;
       case 'schedule':
         return <Schedule />;
       case 'camino':
@@ -35,14 +37,22 @@ export default function Home() {
       case 'checklist':
         return <Checklist />;
       default:
-        return <MapView />;
+        return <MapView selectedPhase={selectedPhase} />;
     }
-  }, [activeTab]);
+  }, [activeTab, selectedPhase]);
 
   return (
     <div className="app-layout">
-      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
-      <main className="main-content">
+      <Sidebar
+        activeTab={activeTab}
+        onTabChange={(tab) => {
+          setActiveTab(tab);
+          if (tab !== 'map') setSelectedPhase(null);
+        }}
+        onCollapsedChange={setSidebarCollapsed}
+        onPhaseSelect={setSelectedPhase}
+      />
+      <main className={`main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
         {renderContent()}
       </main>
     </div>

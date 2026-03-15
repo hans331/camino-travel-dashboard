@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
   --primary: #2D5016;
@@ -12,9 +12,9 @@
   --barcelona-col: #00897B;
   --camino: #2D5016;
 
-  --bg: #f5f3ef;
+  --bg: #FAFBFC;
   --bg-card: #ffffff;
-  --bg-sidebar: #1a1a2e;
+  --bg-sidebar: #1e293b;
   --text: #2c2c2c;
   --text-light: #666;
   --text-muted: #999;
@@ -27,8 +27,20 @@
   --sidebar-w: 240px;
   --topbar-h: 56px;
 
-  --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Inter', sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --bg-card: #1e293b;
+  --bg-sidebar: #0f172a;
+  --text: #e2e8f0;
+  --text-light: #94a3b8;
+  --text-muted: #64748b;
+  --border: #334155;
+  --shadow: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.4);
 }
 
 *, *::before, *::after {
@@ -38,7 +50,7 @@
 }
 
 html {
-  font-size: 15px;
+  font-size: 14px;
   scroll-behavior: smooth;
 }
 
@@ -65,6 +77,10 @@ body {
   transition: margin-left 0.3s ease;
 }
 
+.main-content.sidebar-collapsed {
+  margin-left: 60px;
+}
+
 /* ============ SIDEBAR ============ */
 .sidebar {
   position: fixed;
@@ -78,7 +94,32 @@ body {
   flex-direction: column;
   z-index: 1000;
   overflow-y: auto;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, width 0.3s ease;
+}
+
+/* Sidebar collapsed state */
+.sidebar.collapsed {
+  width: 60px;
+}
+.sidebar.collapsed .sidebar-brand h1,
+.sidebar.collapsed .sidebar-brand p,
+.sidebar.collapsed .sidebar-dday .dday-label,
+.sidebar.collapsed .sidebar-progress,
+.sidebar.collapsed .nav-item span:not(.nav-item-icon) {
+  display: none;
+}
+.sidebar.collapsed .sidebar-brand {
+  padding: 16px 0;
+}
+.sidebar.collapsed .sidebar-dday .dday-number {
+  font-size: 0.8rem;
+}
+.sidebar.collapsed .nav-item {
+  justify-content: center;
+  padding: 12px 0;
+}
+.sidebar.collapsed .nav-item-icon {
+  font-size: 1.3rem;
 }
 
 .sidebar-brand {
@@ -146,6 +187,12 @@ body {
 .progress-segment {
   height: 100%;
   border-radius: 3px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.progress-segment:hover {
+  opacity: 0.8;
 }
 
 .progress-labels {
@@ -194,6 +241,53 @@ body {
   text-align: center;
 }
 
+/* Sidebar toggle button */
+.sidebar-toggle {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #94a3b8;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.sidebar-toggle:hover {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+/* Dark mode toggle in sidebar */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border: none;
+  background: none;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  cursor: pointer;
+  width: 100%;
+  font-family: var(--font-sans);
+  transition: color 0.2s;
+}
+.theme-toggle:hover {
+  color: #fff;
+}
+.sidebar.collapsed .theme-toggle span:last-child {
+  display: none;
+}
+
 /* Mobile top bar */
 .topbar {
   display: none;
@@ -202,26 +296,27 @@ body {
   left: 0;
   right: 0;
   height: var(--topbar-h);
-  background: var(--bg-sidebar);
-  color: #fff;
+  background: var(--bg-card);
+  color: var(--text);
   align-items: center;
   padding: 0 16px;
   z-index: 999;
   gap: 12px;
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .topbar-hamburger {
   background: none;
   border: none;
-  color: #fff;
+  color: var(--text);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 4px;
 }
 
 .topbar h2 {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
@@ -370,7 +465,7 @@ body {
 }
 
 .restaurant-tag {
-  background: #fef3e2;
+  background: rgba(196, 132, 29, 0.1);
   color: var(--secondary);
   padding: 2px 10px;
   border-radius: 12px;
@@ -480,7 +575,7 @@ body {
 .stage-tip {
   margin-top: 8px;
   padding: 8px 12px;
-  background: #f0f7e8;
+  background: var(--bg);
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
   color: var(--primary);
@@ -621,7 +716,7 @@ body {
 }
 
 .budget-table .total-row {
-  background: #f5f3ef;
+  background: var(--bg);
   font-weight: 700;
 }
 
@@ -901,6 +996,18 @@ body {
     margin-left: 0;
     padding: 16px;
     padding-top: calc(var(--topbar-h) + 16px);
+  }
+
+  .main-content.sidebar-collapsed {
+    margin-left: 0;
+  }
+
+  .sidebar.collapsed {
+    width: var(--sidebar-w);
+  }
+
+  .sidebar-toggle {
+    display: none;
   }
 
   .taste-grid {
