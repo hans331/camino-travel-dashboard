@@ -1,56 +1,137 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { SCHEDULE, PHASES } from '@/lib/data';
+import { useState, useMemo, useEffect } from 'react';
+import { SCHEDULE, PHASES, BUDGET } from '@/lib/data';
 import type { DayData } from '@/lib/types';
 
 type FilterKey = 'all' | DayData['phase'];
 
-const FILTERS: { key: FilterKey; label: string }[] = [
-  { key: 'all', label: '전체' },
-  { key: 'portugal', label: '포르투갈' },
-  { key: 'camino', label: '카미노' },
-  { key: 'andalusia', label: '안달루시아' },
-  { key: 'madrid', label: '마드리드' },
-  { key: 'barcelona', label: '바르셀로나' },
+const FILTERS: { key: FilterKey; label: string; emoji: string }[] = [
+  { key: 'all', label: '전체', emoji: '🌍' },
+  { key: 'porto', label: '포르토', emoji: '🇵🇹' },
+  { key: 'camino', label: '카미노', emoji: '🐚' },
+  { key: 'london', label: '런던·캠브리지', emoji: '🇬🇧' },
+  { key: 'paris', label: '파리', emoji: '🇫🇷' },
 ];
+
+interface PhaseSummary {
+  key: DayData['phase'];
+  label: string;
+  emoji: string;
+  dates: string;
+  nights: string;
+  daysRange: string;
+  extra: string;
+}
+
+const PHASE_SUMMARIES: PhaseSummary[] = [
+  { key: 'porto', label: '포르토', emoji: '🇵🇹', dates: '6/16(화) ~ 6/17(수)', nights: '2박 3일', daysRange: 'Day 1 - 2', extra: '🍷 시차 적응 + 포트와인' },
+  { key: 'camino', label: '카미노 포르투게스', emoji: '🐚', dates: '6/18(목) ~ 6/28(일)', nights: '11박 11일', daysRange: 'Day 3 - 13', extra: '🥾 도보 242km · 알베르게 10박 + 산티아고 1박' },
+  { key: 'london', label: '런던·캠브리지', emoji: '🇬🇧', dates: '6/29(월) ~ 7/1(수)', nights: '3박 4일', daysRange: 'Day 14 - 16', extra: '🎓 캠브리지 졸업식 · 둘째 합류' },
+  { key: 'paris', label: '파리·베르사유', emoji: '🇫🇷', dates: '7/2(목) ~ 7/6(월)', nights: '4박 5일', daysRange: 'Day 17 - 21', extra: '👑 베르사유 · 루브르 · 오르세 · 몽마르뜨' },
+];
+
+function DayCard({ day }: { day: DayData }) {
+  return (
+    <div className="card day-card" data-phase={day.phase}>
+      <div className="day-card-header">
+        <span className={`day-badge ${day.phase}`}>
+          Day {day.day}
+        </span>
+        <span className="day-card-title">
+          {day.icon} {day.title}
+        </span>
+        <span className="day-card-date">
+          {day.date}{day.dist ? ` · ${day.dist}` : ''}
+        </span>
+      </div>
+
+      <div className="day-card-body">
+        <p>{day.desc}</p>
+        <div className="detail-row">
+          <span className="detail-label">🍽️</span>
+          <span>{day.food}</span>
+        </div>
+        <div className="detail-row">
+          <span className="detail-label">🏠</span>
+          <span>{day.stay}</span>
+        </div>
+      </div>
+
+      {day.restaurants && day.restaurants.length > 0 && (
+        <div className="day-card-restaurants">
+          {day.restaurants.map((r) => (
+            <span key={r} className="restaurant-tag">
+              📍 {r}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Schedule() {
   const [filter, setFilter] = useState<FilterKey>('all');
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
-  const filtered = useMemo(() => {
-    if (filter === 'all') return SCHEDULE;
-    return SCHEDULE.filter((d) => d.phase === filter);
+  // Auto-expand when user picks a specific phase filter
+  useEffect(() => {
+    if (filter !== 'all') {
+      setExpanded((prev) => ({ ...prev, [filter]: true }));
+    }
   }, [filter]);
 
-  // Group by phase for dividers
-  const withDividers = useMemo(() => {
-    const result: { type: 'divider'; phase: string; label: string; emoji: string }[] | DayData[] = [];
-    let lastPhase = '';
-    for (const day of filtered) {
-      if (day.phase !== lastPhase) {
-        const phaseInfo = PHASES[day.phase];
-        (result as Array<unknown>).push({
-          type: 'divider',
-          phase: day.phase,
-          label: phaseInfo.label,
-          emoji: phaseInfo.emoji,
-        });
-        lastPhase = day.phase;
-      }
-      (result as Array<unknown>).push(day);
-    }
-    return result as Array<
-      | { type: 'divider'; phase: string; label: string; emoji: string }
-      | DayData
-    >;
-  }, [filtered]);
+  const totalBudget = BUDGET.reduce((s, b) => s + b.amtNum, 0);
+  const budgetMan = Math.round(totalBudget / 10000);
+
+  const visiblePhases = useMemo(() => {
+    if (filter === 'all') return PHASE_SUMMARIES;
+    return PHASE_SUMMARIES.filter((p) => p.key === filter);
+  }, [filter]);
+
+  const toggle = (phase: string) => {
+    setExpanded((prev) => ({ ...prev, [phase]: !prev[phase] }));
+  };
+
+  const expandAll = () => {
+    const all: Record<string, boolean> = {};
+    PHASE_SUMMARIES.forEach((p) => (all[p.key] = true));
+    setExpanded(all);
+  };
+
+  const collapseAll = () => {
+    setExpanded({});
+  };
 
   return (
     <div>
       <div className="section-header">
-        <h2>📅 25일 일정</h2>
-        <p>포르투갈 · 카미노 · 안달루시아 · 마드리드 · 바르셀로나</p>
+        <h2><span>📅</span> 21일 가족 여행</h2>
+        <p>포르토 · 카미노 · 산티아고 · 런던 · 캠브리지 졸업식 · 파리·베르사유</p>
+      </div>
+
+      <div className="trip-stats">
+        <div className="stat-card">
+          <div className="stat-card-emoji">📅</div>
+          <div className="stat-card-value">21일</div>
+          <div className="stat-card-label">6/16 → 7/7</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-card-emoji">👨‍👩‍👦</div>
+          <div className="stat-card-value">3-4명</div>
+          <div className="stat-card-label">런던서 둘째 합류</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-card-emoji">🐚</div>
+          <div className="stat-card-value">242km</div>
+          <div className="stat-card-label">카미노 11일</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-card-emoji">💰</div>
+          <div className="stat-card-value">{budgetMan}만</div>
+          <div className="stat-card-label">예상 총 예산</div>
+        </div>
       </div>
 
       <div className="filter-bar">
@@ -60,59 +141,64 @@ export default function Schedule() {
             className={`filter-btn ${filter === f.key ? 'active' : ''}`}
             onClick={() => setFilter(f.key)}
           >
-            {f.label}
+            {f.emoji} {f.label}
           </button>
         ))}
       </div>
 
-      {withDividers.map((item, i) => {
-        if ('type' in item && item.type === 'divider') {
-          return (
-            <div
-              key={`divider-${item.phase}`}
-              className="phase-divider"
-              style={{ color: PHASES[item.phase as keyof typeof PHASES]?.color }}
-            >
-              {item.emoji} {item.label}
-            </div>
-          );
-        }
+      <div className="expand-controls">
+        <button className="expand-btn" onClick={expandAll}>📂 모두 펼치기</button>
+        <button className="expand-btn" onClick={collapseAll}>📁 모두 접기</button>
+      </div>
 
-        const day = item as DayData;
+      {visiblePhases.map((phaseSummary) => {
+        const phaseDays = SCHEDULE.filter((d) => d.phase === phaseSummary.key);
+        const isExpanded = expanded[phaseSummary.key] ?? false;
+        const phaseColor = PHASES[phaseSummary.key].color;
+
         return (
-          <div
-            key={day.day}
-            className="card day-card"
-            data-phase={day.phase}
-          >
-            <div className="day-card-header">
-              <span className={`day-badge ${day.phase}`}>
-                Day {day.day}
-              </span>
-              <span className="day-card-title">
-                {day.icon} {day.title}
-              </span>
-              <span className="day-card-date">{day.date}</span>
-            </div>
-
-            <div className="day-card-body">
-              <p>{day.desc}</p>
-              <div className="detail-row">
-                <span className="detail-label">🍽️</span>
-                <span>{day.food}</span>
-              </div>
-              <div className="detail-row">
-                <span className="detail-label">🏠</span>
-                <span>{day.stay}</span>
-              </div>
-            </div>
-
-            {day.restaurants && day.restaurants.length > 0 && (
-              <div className="day-card-restaurants">
-                {day.restaurants.map((r) => (
-                  <span key={r} className="restaurant-tag">
-                    📍 {r}
+          <div key={phaseSummary.key} className="phase-section">
+            <button
+              className={`phase-header ${isExpanded ? 'expanded' : ''}`}
+              onClick={() => toggle(phaseSummary.key)}
+              style={{ borderLeftColor: phaseColor }}
+              aria-expanded={isExpanded}
+            >
+              <div className="phase-header-emoji">{phaseSummary.emoji}</div>
+              <div className="phase-header-main">
+                <div className="phase-header-title-row">
+                  <h3 className="phase-header-title">{phaseSummary.label}</h3>
+                  <span
+                    className="phase-header-nights"
+                    style={{ background: phaseColor }}
+                  >
+                    🌙 {phaseSummary.nights}
                   </span>
+                </div>
+                <div className="phase-header-meta">
+                  <span>📅 {phaseSummary.dates}</span>
+                  <span className="phase-header-range">{phaseSummary.daysRange}</span>
+                </div>
+                <div className="phase-header-extra">{phaseSummary.extra}</div>
+              </div>
+              <svg
+                className="phase-chevron"
+                width="24" height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+
+            {isExpanded && (
+              <div className="phase-days">
+                {phaseDays.map((day) => (
+                  <DayCard key={day.day} day={day} />
                 ))}
               </div>
             )}

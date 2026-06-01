@@ -14,11 +14,9 @@ import type { DayData } from '@/lib/types';
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '';
 const MAP_ID = 'travel-dashboard-map';
 
-// Default center: roughly center of Spain/Portugal
-const DEFAULT_CENTER = { lat: 40.0, lng: -4.0 };
-const DEFAULT_ZOOM = 6;
+const DEFAULT_CENTER = { lat: 45.0, lng: -4.0 };
+const DEFAULT_ZOOM = 5;
 
-// Group schedule by phase for polylines
 function getPhaseGroups() {
   const groups: { phase: string; coords: { lat: number; lng: number }[] }[] = [];
   let currentPhase = '';
@@ -30,7 +28,6 @@ function getPhaseGroups() {
         groups.push({ phase: currentPhase, coords: [...currentCoords] });
       }
       currentPhase = day.phase;
-      // Start new group but include last point of previous for continuity
       currentCoords = currentCoords.length > 0
         ? [currentCoords[currentCoords.length - 1], { lat: day.lat, lng: day.lng }]
         : [{ lat: day.lat, lng: day.lng }];
@@ -51,7 +48,6 @@ function PolylineRenderer() {
   useEffect(() => {
     if (!map) return;
 
-    // Clean up old polylines
     polylinesRef.current.forEach((pl) => pl.setMap(null));
     polylinesRef.current = [];
 
@@ -60,13 +56,22 @@ function PolylineRenderer() {
       const phaseInfo = PHASES[group.phase as keyof typeof PHASES];
       if (!phaseInfo) continue;
 
+      // Dashed line for flight/train transitions (london = SCQ→LHR flight, paris = Eurostar/flight)
+      const isFlight = group.phase === 'london' || group.phase === 'paris';
       const polyline = new google.maps.Polyline({
         path: group.coords,
         strokeColor: phaseInfo.color,
-        strokeOpacity: 0.7,
-        strokeWeight: 3,
+        strokeOpacity: isFlight ? 0 : 0.85,
+        strokeWeight: 4,
         geodesic: true,
         map,
+        icons: isFlight
+          ? [{
+              icon: { path: 'M 0,-1 0,1', strokeOpacity: 1, scale: 3 },
+              offset: '0',
+              repeat: '12px',
+            }]
+          : undefined,
       });
       polylinesRef.current.push(polyline);
     }
@@ -100,7 +105,7 @@ function FitBounds({ selectedPhase }: FitBoundsProps) {
     for (const day of days) {
       bounds.extend({ lat: day.lat, lng: day.lng });
     }
-    map.fitBounds(bounds, { top: 40, right: 40, bottom: 40, left: 40 });
+    map.fitBounds(bounds, { top: 60, right: 60, bottom: 60, left: 60 });
   }, [map, selectedPhase]);
 
   return null;
@@ -120,8 +125,20 @@ export default function MapView({ selectedPhase }: MapViewProps) {
   return (
     <div>
       <div className="section-header">
-        <h2>🗺️ 여행 지도</h2>
-        <p>25일 전체 루트</p>
+        <h2><span>🗺️</span> 여행 지도</h2>
+        <p>포르토 → 카미노 → 산티아고 → 런던·캠브리지 → 파리·베르사유 · 21일 전체 루트</p>
+      </div>
+
+      <div className="map-legend">
+        {Object.entries(PHASES).map(([key, info]) => (
+          <div key={key} className="legend-item">
+            <span className="legend-dot" style={{ background: info.color }} />
+            <span>{info.emoji} {info.label}</span>
+          </div>
+        ))}
+        <div className="legend-item" style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontWeight: 500 }}>
+          마커를 클릭하면 일정 상세
+        </div>
       </div>
 
       <div className="map-container">
@@ -148,7 +165,10 @@ export default function MapView({ selectedPhase }: MapViewProps) {
                   onClick={() => handleMarkerClick(day)}
                   title={`Day ${day.day}: ${day.title}`}
                 >
-                  <span className="marker-emoji">{phaseInfo.emoji}</span>
+                  <span className={`day-marker ${day.phase}`}>
+                    <span className="marker-emoji">{day.icon}</span>
+                    {day.day}
+                  </span>
                 </AdvancedMarker>
               );
             })}
@@ -157,14 +177,14 @@ export default function MapView({ selectedPhase }: MapViewProps) {
               <InfoWindow
                 position={{ lat: selectedDay.lat, lng: selectedDay.lng }}
                 onCloseClick={() => setSelectedDay(null)}
-                pixelOffset={[0, -30]}
+                pixelOffset={[0, -36]}
               >
                 <div className="map-info-window">
                   <h3>
-                    Day {selectedDay.day}: {selectedDay.icon} {selectedDay.title}
+                    Day {selectedDay.day} · {selectedDay.icon} {selectedDay.title}
                   </h3>
-                  <p style={{ color: '#666', fontSize: '0.75rem' }}>
-                    {selectedDay.date}
+                  <p style={{ color: '#888', fontSize: '0.78rem', fontWeight: 600 }}>
+                    {selectedDay.date} {selectedDay.dist && `· ${selectedDay.dist}`}
                   </p>
                   <p>{selectedDay.desc}</p>
                   <p>

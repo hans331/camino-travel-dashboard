@@ -1,7 +1,9 @@
+export type Phase = 'porto' | 'camino' | 'london' | 'paris';
+
 export interface DayData {
   day: number;
   date: string;
-  phase: 'portugal' | 'camino' | 'andalusia' | 'madrid' | 'barcelona';
+  phase: Phase;
   title: string;
   icon: string;
   desc: string;
@@ -32,7 +34,7 @@ export interface Experience {
   where: string;
   emoji: string;
   imageUrl: string;
-  bg: 'pt' | 'cam' | 'es';
+  bg: 'pt' | 'cam' | 'uk' | 'fr';
   day?: string;
 }
 
@@ -42,11 +44,11 @@ export interface Food {
   where: string;
   emoji: string;
   imageUrl: string;
-  bg: 'pt' | 'cam' | 'es';
+  bg: 'pt' | 'cam' | 'uk' | 'fr';
 }
 
 export interface Accommodation {
-  phase: 'portugal' | 'camino' | 'spain';
+  phase: Phase;
   city: string;
   name: string;
   type: string;

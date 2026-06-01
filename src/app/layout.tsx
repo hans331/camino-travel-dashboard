@@ -1,24 +1,16 @@
-import type { Metadata } from 'next';
-import { Noto_Sans_KR, Playfair_Display } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
-const notoSansKR = Noto_Sans_KR({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '700'],
-  variable: '--font-sans',
-  display: 'swap',
-});
-
-const playfairDisplay = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['600', '700'],
-  variable: '--font-display',
-  display: 'swap',
-});
-
 export const metadata: Metadata = {
-  title: 'Buen Camino! - 포르투갈·스페인 25일 여행 대시보드',
-  description: '카미노 데 산티아고 포르투게스 루트 + 스페인 여행 계획',
+  title: '🐚 Walk Camino Together · 카미노 + 캠브리지 + 파리·베르사유',
+  description: '포르토 → 카미노 포르투게스 → 산티아고 → 런던·캠브리지 → 파리·베르사유 21일 여행 계획',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#16A34A',
 };
 
 export default function RootLayout({
@@ -28,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${notoSansKR.variable} ${playfairDisplay.variable}`}>
+      <body>
         {children}
       </body>
     </html>

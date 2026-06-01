@@ -6,11 +6,11 @@ export default function TasteGrid() {
   return (
     <div>
       <div className="section-header">
-        <h2>🍷 맛집 · 체험</h2>
+        <h2><span>🍷</span> 맛집 · 체험</h2>
         <p>꼭 해보고 꼭 먹어봐야 할 것들</p>
       </div>
 
-      <h3 style={{ margin: '20px 0 12px', fontSize: '1.1rem', fontWeight: 700 }}>
+      <h3 className="taste-section-title">
         ✨ 체험
       </h3>
       <div className="taste-grid">
@@ -34,7 +34,7 @@ export default function TasteGrid() {
         ))}
       </div>
 
-      <h3 style={{ margin: '32px 0 12px', fontSize: '1.1rem', fontWeight: 700 }}>
+      <h3 className="taste-section-title" style={{ marginTop: '40px' }}>
         🍽️ 음식
       </h3>
       <div className="taste-grid">
