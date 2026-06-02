@@ -5,7 +5,7 @@ import { CHECKLIST } from '@/lib/data';
 import { supabase } from '@/lib/supabase';
 import type { ChecklistItemDB } from '@/lib/types';
 
-const CATEGORY_ICONS = ['📄', '🎒', '👕', '🧴', '📱'];
+const CATEGORY_ICONS = ['🚨', '📄', '🎒', '👕', '🧴', '📱'];
 
 export default function Checklist() {
   const [items, setItems] = useState<ChecklistItemDB[]>([]);
@@ -14,42 +14,65 @@ export default function Checklist() {
 
   // Fetch or initialize checklist items
   useEffect(() => {
-    async function fetchItems() {
-      const { data } = await supabase
-        .from('checklist_items')
-        .select('*')
-        .order('category_index', { ascending: true })
-        .order('sort_order', { ascending: true });
-
-      if (data && data.length > 0) {
-        setItems(data);
-      } else {
-        // Initialize from static data
-        const newItems: Omit<ChecklistItemDB, 'id' | 'created_at'>[] = [];
-        CHECKLIST.forEach((cat, catIdx) => {
-          cat.items.forEach((label, itemIdx) => {
-            newItems.push({
-              category_index: catIdx,
-              label,
-              checked: false,
-              memo: '',
-              is_custom: false,
-              sort_order: itemIdx,
-            });
-          });
-        });
-
-        const { data: inserted } = await supabase
-          .from('checklist_items')
-          .insert(newItems)
-          .select();
-
-        if (inserted) {
-          setItems(inserted);
-        }
-      }
-    }
     fetchItems();
+  }, []);
+
+  async function fetchItems() {
+    const { data } = await supabase
+      .from('checklist_items')
+      .select('*')
+      .order('category_index', { ascending: true })
+      .order('sort_order', { ascending: true });
+
+    // Detect schema mismatch: if existing DB has fewer/more categories than CHECKLIST,
+    // or known non-custom labels don't match, we should reset.
+    if (data && data.length > 0) {
+      const dbCategoryCount = new Set(data.filter(d => !d.is_custom).map(d => d.category_index)).size;
+      const codeCategoryCount = CHECKLIST.length;
+      if (dbCategoryCount > 0 && dbCategoryCount !== codeCategoryCount) {
+        // Schema changed — keep current items but the user may want to reset
+        console.log(`[Checklist] schema drift: DB ${dbCategoryCount} cats vs code ${codeCategoryCount} cats. Click Reset to sync.`);
+      }
+      setItems(data);
+    } else {
+      await initializeFromStatic();
+    }
+  }
+
+  async function initializeFromStatic() {
+    const newItems: Omit<ChecklistItemDB, 'id' | 'created_at'>[] = [];
+    CHECKLIST.forEach((cat, catIdx) => {
+      cat.items.forEach((label, itemIdx) => {
+        newItems.push({
+          category_index: catIdx,
+          label,
+          checked: false,
+          memo: '',
+          is_custom: false,
+          sort_order: itemIdx,
+        });
+      });
+    });
+
+    const { data: inserted } = await supabase
+      .from('checklist_items')
+      .insert(newItems)
+      .select();
+
+    if (inserted) {
+      setItems(inserted);
+    }
+  }
+
+  const resetChecklist = useCallback(async () => {
+    const ok = confirm(
+      '⚠️ 체크리스트를 초기 상태로 재설정합니다.\n\n현재 체크/메모/추가 항목이 모두 삭제되고, 최신 항목으로 다시 채워집니다.\n\n계속하시겠어요?'
+    );
+    if (!ok) return;
+
+    await supabase.from('checklist_items').delete().not('id', 'is', null);
+    setItems([]);
+    await initializeFromStatic();
   }, []);
 
   const toggleCheck = useCallback(async (id: string, checked: boolean) => {
@@ -140,14 +163,28 @@ export default function Checklist() {
   const totalItems = items.length;
   const checkedItems = items.filter((i) => i.checked).length;
 
+  const progressPct = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+
   return (
     <div>
       <div className="section-header">
-        <h2>✅ 준비물 체크리스트</h2>
+        <h2><span>✅</span> 준비물 체크리스트</h2>
         <p>
-          {checkedItems}/{totalItems} 완료
-          {totalItems > 0 && ` (${Math.round((checkedItems / totalItems) * 100)}%)`}
+          <strong>{checkedItems} / {totalItems}</strong> 완료 ({progressPct}%) · 하나씩 체크해가며 준비
         </p>
+      </div>
+
+      <div className="checklist-progress-bar">
+        <div className="checklist-progress-fill" style={{ width: `${progressPct}%` }} />
+      </div>
+
+      <div className="checklist-toolbar">
+        <button className="checklist-reset-btn" onClick={resetChecklist}>
+          🔄 체크리스트 새로고침 (최신 항목으로 재설정)
+        </button>
+        <span className="checklist-toolbar-hint">
+          💡 항목별로 + 추가 / 메모 / 삭제 가능
+        </span>
       </div>
 
       {grouped.map((group) => (

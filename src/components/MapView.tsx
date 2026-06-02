@@ -126,7 +126,7 @@ export default function MapView({ selectedPhase }: MapViewProps) {
     <div>
       <div className="section-header">
         <h2><span>🗺️</span> 여행 지도</h2>
-        <p>포르토 → 카미노 → 산티아고 → 런던·캠브리지 → 파리·베르사유 · 21일 전체 루트</p>
+        <p>포르토 → 카미노 → 산티아고 → 파리·베르사유 → 캠브리지 졸업식 → 인천 · 21일 전체 루트</p>
       </div>
 
       <div className="map-legend">

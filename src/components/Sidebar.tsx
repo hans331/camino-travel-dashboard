@@ -10,7 +10,7 @@ interface SidebarProps {
   onPhaseSelect?: (phase: string) => void;
 }
 
-const TRIP_START = new Date('2026-06-16');
+const TRIP_START = new Date('2026-06-13');
 
 function getDDay(): number {
   const now = new Date();
@@ -21,8 +21,8 @@ function getDDay(): number {
 const PHASE_SEGMENTS = [
   { key: 'porto', days: 2 },
   { key: 'camino', days: 11 },
-  { key: 'london', days: 3 },
-  { key: 'paris', days: 5 },
+  { key: 'paris', days: 4 },
+  { key: 'london', days: 4 },
 ] as const;
 
 const TOTAL_DAYS = 21;
@@ -97,7 +97,7 @@ export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onP
               <span className="sidebar-brand-emoji">🐚</span>
               <span className="sidebar-brand-emoji-text">Walk Camino Together</span>
             </h1>
-            {!isCollapsed && <p>포르토 · 카미노 · 캠브리지 · 파리 21일</p>}
+            {!isCollapsed && <p>포르토 · 카미노 · 파리 · 캠브리지 21일</p>}
           </div>
           <button className="theme-btn" onClick={toggleTheme} title={isDark ? '라이트 모드' : '다크 모드'} aria-label="테마 전환">
             {isDark ? '☀️' : '🌙'}
@@ -106,17 +106,17 @@ export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onP
 
         <div className="sidebar-dday">
           <div className="dday-number">{ddayText}</div>
-          {!isCollapsed && <div className="dday-label">2026.06.16 (화) 출발 ✈️</div>}
+          {!isCollapsed && <div className="dday-label">2026.06.13 (토) 출발 ✈️</div>}
         </div>
 
         {!isCollapsed && (
           <div className="sidebar-party">
             <div className="sidebar-party-row">
-              <span><span className="party-emoji">👨‍👩‍👦</span> 한국 출발</span>
-              <span className="party-count">3명</span>
+              <span><span className="party-emoji">👫</span> 부부 출발 (Day 1-13)</span>
+              <span className="party-count">2명</span>
             </div>
             <div className="sidebar-party-row">
-              <span><span className="party-emoji">👨‍👩‍👦‍👦</span> 런던 합류 ~</span>
+              <span><span className="party-emoji">👨‍👩‍👦‍👦</span> 파리 합류 ~ (Day 14+)</span>
               <span className="party-count">4명</span>
             </div>
           </div>
