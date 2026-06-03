@@ -21,11 +21,11 @@ function getDDay(): number {
 const PHASE_SEGMENTS = [
   { key: 'porto', days: 2 },
   { key: 'camino', days: 11 },
+  { key: 'london', days: 6 },
   { key: 'paris', days: 4 },
-  { key: 'london', days: 4 },
 ] as const;
 
-const TOTAL_DAYS = 21;
+const TOTAL_DAYS = 23;
 
 export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onPhaseSelect }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -97,7 +97,7 @@ export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onP
               <span className="sidebar-brand-emoji">🐚</span>
               <span className="sidebar-brand-emoji-text">Walk Camino Together</span>
             </h1>
-            {!isCollapsed && <p>포르토 · 카미노 · 파리 · 캠브리지 21일</p>}
+            {!isCollapsed && <p>포르토 · 카미노 · 런던·캠브리지 · 파리 23일</p>}
           </div>
           <button className="theme-btn" onClick={toggleTheme} title={isDark ? '라이트 모드' : '다크 모드'} aria-label="테마 전환">
             {isDark ? '☀️' : '🌙'}
@@ -112,12 +112,20 @@ export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onP
         {!isCollapsed && (
           <div className="sidebar-party">
             <div className="sidebar-party-row">
-              <span><span className="party-emoji">👫</span> 부부 출발 (Day 1-13)</span>
+              <span><span className="party-emoji">👫</span> 부부 (Day 1-13)</span>
               <span className="party-count">2명</span>
             </div>
             <div className="sidebar-party-row">
-              <span><span className="party-emoji">👨‍👩‍👦‍👦</span> 파리 합류 ~ (Day 14+)</span>
+              <span><span className="party-emoji">👨‍👩‍👦</span> +큰아들 런던 (Day 14)</span>
+              <span className="party-count">3명</span>
+            </div>
+            <div className="sidebar-party-row">
+              <span><span className="party-emoji">👨‍👩‍👦‍👦</span> +둘째 캠브리지 (Day 16)</span>
               <span className="party-count">4명</span>
+            </div>
+            <div className="sidebar-party-row">
+              <span><span className="party-emoji">👨‍👩‍👦</span> 둘째 귀국 후 파리 (Day 19+)</span>
+              <span className="party-count">3명</span>
             </div>
           </div>
         )}

@@ -12,8 +12,8 @@ const FILTERS: { key: FilterKey; label: string; emoji: string }[] = [
   { key: 'all', label: '전체', emoji: '🌍' },
   { key: 'porto', label: '포르토', emoji: '🇵🇹' },
   { key: 'camino', label: '카미노', emoji: '🐚' },
-  { key: 'paris', label: '파리', emoji: '🇫🇷' },
   { key: 'london', label: '런던·캠브리지', emoji: '🇬🇧' },
+  { key: 'paris', label: '파리', emoji: '🇫🇷' },
 ];
 
 interface PhaseSummary {
@@ -27,10 +27,10 @@ interface PhaseSummary {
 }
 
 const PHASE_SUMMARIES: PhaseSummary[] = [
-  { key: 'porto', label: '포르토', emoji: '🇵🇹', dates: '6/13(토) ~ 6/14(일)', nights: '2박 3일', daysRange: 'Day 1 - 2', extra: '🍷 시차 적응 + 포트와인' },
-  { key: 'camino', label: '카미노 포르투게스', emoji: '🐚', dates: '6/15(월) ~ 6/25(목)', nights: '11박 11일', daysRange: 'Day 3 - 13', extra: '🥾 도보 242km · 알베르게 10박 + 산티아고 1박' },
-  { key: 'paris', label: '파리·베르사유', emoji: '🇫🇷', dates: '6/26(금) ~ 6/29(월)', nights: '4박 4일', daysRange: 'Day 14 - 17', extra: '👑 베르사유 · 루브르 · 오르세 · 몽마르뜨' },
-  { key: 'london', label: '런던·캠브리지', emoji: '🇬🇧', dates: '6/30(화) ~ 7/3(금)', nights: '2박 4일', daysRange: 'Day 18 - 21', extra: '🎓 캠브리지 졸업식 + 둘째 합류 + 귀국' },
+  { key: 'porto', label: '포르토', emoji: '🇵🇹', dates: '6/13(토) ~ 6/14(일)', nights: '2박 3일', daysRange: 'Day 1 - 2', extra: '🍷 시차 적응 + 포트와인 (부부 2명)' },
+  { key: 'camino', label: '카미노 포르투게스', emoji: '🐚', dates: '6/15(월) ~ 6/25(목)', nights: '11박 11일', daysRange: 'Day 3 - 13', extra: '🥾 도보 242km (부부 2명) · 알베르게 10박 + 산티아고 1박' },
+  { key: 'london', label: '런던·캠브리지', emoji: '🇬🇧', dates: '6/26(금) ~ 7/1(수)', nights: '5박 6일', daysRange: 'Day 14 - 19', extra: '👨‍👩‍👦‍👦 가족 합류 (런던 → 캠브리지) · 🎓 7/1 졸업식 · 둘째 귀국' },
+  { key: 'paris', label: '파리·베르사유', emoji: '🇫🇷', dates: '7/1(수) ~ 7/5(일)', nights: '3박 5일', daysRange: 'Day 19 - 23', extra: '👨‍👩‍👦 부부 + 큰아들 3명 · 베르사유·루브르·오르세 · 7/5 점심 ICN 도착' },
 ];
 
 function DayCard({ day }: { day: DayData }) {
@@ -109,20 +109,20 @@ export default function Schedule() {
   return (
     <div>
       <div className="section-header">
-        <h2><span>📅</span> 21일 가족 여행</h2>
-        <p>포르토 · 카미노 · 산티아고 · 파리·베르사유 · 캠브리지 졸업식 · 귀국</p>
+        <h2><span>📅</span> 23일 가족 여행</h2>
+        <p>포르토 · 카미노 → 런던·캠브리지(졸업식) → 파리 → 인천 (7/5 점심 도착)</p>
       </div>
 
       <div className="trip-stats">
         <div className="stat-card">
           <div className="stat-card-emoji">📅</div>
-          <div className="stat-card-value">21일</div>
-          <div className="stat-card-label">6/13 → 7/3</div>
+          <div className="stat-card-value">23일</div>
+          <div className="stat-card-label">6/13 → 7/5</div>
         </div>
         <div className="stat-card">
           <div className="stat-card-emoji">👨‍👩‍👦‍👦</div>
           <div className="stat-card-value">2 → 4명</div>
-          <div className="stat-card-label">파리에서 자녀 합류</div>
+          <div className="stat-card-label">단계별 가족 합류</div>
         </div>
         <div className="stat-card">
           <div className="stat-card-emoji">🐚</div>

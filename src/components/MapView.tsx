@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   APIProvider,
   Map,
@@ -8,8 +8,10 @@ import {
   InfoWindow,
   useMap,
 } from '@vis.gl/react-google-maps';
-import { SCHEDULE, PHASES } from '@/lib/data';
+import { SCHEDULE, PHASES, CAMINO_VARIANTS } from '@/lib/data';
 import type { DayData } from '@/lib/types';
+
+type CaminoRouteKey = 'central' | 'coastal' | 'hybrid';
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '';
 const MAP_ID = 'travel-dashboard-map';
@@ -17,15 +19,38 @@ const MAP_ID = 'travel-dashboard-map';
 const DEFAULT_CENTER = { lat: 45.0, lng: -4.0 };
 const DEFAULT_ZOOM = 5;
 
-function getPhaseGroups() {
-  const groups: { phase: string; coords: { lat: number; lng: number }[] }[] = [];
+function buildDisplayDays(routeKey: CaminoRouteKey): DayData[] {
+  const variant = CAMINO_VARIANTS[routeKey];
+  const nonCamino = SCHEDULE.filter((d) => d.phase !== 'camino');
+  const caminoDays: DayData[] = variant.stages.map((s) => ({
+    day: s.day,
+    date: s.date,
+    phase: 'camino' as const,
+    title: `${s.from} → ${s.to}`,
+    icon: '🐚',
+    desc: `🚶 ${s.km}km · ${variant.label} 루트${s.note ? ` · ${s.note}` : ''}`,
+    food: variant.key === 'coastal' ? '해산물 · 풀포 · 알바리뇨' : variant.key === 'hybrid' && s.day <= 6 ? '해산물·시골 음식 혼합' : '시골 메뉴 · 알베르게 식사',
+    stay: '알베르게 / 펜션',
+    lat: s.lat,
+    lng: s.lng,
+    dist: `${s.km}km`,
+  }));
+  return [...nonCamino, ...caminoDays].sort((a, b) => a.day - b.day);
+}
+
+function getPhaseGroups(days: DayData[], variantColor: string) {
+  const groups: { phase: string; color: string; coords: { lat: number; lng: number }[] }[] = [];
   let currentPhase = '';
   let currentCoords: { lat: number; lng: number }[] = [];
 
-  for (const day of SCHEDULE) {
+  for (const day of days) {
     if (day.phase !== currentPhase) {
       if (currentCoords.length > 0) {
-        groups.push({ phase: currentPhase, coords: [...currentCoords] });
+        groups.push({
+          phase: currentPhase,
+          color: currentPhase === 'camino' ? variantColor : PHASES[currentPhase as keyof typeof PHASES]?.color ?? '#666',
+          coords: [...currentCoords],
+        });
       }
       currentPhase = day.phase;
       currentCoords = currentCoords.length > 0
@@ -36,12 +61,16 @@ function getPhaseGroups() {
     }
   }
   if (currentCoords.length > 0) {
-    groups.push({ phase: currentPhase, coords: currentCoords });
+    groups.push({
+      phase: currentPhase,
+      color: currentPhase === 'camino' ? variantColor : PHASES[currentPhase as keyof typeof PHASES]?.color ?? '#666',
+      coords: currentCoords,
+    });
   }
   return groups;
 }
 
-function PolylineRenderer() {
+function PolylineRenderer({ days, variantColor }: { days: DayData[]; variantColor: string }) {
   const map = useMap();
   const polylinesRef = useRef<google.maps.Polyline[]>([]);
 
@@ -51,18 +80,14 @@ function PolylineRenderer() {
     polylinesRef.current.forEach((pl) => pl.setMap(null));
     polylinesRef.current = [];
 
-    const groups = getPhaseGroups();
+    const groups = getPhaseGroups(days, variantColor);
     for (const group of groups) {
-      const phaseInfo = PHASES[group.phase as keyof typeof PHASES];
-      if (!phaseInfo) continue;
-
-      // Dashed line for flight/train transitions (london = SCQ→LHR flight, paris = Eurostar/flight)
       const isFlight = group.phase === 'london' || group.phase === 'paris';
       const polyline = new google.maps.Polyline({
         path: group.coords,
-        strokeColor: phaseInfo.color,
-        strokeOpacity: isFlight ? 0 : 0.85,
-        strokeWeight: 4,
+        strokeColor: group.color,
+        strokeOpacity: isFlight ? 0 : 0.9,
+        strokeWeight: 5,
         geodesic: true,
         map,
         icons: isFlight
@@ -80,33 +105,34 @@ function PolylineRenderer() {
       polylinesRef.current.forEach((pl) => pl.setMap(null));
       polylinesRef.current = [];
     };
-  }, [map]);
+  }, [map, days, variantColor]);
 
   return null;
 }
 
 interface FitBoundsProps {
+  days: DayData[];
   selectedPhase?: string | null;
 }
 
-function FitBounds({ selectedPhase }: FitBoundsProps) {
+function FitBounds({ days, selectedPhase }: FitBoundsProps) {
   const map = useMap();
 
   useEffect(() => {
     if (!map) return;
 
     const bounds = new google.maps.LatLngBounds();
-    const days = selectedPhase
-      ? SCHEDULE.filter((day) => day.phase === selectedPhase)
-      : SCHEDULE;
+    const filtered = selectedPhase
+      ? days.filter((day) => day.phase === selectedPhase)
+      : days;
 
-    if (days.length === 0) return;
+    if (filtered.length === 0) return;
 
-    for (const day of days) {
+    for (const day of filtered) {
       bounds.extend({ lat: day.lat, lng: day.lng });
     }
     map.fitBounds(bounds, { top: 60, right: 60, bottom: 60, left: 60 });
-  }, [map, selectedPhase]);
+  }, [map, days, selectedPhase]);
 
   return null;
 }
@@ -116,28 +142,78 @@ interface MapViewProps {
 }
 
 export default function MapView({ selectedPhase }: MapViewProps) {
+  const [caminoRoute, setCaminoRoute] = useState<CaminoRouteKey>('central');
   const [selectedDay, setSelectedDay] = useState<DayData | null>(null);
+
+  const variant = CAMINO_VARIANTS[caminoRoute];
+  const displayDays = useMemo(() => buildDisplayDays(caminoRoute), [caminoRoute]);
 
   const handleMarkerClick = useCallback((day: DayData) => {
     setSelectedDay(day);
   }, []);
 
+  // Close info when route changes
+  useEffect(() => {
+    setSelectedDay(null);
+  }, [caminoRoute]);
+
   return (
     <div>
       <div className="section-header">
         <h2><span>🗺️</span> 여행 지도</h2>
-        <p>포르토 → 카미노 → 산티아고 → 파리·베르사유 → 캠브리지 졸업식 → 인천 · 21일 전체 루트</p>
+        <p>포르토 → 카미노 → 산티아고 → 런던·캠브리지(졸업식) → 파리·베르사유 → 인천 · 23일 전체 루트</p>
+      </div>
+
+      {/* Camino route variant selector */}
+      <div className="camino-route-selector">
+        <div className="camino-route-label">
+          🐚 <strong>카미노 루트 선택</strong> — 지도에서 직접 비교해보세요
+        </div>
+        <div className="camino-route-tabs">
+          {(['central', 'coastal', 'hybrid'] as CaminoRouteKey[]).map((key) => {
+            const v = CAMINO_VARIANTS[key];
+            const isActive = caminoRoute === key;
+            return (
+              <button
+                key={key}
+                className={`camino-route-tab ${isActive ? 'active' : ''}`}
+                onClick={() => setCaminoRoute(key)}
+                style={isActive ? { background: v.color, borderColor: v.color, color: '#fff' } : { borderColor: v.color }}
+              >
+                <span className="camino-route-tab-emoji">{v.emoji}</span>
+                <span className="camino-route-tab-label">{v.label}</span>
+                <span className="camino-route-tab-km" style={isActive ? { color: 'rgba(255,255,255,0.9)' } : { color: v.color }}>
+                  {v.totalKm}km · {v.days}일
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="camino-route-info" style={{ borderLeftColor: variant.color }}>
+          <div className="camino-route-info-desc">{variant.emoji} {variant.desc}</div>
+          <ul className="camino-route-info-highlights">
+            {variant.highlights.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <div className="map-legend">
-        {Object.entries(PHASES).map(([key, info]) => (
-          <div key={key} className="legend-item">
-            <span className="legend-dot" style={{ background: info.color }} />
-            <span>{info.emoji} {info.label}</span>
-          </div>
-        ))}
+        {Object.entries(PHASES).map(([key, info]) => {
+          const isCamino = key === 'camino';
+          const displayColor = isCamino ? variant.color : info.color;
+          const displayLabel = isCamino ? `${variant.emoji} ${variant.label}` : `${info.emoji} ${info.label}`;
+          return (
+            <div key={key} className="legend-item">
+              <span className="legend-dot" style={{ background: displayColor }} />
+              <span>{displayLabel}</span>
+            </div>
+          );
+        })}
         <div className="legend-item" style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontWeight: 500 }}>
-          마커를 클릭하면 일정 상세
+          마커 클릭 → 일정 상세
         </div>
       </div>
 
@@ -153,11 +229,12 @@ export default function MapView({ selectedPhase }: MapViewProps) {
             streetViewControl={false}
             mapTypeControl={false}
           >
-            <FitBounds selectedPhase={selectedPhase} />
-            <PolylineRenderer />
+            <FitBounds days={displayDays} selectedPhase={selectedPhase} />
+            <PolylineRenderer days={displayDays} variantColor={variant.color} />
 
-            {SCHEDULE.map((day) => {
-              const phaseInfo = PHASES[day.phase];
+            {displayDays.map((day) => {
+              const isCamino = day.phase === 'camino';
+              const markerColor = isCamino ? variant.color : PHASES[day.phase].color;
               return (
                 <AdvancedMarker
                   key={day.day}
@@ -165,7 +242,10 @@ export default function MapView({ selectedPhase }: MapViewProps) {
                   onClick={() => handleMarkerClick(day)}
                   title={`Day ${day.day}: ${day.title}`}
                 >
-                  <span className={`day-marker ${day.phase}`}>
+                  <span
+                    className={`day-marker ${day.phase}`}
+                    style={isCamino ? { background: markerColor } : undefined}
+                  >
                     <span className="marker-emoji">{day.icon}</span>
                     {day.day}
                   </span>
@@ -187,12 +267,16 @@ export default function MapView({ selectedPhase }: MapViewProps) {
                     {selectedDay.date} {selectedDay.dist && `· ${selectedDay.dist}`}
                   </p>
                   <p>{selectedDay.desc}</p>
-                  <p>
-                    <strong>🍽️</strong> {selectedDay.food}
-                  </p>
-                  <p>
-                    <strong>🏠</strong> {selectedDay.stay}
-                  </p>
+                  {selectedDay.food && (
+                    <p>
+                      <strong>🍽️</strong> {selectedDay.food}
+                    </p>
+                  )}
+                  {selectedDay.stay && (
+                    <p>
+                      <strong>🏠</strong> {selectedDay.stay}
+                    </p>
+                  )}
                   {selectedDay.restaurants && selectedDay.restaurants.length > 0 && (
                     <div className="info-restaurants">
                       {selectedDay.restaurants.map((r) => (

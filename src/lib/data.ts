@@ -31,8 +31,8 @@ export function findTripDay(date: Date, schedule: DayData[]): DayData | undefine
 export const PHASES = {
   porto: { label: '포르토', color: '#EA580C', emoji: '🇵🇹' },
   camino: { label: '카미노', color: '#16A34A', emoji: '🐚' },
-  paris: { label: '파리', color: '#DB2777', emoji: '🇫🇷' },
   london: { label: '런던·캠브리지', color: '#2563EB', emoji: '🇬🇧' },
+  paris: { label: '파리', color: '#DB2777', emoji: '🇫🇷' },
 } as const;
 
 export const NAV_ITEMS = [
@@ -132,64 +132,175 @@ export const SCHEDULE: DayData[] = [
     restaurants: ['O Curro da Parra', 'Abastos 2.0', 'Casa Marcelo'],
   },
 
-  // ===== PARIS (Day 14-17) =====
+  // ===== LONDON · CAMBRIDGE (Day 14-19) =====
   {
-    day: 14, date: '6/26 (금)', phase: 'paris', title: '🎉 가족 4명 파리 합류 · 산티아고 → 파리',
-    icon: '✈️', desc: '🎉 가족 4명 재회 — 부부 SCQ→CDG (오후 ~2h 30m), 큰아들 ICN→CDG 별도 비행 (Air France/KE 직항), 둘째 캠브리지→St Pancras→Eurostar→파리. 저녁 파리 호텔에서 가족 4명 합류 + 환영 만찬.',
-    food: '환영 만찬 — 마레지구 또는 라탱지구 비스트로', stay: '파리 부티크 호텔 (4명, 2 rooms)',
-    lat: 48.8566, lng: 2.3522,
-    restaurants: ['Bistrot Paul Bert', 'Le Comptoir du Relais', 'Chez Janou'],
+    day: 14, date: '6/26 (금)', phase: 'london', title: '✈️ 산티아고 → 런던 · 큰아들 합류',
+    icon: '✈️', desc: '부부 Vueling SCQ 16:50 → LHR 18:00 직항 (2h 10m). 큰아들 별도 ICN→LHR 직항편으로 같은 날 도착 (KE907 또는 BA17). 저녁 런던 호텔에서 3명 합류 + 첫 영국 펍 저녁.',
+    food: 'Vueling 스낵 + 런던 펍 (Fish & Chips, Sunday Roast)', stay: '런던 호텔 (3명, 2 rooms)',
+    lat: 51.5074, lng: -0.1278,
+    restaurants: ['Dishoom Covent Garden', 'The Ivy', 'Borough Market'],
   },
   {
-    day: 15, date: '6/27 (토)', phase: 'paris', title: '오르세 · 에펠탑 · 세느강',
-    icon: '🎨', desc: '오전 ⭐ 오르세 미술관 (인상파의 성지: 모네·고흐·세잔). 점심 후 에펠탑 + 트로카데로 전망. 늦은 오후 세느강 유람선 + 일몰. 라탱지구·생제르맹 저녁. (월요일 휴관 회피)',
+    day: 15, date: '6/27 (토)', phase: 'london', title: '🇬🇧 런던 클래식 관광',
+    icon: '🇬🇧', desc: '빅벤·국회의사당·웨스트민스터 → 테이트모던/내셔널갤러리 → 타워브리지·런던아이. 저녁 코벤트가든·소호 노천 카페.',
+    food: 'Dishoom 브런치 · Borough Market 점심 · 펍 저녁', stay: '런던 호텔',
+    lat: 51.5007, lng: -0.1246,
+    restaurants: ['Dishoom', 'Padella (이탈리안)', 'Sketch'],
+  },
+  {
+    day: 16, date: '6/28 (일)', phase: 'london', title: '🚂 런던 → 캠브리지 · 둘째 합류 (4명)',
+    icon: '🚂', desc: 'Kings Cross에서 캠브리지行 기차 (45-75분, LNER/Great Northern). 캠브리지 도착, 둘째와 재회 — 가족 4명! 콜리지 산책 + 강변 산보 + 환영 저녁.',
+    food: 'Fitzbillies 첼시번 · Aromi 이탈리안 · 가족 환영 만찬', stay: '캠브리지 호텔 (University Arms, 4명, 2 rooms)',
+    lat: 52.2053, lng: 0.1218,
+    restaurants: ['Fitzbillies', 'Aromi', 'The Eagle (역사적 펍)'],
+  },
+  {
+    day: 17, date: '6/29 (월)', phase: 'london', title: '🚣 캠브리지 콜리지 투어 + 펀팅',
+    icon: '🚣', desc: 'Trinity·King\'s·St John\'s 콜리지 투어 (둘째가 캠퍼스 가이드). 오후 River Cam에서 펀팅 (보트). 저녁 The Eagle 펍 — DNA 발견 역사 장소.',
+    food: '콜리지 다이닝 점심 · 펀팅 피크닉 · 펍 저녁', stay: '캠브리지 호텔',
+    lat: 52.2068, lng: 0.1181,
+    restaurants: ['The Pint Shop', 'The Eagle', 'Bould Brothers Coffee'],
+  },
+  {
+    day: 18, date: '6/30 (화)', phase: 'london', title: '🌳 캠브리지 여유일 + 졸업식 전야 만찬',
+    icon: '🍽️', desc: '오전 Fitzwilliam 박물관 + 보타닉 가든 산책. 오후 둘째와 가족 사진 / 쇼핑. 저녁 졸업식 전야 가족 만찬 (미슐랭 또는 콜리지 formal dining).',
+    food: 'Midsummer House (미슐랭 2★) 또는 Restaurant 22', stay: '캠브리지 호텔',
+    lat: 52.2030, lng: 0.1190,
+    restaurants: ['Midsummer House', 'Restaurant 22', 'Cambridge Chop House'],
+  },
+  {
+    day: 19, date: '7/1 (수)', phase: 'london', title: '🎓 졸업식 + 가족 분리 (둘째 귀국 / 3명 → 파리)',
+    icon: '🎓', desc: '오전 ⭐ Senate House에서 캠브리지 졸업식 + 가족 사진. 점심 콜리지 가든 파티. 오후: 👤 둘째 → LHR → ICN 귀국편 (저녁 출발). 👨‍👩‍👦 3명 → Cambridge→London→Eurostar → 파리 저녁 도착 + 첫 비스트로 만찬.',
+    food: '졸업 축하 점심 · Eurostar 스낵 · 파리 비스트로 저녁', stay: '파리 부티크 호텔 (3명, 2 rooms)',
+    lat: 52.2068, lng: 0.1181,
+    restaurants: ['Bistrot Paul Bert (파리)', 'Le Comptoir du Relais'],
+  },
+
+  // ===== PARIS (Day 20-23) =====
+  {
+    day: 20, date: '7/2 (목)', phase: 'paris', title: '🎨 오르세 · 에펠탑 · 세느강',
+    icon: '🎨', desc: '오전 ⭐ 오르세 미술관 (인상파의 성지: 모네·고흐·세잔). 점심 후 에펠탑 + 트로카데로 전망. 늦은 오후 세느강 유람선 + 일몰. 라탱지구·생제르맹 저녁.',
     food: '오르세 카페 점심 · 크루아상 · 에스카르고 · 뵈프 부르기뇽', stay: '파리 부티크 호텔',
     lat: 48.8600, lng: 2.3266,
     restaurants: ['Café de Flore', "L'Ami Jean", 'Le Procope'],
   },
   {
-    day: 16, date: '6/28 (일)', phase: 'paris', title: '👑 베르사유 궁전 당일치기',
-    icon: '👑', desc: 'RER C로 베르사유 도착 (45분). 궁전 + 정원 + 트리아농 전체 관람 (사전 예매 필수). 저녁 파리 복귀 후 마레지구 비스트로. (월요일 휴관 회피)',
+    day: 21, date: '7/3 (금)', phase: 'paris', title: '👑 베르사유 궁전 당일치기',
+    icon: '👑', desc: 'RER C로 베르사유 도착 (45분). 궁전 + 정원 + 트리아농 전체 관람 (사전 예매 필수). 저녁 파리 복귀 후 마레지구 비스트로.',
     food: '베르사유 정원 피크닉 + 마레지구 저녁', stay: '파리 부티크 호텔',
     lat: 48.8048, lng: 2.1203,
     restaurants: ['Breizh Café', "L'As du Fallafel"],
   },
   {
-    day: 17, date: '6/29 (월)', phase: 'paris', title: '🖼️ 루브르 · 마레 · 몽마르뜨',
-    icon: '🖼️', desc: '오전 ⭐ 루브르 박물관 (모나리자·비너스·니케 — 월요일 OPEN). 점심 후 마레지구 산책 + 보주 광장 + Galeries Lafayette 옥상. 늦은 오후 몽마르뜨·사크레쾨르 + 일몰. 노천 카페 저녁.',
-    food: '루브르 카페 점심 · 마카롱 · 부숑 · 노천 카페', stay: '파리 부티크 호텔',
-    lat: 48.8606, lng: 2.3376,
-    restaurants: ['Le Consulat', 'Pink Mamma', 'Bouillon Pigalle'],
-  },
-
-  // ===== LONDON / CAMBRIDGE (Day 18-21) =====
-  {
-    day: 18, date: '6/30 (화)', phase: 'london', title: '🚄 파리 → London → Cambridge',
-    icon: '🚄', desc: '오전 파리 Gare du Nord에서 가족 4명 Eurostar 출발 (2h 20m) → London St Pancras. 도보 5분 Kings Cross로 이동, 캠브리지行 기차 (45-75분). 캠브리지 도착 후 휴식 + 졸업식 전야 가족 만찬.',
-    food: 'Eurostar 스낵 · Fitzbillies 첼시번 · The Eagle 펍 저녁', stay: '캠브리지 호텔 (University Arms)',
-    lat: 52.2053, lng: 0.1218,
-    restaurants: ['The Eagle (역사적 펍)', 'Fitzbillies', 'Aromi'],
+    day: 22, date: '7/4 (토)', phase: 'paris', title: '🖼️ 루브르 · 몽마르뜨 + 🛫 CDG → 인천',
+    icon: '🛫', desc: '오전 루브르 박물관 (모나리자·비너스·니케). 점심 후 몽마르뜨·사크레쾨르 + 마지막 마카롱(Pierre Hermé). 오후 호텔 체크아웃 → RER B로 CDG. ⭐ KE5904 CDG 19:10 출발 → ICN 7/5 (일) 14:10 도착.',
+    food: '루브르 카페 · 마카롱 · CDG 라운지 · 기내식', stay: '기내 (7/5 점심 ICN 도착)',
+    lat: 49.0097, lng: 2.5479,
+    restaurants: ['Pierre Hermé', 'Du Pain et des Idées'],
   },
   {
-    day: 19, date: '7/1 (수)', phase: 'london', title: '🎓 캠브리지 졸업식',
-    icon: '🎓', desc: '아들 캠브리지 졸업식! Senate House에서 공식 학위 수여. 가족 사진, 콜리지 가든 파티. 오후 펀팅(보트). 가족 축하 만찬.',
-    food: '졸업 축하 만찬 (미슐랭 / 콜리지 다이닝)', stay: '캠브리지 호텔',
-    lat: 52.2068, lng: 0.1181,
-    restaurants: ['Midsummer House (미슐랭 2★)', 'Restaurant 22', 'The Pint Shop'],
-  },
-  {
-    day: 20, date: '7/2 (목)', phase: 'london', title: '🛫 Cambridge → LHR → 인천 귀국',
-    icon: '🛫', desc: '오전 캠브리지 마지막 산책 + 카페. 점심 후 LHR로 이동 (기차+Elizabeth Line, ~2.5h). 대한항공 KE0908 LHR 19:35 출발 → ICN 7/3 (금) 16:15 도착, 직항 12h 40m. 가족 4명 함께 귀국.',
-    food: 'LHR 라운지 + 기내식', stay: '기내 (7/3 14:15 ICN 도착)',
-    lat: 51.4700, lng: -0.4543,
-  },
-  {
-    day: 21, date: '7/3 (금)', phase: 'london', title: '🏠 인천 도착',
-    icon: '🏠', desc: 'ICN 16:15 도착. 입국 + 짐 찾기 + 귀가. 주말(7/4-5) 휴식 후 7/6 (월)부터 정상 출근.',
+    day: 23, date: '7/5 (일)', phase: 'paris', title: '🏠 인천 도착 (점심시간)',
+    icon: '🏠', desc: 'ICN 14:10 도착. 입국 + 짐 찾기 → 점심 후 귀가. 주말 휴식 (7/5 오후 + 7/6 월요일 추가 휴가 권장).',
     food: '오랜만의 한식 — 도착 후 첫 끼', stay: '집',
     lat: 37.4602, lng: 126.4407,
   },
 ];
+
+// ============ CAMINO ROUTE VARIANTS (for map comparison) ============
+export interface CaminoVariantStage {
+  day: number;
+  date: string;
+  from: string;
+  to: string;
+  km: number;
+  lat: number;
+  lng: number;
+  note?: string;
+}
+
+export interface CaminoVariant {
+  key: 'central' | 'coastal' | 'hybrid';
+  label: string;
+  emoji: string;
+  color: string;
+  desc: string;
+  totalKm: number;
+  days: number;
+  highlights: string[];
+  stages: CaminoVariantStage[];
+}
+
+export const CAMINO_VARIANTS: Record<'central' | 'coastal' | 'hybrid', CaminoVariant> = {
+  central: {
+    key: 'central',
+    label: '중앙길',
+    emoji: '🌳',
+    color: '#16A34A',
+    desc: '정통 1000년 루트 · 숲·시골·중세 마을',
+    totalKm: 242,
+    days: 11,
+    highlights: ['Ponte de Lima 중세 마을', 'Tui 대성당·국경 다리', '유칼립투스·소나무 숲 그늘', '시골 알베르게 정통 경험'],
+    stages: [
+      { day: 3, date: '6/15 (월)', from: 'Porto', to: 'Vairão', km: 27, lat: 41.3411, lng: -8.6694 },
+      { day: 4, date: '6/16 (화)', from: 'Vairão', to: 'Barcelos', km: 29, lat: 41.5314, lng: -8.6150 },
+      { day: 5, date: '6/17 (수)', from: 'Barcelos', to: 'Ponte de Lima', km: 33, lat: 41.7674, lng: -8.5840 },
+      { day: 6, date: '6/18 (목)', from: 'Ponte de Lima', to: 'Rubiães', km: 18, lat: 41.9089, lng: -8.5733 },
+      { day: 7, date: '6/19 (금)', from: 'Rubiães', to: 'Tui', km: 20, lat: 42.0466, lng: -8.6448, note: '🇪🇸 스페인 진입 (다리)' },
+      { day: 8, date: '6/20 (토)', from: 'Tui', to: 'O Porriño', km: 16, lat: 42.1583, lng: -8.6189 },
+      { day: 9, date: '6/21 (일)', from: 'O Porriño', to: 'Redondela', km: 15, lat: 42.2839, lng: -8.6094 },
+      { day: 10, date: '6/22 (월)', from: 'Redondela', to: 'Pontevedra', km: 19, lat: 42.4310, lng: -8.6440 },
+      { day: 11, date: '6/23 (화)', from: 'Pontevedra', to: 'Caldas de Reis', km: 22, lat: 42.6050, lng: -8.6420 },
+      { day: 12, date: '6/24 (수)', from: 'Caldas', to: 'Padrón', km: 19, lat: 42.7400, lng: -8.6600 },
+      { day: 13, date: '6/25 (목)', from: 'Padrón', to: 'Santiago', km: 24, lat: 42.8805, lng: -8.5457, note: '⭐ 산티아고 도착' },
+    ],
+  },
+  coastal: {
+    key: 'coastal',
+    label: '해안길',
+    emoji: '🌊',
+    color: '#0EA5E9',
+    desc: '대서양 해안 · 어촌·페리·해변 보드워크',
+    totalKm: 245,
+    days: 11,
+    highlights: ['🛥️ Caminha 페리 국경 통과', 'Senda Litoral 해변 보드워크', '어촌 도시 (Vila do Conde, Viana, Baiona)', '해풍으로 시원함', '신선한 해산물'],
+    stages: [
+      { day: 3, date: '6/15 (월)', from: 'Porto (🚇 메트로)', to: 'Vila do Conde → Esposende', km: 24, lat: 41.5371, lng: -8.7838, note: 'Day 1: 포르토 메트로로 Vila do Conde, 첫 도보' },
+      { day: 4, date: '6/16 (화)', from: 'Esposende', to: 'Viana do Castelo', km: 26, lat: 41.6946, lng: -8.8298 },
+      { day: 5, date: '6/17 (수)', from: 'Viana do Castelo', to: 'Caminha', km: 26, lat: 41.8714, lng: -8.8398 },
+      { day: 6, date: '6/18 (목)', from: 'Caminha', to: '🛥️ ferry → A Guarda → Mougás', km: 20, lat: 41.9772, lng: -8.8538, note: '🇪🇸 페리로 스페인 진입' },
+      { day: 7, date: '6/19 (금)', from: 'Mougás → Oia', to: 'Baiona', km: 24, lat: 42.1175, lng: -8.8474 },
+      { day: 8, date: '6/20 (토)', from: 'Baiona', to: 'Vigo', km: 25, lat: 42.2406, lng: -8.7207 },
+      { day: 9, date: '6/21 (일)', from: 'Vigo', to: 'Redondela', km: 16, lat: 42.2839, lng: -8.6094, note: '중앙길과 합류' },
+      { day: 10, date: '6/22 (월)', from: 'Redondela', to: 'Pontevedra', km: 19, lat: 42.4310, lng: -8.6440 },
+      { day: 11, date: '6/23 (화)', from: 'Pontevedra', to: 'Caldas de Reis', km: 22, lat: 42.6050, lng: -8.6420 },
+      { day: 12, date: '6/24 (수)', from: 'Caldas', to: 'Padrón', km: 19, lat: 42.7400, lng: -8.6600 },
+      { day: 13, date: '6/25 (목)', from: 'Padrón', to: 'Santiago', km: 24, lat: 42.8805, lng: -8.5457, note: '⭐ 산티아고 도착' },
+    ],
+  },
+  hybrid: {
+    key: 'hybrid',
+    label: '하이브리드',
+    emoji: '🌊🌳',
+    color: '#8B5CF6',
+    desc: '해안 4일 (Porto→Caminha) + 중앙 6일 (Tui→Santiago)',
+    totalKm: 228,
+    days: 11,
+    highlights: ['전반 4일 대서양 해안', '🛥️ Caminha 페리 + Tui 진입', '후반 6일 숲·시골 (그늘)', '두 루트의 장점 모두', '가장 짧은 총 거리 (~228km)'],
+    stages: [
+      { day: 3, date: '6/15 (월)', from: 'Porto', to: 'Vila do Conde (Senda Litoral)', km: 27, lat: 41.3528, lng: -8.7461, note: '해안 보드워크 시작' },
+      { day: 4, date: '6/16 (화)', from: 'Vila do Conde', to: 'Esposende', km: 24, lat: 41.5371, lng: -8.7838 },
+      { day: 5, date: '6/17 (수)', from: 'Esposende', to: 'Viana do Castelo', km: 26, lat: 41.6946, lng: -8.8298 },
+      { day: 6, date: '6/18 (목)', from: 'Viana do Castelo', to: 'Caminha', km: 26, lat: 41.8714, lng: -8.8398 },
+      { day: 7, date: '6/19 (금)', from: 'Caminha 🛥️ ferry → A Guarda', to: '🚌 Tui (전환일)', km: 10, lat: 42.0466, lng: -8.6448, note: '페리 + 버스 이동, 짧은 도보. Tui 대성당 방문.' },
+      { day: 8, date: '6/20 (토)', from: 'Tui', to: 'O Porriño (중앙길)', km: 16, lat: 42.1583, lng: -8.6189, note: '중앙길 합류' },
+      { day: 9, date: '6/21 (일)', from: 'O Porriño', to: 'Redondela', km: 15, lat: 42.2839, lng: -8.6094 },
+      { day: 10, date: '6/22 (월)', from: 'Redondela', to: 'Pontevedra', km: 19, lat: 42.4310, lng: -8.6440 },
+      { day: 11, date: '6/23 (화)', from: 'Pontevedra', to: 'Caldas de Reis', km: 22, lat: 42.6050, lng: -8.6420 },
+      { day: 12, date: '6/24 (수)', from: 'Caldas', to: 'Padrón', km: 19, lat: 42.7400, lng: -8.6600 },
+      { day: 13, date: '6/25 (목)', from: 'Padrón', to: 'Santiago', km: 24, lat: 42.8805, lng: -8.5457, note: '⭐ 산티아고 도착' },
+    ],
+  },
+};
 
 export const CAMINO_STAGES: CaminoStage[] = [
   { day: 1, from: '포르토', to: 'Vairão', km: 27, elev: '+350m / -280m', diff: 3, surface: '포장도로 60%, 흙길 40%', water: '3km마다', tip: '첫날이라 무리하지 말 것. 출발 전 발에 바셀린. 포르토 대성당 도장 필수.', albergue: 'Albergue do Mosteiro de Vairão' },
@@ -213,14 +324,15 @@ export const EXPERIENCES: Experience[] = [
   { title: '국경 다리 건너기', desc: '미뉴강 다리 — 포르투갈에서 스페인으로', where: 'Tui', emoji: '🇪🇸', imageUrl: 'https://images.unsplash.com/photo-1518889222693-89dc25f3edfc?w=400', bg: 'cam', day: 'Day 7' },
   { title: '갈리시아 타파스 투어', desc: '폰테베드라 광장에서 저녁 타파스', where: 'Pontevedra', emoji: '🍤', imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400', bg: 'cam', day: 'Day 10' },
   { title: '산티아고 대성당 미사', desc: '정오 순례자 미사 + Botafumeiro 향로', where: '산티아고', emoji: '⛪', imageUrl: 'https://images.unsplash.com/photo-1583779457711-ab081de64105?w=400', bg: 'cam', day: 'Day 13' },
-  { title: '에펠탑 + 세느강', desc: '트로카데로 전망 + 일몰 유람선', where: '파리', emoji: '🗼', imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400', bg: 'fr', day: 'Day 15' },
-  { title: '루브르 박물관', desc: '모나리자·비너스·니케 — 핵심 작품 동선', where: '파리', emoji: '🖼️', imageUrl: 'https://images.unsplash.com/photo-1503917988258-f87a78e3c995?w=400', bg: 'fr', day: 'Day 15' },
-  { title: '👑 베르사유 궁전', desc: '루이 14세의 절대왕정 — 거울의 방·정원', where: '베르사유', emoji: '👑', imageUrl: 'https://images.unsplash.com/photo-1581420524920-50d76e5fcd2e?w=400', bg: 'fr', day: 'Day 16' },
-  { title: '오르세 미술관', desc: '인상파의 성지 — 모네·고흐·세잔', where: '파리', emoji: '🎨', imageUrl: 'https://images.unsplash.com/photo-1605361329547-c01a9e3aa17a?w=400', bg: 'fr', day: 'Day 17' },
-  { title: '몽마르뜨·사크레쾨르', desc: '예술가의 언덕 + 흰 대성당', where: '파리', emoji: '⛪', imageUrl: 'https://images.unsplash.com/photo-1551634979-2b11f8c946fe?w=400', bg: 'fr', day: 'Day 17' },
-  { title: '🚄 Eurostar 영불해협', desc: 'Paris Gare du Nord → London St Pancras 2h 20m', where: 'Paris ↔ London', emoji: '🚄', imageUrl: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=400', bg: 'uk', day: 'Day 18' },
-  { title: '캠브리지 펀팅', desc: 'River Cam에서 콜리지 뒷마당 보트 투어', where: '캠브리지', emoji: '🚣', imageUrl: 'https://images.unsplash.com/photo-1583851126313-a8b9f80b8c4b?w=400', bg: 'uk', day: 'Day 19' },
+  { title: '🇬🇧 런던 클래식', desc: '빅벤·국회·테이트모던·타워브리지', where: '런던', emoji: '🇬🇧', imageUrl: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400', bg: 'uk', day: 'Day 15' },
+  { title: '캠브리지 펀팅', desc: 'River Cam에서 콜리지 뒷마당 보트 투어', where: '캠브리지', emoji: '🚣', imageUrl: 'https://images.unsplash.com/photo-1583851126313-a8b9f80b8c4b?w=400', bg: 'uk', day: 'Day 17' },
   { title: '🎓 캠브리지 졸업식', desc: 'Senate House에서 학위 수여식', where: '캠브리지', emoji: '🎓', imageUrl: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400', bg: 'uk', day: 'Day 19' },
+  { title: '🚄 Eurostar 영불해협', desc: 'London St Pancras → Paris Gare du Nord 2h 20m', where: 'London ↔ Paris', emoji: '🚄', imageUrl: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=400', bg: 'fr', day: 'Day 19' },
+  { title: '오르세 미술관', desc: '인상파의 성지 — 모네·고흐·세잔', where: '파리', emoji: '🎨', imageUrl: 'https://images.unsplash.com/photo-1605361329547-c01a9e3aa17a?w=400', bg: 'fr', day: 'Day 20' },
+  { title: '에펠탑 + 세느강', desc: '트로카데로 전망 + 일몰 유람선', where: '파리', emoji: '🗼', imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400', bg: 'fr', day: 'Day 20' },
+  { title: '👑 베르사유 궁전', desc: '루이 14세의 절대왕정 — 거울의 방·정원', where: '베르사유', emoji: '👑', imageUrl: 'https://images.unsplash.com/photo-1581420524920-50d76e5fcd2e?w=400', bg: 'fr', day: 'Day 21' },
+  { title: '루브르 박물관', desc: '모나리자·비너스·니케 — 핵심 작품 동선', where: '파리', emoji: '🖼️', imageUrl: 'https://images.unsplash.com/photo-1503917988258-f87a78e3c995?w=400', bg: 'fr', day: 'Day 22' },
+  { title: '몽마르뜨·사크레쾨르', desc: '예술가의 언덕 + 흰 대성당', where: '파리', emoji: '⛪', imageUrl: 'https://images.unsplash.com/photo-1551634979-2b11f8c946fe?w=400', bg: 'fr', day: 'Day 22' },
 ];
 
 export const FOODS: Food[] = [
@@ -253,17 +365,18 @@ export const ACCOMMODATIONS: Accommodation[] = [
   { phase: 'camino', city: 'Caldas de Reis', name: 'Albergue Municipal', type: '공립 알베르게', price: '€8/박', desc: '♨️ 온천 마을 — 도착 후 온천욕 가능.', emoji: '🛏️' },
   { phase: 'camino', city: 'Padrón', name: 'Albergue de Padrón', type: '공립 알베르게', price: '€8/박', desc: '강변, 시장 근처. 파드론 고추 꼭 먹기.', emoji: '🛏️' },
   { phase: 'camino', city: '산티아고', name: 'Hotel Costa Vella', type: '부티크 호텔', price: '€110/박 (부부)', desc: '⭐ 6/25 — 순례 완주 자축! 부부 더블룸, 구시가지·정원 뷰.', emoji: '🏨' },
-  { phase: 'paris', city: '파리', name: 'Hôtel des Grands Boulevards', type: '부티크 호텔', price: '€230/박 × 2 rooms × 4박 (4명)', desc: '6/26-29 4박 · 가족 4명 2 rooms · 9구 중심, 마레·루브르·오페라 도보권. 옥상 칵테일 바.', emoji: '🏨' },
-  { phase: 'london', city: '캠브리지', name: 'University Arms', type: '럭셔리 호텔', price: '£260/박 × 2 rooms × 2박 (4명)', desc: '🎓 6/30-7/1 2박 · 가족 4명 2 rooms · Parker\'s Piece 앞 클래식 호텔.', emoji: '🏨' },
+  { phase: 'london', city: '런던', name: 'The Hoxton, Holborn', type: '부티크 호텔', price: '£180/박 × 2 rooms × 2박 (3명)', desc: '6/26-27 2박 · 3명 (부부 + 큰아들) · 코벤트가든 도보권, 모던 디자인.', emoji: '🏨' },
+  { phase: 'london', city: '캠브리지', name: 'University Arms', type: '럭셔리 호텔', price: '£260/박 × 2 rooms × 3박 (4명)', desc: '🎓 6/28-30 3박 · 가족 4명 2 rooms · Parker\'s Piece 앞 클래식 호텔.', emoji: '🏨' },
+  { phase: 'paris', city: '파리', name: 'Hôtel des Grands Boulevards', type: '부티크 호텔', price: '€230/박 × 2 rooms × 3박 (3명)', desc: '7/1-3 3박 · 3명 (부부 + 큰아들) · 9구 중심, 마레·루브르·오페라 도보권. 옥상 칵테일 바.', emoji: '🏨' },
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩12,300,000', amtNum: 12300000, detail: 'LH ICN→OPO×2 (₩1.65M) + 큰아들 ICN→CDG×1 (~₩1.5M) + SCQ→CDG×2 (~₩0.4M) + 둘째 Eurostar LON→PAR×1 (~₩0.18M) + 가족 Eurostar PAR→LON×4 (~₩0.72M) + KE0908 LHR→ICN×4 (₩7.86M)', pct: 42, color: '#2563EB' },
-  { id: 'accommodation', cat: '🏨 숙소', amt: '₩5,200,000', amtNum: 5200000, detail: '17박 · 포르토 2박(부부) + 카미노 10박(부부 알베르게) + 산티아고 1박(부부) + 파리 4박(4명, 2 rooms) + 캠브리지 2박(4명, 2 rooms)', pct: 18, color: '#EA580C' },
-  { id: 'food', cat: '🍽️ 식비', amt: '₩4,200,000', amtNum: 4200000, detail: '카미노 13일×2명×₩50K + 파리·캠브리지 8일×4명×₩90K + 합류일 환영 만찬', pct: 14, color: '#16A34A' },
+  { id: 'flight', cat: '✈️ 항공권', amt: '₩11,800,000', amtNum: 11800000, detail: 'LH ICN→OPO×2 (₩1.65M) + Vueling SCQ→LHR×2 (₩0.38M) + 큰아들 ICN→LHR×1 (~₩1.8M) + 둘째 KE0908 LHR→ICN×1 (₩1.97M) + Eurostar LON→PAR×3 (₩0.54M) + KE5904 CDG→ICN×3 (₩5.5M)', pct: 38, color: '#2563EB' },
+  { id: 'accommodation', cat: '🏨 숙소', amt: '₩6,500,000', amtNum: 6500000, detail: '19박 · 포르토 2박(부부) + 카미노 10박(부부 알베르게) + 산티아고 1박(부부) + 런던 2박(3명) + 캠브리지 3박(4명) + 파리 3박(3명)', pct: 21, color: '#EA580C' },
+  { id: 'food', cat: '🍽️ 식비', amt: '₩4,800,000', amtNum: 4800000, detail: '카미노 13일×2명×₩50K + 런던·캠브리지 6일×3-4명×₩100K + 파리 3일×3명×₩90K', pct: 16, color: '#16A34A' },
   { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
-  { id: 'transport', cat: '🚄 교통', amt: '₩900,000', amtNum: 900000, detail: 'Versailles RER C + 파리·런던 메트로 + 캠브리지→LHR 이동 + 짐 운반 서비스 (카미노 13일)', pct: 3, color: '#7C3AED' },
-  { id: 'admission', cat: '🎫 체험·입장료', amt: '₩1,200,000', amtNum: 1200000, detail: '베르사유·루브르·오르세·에펠탑 4명 + 포트와인 셀러·펀팅', pct: 4, color: '#F59E0B' },
+  { id: 'transport', cat: '🚄 교통', amt: '₩900,000', amtNum: 900000, detail: 'Versailles RER C + 런던·파리 메트로 + Kings Cross→Cambridge×3 + 캠브리지→LHR×1 + 카미노 짐 운반', pct: 3, color: '#7C3AED' },
+  { id: 'admission', cat: '🎫 체험·입장료', amt: '₩1,200,000', amtNum: 1200000, detail: '베르사유·루브르·오르세·에펠탑 (3명) + 런던 박물관 + 캠브리지 펀팅 (4명)', pct: 4, color: '#F59E0B' },
   { id: 'graduation', cat: '🎓 졸업식', amt: '₩800,000', amtNum: 800000, detail: '가족 사진·축하 만찬·선물·가운 대여', pct: 3, color: '#DB2777' },
   { id: 'insurance', cat: '🛡️ 보험·eSIM·ETA', amt: '₩500,000', amtNum: 500000, detail: '여행자 보험 부부 2명 (하이킹 커버) + eSIM 4명 + UK ETA 4명 (£40)', pct: 2, color: '#C2185B' },
   { id: 'misc', cat: '💝 기타·예비', amt: '₩1,500,000', amtNum: 1500000, detail: '기념품·쇼핑·예비비·환전 수수료', pct: 5, color: '#475569' },
@@ -271,49 +384,52 @@ export const BUDGET: BudgetItem[] = [
 
 export const FLIGHTS: FlightData[] = [
   { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.13 (토) 12:20 → 22:50', note: '👫 부부 2명 · 🇩🇪 루프트한자 LH0713+LH1180 (FRA 환승) · 18h 30m · ₩826,700 × 2 = ₩1,653,400' },
-  { type: '경유', from: 'SCQ 산티아고', to: 'CDG 파리', date: '2026.06.26 (금) 오후', note: '👫 부부 2명 · 🇪🇸 Iberia/Vueling (Madrid 환승 가능) · ~5h · ~₩200,000 × 2 = ₩400,000' },
-  { type: '합류', from: 'ICN 인천', to: 'CDG 파리', date: '2026.06.26 (금) 별도 비행', note: '🧑 큰아들 1명 · 🇫🇷 Air France 또는 🇰🇷 KE 직항 · ~12h · 약 ₩1,500,000' },
-  { type: '합류', from: 'London 세인트팬크라스', to: 'Paris 가르 뒤 노르', date: '2026.06.26 (금) 오후', note: '🧑 둘째 1명 · 🚄 Eurostar · 2h 20m · 약 ₩180,000' },
-  { type: '경유', from: 'Paris 가르 뒤 노르', to: 'London 세인트팬크라스', date: '2026.06.30 (화) 오전', note: '👨‍👩‍👦‍👦 가족 4명 · 🚄 Eurostar · 2h 20m · 약 ₩180,000 × 4 = ₩720,000' },
-  { type: '귀국', from: 'LHR 런던', to: 'ICN 인천', date: '2026.07.02 (목) 19:35 → 07.03 (금) 16:15', note: '👨‍👩‍👦‍👦 가족 4명 · 🇰🇷 대한항공 KE0908 직항 · 12h 40m · ₩1,965,200 × 4 = ₩7,860,800' },
+  { type: '경유', from: 'SCQ 산티아고', to: 'LHR 런던', date: '2026.06.26 (금) 16:50 → 18:00', note: '👫 부부 2명 · 🇪🇸 Vueling 직항 · 2h 10m · ₩191,956 × 2 = ₩383,912' },
+  { type: '합류', from: 'ICN 인천', to: 'LHR 런던', date: '2026.06.26 (금) 별도 비행', note: '🧑 큰아들 1명 · 🇰🇷 KE907 또는 🇬🇧 BA17 직항 · ~12h · 약 ₩1,800,000' },
+  { type: '경유', from: 'London 캠브리지行', to: 'Cambridge', date: '2026.06.28 (일) 오후', note: '👨‍👩‍👦 3명 · 🚂 LNER 기차 (Kings Cross) · 45-75분 · £40 × 3 = ~₩220,000 (둘째는 캠브리지서 합류)' },
+  { type: '귀국-둘째', from: 'LHR 런던', to: 'ICN 인천', date: '2026.07.01 (수) 저녁', note: '👤 둘째 1명 · 🇰🇷 KE0908 19:35 → 7/2 16:15 ICN 도착 · 직항 12h 40m · ₩1,965,200' },
+  { type: '경유', from: 'London 세인트팬크라스', to: 'Paris 가르 뒤 노르', date: '2026.07.01 (수) 졸업식 후 저녁', note: '👨‍👩‍👦 3명 · 🚄 Eurostar · 2h 20m · ₩180,000 × 3 = ₩540,000' },
+  { type: '귀국', from: 'CDG 파리', to: 'ICN 인천', date: '2026.07.04 (토) 19:10 → 07.05 (일) 14:10', note: '👨‍👩‍👦 3명 (부부 + 큰아들) · 🇰🇷 KE5904 (Asiana 공동운항) 직항 · 12h · ₩1,832,600 × 3 = ₩5,497,800' },
 ];
 
 export const TRANSPORTS: Transport[] = [
   { route: '포르토 공항 → 시내', method: '🚇 메트로 E선', time: '30분', price: '€2.6', tip: '24시간권 €7 권장' },
-  { route: '포르토 → Vairão (선택)', method: '🚂 도시철도', time: '40분', price: '€2', tip: '카미노 시작 시 일부 구간 단축 옵션' },
-  { route: '산티아고 공항 → CDG (6/26)', method: '✈️ 비행기', time: '2h 30m (직항)', price: '~₩200K', tip: 'Vueling 직항 또는 Iberia Madrid 환승' },
-  { route: 'CDG → 파리 시내 (6/26)', method: '🚇 RER B', time: '45-60분', price: '€11.4', tip: 'Navigo Découverte 주간권 €30 권장' },
-  { route: '파리 → 베르사유 왕복 (6/28)', method: '🚂 RER C', time: '45분', price: '€7.5 편도', tip: '베르사유 궁전 입장권은 별도 사전 예매 필수' },
-  { route: '파리 → 런던 (6/30)', method: '🚄 Eurostar (Gare du Nord → St Pancras)', time: '2h 20m', price: '£60-150', tip: '90분 전 도착 (보안검색·출입국심사). 사전 예매 필수' },
-  { route: '런던 → 캠브리지 (6/30)', method: '🚂 Great Northern / LNER', time: '45-75분', price: '£25-50', tip: 'St Pancras 도착 후 Kings Cross 도보 5분' },
-  { route: '캠브리지 → LHR (7/2)', method: '🚂 기차+Elizabeth Line', time: '2-3시간', price: '£30-50', tip: '⚠️ KE0908 19:35 — 17시까지 LHR 도착 목표' },
+  { route: '산티아고 공항 → LHR (6/26)', method: '✈️ Vueling 직항', time: '2h 10m (16:50 → 18:00)', price: '₩192K × 2', tip: '부부 2명 동시 예매' },
+  { route: 'LHR → 런던 시내 (6/26)', method: '🚇 Elizabeth Line', time: '32분', price: '£12', tip: '가성비 ↑ vs Heathrow Express £25' },
+  { route: '런던 → 캠브리지 (6/28)', method: '🚂 LNER (Kings Cross)', time: '45-75분', price: '£25-50 × 3', tip: 'Trainline 사전 예약 50% 할인. 둘째는 캠브리지서 합류' },
+  { route: '캠브리지 → 런던 → 파리 (7/1 졸업식 후)', method: '🚂 기차 + 🚄 Eurostar', time: '~4h (Cambridge→Kings Cross→St Pancras→Paris)', price: '£25 + £100 × 3', tip: '⚠️ 졸업식 오후 일정 — 저녁 도착 Paris. 사전 예매 필수 (3명분)' },
+  { route: '둘째: 캠브리지 → LHR (7/1 졸업식 후)', method: '🚂 기차 + Elizabeth Line', time: '2-3시간', price: '£30-50', tip: '⚠️ KE0908 19:35 — 17시까지 LHR 도착 목표 (귀국편)' },
+  { route: 'CDG → 파리 시내 (7/1)', method: '🚇 RER B', time: '45-60분', price: '€11.4 × 3', tip: 'Navigo Découverte 주간권 €30 권장' },
+  { route: '파리 → 베르사유 왕복 (7/3)', method: '🚂 RER C', time: '45분', price: '€7.5 편도', tip: '베르사유 궁전 입장권은 별도 사전 예매 필수' },
+  { route: '파리 시내 → CDG (7/4)', method: '🚇 RER B', time: '45-60분', price: '€11.4 × 3', tip: '✈️ KE5904 19:10 출발 — 17시까지 도착 목표' },
 ];
 
 export const CHECKLIST: ChecklistCategory[] = [
   {
-    title: '🚨 즉시 예약·준비 (D-11)',
+    title: '🚨 즉시 예약·준비 (D-10)',
     items: [
       '✈️ LH ICN→OPO 항공권 부부 2인 예매 (6/13 12:20 출발, ₩826,700/인)',
-      '✈️ 큰아들 ICN→CDG 항공권 1인 예매 (6/26 도착, ~₩1,500,000)',
-      '✈️ KE0908 LHR→ICN 항공권 4인 예매 (7/2 19:35 출발, ₩1,965,200/인)',
-      '✈️ SCQ→CDG 항공권 부부 2인 예매 (6/26 오후, Iberia/Vueling)',
-      '🚄 둘째 Eurostar LON→PAR 1인 예매 (6/26 합류, £100)',
-      '🚄 가족 Eurostar PAR→LON 4인 예매 (6/30 오전, £100/인)',
-      '🚂 London → Cambridge 기차 4인 예매 (6/30 오후, £40/인)',
-      '🚂 Cambridge → LHR 이동편 4인 (7/2 오후, £40/인)',
+      '✈️ Vueling SCQ→LHR 항공권 부부 2인 예매 (6/26 16:50, ₩191,956/인)',
+      '✈️ 큰아들 ICN→LHR 항공권 1인 예매 (6/26 도착, KE907 또는 BA17, ~₩1.8M)',
+      '✈️ 둘째 KE0908 LHR→ICN 1인 예매 (7/1 졸업식 후 19:35, ₩1,965,200)',
+      '✈️ KE5904 CDG→ICN 3인 예매 (7/4 19:10 → 7/5 14:10, ₩1,832,600/인)',
+      '🚂 London → Cambridge 기차 3인 예매 (6/28 오후, £40/인)',
+      '🚄 Eurostar London→Paris 3인 예매 (7/1 졸업식 후, ₩180K/인)',
+      '🚂 Cambridge → LHR 이동편 1인 (7/1 오후, 둘째용)',
       '🛂 UK ETA 4명 신청 (£10/인 × 4, 48-72h 승인)',
       '🏨 포르토 부티크 호텔 2박 예약 (6/13-14, 부부 더블룸)',
       '🏨 산티아고 Hotel Costa Vella 1박 예약 (6/25, 부부)',
-      '🏨 파리 Hôtel des Grands Boulevards 4박 예약 (6/26-29, 2 rooms)',
-      '🏨 캠브리지 University Arms 2박 예약 (6/30-7/1, 2 rooms)',
+      '🏨 런던 The Hoxton Holborn 2박 예약 (6/26-27, 3명 2 rooms)',
+      '🏨 캠브리지 University Arms 3박 예약 (6/28-30, 4명 2 rooms)',
+      '🏨 파리 Hôtel des Grands Boulevards 3박 예약 (7/1-3, 3명 2 rooms)',
       '🛏️ 카미노 사립 알베르게 핵심 예약 (Ponte de Lima, Tui, Pontevedra, Padrón)',
-      '🎫 베르사유 궁전 입장권 4명 사전 예매 (6/28)',
-      '🎫 루브르 박물관 입장권 4명 사전 예매 (6/29)',
-      '🎫 오르세 미술관 입장권 4명 사전 예매 (6/27)',
-      '🎫 에펠탑 입장권 4명 사전 예매 (6/27)',
+      '🎫 베르사유 궁전 입장권 3명 사전 예매 (7/3)',
+      '🎫 루브르 박물관 입장권 3명 사전 예매 (7/4 오전)',
+      '🎫 오르세 미술관 입장권 3명 사전 예매 (7/2)',
+      '🎫 에펠탑 입장권 3명 사전 예매 (7/2)',
       '📦 카미노 짐 운반 서비스 알아보기 (Tuitrans·Correos, €6/일)',
       '🛡️ 여행자 보험 가입 (하이킹 커버, 부부 2명)',
-      '🏢 휴가 신청 (회사, 6/13-7/5 — 7/6 월 출근)',
+      '🏢 휴가 신청 (회사, 6/13-7/5 — 7/6 월 추가 휴가 권장)',
       '🎓 캠브리지 졸업식 일정·드레스코드 확인 (둘째와 통화)',
     ],
   },

@@ -10,8 +10,8 @@ const FILTERS: { key: FilterKey; label: string; emoji: string }[] = [
   { key: 'all', label: '전체', emoji: '🌍' },
   { key: 'porto', label: '포르토', emoji: '🇵🇹' },
   { key: 'camino', label: '카미노', emoji: '🐚' },
-  { key: 'paris', label: '파리', emoji: '🇫🇷' },
   { key: 'london', label: '런던·캠브리지', emoji: '🇬🇧' },
+  { key: 'paris', label: '파리', emoji: '🇫🇷' },
 ];
 
 export default function AccommodationList() {

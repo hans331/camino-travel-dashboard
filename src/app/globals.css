@@ -1677,6 +1677,111 @@ body {
   filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35));
 }
 
+/* Camino route selector (on map) */
+.camino-route-selector {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+
+.camino-route-label {
+  font-size: 1.05rem;
+  color: var(--text);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.camino-route-label strong {
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.camino-route-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.camino-route-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 2.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 0.2s;
+  text-align: left;
+  min-height: 76px;
+}
+
+.camino-route-tab:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.camino-route-tab.active {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.camino-route-tab-emoji {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.camino-route-tab-label {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.camino-route-tab-km {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.camino-route-info {
+  background: var(--bg-soft);
+  border-left: 5px solid;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 18px;
+}
+
+.camino-route-info-desc {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: -0.2px;
+}
+
+.camino-route-info-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 4px 16px;
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.94rem;
+  color: var(--text-light);
+  list-style: '✓  ';
+}
+
+.camino-route-info-highlights li {
+  padding-left: 4px;
+  line-height: 1.5;
+}
+
 .map-legend {
   display: flex;
   gap: 16px;
@@ -2031,6 +2136,43 @@ body {
   .view-toggle-btn {
     font-size: 0.95rem;
     padding: 10px 16px;
+  }
+
+  /* Camino route selector mobile */
+  .camino-route-selector {
+    padding: 16px;
+  }
+
+  .camino-route-tabs {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .camino-route-tab {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 12px 14px;
+    min-height: 56px;
+    gap: 10px;
+  }
+
+  .camino-route-tab-emoji {
+    font-size: 1.5rem;
+  }
+
+  .camino-route-tab-label {
+    font-size: 1.05rem;
+    flex: 1;
+  }
+
+  .camino-route-tab-km {
+    font-size: 0.85rem;
+  }
+
+  .camino-route-info-highlights {
+    grid-template-columns: 1fr;
+    font-size: 0.92rem;
   }
 }
 
