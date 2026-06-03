@@ -10,6 +10,7 @@
 
   --porto: #EA580C;
   --camino: #16A34A;
+  --swiss: #DC2626;
   --london: #2563EB;
   --paris: #DB2777;
 
@@ -535,6 +536,7 @@ body {
 
 .day-card[data-phase="porto"] { border-left-color: var(--porto); }
 .day-card[data-phase="camino"] { border-left-color: var(--camino); }
+.day-card[data-phase="swiss"] { border-left-color: var(--swiss); }
 .day-card[data-phase="london"] { border-left-color: var(--london); }
 .day-card[data-phase="paris"] { border-left-color: var(--paris); }
 
@@ -561,6 +563,7 @@ body {
 
 .day-badge.porto { background: var(--porto); }
 .day-badge.camino { background: var(--camino); }
+.day-badge.swiss { background: var(--swiss); }
 .day-badge.london { background: var(--london); }
 .day-badge.paris { background: var(--paris); }
 
@@ -760,6 +763,7 @@ body {
 
 .calendar-day[data-phase="porto"] { background: linear-gradient(135deg, rgba(234, 88, 12, 0.06), var(--bg-card) 50%); }
 .calendar-day[data-phase="camino"] { background: linear-gradient(135deg, rgba(22, 163, 74, 0.07), var(--bg-card) 50%); }
+.calendar-day[data-phase="swiss"] { background: linear-gradient(135deg, rgba(220, 38, 38, 0.07), var(--bg-card) 50%); }
 .calendar-day[data-phase="paris"] { background: linear-gradient(135deg, rgba(219, 39, 119, 0.07), var(--bg-card) 50%); }
 .calendar-day[data-phase="london"] { background: linear-gradient(135deg, rgba(37, 99, 235, 0.07), var(--bg-card) 50%); }
 
@@ -797,6 +801,7 @@ body {
 
 .calendar-day-badge.porto { background: var(--porto); }
 .calendar-day-badge.camino { background: var(--camino); }
+.calendar-day-badge.swiss { background: var(--swiss); }
 .calendar-day-badge.paris { background: var(--paris); }
 .calendar-day-badge.london { background: var(--london); }
 
@@ -1663,6 +1668,7 @@ body {
 
 .day-marker.porto { background: var(--porto); }
 .day-marker.camino { background: var(--camino); }
+.day-marker.swiss { background: var(--swiss); }
 .day-marker.london { background: var(--london); }
 .day-marker.paris { background: var(--paris); }
 

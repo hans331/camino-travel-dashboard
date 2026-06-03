@@ -12,7 +12,8 @@ const FILTERS: { key: FilterKey; label: string; emoji: string }[] = [
   { key: 'all', label: '전체', emoji: '🌍' },
   { key: 'porto', label: '포르토', emoji: '🇵🇹' },
   { key: 'camino', label: '카미노', emoji: '🐚' },
-  { key: 'london', label: '런던·캠브리지', emoji: '🇬🇧' },
+  { key: 'swiss', label: '스위스', emoji: '🇨🇭' },
+  { key: 'london', label: '캠브리지', emoji: '🇬🇧' },
   { key: 'paris', label: '파리', emoji: '🇫🇷' },
 ];
 
@@ -27,10 +28,11 @@ interface PhaseSummary {
 }
 
 const PHASE_SUMMARIES: PhaseSummary[] = [
-  { key: 'porto', label: '포르토', emoji: '🇵🇹', dates: '6/13(토) ~ 6/14(일)', nights: '2박 3일', daysRange: 'Day 1 - 2', extra: '🍷 시차 적응 + 포트와인 (부부 2명)' },
-  { key: 'camino', label: '카미노 포르투게스', emoji: '🐚', dates: '6/15(월) ~ 6/25(목)', nights: '11박 11일', daysRange: 'Day 3 - 13', extra: '🥾 도보 242km (부부 2명) · 알베르게 10박 + 산티아고 1박' },
-  { key: 'london', label: '런던·캠브리지', emoji: '🇬🇧', dates: '6/26(금) ~ 7/1(수)', nights: '5박 6일', daysRange: 'Day 14 - 19', extra: '👨‍👩‍👦‍👦 가족 합류 (런던 → 캠브리지) · 🎓 7/1 졸업식 · 둘째 귀국' },
-  { key: 'paris', label: '파리·베르사유', emoji: '🇫🇷', dates: '7/1(수) ~ 7/5(일)', nights: '3박 5일', daysRange: 'Day 19 - 23', extra: '👨‍👩‍👦 부부 + 큰아들 3명 · 베르사유·루브르·오르세 · 7/5 점심 ICN 도착' },
+  { key: 'porto', label: '포르토', emoji: '🇵🇹', dates: '6/15(월)', nights: '1박 1일', daysRange: 'Day 1', extra: '🍷 Swiss Air 18:15 도착 + 저녁 (포르토 단축)' },
+  { key: 'camino', label: '카미노 (10일)', emoji: '🐚', dates: '6/16(화) ~ 6/25(목)', nights: '10박 10일', daysRange: 'Day 2 - 11', extra: '🥾 도보 242km (부부 2명) · Tui→Redondela 31km 통합 (Day 6 ⚠️)' },
+  { key: 'swiss', label: '스위스 알프스', emoji: '🇨🇭', dates: '6/26(금) ~ 6/29(월)', nights: '4박 4일', daysRange: 'Day 12 - 15', extra: '🏔️ 큰아들 합류 (3명) · 루체른·인터라켄 · Mt. Pilatus · 융프라우요호' },
+  { key: 'london', label: '캠브리지 졸업식', emoji: '🇬🇧', dates: '6/30(화) ~ 7/1(수)', nights: '1박 2일', daysRange: 'Day 16 - 17', extra: '🎓 둘째 합류 (4명) · 7/1 졸업식 · 둘째 귀국' },
+  { key: 'paris', label: '파리 (8일)', emoji: '🇫🇷', dates: '7/1(수) ~ 7/9(목)', nights: '7박 9일', daysRange: 'Day 17 - 25', extra: '👨‍👩‍👦 3명 · 베르사유·루브르·오르세·🌻 지베르니·🏰 Mont-Saint-Michel · 7/9 14:10 ICN ⭐ 4일 연장' },
 ];
 
 function DayCard({ day }: { day: DayData }) {
@@ -109,15 +111,15 @@ export default function Schedule() {
   return (
     <div>
       <div className="section-header">
-        <h2><span>📅</span> 23일 가족 여행</h2>
-        <p>포르토 · 카미노 → 런던·캠브리지(졸업식) → 파리 → 인천 (7/5 점심 도착)</p>
+        <h2><span>📅</span> 25일 가족 여행</h2>
+        <p>포르토(1일) · 카미노(10일) → 🇨🇭 스위스 → 캠브리지(졸업식) → 파리(8일) → 인천 (7/9 14:10 도착)</p>
       </div>
 
       <div className="trip-stats">
         <div className="stat-card">
           <div className="stat-card-emoji">📅</div>
-          <div className="stat-card-value">23일</div>
-          <div className="stat-card-label">6/13 → 7/5</div>
+          <div className="stat-card-value">25일</div>
+          <div className="stat-card-label">6/15 → 7/9</div>
         </div>
         <div className="stat-card">
           <div className="stat-card-emoji">👨‍👩‍👦‍👦</div>
@@ -127,7 +129,7 @@ export default function Schedule() {
         <div className="stat-card">
           <div className="stat-card-emoji">🐚</div>
           <div className="stat-card-value">242km</div>
-          <div className="stat-card-label">카미노 11일</div>
+          <div className="stat-card-label">카미노 10일</div>
         </div>
         <div className="stat-card">
           <div className="stat-card-emoji">💰</div>

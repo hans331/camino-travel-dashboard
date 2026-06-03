@@ -1,4 +1,4 @@
-export type Phase = 'porto' | 'camino' | 'london' | 'paris';
+export type Phase = 'porto' | 'camino' | 'swiss' | 'london' | 'paris';
 
 export interface DayData {
   day: number;
@@ -34,7 +34,7 @@ export interface Experience {
   where: string;
   emoji: string;
   imageUrl: string;
-  bg: 'pt' | 'cam' | 'uk' | 'fr';
+  bg: 'pt' | 'cam' | 'uk' | 'fr' | 'ch';
   day?: string;
 }
 
@@ -44,7 +44,7 @@ export interface Food {
   where: string;
   emoji: string;
   imageUrl: string;
-  bg: 'pt' | 'cam' | 'uk' | 'fr';
+  bg: 'pt' | 'cam' | 'uk' | 'fr' | 'ch';
 }
 
 export interface Accommodation {
