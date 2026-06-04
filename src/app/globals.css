@@ -1713,6 +1713,49 @@ body {
   box-shadow: 0 8px 22px rgba(245, 158, 11, 0.6), 0 4px 10px rgba(0,0,0,0.2);
 }
 
+/* Airport markers (smaller, distinct from day/meeting markers) */
+.airport-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #475569;
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1F2937;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: transform 0.15s, box-shadow 0.15s;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.airport-marker:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-color: var(--primary);
+}
+
+.airport-marker.layover {
+  background: rgba(241, 245, 249, 0.92);
+  border-color: #94A3B8;
+  color: #475569;
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  opacity: 0.92;
+}
+
+.airport-emoji {
+  font-size: 0.85rem;
+}
+
+.airport-code {
+  letter-spacing: 0.3px;
+}
+
 .day-marker .marker-emoji {
   font-size: 1.15rem;
   margin-right: 4px;

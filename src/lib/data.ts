@@ -9,18 +9,32 @@ import type {
   Transport,
   ChecklistCategory,
   MeetingPoint,
+  Airport,
 } from './types';
 
 // ============ KEY MEETING POINTS (가족 만남 거점) ============
 export const MEETING_POINTS: MeetingPoint[] = [
   {
-    id: 'zrh-airport',
+    id: 'zrh-airport-meeting',
     emoji: '🤝',
-    label: '🇨🇭 ZRH 공항 — 가족 만남 거점',
-    desc: 'Day 13 (6/24 수): 부부 SCQ→ZRH + 둘째 LON→ZRH 만남 (3명) → 기차로 Lucerne\nDay 15 (6/26 금): 큰아들 ICN→ZRH (Swiss LX111 09:30→14:50) 추가 합류 (4명 완성!) → 기차로 Zermatt',
+    label: '🇨🇭 ZRH 공항 — 가족 만남 거점 (Day 13)',
+    desc: 'Day 13 (6/24 수): ⭐ 부부 SCQ→ZRH + 둘째 LON→ZRH 만남 (3명) → 기차로 Lucerne\nDay 14 (6/25 목): 큰아들 KE917 ICN→ZRH 17:25 도착 (혼자) → 기차로 Lucerne 호텔에서 가족과 합류 (4명 완성!)',
     lat: 47.4647,
     lng: 8.5492,
   },
+];
+
+// ============ KEY AIRPORTS (주요 공항) ============
+export const AIRPORTS: Airport[] = [
+  { code: 'ICN', name: '인천 국제공항', city: '인천', lat: 37.4602, lng: 126.4407, role: '🛫 출발 (6/12 LH713) + 🛬 귀국 (둘째 7/2, 가족 7/9)' },
+  { code: 'FRA', name: '프랑크푸르트 공항', city: '프랑크푸르트', lat: 50.0379, lng: 8.5622, isLayover: true, role: '🔄 LH713→LH1180 환승 (6/12)' },
+  { code: 'OPO', name: '포르토 공항', city: '포르토', lat: 41.2480, lng: -8.6814, role: '🛬 부부 도착 (6/12 22:55)' },
+  { code: 'SCQ', name: '산티아고 공항', city: '산티아고 데 콤포스텔라', lat: 42.8963, lng: -8.4151, role: '🛫 부부 SCQ→MAD→ZRH (6/24)' },
+  { code: 'MAD', name: '마드리드 공항', city: '마드리드', lat: 40.4983, lng: -3.5676, isLayover: true, role: '🔄 Iberia 환승 (6/24)' },
+  { code: 'ZRH', name: '취리히 공항', city: '취리히', lat: 47.4647, lng: 8.5492, role: '🤝 가족 만남 거점 · 큰아들 KE917 도착 (6/25)' },
+  { code: 'LHR', name: '런던 히드로 공항', city: '런던', lat: 51.4700, lng: -0.4543, role: '🔄 둘째 LON→ZRH (6/24) · 가족 ZRH→LHR→Cambridge (6/30) · 둘째 KE0908 귀국 (7/1)' },
+  { code: 'MUC', name: '뮌헨 공항', city: '뮌헨', lat: 48.3537, lng: 11.7860, isLayover: true, role: '🔄 LH2229→LH718 환승 (7/8 귀국)' },
+  { code: 'CDG', name: '파리 샤를드골 공항', city: '파리', lat: 49.0097, lng: 2.5479, role: '🛫 가족 3명 LH 귀국 (7/8 12:00)' },
 ];
 
 // Trip start: 2026-06-12 (Friday)
@@ -157,11 +171,11 @@ export const SCHEDULE: DayData[] = [
     restaurants: ['Pilatus Kulm 산정', 'Old Swiss House'],
   },
   {
-    day: 15, date: '6/26 (금)', phase: 'swiss', title: '🚂 루체른 → 🇨🇭 ZRH 공항 ⭐ 큰아들 합류 → 체르마트 (4명!)',
-    icon: '✈️', desc: '⭐ 가족 4명 완성! 오전 루체른 → Zurich 공항 (기차 1h). 오후 ZRH 공항에서 큰아들 합류 (🇨🇭 Swiss LX111 ICN 09:30 → ZRH 14:50, ~13h 직항). 4명 함께 기차로 ZRH → Visp → Zermatt (~3h). 저녁 체르마트 도착, 황금빛 마테호른 야경 (Alpenglühen) + 환영 만찬.',
-    food: '공항 점심 · 체르마트 정통 퐁듀 환영 만찬', stay: '체르마트 호텔 (4명, family room + 1room)',
+    day: 15, date: '6/26 (금)', phase: 'swiss', title: '🚂 루체른 → 체르마트 (가족 4명 함께, 3.5h)',
+    icon: '🚂', desc: '4명 함께 — 오전 출발 Luzern → Bern → Visp 환승 → Zermatt (3h 30m, 풍경 좋은 노선). 오후 체르마트 도착, 차량 없는 알프스 마을 산책. 일몰 시 황금빛 마테호른 (Alpenglühen).',
+    food: '기차 도시락 + 체르마트 정통 퐁듀', stay: '체르마트 호텔 (4명)',
     lat: 46.0207, lng: 7.7491,
-    transit: '🚂 Lucerne→ZRH 1h · 🛬 큰아들 ICN→ZRH (LX111 09:30→14:50) · 🚂 ZRH→Zermatt ~3h',
+    transit: '🚂 Lucerne → Zermatt (3h 30m, Visp 환승) · 가족 4명 함께',
     restaurants: ['Whymper-Stube (퐁듀)', 'Restaurant Schäferstube', 'Stefanie\'s Crêperie'],
   },
   {
@@ -496,7 +510,7 @@ export const ACCOMMODATIONS: Accommodation[] = [
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,860,000', amtNum: 10860000, detail: '🇩🇪 LH713+LH1180 ICN→OPO×2 (~₩2.0M, 6/12 예매전) + Iberia SCQ→ZRH×2 (~₩0.8M 추정) + 큰아들 Swiss LX111 ICN→ZRH (~₩1.5M 추정) + 둘째 LON→ZRH (~₩0.25M) + ZRH→LHR×4 (~₩0.8M) + 둘째 KE0908 LHR→ICN (~₩1.97M) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 26, color: '#2563EB' },
+  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,633,000', amtNum: 10633000, detail: '🇩🇪 LH713+LH1180 ICN→OPO×2 (~₩2.0M, 6/12 예매전) + Iberia SCQ→ZRH×2 (~₩0.8M 추정) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ZRH→LHR×4 (~₩0.8M) + 둘째 KE0908 LHR→ICN (~₩1.97M) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
   { id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000, detail: '21박 · 포르토 2박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 체르마트 2박(3명, 비쌈) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명)', pct: 23, color: '#EA580C' },
   { id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000, detail: '포르토 2일×2명 + 카미노 11일×2명×₩50K + 🇨🇭 스위스 6일×3명×₩120K (체르마트 비쌈) + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K', pct: 17, color: '#16A34A' },
   { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
@@ -511,7 +525,7 @@ export const FLIGHTS: FlightData[] = [
   { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 12:20 → 22:55', note: '👫 부부 2명 · 🇩🇪 루프트한자 LH713+LH1180 (FRA 2h25m 환승) · 18h 35m · 위탁 23kg + 휴대 8kg 포함 · 이코노미' },
   { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '👫 부부 2명 · 🇪🇸 Iberia (MAD 환승) · ~5h · 약 ₩400,000 × 2 = ₩800,000' },
   { type: '합류', from: 'LON 런던', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '🧑 둘째 1명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · 약 ₩250,000 (캠브리지에서 LHR 또는 LCY 이동)' },
-  { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.26 (금) 09:30 → 14:50', note: '🧑 큰아들 1명 · 🇨🇭 Swiss LX111 직항 · 13h 20m · 약 ₩1,500,000 (6/26 오전 출발)' },
+  { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.25 (목) 11:05 → 17:25', note: '✅ 예매완료 🧑 큰아들 1명 · 🇰🇷 KE917 직항 (B787-10) · 13h 20m · ₩1,273,500 · 일반석 스탠다드' },
   { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 오전', note: '👨‍👩‍👦 3명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · ~₩200,000 × 3 = ₩600,000' },
   { type: '귀국-둘째', from: 'LHR 런던', to: 'ICN 인천', date: '2026.07.01 (수) 저녁', note: '👤 둘째 1명 · 🇰🇷 KE0908 19:35 → 7/2 16:15 ICN 도착 · 직항 12h 40m · ₩1,965,200' },
   { type: '경유', from: 'London 세인트팬크라스', to: 'Paris 가르 뒤 노르', date: '2026.07.01 (수) 졸업식 후 저녁', note: '👨‍👩‍👦 3명 · 🚄 Eurostar · 2h 20m · ₩180,000 × 3 = ₩540,000' },
@@ -542,7 +556,7 @@ export const CHECKLIST: ChecklistCategory[] = [
     items: [
       '✈️ 루프트한자 LH713+LH1180 ICN→OPO 부부 2인 예매 (6/12 금 12:20→22:55, FRA 환승, 위탁 23kg 포함)',
       '✈️ SCQ→ZRH 항공권 부부 2인 예매 (6/26, Iberia MAD 환승, ~₩400K/인)',
-      '✈️ 큰아들 Swiss LX111 ICN→ZRH 1인 예매 (6/26 금 09:30→14:50, 직항 ~₩1.5M)',
+      '✅ 큰아들 KE917 ICN→ZRH 예매완료 (6/25 목 11:05→17:25, 직항 B787-10, ₩1,273,500)',
       '✈️ 둘째 LON→ZRH 항공권 1인 예매 (6/24 수 오후, Swiss/BA, 1h 45m, ~₩250K)',
       '✈️ ZRH→LHR 항공권 3인 예매 (6/30 오전, Swiss/BA, ~₩200K/인)',
       '✈️ 둘째 KE0908 LHR→ICN 1인 예매 (7/1 졸업식 후 19:35, ₩1,965,200)',

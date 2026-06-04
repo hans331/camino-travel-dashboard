@@ -8,8 +8,8 @@ import {
   InfoWindow,
   useMap,
 } from '@vis.gl/react-google-maps';
-import { SCHEDULE, PHASES, MEETING_POINTS } from '@/lib/data';
-import type { DayData, MeetingPoint } from '@/lib/types';
+import { SCHEDULE, PHASES, MEETING_POINTS, AIRPORTS } from '@/lib/data';
+import type { DayData, MeetingPoint, Airport } from '@/lib/types';
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '';
 const MAP_ID = 'travel-dashboard-map';
@@ -132,17 +132,29 @@ interface MapViewProps {
 export default function MapView({ selectedPhase }: MapViewProps) {
   const [selectedDay, setSelectedDay] = useState<DayData | null>(null);
   const [selectedMeeting, setSelectedMeeting] = useState<MeetingPoint | null>(null);
+  const [selectedAirport, setSelectedAirport] = useState<Airport | null>(null);
 
   const displayDays = useMemo(() => buildDisplayDays(), []);
 
-  const handleMarkerClick = useCallback((day: DayData) => {
+  const clearAll = () => {
+    setSelectedDay(null);
     setSelectedMeeting(null);
+    setSelectedAirport(null);
+  };
+
+  const handleMarkerClick = useCallback((day: DayData) => {
+    clearAll();
     setSelectedDay(day);
   }, []);
 
   const handleMeetingClick = useCallback((mp: MeetingPoint) => {
-    setSelectedDay(null);
+    clearAll();
     setSelectedMeeting(mp);
+  }, []);
+
+  const handleAirportClick = useCallback((ap: Airport) => {
+    clearAll();
+    setSelectedAirport(ap);
   }, []);
 
   return (
@@ -226,6 +238,21 @@ export default function MapView({ selectedPhase }: MapViewProps) {
               </AdvancedMarker>
             ))}
 
+            {/* Airport markers (excluding ZRH which uses meeting marker) */}
+            {AIRPORTS.filter((ap) => ap.code !== 'ZRH').map((ap) => (
+              <AdvancedMarker
+                key={ap.code}
+                position={{ lat: ap.lat, lng: ap.lng }}
+                onClick={() => handleAirportClick(ap)}
+                title={`${ap.code} · ${ap.name}`}
+              >
+                <span className={`airport-marker ${ap.isLayover ? 'layover' : ''}`}>
+                  <span className="airport-emoji">✈</span>
+                  <span className="airport-code">{ap.code}</span>
+                </span>
+              </AdvancedMarker>
+            ))}
+
             {MEETING_POINTS.map((mp) => (
               <AdvancedMarker
                 key={mp.id}
@@ -247,6 +274,24 @@ export default function MapView({ selectedPhase }: MapViewProps) {
                   <h3>{selectedMeeting.label}</h3>
                   <p style={{ whiteSpace: 'pre-line', fontSize: '0.92rem', color: '#333' }}>
                     {selectedMeeting.desc}
+                  </p>
+                </div>
+              </InfoWindow>
+            )}
+
+            {selectedAirport && (
+              <InfoWindow
+                position={{ lat: selectedAirport.lat, lng: selectedAirport.lng }}
+                onCloseClick={() => setSelectedAirport(null)}
+                pixelOffset={[0, -20]}
+              >
+                <div className="map-info-window">
+                  <h3>✈️ {selectedAirport.code} · {selectedAirport.name}</h3>
+                  <p style={{ fontSize: '0.85rem', color: '#666' }}>
+                    📍 {selectedAirport.city} {selectedAirport.isLayover ? '(환승 공항)' : '(도착/출발)'}
+                  </p>
+                  <p style={{ fontSize: '0.88rem', color: '#333' }}>
+                    {selectedAirport.role}
                   </p>
                 </div>
               </InfoWindow>

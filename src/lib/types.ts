@@ -9,6 +9,16 @@ export interface MeetingPoint {
   lng: number;
 }
 
+export interface Airport {
+  code: string; // IATA 3-letter code
+  name: string;
+  city: string;
+  lat: number;
+  lng: number;
+  isLayover?: boolean; // 환승만 있는 공항
+  role: string; // 어떤 일정에 사용되는지
+}
+
 export interface DayData {
   day: number;
   date: string;
