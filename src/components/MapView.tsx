@@ -8,11 +8,10 @@ import {
   InfoWindow,
   useMap,
 } from '@vis.gl/react-google-maps';
-import { SCHEDULE, PHASES, CAMINO_VARIANTS, SWISS_VARIANTS } from '@/lib/data';
+import { SCHEDULE, PHASES, CAMINO_VARIANTS } from '@/lib/data';
 import type { DayData } from '@/lib/types';
 
 type CaminoRouteKey = 'central' | 'coastal' | 'hybrid';
-type SwissRouteKey = 'lucerne' | 'matterhorn';
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '';
 const MAP_ID = 'travel-dashboard-map';
@@ -20,10 +19,9 @@ const MAP_ID = 'travel-dashboard-map';
 const DEFAULT_CENTER = { lat: 45.0, lng: -4.0 };
 const DEFAULT_ZOOM = 5;
 
-function buildDisplayDays(caminoKey: CaminoRouteKey, swissKey: SwissRouteKey): DayData[] {
+function buildDisplayDays(caminoKey: CaminoRouteKey): DayData[] {
   const caminoVariant = CAMINO_VARIANTS[caminoKey];
-  const swissVariant = SWISS_VARIANTS[swissKey];
-  const others = SCHEDULE.filter((d) => d.phase !== 'camino' && d.phase !== 'swiss');
+  const others = SCHEDULE.filter((d) => d.phase !== 'camino');
   const caminoDays: DayData[] = caminoVariant.stages.map((s) => ({
     day: s.day,
     date: s.date,
@@ -37,29 +35,16 @@ function buildDisplayDays(caminoKey: CaminoRouteKey, swissKey: SwissRouteKey): D
     lng: s.lng,
     dist: `${s.km}km`,
   }));
-  const swissDays: DayData[] = swissVariant.stages.map((s) => ({
-    day: s.day,
-    date: s.date,
-    phase: 'swiss' as const,
-    title: s.title,
-    icon: swissVariant.emoji,
-    desc: `${swissVariant.label} · ${s.city}${s.note ? ` · ${s.note}` : ''}`,
-    food: '스위스 음식 (퐁듀·라클렛·뢰스티)',
-    stay: swissKey === 'matterhorn' ? 'Zermatt/Interlaken 호텔' : 'Lucerne/Interlaken 호텔',
-    lat: s.lat,
-    lng: s.lng,
-  }));
-  return [...others, ...caminoDays, ...swissDays].sort((a, b) => a.day - b.day);
+  return [...others, ...caminoDays].sort((a, b) => a.day - b.day);
 }
 
-function getPhaseGroups(days: DayData[], caminoColor: string, swissColor: string) {
+function getPhaseGroups(days: DayData[], caminoColor: string) {
   const groups: { phase: string; color: string; coords: { lat: number; lng: number }[] }[] = [];
   let currentPhase = '';
   let currentCoords: { lat: number; lng: number }[] = [];
 
   const colorFor = (phase: string) => {
     if (phase === 'camino') return caminoColor;
-    if (phase === 'swiss') return swissColor;
     return PHASES[phase as keyof typeof PHASES]?.color ?? '#666';
   };
 
@@ -90,7 +75,7 @@ function getPhaseGroups(days: DayData[], caminoColor: string, swissColor: string
   return groups;
 }
 
-function PolylineRenderer({ days, caminoColor, swissColor }: { days: DayData[]; caminoColor: string; swissColor: string }) {
+function PolylineRenderer({ days, caminoColor }: { days: DayData[]; caminoColor: string }) {
   const map = useMap();
   const polylinesRef = useRef<google.maps.Polyline[]>([]);
 
@@ -100,7 +85,7 @@ function PolylineRenderer({ days, caminoColor, swissColor }: { days: DayData[]; 
     polylinesRef.current.forEach((pl) => pl.setMap(null));
     polylinesRef.current = [];
 
-    const groups = getPhaseGroups(days, caminoColor, swissColor);
+    const groups = getPhaseGroups(days, caminoColor);
     for (const group of groups) {
       const isFlight = group.phase === 'london' || group.phase === 'paris';
       const polyline = new google.maps.Polyline({
@@ -125,7 +110,7 @@ function PolylineRenderer({ days, caminoColor, swissColor }: { days: DayData[]; 
       polylinesRef.current.forEach((pl) => pl.setMap(null));
       polylinesRef.current = [];
     };
-  }, [map, days, caminoColor, swissColor]);
+  }, [map, days, caminoColor]);
 
   return null;
 }
@@ -163,12 +148,10 @@ interface MapViewProps {
 
 export default function MapView({ selectedPhase }: MapViewProps) {
   const [caminoRoute, setCaminoRoute] = useState<CaminoRouteKey>('central');
-  const [swissRoute, setSwissRoute] = useState<SwissRouteKey>('lucerne');
   const [selectedDay, setSelectedDay] = useState<DayData | null>(null);
 
   const caminoVariant = CAMINO_VARIANTS[caminoRoute];
-  const swissVariant = SWISS_VARIANTS[swissRoute];
-  const displayDays = useMemo(() => buildDisplayDays(caminoRoute, swissRoute), [caminoRoute, swissRoute]);
+  const displayDays = useMemo(() => buildDisplayDays(caminoRoute), [caminoRoute]);
 
   const handleMarkerClick = useCallback((day: DayData) => {
     setSelectedDay(day);
@@ -177,7 +160,7 @@ export default function MapView({ selectedPhase }: MapViewProps) {
   // Close info when route changes
   useEffect(() => {
     setSelectedDay(null);
-  }, [caminoRoute, swissRoute]);
+  }, [caminoRoute]);
 
   return (
     <div>
@@ -222,65 +205,28 @@ export default function MapView({ selectedPhase }: MapViewProps) {
         </div>
       </div>
 
-      {/* Swiss route variant selector */}
+      {/* Swiss route info banner (single optimal route) */}
       <div className="camino-route-selector">
         <div className="camino-route-label">
-          🇨🇭 <strong>스위스 루트 선택</strong> — 루체른(Pilatus) vs 마테호른 비교
+          🇨🇭 <strong>스위스 6일 — 최적 통합 루트</strong>
         </div>
-        <div className="camino-route-tabs">
-          {(['lucerne', 'matterhorn'] as SwissRouteKey[]).map((key) => {
-            const v = SWISS_VARIANTS[key];
-            const isActive = swissRoute === key;
-            return (
-              <button
-                key={key}
-                className={`camino-route-tab ${isActive ? 'active' : ''}`}
-                onClick={() => setSwissRoute(key)}
-                style={isActive ? { background: v.color, borderColor: v.color, color: '#fff' } : { borderColor: v.color }}
-              >
-                <span className="camino-route-tab-emoji">{v.emoji}</span>
-                <span className="camino-route-tab-label">{v.label}</span>
-                <span className="camino-route-tab-km" style={isActive ? { color: 'rgba(255,255,255,0.9)' } : { color: v.color }}>
-                  {v.days}일 일정
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="camino-route-info" style={{ borderLeftColor: swissVariant.color }}>
-          <div className="camino-route-info-desc">{swissVariant.emoji} {swissVariant.desc}</div>
+        <div className="camino-route-info" style={{ borderLeftColor: PHASES.swiss.color }}>
+          <div className="camino-route-info-desc">⛰️ Lucerne · Pilatus · Zermatt · Matterhorn · Interlaken · 융프라우요호 — 스위스 알프스 핵심 모두 (Day 13-18)</div>
           <ul className="camino-route-info-highlights">
-            {swissVariant.highlights.map((h) => (
-              <li key={h}>{h}</li>
-            ))}
+            <li>🏔️ Day 13-14 Lucerne: Mt. Pilatus Golden Round + 호수 + 카펠교</li>
+            <li>⛰️ Day 15-16 Zermatt: Matterhorn (Gornergrat 3,089m) + Stellisee 호수 반영</li>
+            <li>⛰️ Day 17-18 Interlaken: 융프라우요호 Top of Europe (3,454m) + Harder Kulm</li>
+            <li>🚂 GoldenPass·파노라마 열차로 알프스 횡단</li>
           </ul>
-          <div className="swiss-route-tradeoffs">
-            <div className="swiss-tradeoff-col">
-              <strong style={{ color: 'var(--primary-dark)' }}>✅ 장점</strong>
-              <ul>
-                {swissVariant.tradeoffs.pro.map((p) => <li key={p}>{p}</li>)}
-              </ul>
-            </div>
-            <div className="swiss-tradeoff-col">
-              <strong style={{ color: '#B91C1C' }}>⚠️ 단점</strong>
-              <ul>
-                {swissVariant.tradeoffs.con.map((c) => <li key={c}>{c}</li>)}
-              </ul>
-            </div>
-          </div>
         </div>
       </div>
 
       <div className="map-legend">
         {Object.entries(PHASES).map(([key, info]) => {
           const isCamino = key === 'camino';
-          const isSwiss = key === 'swiss';
-          const displayColor = isCamino ? caminoVariant.color : isSwiss ? swissVariant.color : info.color;
+          const displayColor = isCamino ? caminoVariant.color : info.color;
           const displayLabel = isCamino
             ? `${caminoVariant.emoji} ${caminoVariant.label}`
-            : isSwiss
-            ? `${swissVariant.emoji} ${swissVariant.label}`
             : `${info.emoji} ${info.label}`;
           return (
             <div key={key} className="legend-item">
@@ -307,12 +253,11 @@ export default function MapView({ selectedPhase }: MapViewProps) {
             mapTypeControl={false}
           >
             <FitBounds days={displayDays} selectedPhase={selectedPhase} />
-            <PolylineRenderer days={displayDays} caminoColor={caminoVariant.color} swissColor={swissVariant.color} />
+            <PolylineRenderer days={displayDays} caminoColor={caminoVariant.color} />
 
             {displayDays.map((day) => {
               const isCamino = day.phase === 'camino';
-              const isSwiss = day.phase === 'swiss';
-              const markerColor = isCamino ? caminoVariant.color : isSwiss ? swissVariant.color : PHASES[day.phase].color;
+              const markerColor = isCamino ? caminoVariant.color : PHASES[day.phase].color;
               return (
                 <AdvancedMarker
                   key={day.day}
@@ -322,7 +267,7 @@ export default function MapView({ selectedPhase }: MapViewProps) {
                 >
                   <span
                     className={`day-marker ${day.phase}`}
-                    style={(isCamino || isSwiss) ? { background: markerColor } : undefined}
+                    style={isCamino ? { background: markerColor } : undefined}
                   >
                     <span className="marker-emoji">{day.icon}</span>
                     {day.day}
