@@ -249,19 +249,19 @@ export const SCHEDULE: DayData[] = [
     restaurants: ['Pink Mamma', 'Pierre Hermé', 'Bouillon Pigalle'],
   },
   {
-    day: 27, date: '7/8 (수)', phase: 'paris', title: '☕ 마지막 파리 + 🛫 CDG → 인천',
-    icon: '🛫', desc: '오전 마지막 카페·산책 (Latin Quarter 또는 Marais). Du Pain et des Idées에서 크루아상. 점심 가벼운 식사 후 호텔 체크아웃 → RER B로 CDG. ⭐ KE5904 CDG 19:10 출발 → ICN 7/9 (목) 14:10 도착.',
-    food: 'Du Pain et des Idées 크루아상 · 가벼운 점심 · CDG 라운지 · 기내식', stay: '기내 (7/9 점심 ICN 도착)',
+    day: 27, date: '7/8 (수)', phase: 'paris', title: '☕ 이른 출발 + 🛫 CDG → 뮌헨 → 인천',
+    icon: '🛫', desc: '⚠️ 오전 일찍 호텔 체크아웃 (8시쯤) + Du Pain et des Idées 크루아상 마지막 한 입. RER B로 CDG 10:30 도착 목표. ✅ LH2229 CDG 12:00 → MUC 13:30 → 환승 2h 25m → LH718 MUC 15:55 → ICN 7/9 (목) 09:55 도착.',
+    food: '간단 아침 + CDG 라운지 점심 + MUC 환승 시 가벼운 식사 + LH718 기내식', stay: '기내 (7/9 오전 ICN 도착)',
     lat: 49.0097, lng: 2.5479,
-    transit: '✈️ CDG 19:10 → ICN 14:10+1 (KE5904, 12h)',
-    restaurants: ['Du Pain et des Idées', 'Le Café Marly'],
+    transit: '✈️ CDG 12:00 → MUC 13:30 → ICN 09:55+1 (LH2229+LH718, 14h 55m)',
+    restaurants: ['Du Pain et des Idées (아침)'],
   },
   {
-    day: 28, date: '7/9 (목)', phase: 'paris', title: '🏠 인천 도착 (점심시간)',
-    icon: '🏠', desc: 'ICN 14:10 도착. 입국 + 짐 찾기 → 점심 후 귀가. 7/9 오후 + 7/10 (금) 회복 후 7/13 (월) 정상 출근 또는 7/10 출근.',
-    food: '오랜만의 한식 — 도착 후 첫 끼', stay: '집',
+    day: 28, date: '7/9 (목)', phase: 'paris', title: '🏠 인천 도착 (오전!)',
+    icon: '🏠', desc: 'ICN 09:55 도착 ⭐ 오전 도착이라 회복 시간 충분. 입국 + 짐 찾기 → 점심 전 귀가 가능. 7/9 오후 + 7/10 (금) 회복 후 7/13 (월) 정상 출근.',
+    food: '오랜만의 한식 — 도착 후 첫 끼 (점심)', stay: '집',
     lat: 37.4602, lng: 126.4407,
-    transit: '🛬 ICN 14:10 도착',
+    transit: '🛬 ICN 09:55 도착',
   },
 ];
 
@@ -496,7 +496,7 @@ export const ACCOMMODATIONS: Accommodation[] = [
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩12,000,000', amtNum: 12000000, detail: '🇩🇪 LH713+LH1180 ICN→OPO×2 (~₩2.0M, 6/12) + SCQ→ZRH×2 (₩0.8M) + 큰아들 ICN→ZRH×1 (~₩1.6M) + ZRH→LHR×3 (₩0.6M) + 둘째 KE0908 LHR→ICN×1 (₩1.97M) + Eurostar LON→PAR×3 (₩0.54M) + KE5904 CDG→ICN×3 (₩5.5M)', pct: 27, color: '#2563EB' },
+  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,200,000', amtNum: 10200000, detail: '🇩🇪 LH713+LH1180 ICN→OPO×2 (~₩2.0M, 6/12) + Iberia SCQ→ZRH×2 (₩0.8M) + 큰아들 Swiss LX111 ICN→ZRH (~₩1.5M) + 둘째 LON→ZRH (₩0.25M) + ZRH→LHR×4 (₩0.8M) + 둘째 KE0908 LHR→ICN (₩1.97M) + Eurostar LON→PAR×3 (₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (~₩3.3M, €2,199 송금환율 기준)', pct: 24, color: '#2563EB' },
   { id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000, detail: '21박 · 포르토 2박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 체르마트 2박(3명, 비쌈) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명)', pct: 23, color: '#EA580C' },
   { id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000, detail: '포르토 2일×2명 + 카미노 11일×2명×₩50K + 🇨🇭 스위스 6일×3명×₩120K (체르마트 비쌈) + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K', pct: 17, color: '#16A34A' },
   { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
@@ -515,7 +515,7 @@ export const FLIGHTS: FlightData[] = [
   { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 오전', note: '👨‍👩‍👦 3명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · ~₩200,000 × 3 = ₩600,000' },
   { type: '귀국-둘째', from: 'LHR 런던', to: 'ICN 인천', date: '2026.07.01 (수) 저녁', note: '👤 둘째 1명 · 🇰🇷 KE0908 19:35 → 7/2 16:15 ICN 도착 · 직항 12h 40m · ₩1,965,200' },
   { type: '경유', from: 'London 세인트팬크라스', to: 'Paris 가르 뒤 노르', date: '2026.07.01 (수) 졸업식 후 저녁', note: '👨‍👩‍👦 3명 · 🚄 Eurostar · 2h 20m · ₩180,000 × 3 = ₩540,000' },
-  { type: '귀국', from: 'CDG 파리', to: 'ICN 인천', date: '2026.07.08 (수) 19:10 → 07.09 (목) 14:10', note: '👨‍👩‍👦 3명 (부부 + 큰아들) · 🇰🇷 KE5904 (Asiana 공동운항) 직항 · 12h · ₩1,832,600 × 3 = ₩5,497,800' },
+  { type: '귀국', from: 'CDG 파리', to: 'ICN 인천', date: '2026.07.08 (수) 12:00 → 07.09 (목) 09:55', note: '✅ 예매완료 👨‍👩‍👦 3명 · 🇩🇪 Lufthansa LH2229 + LH718 (MUC 환승, 2h 25m) · 14h 55m · Economy Green (위탁 23kg, 휴대 8kg) · €2,198.97 (3인 = ~₩3,298,000)' },
 ];
 
 export const TRANSPORTS: Transport[] = [
@@ -546,7 +546,7 @@ export const CHECKLIST: ChecklistCategory[] = [
       '✈️ 둘째 LON→ZRH 항공권 1인 예매 (6/24 수 오후, Swiss/BA, 1h 45m, ~₩250K)',
       '✈️ ZRH→LHR 항공권 3인 예매 (6/30 오전, Swiss/BA, ~₩200K/인)',
       '✈️ 둘째 KE0908 LHR→ICN 1인 예매 (7/1 졸업식 후 19:35, ₩1,965,200)',
-      '✈️ KE5904 CDG→ICN 3인 예매 (7/8 수 19:10 → 7/9 목 14:10, ₩1,832,600/인)',
+      '✅ Lufthansa LH2229+LH718 CDG→ICN 3인 예매완료 (7/8 수 12:00 → 7/9 목 09:55, MUC 환승, Economy Green, €2,198.97 = ~₩3,298,000)',
       '🚄 Eurostar London→Paris 3인 예매 (7/1 졸업식 후, ₩180K/인)',
       '🚂 Cambridge → LHR 이동편 1인 (7/1 오후, 둘째용)',
       '🚂 Swiss Travel Pass 4-day 3인 (CHF 280/인 × 3 = ~₩1.3M)',
