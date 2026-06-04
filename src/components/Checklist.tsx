@@ -5,7 +5,7 @@ import { CHECKLIST } from '@/lib/data';
 import { supabase } from '@/lib/supabase';
 import type { ChecklistItemDB } from '@/lib/types';
 
-const CATEGORY_ICONS = ['🚨', '📄', '🎒', '👕', '🧴', '📱'];
+const CATEGORY_ICONS = ['✈️', '🏨', '🛂', '🎫', '🥾', '🇨🇭', '👕', '💊', '📱'];
 
 export default function Checklist() {
   const [items, setItems] = useState<ChecklistItemDB[]>([]);
