@@ -1788,6 +1788,47 @@ body {
   line-height: 1.5;
 }
 
+/* Swiss route tradeoffs - pro/con columns */
+.swiss-route-tradeoffs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+}
+
+.swiss-tradeoff-col {
+  font-size: 0.94rem;
+  color: var(--text-light);
+}
+
+.swiss-tradeoff-col strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.swiss-tradeoff-col ul {
+  margin: 0;
+  padding-left: 18px;
+  list-style: '· ';
+}
+
+.swiss-tradeoff-col li {
+  padding-left: 4px;
+  line-height: 1.55;
+  margin-bottom: 2px;
+}
+
+@media (max-width: 768px) {
+  .swiss-route-tradeoffs {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
 .map-legend {
   display: flex;
   gap: 16px;

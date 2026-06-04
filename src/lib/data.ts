@@ -318,6 +318,81 @@ export const CAMINO_VARIANTS: Record<'central' | 'coastal' | 'hybrid', CaminoVar
   },
 };
 
+// ============ SWISS ROUTE VARIANTS (for map comparison) ============
+export interface SwissVariantStage {
+  day: number;
+  date: string;
+  title: string;
+  city: string;
+  lat: number;
+  lng: number;
+  note?: string;
+}
+
+export interface SwissVariant {
+  key: 'lucerne' | 'matterhorn';
+  label: string;
+  emoji: string;
+  color: string;
+  desc: string;
+  days: number;
+  highlights: string[];
+  tradeoffs: { pro: string[]; con: string[] };
+  stages: SwissVariantStage[];
+}
+
+export const SWISS_VARIANTS: Record<'lucerne' | 'matterhorn', SwissVariant> = {
+  lucerne: {
+    key: 'lucerne',
+    label: '루체른 안 (현재)',
+    emoji: '🏔️',
+    color: '#16A34A',
+    desc: 'Lucerne(Pilatus) + Interlaken(Jungfraujoch) · 호수·정통 스위스',
+    days: 4,
+    highlights: [
+      '🌉 카펠교 + Lake Lucerne 크루즈',
+      '🏔️ Mt. Pilatus Golden Round Trip',
+      '🚂 GoldenPass 파노라마 열차',
+      '⛰️ 융프라우요호 Top of Europe',
+    ],
+    tradeoffs: {
+      pro: ['이동 거리 짧음', '루체른 중세 도시 매력', '카펠교·사자기념비 명소', '호수 크루즈 여유'],
+      con: ['Matterhorn 못 봄', 'Mt. Pilatus는 인지도 ↓ 명소'],
+    },
+    stages: [
+      { day: 12, date: '6/26 (금)', title: 'Santiago → 취리히 → Lucerne', city: 'Lucerne', lat: 47.0502, lng: 8.3093, note: '큰아들 합류' },
+      { day: 13, date: '6/27 (토)', title: 'Mt. Pilatus Golden Round + 호수', city: 'Mt. Pilatus', lat: 46.9789, lng: 8.2528 },
+      { day: 14, date: '6/28 (일)', title: 'GoldenPass → Interlaken', city: 'Interlaken', lat: 46.6863, lng: 7.8632 },
+      { day: 15, date: '6/29 (월)', title: '⛰️ 융프라우요호 (Top of Europe)', city: 'Jungfraujoch', lat: 46.5470, lng: 7.9854 },
+    ],
+  },
+  matterhorn: {
+    key: 'matterhorn',
+    label: '마테호른 안',
+    emoji: '⛰️',
+    color: '#DC2626',
+    desc: 'Zermatt(Matterhorn) + Interlaken(Jungfraujoch) · 알프스 정점',
+    days: 4,
+    highlights: [
+      '⛰️ Matterhorn 클래식 뷰 (Gornergrat 3,089m)',
+      '🪞 Stellisee 호수 Matterhorn 반영 (Sunnegga)',
+      '🏔️ Klein Matterhorn 3,883m (유럽 최고 케이블카) 옵션',
+      '🚙 차량 없는 알프스 청정 마을',
+      '⛰️ 융프라우요호 Top of Europe',
+    ],
+    tradeoffs: {
+      pro: ['Matterhorn — 세계에서 가장 유명한 산', '알프스 정점 경험 (해발 3,000m+)', '체르마트 차량없는 청정 마을', '융프라우+마테호른 = 스위스 정점 콤보'],
+      con: ['이동 거리 ↑ (취리히→체르마트 3h)', 'Lucerne·Pilatus 포기', '체르마트 숙박비 ↑ (CHF 350-500/박)', '날씨 의존도 ↑ (구름 시 못 봄)'],
+    },
+    stages: [
+      { day: 12, date: '6/26 (금)', title: 'Santiago → 취리히 → Zermatt', city: 'Zermatt', lat: 46.0207, lng: 7.7491, note: '큰아들 합류, Visp 환승' },
+      { day: 13, date: '6/27 (토)', title: '⛰️ Gornergrat + Sunnegga (Matterhorn)', city: 'Gornergrat', lat: 45.9836, lng: 7.7855 },
+      { day: 14, date: '6/28 (일)', title: 'Zermatt → Interlaken (3h)', city: 'Interlaken', lat: 46.6863, lng: 7.8632 },
+      { day: 15, date: '6/29 (월)', title: '⛰️ 융프라우요호 (Top of Europe)', city: 'Jungfraujoch', lat: 46.5470, lng: 7.9854 },
+    ],
+  },
+};
+
 export const CAMINO_STAGES: CaminoStage[] = [
   { day: 1, from: '포르토', to: 'Vairão', km: 27, elev: '+350m / -280m', diff: 3, surface: '포장도로 60%, 흙길 40%', water: '3km마다', tip: '첫날이라 무리하지 말 것. 출발 전 발에 바셀린. 포르토 대성당 도장 필수.', albergue: 'Albergue do Mosteiro de Vairão' },
   { day: 2, from: 'Vairão', to: 'Barcelos', km: 29, elev: '+200m / -300m', diff: 3, surface: '시골길 65%, 포장 35%', water: '5km마다', tip: '바르셀로스 수탉 전설지 방문. 시내 진입 전 길고 평탄한 구간.', albergue: 'Albergue Cidade de Barcelos' },
