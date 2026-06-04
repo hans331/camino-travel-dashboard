@@ -5,7 +5,7 @@ import { CHECKLIST } from '@/lib/data';
 import { supabase } from '@/lib/supabase';
 import type { ChecklistItemDB } from '@/lib/types';
 
-const CATEGORY_ICONS = ['✈️', '🏨', '🛂', '🎫', '🥾', '🇨🇭', '👕', '💊', '📱'];
+const CATEGORY_ICONS = ['✈️', '🚂', '🏨', '🛂', '🎫', '🥾', '🇨🇭', '👕', '💊', '📱'];
 
 export default function Checklist() {
   const [items, setItems] = useState<ChecklistItemDB[]>([]);
@@ -183,7 +183,7 @@ export default function Checklist() {
           🔄 체크리스트 새로고침 (최신 항목으로 재설정)
         </button>
         <span className="checklist-toolbar-hint">
-          💡 항목별로 + 추가 / 메모 / 삭제 가능
+          💡 항목 이름을 <strong>클릭</strong>하면 메모창이 열려요 · 카테고리별 <strong>+ 추가</strong>로 나만의 항목도 추가 가능 (자동 저장)
         </span>
       </div>
 
