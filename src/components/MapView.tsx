@@ -8,8 +8,8 @@ import {
   InfoWindow,
   useMap,
 } from '@vis.gl/react-google-maps';
-import { SCHEDULE, PHASES } from '@/lib/data';
-import type { DayData } from '@/lib/types';
+import { SCHEDULE, PHASES, MEETING_POINTS } from '@/lib/data';
+import type { DayData, MeetingPoint } from '@/lib/types';
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '';
 const MAP_ID = 'travel-dashboard-map';
@@ -131,11 +131,18 @@ interface MapViewProps {
 
 export default function MapView({ selectedPhase }: MapViewProps) {
   const [selectedDay, setSelectedDay] = useState<DayData | null>(null);
+  const [selectedMeeting, setSelectedMeeting] = useState<MeetingPoint | null>(null);
 
   const displayDays = useMemo(() => buildDisplayDays(), []);
 
   const handleMarkerClick = useCallback((day: DayData) => {
+    setSelectedMeeting(null);
     setSelectedDay(day);
+  }, []);
+
+  const handleMeetingClick = useCallback((mp: MeetingPoint) => {
+    setSelectedDay(null);
+    setSelectedMeeting(mp);
   }, []);
 
   return (
@@ -218,6 +225,32 @@ export default function MapView({ selectedPhase }: MapViewProps) {
                 </span>
               </AdvancedMarker>
             ))}
+
+            {MEETING_POINTS.map((mp) => (
+              <AdvancedMarker
+                key={mp.id}
+                position={{ lat: mp.lat, lng: mp.lng }}
+                onClick={() => handleMeetingClick(mp)}
+                title={mp.label}
+              >
+                <span className="meeting-marker">{mp.emoji}</span>
+              </AdvancedMarker>
+            ))}
+
+            {selectedMeeting && (
+              <InfoWindow
+                position={{ lat: selectedMeeting.lat, lng: selectedMeeting.lng }}
+                onCloseClick={() => setSelectedMeeting(null)}
+                pixelOffset={[0, -28]}
+              >
+                <div className="map-info-window">
+                  <h3>{selectedMeeting.label}</h3>
+                  <p style={{ whiteSpace: 'pre-line', fontSize: '0.92rem', color: '#333' }}>
+                    {selectedMeeting.desc}
+                  </p>
+                </div>
+              </InfoWindow>
+            )}
 
             {selectedDay && (
               <InfoWindow

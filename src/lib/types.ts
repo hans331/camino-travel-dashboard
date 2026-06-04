@@ -1,5 +1,14 @@
 export type Phase = 'porto' | 'camino' | 'swiss' | 'london' | 'paris';
 
+export interface MeetingPoint {
+  id: string;
+  emoji: string;
+  label: string;
+  desc: string;
+  lat: number;
+  lng: number;
+}
+
 export interface DayData {
   day: number;
   date: string;

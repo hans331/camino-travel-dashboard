@@ -8,7 +8,20 @@ import type {
   FlightData,
   Transport,
   ChecklistCategory,
+  MeetingPoint,
 } from './types';
+
+// ============ KEY MEETING POINTS (가족 만남 거점) ============
+export const MEETING_POINTS: MeetingPoint[] = [
+  {
+    id: 'zrh-airport',
+    emoji: '🤝',
+    label: '🇨🇭 ZRH 공항 — 가족 만남 거점',
+    desc: 'Day 13 (6/24 수): 부부 SCQ→ZRH + 둘째 LON→ZRH 만남 (3명) → 기차로 Lucerne\nDay 15 (6/26 금): 큰아들 ICN→ZRH (Swiss LX111 09:30→14:50) 추가 합류 (4명 완성!) → 기차로 Zermatt',
+    lat: 47.4647,
+    lng: 8.5492,
+  },
+];
 
 // Trip start: 2026-06-12 (Friday)
 export const TRIP_START_ISO = '2026-06-12';
