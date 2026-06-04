@@ -50,11 +50,11 @@ export const NAV_ITEMS = [
 export const SCHEDULE: DayData[] = [
   // ===== PORTO (Day 1-2) — 2일 =====
   {
-    day: 1, date: '6/12 (금)', phase: 'porto', title: '👫 부부 출발: 인천 → 포르토 (Swiss Air)',
-    icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/24 스위스 합류, 둘째 6/30 캠브리지 합류). ⚠️ 항공권 6/15 → 6/12 변경 필요. 🇨🇭 Swiss Air LX ICN 09:30 → ZRH (50분 환승) → OPO 18:15 도착. 저녁 호텔 체크인 → 동 루이스 1세 다리 야경 + 포르토 대성당에서 ⭐ 순례자 크리덴셜 수령 + 리베이라 가벼운 저녁.',
-    food: '기내식 + 리베이라 강변 비스트로', stay: '포르토 부티크 호텔',
+    day: 1, date: '6/12 (금)', phase: 'porto', title: '👫 부부 출발: 인천 → 포르토 (Lufthansa)',
+    icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/24 스위스 합류, 둘째 6/30 캠브리지 합류). 🇩🇪 LH713 ICN 12:20 → FRA 18:40 (13h 20m, A350-900) → 2h 25m 환승 → LH1180 FRA 21:05 → OPO 22:55 (2h 50m, A321NEO). 야간 도착 → 호텔 직행 후 취침. 다음날(Day 2) 종일 포르토 관광.',
+    food: '기내식 (점심+저녁) · FRA 환승 시 가벼운 스낵', stay: '포르토 부티크 호텔',
     lat: 41.1579, lng: -8.6291,
-    restaurants: ['Cafe Santiago (프란세지냐 원조)', 'Cervejaria Brasão'],
+    restaurants: ['(다음날) Cafe Santiago', 'Cervejaria Brasão'],
   },
   {
     day: 2, date: '6/13 (토)', phase: 'porto', title: '🍷 포르토 시내 관광 종일',
@@ -475,7 +475,7 @@ export const ACCOMMODATIONS: Accommodation[] = [
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩12,300,000', amtNum: 12300000, detail: 'Swiss LX ICN→OPO×2 (₩2.0M + 변경수수료) + SCQ→ZRH×2 (₩0.8M) + 큰아들 ICN→ZRH×1 (~₩1.6M) + ZRH→LHR×3 (₩0.6M) + 둘째 KE0908 LHR→ICN×1 (₩1.97M) + Eurostar LON→PAR×3 (₩0.54M) + KE5904 CDG→ICN×3 (₩5.5M)', pct: 28, color: '#2563EB' },
+  { id: 'flight', cat: '✈️ 항공권', amt: '₩12,000,000', amtNum: 12000000, detail: '🇩🇪 LH713+LH1180 ICN→OPO×2 (~₩2.0M, 6/12) + SCQ→ZRH×2 (₩0.8M) + 큰아들 ICN→ZRH×1 (~₩1.6M) + ZRH→LHR×3 (₩0.6M) + 둘째 KE0908 LHR→ICN×1 (₩1.97M) + Eurostar LON→PAR×3 (₩0.54M) + KE5904 CDG→ICN×3 (₩5.5M)', pct: 27, color: '#2563EB' },
   { id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000, detail: '21박 · 포르토 2박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 체르마트 2박(3명, 비쌈) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명)', pct: 23, color: '#EA580C' },
   { id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000, detail: '포르토 2일×2명 + 카미노 11일×2명×₩50K + 🇨🇭 스위스 6일×3명×₩120K (체르마트 비쌈) + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K', pct: 17, color: '#16A34A' },
   { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
@@ -487,7 +487,7 @@ export const BUDGET: BudgetItem[] = [
 ];
 
 export const FLIGHTS: FlightData[] = [
-  { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 09:30 → 18:15', note: '👫 부부 2명 · 🇨🇭 Swiss Air LX (ZRH 환승) · 16h 45m · Economy Basic Plus · ⚠️ 기존 6/15 예매 → 6/12 변경 필요 (~₩2.0M)' },
+  { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 12:20 → 22:55', note: '👫 부부 2명 · 🇩🇪 루프트한자 LH713+LH1180 (FRA 2h25m 환승) · 18h 35m · 위탁 23kg + 휴대 8kg 포함 · 이코노미' },
   { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '👫 부부 2명 · 🇪🇸 Iberia (MAD 환승) · ~5h · 약 ₩400,000 × 2 = ₩800,000' },
   { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.24 (수) 별도 비행', note: '🧑 큰아들 1명 · 🇰🇷 Asiana OZ542 또는 🇨🇭 Swiss 직항 · ~13h · 약 ₩1,600,000' },
   { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 오전', note: '👨‍👩‍👦 3명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · ~₩200,000 × 3 = ₩600,000' },
@@ -518,7 +518,7 @@ export const CHECKLIST: ChecklistCategory[] = [
   {
     title: '🚨 즉시 예약·준비 (D-10)',
     items: [
-      '⚠️ Swiss Air LX ICN→OPO 날짜 변경 (6/15 → 6/12 금, 09:30→18:15) · Swiss Air 콜센터 문의',
+      '✈️ 루프트한자 LH713+LH1180 ICN→OPO 부부 2인 예매 (6/12 금 12:20→22:55, FRA 환승, 위탁 23kg 포함)',
       '✈️ SCQ→ZRH 항공권 부부 2인 예매 (6/26, Iberia MAD 환승, ~₩400K/인)',
       '✈️ 큰아들 ICN→ZRH 항공권 1인 예매 (6/26 도착, Asiana OZ542 또는 Swiss, ~₩1.6M)',
       '✈️ ZRH→LHR 항공권 3인 예매 (6/30 오전, Swiss/BA, ~₩200K/인)',
