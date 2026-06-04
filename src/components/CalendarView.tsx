@@ -119,9 +119,11 @@ function CalendarMonth({ year, month, today }: { year: number; month: number; to
                 <div className="calendar-trip-content">
                   <div className="calendar-trip-emoji">{tripDay.icon}</div>
                   <div className="calendar-trip-title">{truncate(tripDay.title, 22)}</div>
-                  {tripDay.dist && (
+                  {tripDay.transit ? (
+                    <div className="calendar-trip-transit">{tripDay.transit}</div>
+                  ) : tripDay.dist ? (
                     <div className="calendar-trip-dist">🚶 {tripDay.dist}</div>
-                  )}
+                  ) : null}
                 </div>
               )}
             </div>

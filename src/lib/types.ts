@@ -12,6 +12,7 @@ export interface DayData {
   lat: number;
   lng: number;
   dist?: string;
+  transit?: string; // 비행/기차/Eurostar 등 이동 시간 (캘린더에 표시)
   restaurants?: string[];
 }
 

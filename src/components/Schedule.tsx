@@ -30,8 +30,8 @@ interface PhaseSummary {
 const PHASE_SUMMARIES: PhaseSummary[] = [
   { key: 'porto', label: '포르토 (2일)', emoji: '🇵🇹', dates: '6/12(금) ~ 6/13(토)', nights: '2박 3일', daysRange: 'Day 1 - 2', extra: '🍷 시차 적응 + 포트와인 셀러 + 도루강 크루즈 (여유롭게)' },
   { key: 'camino', label: '카미노 (10일)', emoji: '🐚', dates: '6/14(일) ~ 6/23(화)', nights: '10박 10일', daysRange: 'Day 3 - 12', extra: '🥾 도보 242km (부부 2명) · Tui→Redondela 31km 통합 (Day 6 ⚠️)' },
-  { key: 'swiss', label: '스위스 알프스 (6일)', emoji: '🇨🇭', dates: '6/24(수) ~ 6/29(월)', nights: '6박 6일', daysRange: 'Day 13 - 18', extra: '🏔️ 큰아들 합류 · 🇨🇭 Lucerne+Pilatus + ⛰️ Zermatt+Matterhorn + Interlaken+융프라우요호 모두!' },
-  { key: 'london', label: '캠브리지 졸업식', emoji: '🇬🇧', dates: '6/30(화) ~ 7/1(수)', nights: '1박 2일', daysRange: 'Day 19 - 20', extra: '🎓 둘째 합류 (4명) · 7/1 졸업식 · 둘째 귀국' },
+  { key: 'swiss', label: '스위스 알프스 (6일)', emoji: '🇨🇭', dates: '6/24(수) ~ 6/29(월)', nights: '6박 6일', daysRange: 'Day 13 - 18', extra: '👨‍👩‍👦 Day 13 둘째 ZRH 합류 → Day 15 큰아들 ZRH 합류 (4명) · Lucerne+Matterhorn+Jungfraujoch' },
+  { key: 'london', label: '캠브리지 졸업식', emoji: '🇬🇧', dates: '6/30(화) ~ 7/1(수)', nights: '1박 2일', daysRange: 'Day 19 - 20', extra: '🎓 가족 4명 함께 캠브리지 · 7/1 졸업식 · 졸업식 후 둘째 귀국' },
   { key: 'paris', label: '파리 (8일)', emoji: '🇫🇷', dates: '7/1(수) ~ 7/9(목)', nights: '7박 9일', daysRange: 'Day 20 - 28', extra: '👨‍👩‍👦 3명 · 베르사유·루브르·오르세·🌻 지베르니·🏰 Mont-Saint-Michel · 7/9 14:10 ICN' },
 ];
 

@@ -54,6 +54,7 @@ export const SCHEDULE: DayData[] = [
     icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/24 스위스 합류, 둘째 6/30 캠브리지 합류). 🇩🇪 LH713 ICN 12:20 → FRA 18:40 (13h 20m, A350-900) → 2h 25m 환승 → LH1180 FRA 21:05 → OPO 22:55 (2h 50m, A321NEO). 야간 도착 → 호텔 직행 후 취침. 다음날(Day 2) 종일 포르토 관광.',
     food: '기내식 (점심+저녁) · FRA 환승 시 가벼운 스낵', stay: '포르토 부티크 호텔',
     lat: 41.1579, lng: -8.6291,
+    transit: '✈️ ICN 12:20 → OPO 22:55 (18h 35m)',
     restaurants: ['(다음날) Cafe Santiago', 'Cervejaria Brasão'],
   },
   {
@@ -64,63 +65,63 @@ export const SCHEDULE: DayData[] = [
     restaurants: ['Cafe Santiago', 'Cafe Majestic', "Taylor's Port Cellar", 'Cervejaria Brasão'],
   },
 
-  // ===== CAMINO (Day 3-12) — 10일 =====
+  // ===== CAMINO HYBRID (Day 3-12) — 해안 4일 + 전환 + 중앙 5일 = 10일 (228km) =====
   {
-    day: 3, date: '6/14 (일)', phase: 'camino', title: '카미노 Day 1: 포르토 → Vairão',
-    icon: '🐚', desc: '카미노 포르투게스 출발! 포르토 대성당에서 (전날 받은) 크리덴셜 활용. 도시 외곽까지 27km, 첫날이라 무리하지 말 것.',
-    food: '아침 페이스트리, 알베르게 순례자 메뉴', stay: '알베르게 (Vairão Monastery)',
-    lat: 41.3411, lng: -8.6694, dist: '27km',
+    day: 3, date: '6/14 (일)', phase: 'camino', title: '카미노 Day 1 (해안): 포르토 → Vila do Conde',
+    icon: '🌊', desc: '🌊 하이브리드 시작 — Senda Litoral 해변 보드워크. 포르토 대성당에서 크리덴셜 시작 도장 → 포르토 메트로 또는 도보 → 대서양 해변 따라 Vila do Conde (어촌 + Romanesque 수도원).',
+    food: '해변 카페 점심, Vila do Conde 해산물 저녁', stay: 'Vila do Conde 펜션/알베르게',
+    lat: 41.3528, lng: -8.7461, dist: '27km',
   },
   {
-    day: 4, date: '6/15 (월)', phase: 'camino', title: '카미노 Day 2: Vairão → Barcelos',
-    icon: '🐚', desc: 'Rates 시골길 통과. 바르셀로스 도착, 수탉 전설의 도시.',
-    food: '바칼랴우 아 브라스, 콜드 그린 수프', stay: '알베르게 Cidade de Barcelos',
-    lat: 41.5314, lng: -8.6150, dist: '29km',
+    day: 4, date: '6/15 (월)', phase: 'camino', title: '카미노 Day 2 (해안): Vila do Conde → Esposende',
+    icon: '🌊', desc: '대서양 해안선 따라 보드워크 + 어촌 마을. Esposende 도착, 강변 도시.',
+    food: '신선한 해산물, Vinho Verde', stay: 'Esposende 알베르게',
+    lat: 41.5371, lng: -8.7838, dist: '24km',
   },
   {
-    day: 5, date: '6/16 (화)', phase: 'camino', title: '카미노 Day 3: Barcelos → Ponte de Lima',
-    icon: '🐚', desc: '리마 강변의 중세 마을. 포르투갈에서 가장 오래된 마을. 가장 긴 구간이므로 새벽 출발.',
-    food: '아로스 드 사라불류, 비뇨 베르드', stay: '알베르게 de Ponte de Lima',
-    lat: 41.7674, lng: -8.5840, dist: '33km',
+    day: 5, date: '6/16 (화)', phase: 'camino', title: '카미노 Day 3 (해안): Esposende → Viana do Castelo',
+    icon: '🌊', desc: 'Lima 강 하구의 역사적 도시. Santa Luzia 언덕 + 분홍빛 대성당.',
+    food: 'Bacalhau, Viana 정통 식당', stay: 'Viana do Castelo 알베르게',
+    lat: 41.6946, lng: -8.8298, dist: '26km',
   },
   {
-    day: 6, date: '6/17 (수)', phase: 'camino', title: '카미노 Day 4: Ponte de Lima → Rubiães',
-    icon: '🐚', desc: '오르막길 — Alto da Portela Grande. 짧은 구간이라 회복일.',
-    food: '콘예슈 구이, 알베르게 순례자 메뉴', stay: '알베르게 São Pedro de Rubiães',
-    lat: 41.9089, lng: -8.5733, dist: '18km',
+    day: 6, date: '6/17 (수)', phase: 'camino', title: '카미노 Day 4 (해안): Viana do Castelo → Caminha',
+    icon: '🌊', desc: '대서양 해안 마지막 날. Caminha 도착 — 다음날 페리로 스페인 진입 예정.',
+    food: '문어, 정어리, 가벼운 해변 만찬', stay: 'Caminha 알베르게',
+    lat: 41.8714, lng: -8.8398, dist: '26km',
   },
   {
-    day: 7, date: '6/18 (목)', phase: 'camino', title: '카미노 Day 5: Rubiães → Tui ⭐ 스페인 진입',
-    icon: '🇪🇸', desc: 'Valença 요새 마을 거쳐 미뉴 강 다리 건너 스페인 갈리시아 진입! Tui 대성당 방문 + 두 번째 도장.',
-    food: '풀포 아 페이라 (갈리시아식 문어)', stay: '알베르게 de Tui',
-    lat: 42.0466, lng: -8.6448, dist: '20km',
+    day: 7, date: '6/18 (목)', phase: 'camino', title: '🛥️ 전환일: Caminha 페리 → A Guarda → 🚌 Tui ⭐ 스페인',
+    icon: '🛥️', desc: '⭐ 페리로 미뉴 강 건너 스페인 A Guarda 진입! A Guarda 마을 산책 (Santa Trega 켈트 유적 옵션) → 버스로 Tui 이동. Tui 대성당 방문 + 두 번째 도장. 짧은 도보 + 이동.',
+    food: '갈리시아 풀포 아 페이라', stay: '알베르게 de Tui (수도원)',
+    lat: 42.0466, lng: -8.6448, dist: '10km',
   },
   {
-    day: 8, date: '6/19 (금)', phase: 'camino', title: '카미노 Day 6: Tui → Redondela ⚠️ 31km (O Porriño 통과)',
-    icon: '💪', desc: '⚠️ 가장 긴 구간 중 하나 (31km). O Porriño 통과해 Redondela까지. 새벽 6시 출발 권장. 점심은 O Porriño 중간 휴식.',
-    food: '엠파나다 갈레가, 알바리뇨', stay: '알베르게 de Redondela (또는 사립 펜션)',
+    day: 8, date: '6/19 (금)', phase: 'camino', title: '카미노 Day 5 (중앙): Tui → Redondela ⚠️ 31km',
+    icon: '💪', desc: '⚠️ 중앙길 합류 — 31km 통합일 (O Porriño 통과). 새벽 6시 출발 권장. 점심 O Porriño 중간 휴식. 갈리시아 시골길.',
+    food: '엠파나다 갈레가, 알바리뇨', stay: '알베르게 de Redondela',
     lat: 42.2839, lng: -8.6094, dist: '31km',
   },
   {
-    day: 9, date: '6/20 (토)', phase: 'camino', title: '카미노 Day 7: Redondela → Pontevedra',
+    day: 9, date: '6/20 (토)', phase: 'camino', title: '카미노 Day 6 (중앙): Redondela → Pontevedra',
     icon: '🐚', desc: '폰테베드라 구시가지 매우 아름다움. 광장에서 저녁 타파스 산책.',
     food: '폰테베드라 타파스 투어, 라콘', stay: '알베르게 Virxe Peregrina',
     lat: 42.4310, lng: -8.6440, dist: '19km',
   },
   {
-    day: 10, date: '6/21 (일)', phase: 'camino', title: '카미노 Day 8: Pontevedra → Caldas de Reis',
+    day: 10, date: '6/21 (일)', phase: 'camino', title: '카미노 Day 7 (중앙): Pontevedra → Caldas de Reis',
     icon: '♨️', desc: '온천 마을 칼다스 데 레이스 도착. 발 피로 회복에 최적.',
     food: '엠파나다, 라콘 콘 그렐로스', stay: '알베르게 de Caldas de Reis',
     lat: 42.6050, lng: -8.6420, dist: '22km',
   },
   {
-    day: 11, date: '6/22 (월)', phase: 'camino', title: '카미노 Day 9: Caldas → Padrón',
+    day: 11, date: '6/22 (월)', phase: 'camino', title: '카미노 Day 8 (중앙): Caldas → Padrón',
     icon: '🌶️', desc: '유칼립투스 숲길. 파드론 고추(피미엔토스)의 고향.',
     food: '피미엔토스 데 파드론 (꼭 먹기!)', stay: '알베르게 de Padrón',
     lat: 42.7400, lng: -8.6600, dist: '19km',
   },
   {
-    day: 12, date: '6/23 (화)', phase: 'camino', title: '⭐ Day 10: Padrón → Santiago de Compostela 도착!',
+    day: 12, date: '6/23 (화)', phase: 'camino', title: '⭐ Day 9: Padrón → Santiago de Compostela 도착!',
     icon: '⭐', desc: '대망의 마지막 구간! 산티아고 대성당이 보이는 순간 감동. 12시 순례자 미사 참석. Compostela 증명서 발급.',
     food: '타르타 데 산티아고, 풀포 아 페이라', stay: '산티아고 부티크 호텔 (자축 한 잔!)',
     lat: 42.8805, lng: -8.5457, dist: '24km',
@@ -128,10 +129,11 @@ export const SCHEDULE: DayData[] = [
   },
   // ===== SWITZERLAND (Day 13-18) — 6일 (Lucerne + Matterhorn + Interlaken 통합) =====
   {
-    day: 13, date: '6/24 (수)', phase: 'swiss', title: '🇨🇭 산티아고 → 취리히 → 루체른 · 큰아들 합류',
-    icon: '✈️', desc: '부부 SCQ → MAD → ZRH (Iberia 환승, ~5h). 큰아들 별도 ICN → ZRH 직항편 (Asiana OZ542). 취리히 공항 만남 → 기차로 루체른 (1h). 저녁 카펠교·구시가 산책 + 첫 만찬.',
+    day: 13, date: '6/24 (수)', phase: 'swiss', title: '🇨🇭 산티아고 → 취리히 + 둘째 합류 → 루체른 (3명)',
+    icon: '✈️', desc: '부부 SCQ → MAD → ZRH (Iberia 환승, ~5h). 둘째 별도 LON → ZRH 직항편 (Swiss/BA, 1h 45m, 캠브리지에서 공항으로). 취리히 공항에서 3명 만남! 기차로 루체른 (1h). 저녁 카펠교·구시가 산책 + 환영 만찬.',
     food: '기내식 + 루체른 정통 스위스 만찬 (Wirtshaus Galliker)', stay: '루체른 호텔 (3명, family room)',
     lat: 47.0502, lng: 8.3093,
+    transit: '✈️ 부부 SCQ→ZRH ~5h · 🛬 둘째 LON→ZRH 1h45m · 🚂 →Lucerne 1h',
     restaurants: ['Wirtshaus Galliker', 'Restaurant Schwanen'],
   },
   {
@@ -142,10 +144,11 @@ export const SCHEDULE: DayData[] = [
     restaurants: ['Pilatus Kulm 산정', 'Old Swiss House'],
   },
   {
-    day: 15, date: '6/26 (금)', phase: 'swiss', title: '🚂 루체른 → 체르마트 (Visp 환승, ~3.5h)',
-    icon: '🚂', desc: '오전 출발 — Luzern → Bern → Visp 환승 → Zermatt (3h 30m, 풍경 좋은 노선). 오후 체르마트 도착, 차량 없는 알프스 마을 산책. 마을 어디서나 마테호른 보임. 일몰 시 황금빛 마테호른 ("Alpenglühen").',
-    food: '기차 도시락 + 체르마트 정통 퐁듀', stay: '체르마트 호텔 (3명, family room) ⭐ NEW',
+    day: 15, date: '6/26 (금)', phase: 'swiss', title: '🚂 루체른 → 🇨🇭 ZRH 공항 ⭐ 큰아들 합류 → 체르마트 (4명!)',
+    icon: '✈️', desc: '⭐ 가족 4명 완성! 오전 루체른 → Zurich 공항 (기차 1h). 오후 ZRH 공항에서 큰아들 합류 (🇨🇭 Swiss LX111 ICN 09:30 → ZRH 14:50, ~13h 직항). 4명 함께 기차로 ZRH → Visp → Zermatt (~3h). 저녁 체르마트 도착, 황금빛 마테호른 야경 (Alpenglühen) + 환영 만찬.',
+    food: '공항 점심 · 체르마트 정통 퐁듀 환영 만찬', stay: '체르마트 호텔 (4명, family room + 1room)',
     lat: 46.0207, lng: 7.7491,
+    transit: '🚂 Lucerne→ZRH 1h · 🛬 큰아들 ICN→ZRH (LX111 09:30→14:50) · 🚂 ZRH→Zermatt ~3h',
     restaurants: ['Whymper-Stube (퐁듀)', 'Restaurant Schäferstube', 'Stefanie\'s Crêperie'],
   },
   {
@@ -160,6 +163,7 @@ export const SCHEDULE: DayData[] = [
     icon: '🚂', desc: '오전 체르마트 → Visp → Spiez → Interlaken (3h, 풍경 노선). 오후 도착 후 호텔 체크인. 늦은 오후 Harder Kulm 케이블카 → 전망대 (인터라켄 + 융프라우·아이거·묀히 삼봉 + Brienz·Thun 두 호수 조망).',
     food: '기차 도시락 · Harder Kulm 산정 만찬', stay: '인터라켄 호텔 (3명)',
     lat: 46.6863, lng: 7.8632,
+    transit: '🚂 Zermatt → Interlaken (3h)',
     restaurants: ['Harder Kulm Restaurant', 'Hotel Restaurant Bären'],
   },
   {
@@ -172,10 +176,11 @@ export const SCHEDULE: DayData[] = [
 
   // ===== UK CAMBRIDGE (Day 19-20) =====
   {
-    day: 19, date: '6/30 (화)', phase: 'london', title: '🛫 스위스 → 영국 → 캠브리지 · 둘째 합류 (4명)',
-    icon: '🛫', desc: '오전 인터라켄 → 취리히 기차 (2h). ZRH → LHR 비행 (Swiss/BA, 1h 45m). LHR → 캠브리지 (Elizabeth Line + LNER, ~2.5h). 캠브리지 저녁 도착, 둘째와 재회 — 가족 4명 완성! 졸업식 전야 가족 만찬.',
+    day: 19, date: '6/30 (화)', phase: 'london', title: '🛫 스위스 → 영국 → 캠브리지 (가족 4명 함께)',
+    icon: '🛫', desc: '가족 4명 함께 이동 — 오전 인터라켄 → 취리히 기차 (2h). ZRH → LHR 비행 (Swiss/BA, 1h 45m). LHR → 캠브리지 (Elizabeth Line + LNER, ~2.5h). 캠브리지 저녁 도착. 졸업식 전야 가족 만찬.',
     food: '취리히 공항 점심 + 캠브리지 졸업 전야 가족 만찬', stay: '캠브리지 호텔 (University Arms, 4명, 2 rooms)',
     lat: 52.2053, lng: 0.1218,
+    transit: '🚂 →ZRH 2h · ✈️ ZRH→LHR 1h45 · 🚂 →Cambridge 2.5h',
     restaurants: ['Midsummer House (미슐랭 2★)', 'Restaurant 22', 'The Eagle (역사적 펍)'],
   },
   {
@@ -183,6 +188,7 @@ export const SCHEDULE: DayData[] = [
     icon: '🎓', desc: '오전 ⭐ Senate House에서 캠브리지 졸업식 + 가족 사진. 점심 콜리지 가든 파티 + 펀팅. 오후 16시경 캠브리지 출발 — 둘째: → LHR → ICN 귀국편 (KE0908 19:35). 3명: → London → Eurostar → 파리 저녁 도착 + 첫 비스트로 만찬.',
     food: '졸업 축하 점심 · Eurostar 스낵 · 파리 비스트로 저녁', stay: '파리 부티크 호텔 (3명, 2 rooms)',
     lat: 52.2068, lng: 0.1181,
+    transit: '🎓 졸업식 → 둘째 ✈️ LHR→ICN · 3명 🚄 Eurostar →Paris',
     restaurants: ['Bistrot Paul Bert (파리)', 'Le Comptoir du Relais', 'The Eagle (펍)'],
   },
 
@@ -234,6 +240,7 @@ export const SCHEDULE: DayData[] = [
     icon: '🛫', desc: '오전 마지막 카페·산책 (Latin Quarter 또는 Marais). Du Pain et des Idées에서 크루아상. 점심 가벼운 식사 후 호텔 체크아웃 → RER B로 CDG. ⭐ KE5904 CDG 19:10 출발 → ICN 7/9 (목) 14:10 도착.',
     food: 'Du Pain et des Idées 크루아상 · 가벼운 점심 · CDG 라운지 · 기내식', stay: '기내 (7/9 점심 ICN 도착)',
     lat: 49.0097, lng: 2.5479,
+    transit: '✈️ CDG 19:10 → ICN 14:10+1 (KE5904, 12h)',
     restaurants: ['Du Pain et des Idées', 'Le Café Marly'],
   },
   {
@@ -241,6 +248,7 @@ export const SCHEDULE: DayData[] = [
     icon: '🏠', desc: 'ICN 14:10 도착. 입국 + 짐 찾기 → 점심 후 귀가. 7/9 오후 + 7/10 (금) 회복 후 7/13 (월) 정상 출근 또는 7/10 출근.',
     food: '오랜만의 한식 — 도착 후 첫 끼', stay: '집',
     lat: 37.4602, lng: 126.4407,
+    transit: '🛬 ICN 14:10 도착',
   },
 ];
 
@@ -489,7 +497,8 @@ export const BUDGET: BudgetItem[] = [
 export const FLIGHTS: FlightData[] = [
   { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 12:20 → 22:55', note: '👫 부부 2명 · 🇩🇪 루프트한자 LH713+LH1180 (FRA 2h25m 환승) · 18h 35m · 위탁 23kg + 휴대 8kg 포함 · 이코노미' },
   { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '👫 부부 2명 · 🇪🇸 Iberia (MAD 환승) · ~5h · 약 ₩400,000 × 2 = ₩800,000' },
-  { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.24 (수) 별도 비행', note: '🧑 큰아들 1명 · 🇰🇷 Asiana OZ542 또는 🇨🇭 Swiss 직항 · ~13h · 약 ₩1,600,000' },
+  { type: '합류', from: 'LON 런던', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '🧑 둘째 1명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · 약 ₩250,000 (캠브리지에서 LHR 또는 LCY 이동)' },
+  { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.26 (금) 09:30 → 14:50', note: '🧑 큰아들 1명 · 🇨🇭 Swiss LX111 직항 · 13h 20m · 약 ₩1,500,000 (6/26 오전 출발)' },
   { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 오전', note: '👨‍👩‍👦 3명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · ~₩200,000 × 3 = ₩600,000' },
   { type: '귀국-둘째', from: 'LHR 런던', to: 'ICN 인천', date: '2026.07.01 (수) 저녁', note: '👤 둘째 1명 · 🇰🇷 KE0908 19:35 → 7/2 16:15 ICN 도착 · 직항 12h 40m · ₩1,965,200' },
   { type: '경유', from: 'London 세인트팬크라스', to: 'Paris 가르 뒤 노르', date: '2026.07.01 (수) 졸업식 후 저녁', note: '👨‍👩‍👦 3명 · 🚄 Eurostar · 2h 20m · ₩180,000 × 3 = ₩540,000' },
@@ -520,7 +529,8 @@ export const CHECKLIST: ChecklistCategory[] = [
     items: [
       '✈️ 루프트한자 LH713+LH1180 ICN→OPO 부부 2인 예매 (6/12 금 12:20→22:55, FRA 환승, 위탁 23kg 포함)',
       '✈️ SCQ→ZRH 항공권 부부 2인 예매 (6/26, Iberia MAD 환승, ~₩400K/인)',
-      '✈️ 큰아들 ICN→ZRH 항공권 1인 예매 (6/26 도착, Asiana OZ542 또는 Swiss, ~₩1.6M)',
+      '✈️ 큰아들 Swiss LX111 ICN→ZRH 1인 예매 (6/26 금 09:30→14:50, 직항 ~₩1.5M)',
+      '✈️ 둘째 LON→ZRH 항공권 1인 예매 (6/24 수 오후, Swiss/BA, 1h 45m, ~₩250K)',
       '✈️ ZRH→LHR 항공권 3인 예매 (6/30 오전, Swiss/BA, ~₩200K/인)',
       '✈️ 둘째 KE0908 LHR→ICN 1인 예매 (7/1 졸업식 후 19:35, ₩1,965,200)',
       '✈️ KE5904 CDG→ICN 3인 예매 (7/8 수 19:10 → 7/9 목 14:10, ₩1,832,600/인)',

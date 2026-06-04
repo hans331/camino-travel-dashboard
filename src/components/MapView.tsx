@@ -8,10 +8,8 @@ import {
   InfoWindow,
   useMap,
 } from '@vis.gl/react-google-maps';
-import { SCHEDULE, PHASES, CAMINO_VARIANTS } from '@/lib/data';
+import { SCHEDULE, PHASES } from '@/lib/data';
 import type { DayData } from '@/lib/types';
-
-type CaminoRouteKey = 'central' | 'coastal' | 'hybrid';
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '';
 const MAP_ID = 'travel-dashboard-map';
@@ -19,32 +17,17 @@ const MAP_ID = 'travel-dashboard-map';
 const DEFAULT_CENTER = { lat: 45.0, lng: -4.0 };
 const DEFAULT_ZOOM = 5;
 
-function buildDisplayDays(caminoKey: CaminoRouteKey): DayData[] {
-  const caminoVariant = CAMINO_VARIANTS[caminoKey];
-  const others = SCHEDULE.filter((d) => d.phase !== 'camino');
-  const caminoDays: DayData[] = caminoVariant.stages.map((s) => ({
-    day: s.day,
-    date: s.date,
-    phase: 'camino' as const,
-    title: `${s.from} → ${s.to}`,
-    icon: '🐚',
-    desc: `🚶 ${s.km}km · ${caminoVariant.label} 루트${s.note ? ` · ${s.note}` : ''}`,
-    food: caminoVariant.key === 'coastal' ? '해산물 · 풀포 · 알바리뇨' : caminoVariant.key === 'hybrid' && s.day <= 6 ? '해산물·시골 음식 혼합' : '시골 메뉴 · 알베르게 식사',
-    stay: '알베르게 / 펜션',
-    lat: s.lat,
-    lng: s.lng,
-    dist: `${s.km}km`,
-  }));
-  return [...others, ...caminoDays].sort((a, b) => a.day - b.day);
+// SCHEDULE에서 모든 일자 직접 사용 (CAMINO/SWISS variants 토글 제거됨)
+function buildDisplayDays(): DayData[] {
+  return SCHEDULE;
 }
 
-function getPhaseGroups(days: DayData[], caminoColor: string) {
+function getPhaseGroups(days: DayData[]) {
   const groups: { phase: string; color: string; coords: { lat: number; lng: number }[] }[] = [];
   let currentPhase = '';
   let currentCoords: { lat: number; lng: number }[] = [];
 
   const colorFor = (phase: string) => {
-    if (phase === 'camino') return caminoColor;
     return PHASES[phase as keyof typeof PHASES]?.color ?? '#666';
   };
 
@@ -75,7 +58,7 @@ function getPhaseGroups(days: DayData[], caminoColor: string) {
   return groups;
 }
 
-function PolylineRenderer({ days, caminoColor }: { days: DayData[]; caminoColor: string }) {
+function PolylineRenderer({ days }: { days: DayData[] }) {
   const map = useMap();
   const polylinesRef = useRef<google.maps.Polyline[]>([]);
 
@@ -85,7 +68,7 @@ function PolylineRenderer({ days, caminoColor }: { days: DayData[]; caminoColor:
     polylinesRef.current.forEach((pl) => pl.setMap(null));
     polylinesRef.current = [];
 
-    const groups = getPhaseGroups(days, caminoColor);
+    const groups = getPhaseGroups(days);
     for (const group of groups) {
       const isFlight = group.phase === 'london' || group.phase === 'paris';
       const polyline = new google.maps.Polyline({
@@ -110,7 +93,7 @@ function PolylineRenderer({ days, caminoColor }: { days: DayData[]; caminoColor:
       polylinesRef.current.forEach((pl) => pl.setMap(null));
       polylinesRef.current = [];
     };
-  }, [map, days, caminoColor]);
+  }, [map, days]);
 
   return null;
 }
@@ -147,20 +130,13 @@ interface MapViewProps {
 }
 
 export default function MapView({ selectedPhase }: MapViewProps) {
-  const [caminoRoute, setCaminoRoute] = useState<CaminoRouteKey>('central');
   const [selectedDay, setSelectedDay] = useState<DayData | null>(null);
 
-  const caminoVariant = CAMINO_VARIANTS[caminoRoute];
-  const displayDays = useMemo(() => buildDisplayDays(caminoRoute), [caminoRoute]);
+  const displayDays = useMemo(() => buildDisplayDays(), []);
 
   const handleMarkerClick = useCallback((day: DayData) => {
     setSelectedDay(day);
   }, []);
-
-  // Close info when route changes
-  useEffect(() => {
-    setSelectedDay(null);
-  }, [caminoRoute]);
 
   return (
     <div>
@@ -169,38 +145,19 @@ export default function MapView({ selectedPhase }: MapViewProps) {
         <p>포르토(2일) → 카미노(10일) → 🇨🇭 스위스 6일 (🏔️ Lucerne + ⛰️ Matterhorn + 융프라우요호) → 캠브리지 → 파리(8일·MSM) → 인천 · 28일 (6/12~7/9)</p>
       </div>
 
-      {/* Camino route variant selector */}
+      {/* Camino route info (Hybrid 확정) */}
       <div className="camino-route-selector">
         <div className="camino-route-label">
-          🐚 <strong>카미노 루트 선택</strong> — 지도에서 직접 비교해보세요
+          🐚 <strong>카미노 10일 — 하이브리드 루트 (확정)</strong>
         </div>
-        <div className="camino-route-tabs">
-          {(['central', 'coastal', 'hybrid'] as CaminoRouteKey[]).map((key) => {
-            const v = CAMINO_VARIANTS[key];
-            const isActive = caminoRoute === key;
-            return (
-              <button
-                key={key}
-                className={`camino-route-tab ${isActive ? 'active' : ''}`}
-                onClick={() => setCaminoRoute(key)}
-                style={isActive ? { background: v.color, borderColor: v.color, color: '#fff' } : { borderColor: v.color }}
-              >
-                <span className="camino-route-tab-emoji">{v.emoji}</span>
-                <span className="camino-route-tab-label">{v.label}</span>
-                <span className="camino-route-tab-km" style={isActive ? { color: 'rgba(255,255,255,0.9)' } : { color: v.color }}>
-                  {v.totalKm}km · {v.days}일
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="camino-route-info" style={{ borderLeftColor: caminoVariant.color }}>
-          <div className="camino-route-info-desc">{caminoVariant.emoji} {caminoVariant.desc}</div>
+        <div className="camino-route-info" style={{ borderLeftColor: PHASES.camino.color }}>
+          <div className="camino-route-info-desc">🌊+🌳 해안 4일 (Porto→Caminha) + 🛥️ 페리 전환 + 🌳 중앙 5일 (Tui→Santiago) · 228km</div>
           <ul className="camino-route-info-highlights">
-            {caminoVariant.highlights.map((h) => (
-              <li key={h}>{h}</li>
-            ))}
+            <li>🌊 Day 1-4: 대서양 해안 (Vila do Conde, Esposende, Viana, Caminha)</li>
+            <li>🛥️ Day 5: Caminha 페리 → A Guarda 스페인 진입 + 버스 → Tui</li>
+            <li>🌳 Day 6-10: 중앙길 (Tui → Pontevedra → Padrón → Santiago)</li>
+            <li>💪 Day 6 통합일 31km (Tui→Redondela, 새벽 출발)</li>
+            <li>⭐ 해안의 시원함 + 중앙길의 그늘 = 양쪽 장점</li>
           </ul>
         </div>
       </div>
@@ -222,19 +179,12 @@ export default function MapView({ selectedPhase }: MapViewProps) {
       </div>
 
       <div className="map-legend">
-        {Object.entries(PHASES).map(([key, info]) => {
-          const isCamino = key === 'camino';
-          const displayColor = isCamino ? caminoVariant.color : info.color;
-          const displayLabel = isCamino
-            ? `${caminoVariant.emoji} ${caminoVariant.label}`
-            : `${info.emoji} ${info.label}`;
-          return (
-            <div key={key} className="legend-item">
-              <span className="legend-dot" style={{ background: displayColor }} />
-              <span>{displayLabel}</span>
-            </div>
-          );
-        })}
+        {Object.entries(PHASES).map(([key, info]) => (
+          <div key={key} className="legend-item">
+            <span className="legend-dot" style={{ background: info.color }} />
+            <span>{info.emoji} {info.label}</span>
+          </div>
+        ))}
         <div className="legend-item" style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontWeight: 500 }}>
           마커 클릭 → 일정 상세
         </div>
@@ -253,28 +203,21 @@ export default function MapView({ selectedPhase }: MapViewProps) {
             mapTypeControl={false}
           >
             <FitBounds days={displayDays} selectedPhase={selectedPhase} />
-            <PolylineRenderer days={displayDays} caminoColor={caminoVariant.color} />
+            <PolylineRenderer days={displayDays} />
 
-            {displayDays.map((day) => {
-              const isCamino = day.phase === 'camino';
-              const markerColor = isCamino ? caminoVariant.color : PHASES[day.phase].color;
-              return (
-                <AdvancedMarker
-                  key={day.day}
-                  position={{ lat: day.lat, lng: day.lng }}
-                  onClick={() => handleMarkerClick(day)}
-                  title={`Day ${day.day}: ${day.title}`}
-                >
-                  <span
-                    className={`day-marker ${day.phase}`}
-                    style={isCamino ? { background: markerColor } : undefined}
-                  >
-                    <span className="marker-emoji">{day.icon}</span>
-                    {day.day}
-                  </span>
-                </AdvancedMarker>
-              );
-            })}
+            {displayDays.map((day) => (
+              <AdvancedMarker
+                key={day.day}
+                position={{ lat: day.lat, lng: day.lng }}
+                onClick={() => handleMarkerClick(day)}
+                title={`Day ${day.day}: ${day.title}`}
+              >
+                <span className={`day-marker ${day.phase}`}>
+                  <span className="marker-emoji">{day.icon}</span>
+                  {day.day}
+                </span>
+              </AdvancedMarker>
+            ))}
 
             {selectedDay && (
               <InfoWindow

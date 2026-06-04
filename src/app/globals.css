@@ -835,6 +835,25 @@ body {
   font-weight: 600;
 }
 
+.calendar-trip-transit {
+  font-size: 0.68rem;
+  color: var(--primary-dark);
+  font-weight: 700;
+  line-height: 1.3;
+  word-break: keep-all;
+  background: rgba(22, 163, 74, 0.08);
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .calendar-trip-transit {
+    font-size: 0.6rem;
+    padding: 1px 3px;
+  }
+}
+
 /* ============ PHASE ACCORDION ============ */
 .expand-controls {
   display: flex;
