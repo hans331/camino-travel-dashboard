@@ -77,12 +77,12 @@ export const NAV_ITEMS = [
 export const SCHEDULE: DayData[] = [
   // ===== PORTO (Day 1-2) — 2일 =====
   {
-    day: 1, date: '6/12 (금)', phase: 'porto', title: '👫 부부 출발: 인천 → 포르토 (Lufthansa)',
-    icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/24 스위스 합류, 둘째 6/30 캠브리지 합류). 🇩🇪 LH713 ICN 12:20 → FRA 18:40 (13h 20m, A350-900) → 2h 25m 환승 → LH1180 FRA 21:05 → OPO 22:55 (2h 50m, A321NEO). 야간 도착 → 호텔 직행 후 취침. 다음날(Day 2) 종일 포르토 관광.',
-    food: '기내식 (점심+저녁) · FRA 환승 시 가벼운 스낵', stay: '포르토 부티크 호텔',
+    day: 1, date: '6/12 (금)', phase: 'porto', title: '👫 부부 출발: 인천 → 포르토 (Swiss Air)',
+    icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/25 스위스 합류, 둘째 6/24 ZRH 합류). 🇨🇭 Swiss Air LX ICN 09:30 → ZRH (50분 환승) → OPO 18:15 도착 (16h 45m, Economy Basic Plus). 6/15 예매 ₩1,988,000 → 6/12로 변경 결제 완료. 저녁 호텔 체크인 + 동 루이스 1세 다리 야경 + ⭐ 포르토 대성당에서 순례자 크리덴셜 수령 + 리베이라 가벼운 저녁.',
+    food: '기내식 + 리베이라 강변 비스트로 (프란세지냐 또는 생선)', stay: '포르토 부티크 호텔',
     lat: 41.1579, lng: -8.6291,
-    transit: '✈️ ICN 12:20 → OPO 22:55 (18h 35m)',
-    restaurants: ['(다음날) Cafe Santiago', 'Cervejaria Brasão'],
+    transit: '✈️ ICN 09:30 → OPO 18:15 (16h 45m, Swiss LX)',
+    restaurants: ['Cafe Santiago (프란세지냐 원조)', 'Cervejaria Brasão'],
   },
   {
     day: 2, date: '6/13 (토)', phase: 'porto', title: '🍷 포르토 시내 관광 종일',
@@ -511,7 +511,7 @@ export const ACCOMMODATIONS: Accommodation[] = [
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,633,000', amtNum: 10633000, detail: '🇩🇪 LH713+LH1180 ICN→OPO×2 (~₩2.0M, 6/12 예매전) + Iberia SCQ→ZRH×2 (~₩0.8M 추정) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ZRH→LHR×4 (~₩0.8M) + 둘째 KE0908 LHR→ICN (~₩1.97M) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
+  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,621,000', amtNum: 10621000, detail: '⏳ Swiss Air LX ICN→OPO×2 (₩1,988,000, 6/12 변경 결제완료 ZRH 환승) + Iberia SCQ→ZRH×2 (~₩0.8M 추정) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ZRH→LHR×4 (~₩0.8M) + 둘째 KE0908 LHR→ICN (~₩1.97M) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
   { id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000, detail: '21박 · 포르토 2박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 체르마트 2박(3명, 비쌈) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명)', pct: 23, color: '#EA580C' },
   { id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000, detail: '포르토 2일×2명 + 카미노 11일×2명×₩50K + 🇨🇭 스위스 6일×3명×₩120K (체르마트 비쌈) + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K', pct: 17, color: '#16A34A' },
   { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
@@ -523,7 +523,7 @@ export const BUDGET: BudgetItem[] = [
 ];
 
 export const FLIGHTS: FlightData[] = [
-  { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 12:20 → 22:55', note: '👫 부부 2명 · 🇩🇪 루프트한자 LH713+LH1180 (FRA 2h25m 환승) · 18h 35m · 위탁 23kg + 휴대 8kg 포함 · 이코노미' },
+  { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 09:30 → 18:15', note: '✅ 변경 결제 완료 (⏳ 항공사 시스템 반영 대기) · 👫 부부 2명 · 🇨🇭 Swiss Air LX (ZRH 환승) · 16h 45m · Economy Basic Plus · 기존 6/15 예매 ₩1,988,000을 6/12로 날짜 변경' },
   { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '👫 부부 2명 · 🇪🇸 Iberia (MAD 환승) · ~5h · 약 ₩400,000 × 2 = ₩800,000' },
   { type: '합류', from: 'LON 런던', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '🧑 둘째 1명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · 약 ₩250,000 (캠브리지에서 LHR 또는 LCY 이동)' },
   { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.25 (목) 11:05 → 17:25', note: '✅ 예매완료 🧑 큰아들 1명 · 🇰🇷 KE917 직항 (B787-10) · 13h 20m · ₩1,273,500 · 일반석 스탠다드' },
@@ -557,7 +557,7 @@ export const CHECKLIST: ChecklistCategory[] = [
     items: [
       '✅ 큰아들 KE917 ICN→ZRH 1인 예매완료 (6/25 목 11:05→17:25, 직항 B787-10, ₩1,273,500)',
       '✅ 가족 LH2229+LH718 CDG→ICN 3인 예매완료 (7/8 수 12:00 → 7/9 목 09:55, MUC 환승, €2,198.97 = ₩3,958,146 @ ₩1,800/EUR)',
-      '🇩🇪 부부 LH713+LH1180 ICN→OPO 2인 예매 (6/12 금 12:20→22:55, FRA 환승)',
+      '⏳ 부부 Swiss Air LX ICN→OPO 2인 변경 결제 완료 (6/15→6/12 금 09:30→18:15, ZRH 환승, ₩1,988,000 기준 — 항공사 시스템 반영 대기 중)',
       '🇪🇸 부부 Iberia SCQ→MAD→ZRH 2인 예매 (6/24 수 오후, ~5h)',
       '🇨🇭 둘째 Swiss/BA LON→ZRH 1인 예매 (6/24 수 오후, 캠브리지→LHR→ZRH, 1h 45m)',
       '🇨🇭 가족 4명 Swiss/BA ZRH→LHR 예매 (6/30 화 오전, 1h 45m)',
