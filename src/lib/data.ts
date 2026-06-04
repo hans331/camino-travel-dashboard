@@ -164,11 +164,12 @@ export const SCHEDULE: DayData[] = [
     restaurants: ['Wirtshaus Galliker', 'Restaurant Schwanen'],
   },
   {
-    day: 14, date: '6/25 (목)', phase: 'swiss', title: '🏔️ 루체른: Mt. Pilatus Golden Round + 호수',
-    icon: '🏔️', desc: 'Mt. Pilatus Golden Round Trip — 보트 → 세계 최가파른 톱니바퀴 열차 (48°) → 정상 2,128m → 케이블카 하산. 오후 Lake Lucerne 보트 크루즈. 카펠교 + 사자 기념비.',
-    food: 'Pilatus 산정 레스토랑 점심 · 호숫가 저녁', stay: '루체른 호텔',
+    day: 14, date: '6/25 (목)', phase: 'swiss', title: '🏔️ Mt. Pilatus + 🇰🇷 큰아들 합류 (저녁, 4명 완성!)',
+    icon: '🏔️', desc: 'Mt. Pilatus Golden Round Trip — 보트 → 세계 최가파른 톱니바퀴 열차 (48°) → 정상 2,128m → 케이블카 하산. 오후 Lake Lucerne 보트 크루즈 + 카펠교. ⭐ 저녁: 큰아들 합류 — ✅ KE917 ICN 11:05 → ZRH 17:25 직항 (B787-10) → 기차 ZRH→Lucerne 1h → 19시경 호텔 도착. 가족 4명 환영 만찬!',
+    food: 'Pilatus 산정 점심 · 큰아들 환영 만찬 (스위스 정통 라클렛/퐁듀)', stay: '루체른 호텔 (Day 14 저녁부터 4명)',
     lat: 46.9789, lng: 8.2528,
-    restaurants: ['Pilatus Kulm 산정', 'Old Swiss House'],
+    transit: '🇰🇷 큰아들 KE917 ICN→ZRH 13h 20m (17:25 도착) + 🚂 ZRH→Lucerne 1h',
+    restaurants: ['Pilatus Kulm 산정', 'Old Swiss House', 'Wirtshaus Galliker (환영)'],
   },
   {
     day: 15, date: '6/26 (금)', phase: 'swiss', title: '🚂 루체른 → 체르마트 (가족 4명 함께, 3.5h)',
