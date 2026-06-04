@@ -10,7 +10,7 @@ interface SidebarProps {
   onPhaseSelect?: (phase: string) => void;
 }
 
-const TRIP_START = new Date('2026-06-15');
+const TRIP_START = new Date('2026-06-12');
 
 function getDDay(): number {
   const now = new Date();
@@ -19,14 +19,14 @@ function getDDay(): number {
 }
 
 const PHASE_SEGMENTS = [
-  { key: 'porto', days: 1 },
+  { key: 'porto', days: 2 },
   { key: 'camino', days: 10 },
-  { key: 'swiss', days: 4 },
+  { key: 'swiss', days: 6 },
   { key: 'london', days: 2 },
   { key: 'paris', days: 8 },
 ] as const;
 
-const TOTAL_DAYS = 25;
+const TOTAL_DAYS = 28;
 
 export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onPhaseSelect }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -98,7 +98,7 @@ export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onP
               <span className="sidebar-brand-emoji">🐚</span>
               <span className="sidebar-brand-emoji-text">Walk Camino Together</span>
             </h1>
-            {!isCollapsed && <p>포르토 · 카미노(10일) · 스위스 · 캠브리지 · 파리(8일) 25일</p>}
+            {!isCollapsed && <p>포르토(2일) · 카미노(10일) · 스위스(6일·🏔️⛰️) · 캠브리지 · 파리(8일) 28일</p>}
           </div>
           <button className="theme-btn" onClick={toggleTheme} title={isDark ? '라이트 모드' : '다크 모드'} aria-label="테마 전환">
             {isDark ? '☀️' : '🌙'}
@@ -107,25 +107,25 @@ export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onP
 
         <div className="sidebar-dday">
           <div className="dday-number">{ddayText}</div>
-          {!isCollapsed && <div className="dday-label">2026.06.15 (월) 출발 ✈️</div>}
+          {!isCollapsed && <div className="dday-label">2026.06.12 (금) 출발 ✈️</div>}
         </div>
 
         {!isCollapsed && (
           <div className="sidebar-party">
             <div className="sidebar-party-row">
-              <span><span className="party-emoji">👫</span> 부부 (Day 1-11)</span>
+              <span><span className="party-emoji">👫</span> 부부 (Day 1-12)</span>
               <span className="party-count">2명</span>
             </div>
             <div className="sidebar-party-row">
-              <span><span className="party-emoji">👨‍👩‍👦</span> +큰아들 스위스 (Day 12)</span>
+              <span><span className="party-emoji">👨‍👩‍👦</span> +큰아들 스위스 (Day 13)</span>
               <span className="party-count">3명</span>
             </div>
             <div className="sidebar-party-row">
-              <span><span className="party-emoji">👨‍👩‍👦‍👦</span> +둘째 캠브리지 (Day 16)</span>
+              <span><span className="party-emoji">👨‍👩‍👦‍👦</span> +둘째 캠브리지 (Day 19)</span>
               <span className="party-count">4명</span>
             </div>
             <div className="sidebar-party-row">
-              <span><span className="party-emoji">👨‍👩‍👦</span> 둘째 귀국 후 파리 (Day 17+)</span>
+              <span><span className="party-emoji">👨‍👩‍👦</span> 둘째 귀국 후 파리 (Day 20+)</span>
               <span className="party-count">3명</span>
             </div>
           </div>

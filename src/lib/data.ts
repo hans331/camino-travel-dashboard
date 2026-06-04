@@ -10,8 +10,8 @@ import type {
   ChecklistCategory,
 } from './types';
 
-// Trip start: 2026-06-15 (Monday)
-export const TRIP_START_ISO = '2026-06-15';
+// Trip start: 2026-06-12 (Friday)
+export const TRIP_START_ISO = '2026-06-12';
 
 // Helper: compute calendar Date for a given trip day number
 export function getDayDate(dayNum: number): Date {
@@ -48,175 +48,196 @@ export const NAV_ITEMS = [
 ] as const;
 
 export const SCHEDULE: DayData[] = [
-  // ===== PORTO (Day 1) — 1일 단축 =====
+  // ===== PORTO (Day 1-2) — 2일 =====
   {
-    day: 1, date: '6/15 (월)', phase: 'porto', title: '👫 부부 출발: 인천 → 포르토 (Swiss Air) + 저녁 산책',
-    icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/26 스위스 합류, 둘째 6/30 캠브리지 합류). ✅ 예매완료 🇨🇭 Swiss Air LX ICN 09:30 → ZRH (50분 환승) → OPO 18:15 도착 (16h 45m, Economy Basic Plus, ₩1,988,000/2인). 저녁 호텔 체크인 → 동 루이스 1세 다리 야경 + 포르토 대성당에서 ⭐ 순례자 크리덴셜 수령 (저녁 7시까지) + 리베이라 지구 가벼운 저녁.',
-    food: '기내식 + 리베이라 강변 비스트로 (프란세지냐 또는 생선)', stay: '포르토 부티크 호텔 (1박)',
+    day: 1, date: '6/12 (금)', phase: 'porto', title: '👫 부부 출발: 인천 → 포르토 (Swiss Air)',
+    icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/24 스위스 합류, 둘째 6/30 캠브리지 합류). ⚠️ 항공권 6/15 → 6/12 변경 필요. 🇨🇭 Swiss Air LX ICN 09:30 → ZRH (50분 환승) → OPO 18:15 도착. 저녁 호텔 체크인 → 동 루이스 1세 다리 야경 + 포르토 대성당에서 ⭐ 순례자 크리덴셜 수령 + 리베이라 가벼운 저녁.',
+    food: '기내식 + 리베이라 강변 비스트로', stay: '포르토 부티크 호텔',
     lat: 41.1579, lng: -8.6291,
     restaurants: ['Cafe Santiago (프란세지냐 원조)', 'Cervejaria Brasão'],
   },
-
-  // ===== CAMINO (Day 2-11) — 10일 =====
   {
-    day: 2, date: '6/16 (화)', phase: 'camino', title: '카미노 Day 1: 포르토 → Vairão',
+    day: 2, date: '6/13 (토)', phase: 'porto', title: '🍷 포르토 시내 관광 종일',
+    icon: '🍷', desc: '여유로운 포르토 탐방 — 동 루이스 1세 다리, 리베이라 지구 워킹, 도루강 크루즈, 빌라 노바 데 가이아 포트와인 셀러 투어 (Taylor\'s/Graham\'s), 클레리고스 탑, Cafe Majestic, Livraria Lello 서점.',
+    food: '프란세지냐, 비파나, 포트와인', stay: '포르토 부티크 호텔',
+    lat: 41.1409, lng: -8.6132,
+    restaurants: ['Cafe Santiago', 'Cafe Majestic', "Taylor's Port Cellar", 'Cervejaria Brasão'],
+  },
+
+  // ===== CAMINO (Day 3-12) — 10일 =====
+  {
+    day: 3, date: '6/14 (일)', phase: 'camino', title: '카미노 Day 1: 포르토 → Vairão',
     icon: '🐚', desc: '카미노 포르투게스 출발! 포르토 대성당에서 (전날 받은) 크리덴셜 활용. 도시 외곽까지 27km, 첫날이라 무리하지 말 것.',
     food: '아침 페이스트리, 알베르게 순례자 메뉴', stay: '알베르게 (Vairão Monastery)',
     lat: 41.3411, lng: -8.6694, dist: '27km',
   },
   {
-    day: 3, date: '6/17 (수)', phase: 'camino', title: '카미노 Day 2: Vairão → Barcelos',
+    day: 4, date: '6/15 (월)', phase: 'camino', title: '카미노 Day 2: Vairão → Barcelos',
     icon: '🐚', desc: 'Rates 시골길 통과. 바르셀로스 도착, 수탉 전설의 도시.',
     food: '바칼랴우 아 브라스, 콜드 그린 수프', stay: '알베르게 Cidade de Barcelos',
     lat: 41.5314, lng: -8.6150, dist: '29km',
   },
   {
-    day: 4, date: '6/18 (목)', phase: 'camino', title: '카미노 Day 3: Barcelos → Ponte de Lima',
+    day: 5, date: '6/16 (화)', phase: 'camino', title: '카미노 Day 3: Barcelos → Ponte de Lima',
     icon: '🐚', desc: '리마 강변의 중세 마을. 포르투갈에서 가장 오래된 마을. 가장 긴 구간이므로 새벽 출발.',
     food: '아로스 드 사라불류, 비뇨 베르드', stay: '알베르게 de Ponte de Lima',
     lat: 41.7674, lng: -8.5840, dist: '33km',
   },
   {
-    day: 5, date: '6/19 (금)', phase: 'camino', title: '카미노 Day 4: Ponte de Lima → Rubiães',
+    day: 6, date: '6/17 (수)', phase: 'camino', title: '카미노 Day 4: Ponte de Lima → Rubiães',
     icon: '🐚', desc: '오르막길 — Alto da Portela Grande. 짧은 구간이라 회복일.',
     food: '콘예슈 구이, 알베르게 순례자 메뉴', stay: '알베르게 São Pedro de Rubiães',
     lat: 41.9089, lng: -8.5733, dist: '18km',
   },
   {
-    day: 6, date: '6/20 (토)', phase: 'camino', title: '카미노 Day 5: Rubiães → Tui ⭐ 스페인 진입',
+    day: 7, date: '6/18 (목)', phase: 'camino', title: '카미노 Day 5: Rubiães → Tui ⭐ 스페인 진입',
     icon: '🇪🇸', desc: 'Valença 요새 마을 거쳐 미뉴 강 다리 건너 스페인 갈리시아 진입! Tui 대성당 방문 + 두 번째 도장.',
     food: '풀포 아 페이라 (갈리시아식 문어)', stay: '알베르게 de Tui',
     lat: 42.0466, lng: -8.6448, dist: '20km',
   },
   {
-    day: 7, date: '6/21 (일)', phase: 'camino', title: '카미노 Day 6: Tui → Redondela ⚠️ 31km (O Porriño 통과)',
+    day: 8, date: '6/19 (금)', phase: 'camino', title: '카미노 Day 6: Tui → Redondela ⚠️ 31km (O Porriño 통과)',
     icon: '💪', desc: '⚠️ 가장 긴 구간 중 하나 (31km). O Porriño 통과해 Redondela까지. 새벽 6시 출발 권장. 점심은 O Porriño 중간 휴식.',
     food: '엠파나다 갈레가, 알바리뇨', stay: '알베르게 de Redondela (또는 사립 펜션)',
     lat: 42.2839, lng: -8.6094, dist: '31km',
   },
   {
-    day: 8, date: '6/22 (월)', phase: 'camino', title: '카미노 Day 7: Redondela → Pontevedra',
+    day: 9, date: '6/20 (토)', phase: 'camino', title: '카미노 Day 7: Redondela → Pontevedra',
     icon: '🐚', desc: '폰테베드라 구시가지 매우 아름다움. 광장에서 저녁 타파스 산책.',
     food: '폰테베드라 타파스 투어, 라콘', stay: '알베르게 Virxe Peregrina',
     lat: 42.4310, lng: -8.6440, dist: '19km',
   },
   {
-    day: 9, date: '6/23 (화)', phase: 'camino', title: '카미노 Day 8: Pontevedra → Caldas de Reis',
+    day: 10, date: '6/21 (일)', phase: 'camino', title: '카미노 Day 8: Pontevedra → Caldas de Reis',
     icon: '♨️', desc: '온천 마을 칼다스 데 레이스 도착. 발 피로 회복에 최적.',
     food: '엠파나다, 라콘 콘 그렐로스', stay: '알베르게 de Caldas de Reis',
     lat: 42.6050, lng: -8.6420, dist: '22km',
   },
   {
-    day: 10, date: '6/24 (수)', phase: 'camino', title: '카미노 Day 9: Caldas → Padrón',
+    day: 11, date: '6/22 (월)', phase: 'camino', title: '카미노 Day 9: Caldas → Padrón',
     icon: '🌶️', desc: '유칼립투스 숲길. 파드론 고추(피미엔토스)의 고향.',
     food: '피미엔토스 데 파드론 (꼭 먹기!)', stay: '알베르게 de Padrón',
     lat: 42.7400, lng: -8.6600, dist: '19km',
   },
   {
-    day: 11, date: '6/25 (목)', phase: 'camino', title: '⭐ Day 10: Padrón → Santiago de Compostela 도착!',
+    day: 12, date: '6/23 (화)', phase: 'camino', title: '⭐ Day 10: Padrón → Santiago de Compostela 도착!',
     icon: '⭐', desc: '대망의 마지막 구간! 산티아고 대성당이 보이는 순간 감동. 12시 순례자 미사 참석. Compostela 증명서 발급.',
     food: '타르타 데 산티아고, 풀포 아 페이라', stay: '산티아고 부티크 호텔 (자축 한 잔!)',
     lat: 42.8805, lng: -8.5457, dist: '24km',
     restaurants: ['O Curro da Parra', 'Abastos 2.0', 'Casa Marcelo'],
   },
-  // ===== SWITZERLAND (Day 12-15) =====
+  // ===== SWITZERLAND (Day 13-18) — 6일 (Lucerne + Matterhorn + Interlaken 통합) =====
   {
-    day: 12, date: '6/26 (금)', phase: 'swiss', title: '🇨🇭 산티아고 → 취리히 → 루체른 · 큰아들 합류',
-    icon: '✈️', desc: '부부 SCQ → MAD → ZRH (Iberia 환승, ~5h). 큰아들 별도 ICN → ZRH 직항편 (Asiana OZ542 또는 LH/KE 환승, ~13h). 두 그룹 취리히 공항에서 합류 → 기차로 루체른 (1h). 저녁 카펠교·구시가 산책 + 첫 만찬.',
-    food: '기내식 + 루체른 정통 스위스 만찬 (Wirtshaus Galliker)', stay: '루체른 호텔 (3명, 2 rooms 또는 family room)',
+    day: 13, date: '6/24 (수)', phase: 'swiss', title: '🇨🇭 산티아고 → 취리히 → 루체른 · 큰아들 합류',
+    icon: '✈️', desc: '부부 SCQ → MAD → ZRH (Iberia 환승, ~5h). 큰아들 별도 ICN → ZRH 직항편 (Asiana OZ542). 취리히 공항 만남 → 기차로 루체른 (1h). 저녁 카펠교·구시가 산책 + 첫 만찬.',
+    food: '기내식 + 루체른 정통 스위스 만찬 (Wirtshaus Galliker)', stay: '루체른 호텔 (3명, family room)',
     lat: 47.0502, lng: 8.3093,
-    restaurants: ['Wirtshaus Galliker (정통)', 'Restaurant Schwanen', 'Mr. Pickwick Pub'],
+    restaurants: ['Wirtshaus Galliker', 'Restaurant Schwanen'],
   },
   {
-    day: 13, date: '6/27 (토)', phase: 'swiss', title: '🏔️ 루체른: Mt. Pilatus + 호수 크루즈',
-    icon: '🏔️', desc: 'Mt. Pilatus Golden Round Trip — 보트 (Alpnachstad) → 세계에서 가장 가파른 톱니바퀴 열차 → 정상 2,128m → 케이블카 하산. 오후 Lake Lucerne 보트 크루즈. 카펠교(중세 목조 다리) + 사자 기념비.',
+    day: 14, date: '6/25 (목)', phase: 'swiss', title: '🏔️ 루체른: Mt. Pilatus Golden Round + 호수',
+    icon: '🏔️', desc: 'Mt. Pilatus Golden Round Trip — 보트 → 세계 최가파른 톱니바퀴 열차 (48°) → 정상 2,128m → 케이블카 하산. 오후 Lake Lucerne 보트 크루즈. 카펠교 + 사자 기념비.',
     food: 'Pilatus 산정 레스토랑 점심 · 호숫가 저녁', stay: '루체른 호텔',
     lat: 46.9789, lng: 8.2528,
-    restaurants: ['Pilatus Kulm 산정 (점심)', 'Old Swiss House'],
+    restaurants: ['Pilatus Kulm 산정', 'Old Swiss House'],
   },
   {
-    day: 14, date: '6/28 (일)', phase: 'swiss', title: '🚂 루체른 → 인터라켄 (GoldenPass 파노라마)',
-    icon: '🚂', desc: 'GoldenPass Line — 알프스를 가로지르는 파노라마 열차 (~2h, Brünig Pass 경유). 인터라켄 도착 후 호텔 체크인. 늦은 오후 Harder Kulm 전망대 (인터라켄 야경 + 융프라우·아이거·묀히 삼봉 조망).',
-    food: 'GoldenPass 도시락 · Harder Kulm 산정 만찬', stay: '인터라켄 호텔 (3명)',
+    day: 15, date: '6/26 (금)', phase: 'swiss', title: '🚂 루체른 → 체르마트 (Visp 환승, ~3.5h)',
+    icon: '🚂', desc: '오전 출발 — Luzern → Bern → Visp 환승 → Zermatt (3h 30m, 풍경 좋은 노선). 오후 체르마트 도착, 차량 없는 알프스 마을 산책. 마을 어디서나 마테호른 보임. 일몰 시 황금빛 마테호른 ("Alpenglühen").',
+    food: '기차 도시락 + 체르마트 정통 퐁듀', stay: '체르마트 호텔 (3명, family room) ⭐ NEW',
+    lat: 46.0207, lng: 7.7491,
+    restaurants: ['Whymper-Stube (퐁듀)', 'Restaurant Schäferstube', 'Stefanie\'s Crêperie'],
+  },
+  {
+    day: 16, date: '6/27 (토)', phase: 'swiss', title: '⛰️ 마테호른 — Gornergrat + Sunnegga (Stellisee)',
+    icon: '⛰️', desc: '⭐ 새벽 출발 (구름 없는 마테호른 뷰). Gornergrat 톱니바퀴 열차 → 3,089m 정상 (마테호른 클래식 뷰 + 29개 4,000m 봉우리 + Gorner 빙하). 오후 Sunnegga 케이블카 → Stellisee 호수 (마테호른 반영 ⭐ 인스타 명소).',
+    food: 'Gornergrat 산정 레스토랑 점심 · Stellisee 피크닉 · 체르마트 저녁', stay: '체르마트 호텔',
+    lat: 45.9836, lng: 7.7855,
+    restaurants: ['Restaurant 3100 (Gornergrat 산정)', 'Schäferstube', 'Findlerhof'],
+  },
+  {
+    day: 17, date: '6/28 (일)', phase: 'swiss', title: '🚂 체르마트 → 인터라켄 (~3h) + Harder Kulm',
+    icon: '🚂', desc: '오전 체르마트 → Visp → Spiez → Interlaken (3h, 풍경 노선). 오후 도착 후 호텔 체크인. 늦은 오후 Harder Kulm 케이블카 → 전망대 (인터라켄 + 융프라우·아이거·묀히 삼봉 + Brienz·Thun 두 호수 조망).',
+    food: '기차 도시락 · Harder Kulm 산정 만찬', stay: '인터라켄 호텔 (3명)',
     lat: 46.6863, lng: 7.8632,
     restaurants: ['Harder Kulm Restaurant', 'Hotel Restaurant Bären'],
   },
   {
-    day: 15, date: '6/29 (월)', phase: 'swiss', title: '⛰️ 융프라우요호 — Top of Europe (3,454m)',
-    icon: '⛰️', desc: '⭐ 인터라켄 → 라우터브룬넨 → 클라이네 샤이덱 → 융프라우요호. 유럽 최고 기차역, Aletsch 빙하 + Sphinx 전망대. 하산 후 라우터브룬넨 폭포 골짜기 산책 (72개 폭포의 마을, 톨킨 영감지).',
+    day: 18, date: '6/29 (월)', phase: 'swiss', title: '⛰️ 융프라우요호 — Top of Europe (3,454m)',
+    icon: '⛰️', desc: '⭐ 인터라켄 → 라우터브룬넨 → 클라이네 샤이덱 → 융프라우요호. 유럽 最高 기차역, Aletsch 빙하 + Sphinx 전망대. 하산 후 라우터브룬넨 폭포 골짜기 (72개 폭포, 톨킨 영감지).',
     food: '융프라우 산정 레스토랑 · 라우터브룬넨 마을 저녁', stay: '인터라켄 호텔',
     lat: 46.5470, lng: 7.9854,
     restaurants: ['Bollywood (Top of Europe 카레)', 'Restaurant Airtime'],
   },
 
-  // ===== UK CAMBRIDGE (Day 16-17) =====
+  // ===== UK CAMBRIDGE (Day 19-20) =====
   {
-    day: 16, date: '6/30 (화)', phase: 'london', title: '🛫 스위스 → 영국 → 캠브리지 · 둘째 합류 (4명)',
+    day: 19, date: '6/30 (화)', phase: 'london', title: '🛫 스위스 → 영국 → 캠브리지 · 둘째 합류 (4명)',
     icon: '🛫', desc: '오전 인터라켄 → 취리히 기차 (2h). ZRH → LHR 비행 (Swiss/BA, 1h 45m). LHR → 캠브리지 (Elizabeth Line + LNER, ~2.5h). 캠브리지 저녁 도착, 둘째와 재회 — 가족 4명 완성! 졸업식 전야 가족 만찬.',
     food: '취리히 공항 점심 + 캠브리지 졸업 전야 가족 만찬', stay: '캠브리지 호텔 (University Arms, 4명, 2 rooms)',
     lat: 52.2053, lng: 0.1218,
     restaurants: ['Midsummer House (미슐랭 2★)', 'Restaurant 22', 'The Eagle (역사적 펍)'],
   },
   {
-    day: 17, date: '7/1 (수)', phase: 'london', title: '🎓 졸업식 + 가족 분리 (둘째 귀국 / 3명 → 파리)',
+    day: 20, date: '7/1 (수)', phase: 'london', title: '🎓 졸업식 + 가족 분리 (둘째 귀국 / 3명 → 파리)',
     icon: '🎓', desc: '오전 ⭐ Senate House에서 캠브리지 졸업식 + 가족 사진. 점심 콜리지 가든 파티 + 펀팅. 오후 16시경 캠브리지 출발 — 둘째: → LHR → ICN 귀국편 (KE0908 19:35). 3명: → London → Eurostar → 파리 저녁 도착 + 첫 비스트로 만찬.',
     food: '졸업 축하 점심 · Eurostar 스낵 · 파리 비스트로 저녁', stay: '파리 부티크 호텔 (3명, 2 rooms)',
     lat: 52.2068, lng: 0.1181,
     restaurants: ['Bistrot Paul Bert (파리)', 'Le Comptoir du Relais', 'The Eagle (펍)'],
   },
 
-  // ===== PARIS (Day 18-25) — 8일 (7박), Mont-Saint-Michel 포함 =====
+  // ===== PARIS (Day 21-28) — 8일 (7박), Mont-Saint-Michel 포함 =====
   {
-    day: 18, date: '7/2 (목)', phase: 'paris', title: '🎨 오르세 · 에펠탑 · 세느강',
+    day: 21, date: '7/2 (목)', phase: 'paris', title: '🎨 오르세 · 에펠탑 · 세느강',
     icon: '🎨', desc: '오전 ⭐ 오르세 미술관 (인상파의 성지: 모네·고흐·세잔). 점심 후 에펠탑 + 트로카데로 전망. 늦은 오후 세느강 유람선 + 일몰. 라탱지구·생제르맹 저녁.',
     food: '오르세 카페 점심 · 크루아상 · 에스카르고 · 뵈프 부르기뇽', stay: '파리 부티크 호텔',
     lat: 48.8600, lng: 2.3266,
     restaurants: ['Café de Flore', "L'Ami Jean", 'Le Procope'],
   },
   {
-    day: 19, date: '7/3 (금)', phase: 'paris', title: '👑 베르사유 궁전 당일치기',
+    day: 22, date: '7/3 (금)', phase: 'paris', title: '👑 베르사유 궁전 당일치기',
     icon: '👑', desc: 'RER C로 베르사유 도착 (45분). 궁전 + 정원 + 트리아농 전체 관람 (사전 예매 필수). 평일이라 토요일보다 한산. 저녁 파리 복귀 후 마레지구 비스트로.',
     food: '베르사유 정원 피크닉 + 마레지구 저녁', stay: '파리 부티크 호텔',
     lat: 48.8048, lng: 2.1203,
     restaurants: ['Breizh Café', "L'As du Fallafel"],
   },
   {
-    day: 20, date: '7/4 (토)', phase: 'paris', title: '🖼️ 루브르 + 마레 + 노트르담',
+    day: 23, date: '7/4 (토)', phase: 'paris', title: '🖼️ 루브르 + 마레 + 노트르담',
     icon: '🖼️', desc: '오전 루브르 박물관 (모나리자·비너스·니케). 점심 후 마레지구 산책 + 보주 광장 + 피카소 미술관. 늦은 오후 노트르담 + 생트샤펠 + 라탱지구.',
     food: '루브르 카페 점심 · 마레 팔라펠 · 라탱지구 저녁', stay: '파리 부티크 호텔',
     lat: 48.8606, lng: 2.3376,
     restaurants: ['Bouillon Chartier', 'Le Marais Lounge'],
   },
   {
-    day: 21, date: '7/5 (일)', phase: 'paris', title: '🌻 지베르니 당일치기 (모네의 정원)',
+    day: 24, date: '7/5 (일)', phase: 'paris', title: '🌻 지베르니 당일치기 (모네의 정원)',
     icon: '🌻', desc: '⭐ 파리 → 지베르니 (1h 기차 + 셔틀). 모네의 집과 수련 연못 — 인상파의 발상지. 노르망디 시골 풍경. 저녁 파리 복귀, 노천 카페.',
     food: '지베르니 인근 비스트로 점심 · 파리 노천 카페 저녁', stay: '파리 부티크 호텔',
     lat: 49.0758, lng: 1.5331,
     restaurants: ['Hôtel Baudy (지베르니, 모네 단골)', 'Le Café Marly'],
   },
   {
-    day: 22, date: '7/6 (월)', phase: 'paris', title: '🏰 Mont-Saint-Michel 당일치기 ⭐ NEW',
+    day: 25, date: '7/6 (월)', phase: 'paris', title: '🏰 Mont-Saint-Michel 당일치기',
     icon: '🏰', desc: '⭐ 파리 → Mont-Saint-Michel (TGV 2h + 셔틀 1h 15m). 노르망디 바다 위 수도원 — 프랑스 최고 명소. 새벽 출발 → 저녁 귀환 (왕복 ~12h). 입장권·셔틀·TGV 사전 예매 필수.',
     food: 'TGV 도시락 · La Mère Poulard 오믈렛 (현지 명물) · 늦은 파리 저녁', stay: '파리 부티크 호텔',
     lat: 48.6361, lng: -1.5114,
     restaurants: ['La Mère Poulard (Mont-Saint-Michel)', 'Le Pré Salé'],
   },
   {
-    day: 23, date: '7/7 (화)', phase: 'paris', title: '🎭 몽마르뜨 + l\'Orangerie + 쇼핑',
+    day: 26, date: '7/7 (화)', phase: 'paris', title: '🎭 몽마르뜨 + l\'Orangerie + 쇼핑',
     icon: '🎭', desc: '오전 몽마르뜨·사크레쾨르 + 예술가 광장 + 마지막 마카롱(Pierre Hermé). 점심 후 l\'Orangerie (모네 수련 대벽화) + Tuileries 정원. 저녁 Galeries Lafayette 옥상 + 쇼핑.',
     food: 'Pink Mamma 점심 · 마카롱 · 마지막 비스트로 만찬', stay: '파리 부티크 호텔',
     lat: 48.8867, lng: 2.3431,
     restaurants: ['Pink Mamma', 'Pierre Hermé', 'Bouillon Pigalle'],
   },
   {
-    day: 24, date: '7/8 (수)', phase: 'paris', title: '☕ 마지막 파리 + 🛫 CDG → 인천',
+    day: 27, date: '7/8 (수)', phase: 'paris', title: '☕ 마지막 파리 + 🛫 CDG → 인천',
     icon: '🛫', desc: '오전 마지막 카페·산책 (Latin Quarter 또는 Marais). Du Pain et des Idées에서 크루아상. 점심 가벼운 식사 후 호텔 체크아웃 → RER B로 CDG. ⭐ KE5904 CDG 19:10 출발 → ICN 7/9 (목) 14:10 도착.',
     food: 'Du Pain et des Idées 크루아상 · 가벼운 점심 · CDG 라운지 · 기내식', stay: '기내 (7/9 점심 ICN 도착)',
     lat: 49.0097, lng: 2.5479,
     restaurants: ['Du Pain et des Idées', 'Le Café Marly'],
   },
   {
-    day: 25, date: '7/9 (목)', phase: 'paris', title: '🏠 인천 도착 (점심시간)',
+    day: 28, date: '7/9 (목)', phase: 'paris', title: '🏠 인천 도착 (점심시간)',
     icon: '🏠', desc: 'ICN 14:10 도착. 입국 + 짐 찾기 → 점심 후 귀가. 7/9 오후 + 7/10 (금) 회복 후 7/13 (월) 정상 출근 또는 7/10 출근.',
     food: '오랜만의 한식 — 도착 후 첫 끼', stay: '집',
     lat: 37.4602, lng: 126.4407,
@@ -258,16 +279,16 @@ export const CAMINO_VARIANTS: Record<'central' | 'coastal' | 'hybrid', CaminoVar
     days: 10,
     highlights: ['Ponte de Lima 중세 마을', 'Tui 대성당·국경 다리', '유칼립투스·소나무 숲 그늘', 'O Porriño 통과 (Day 6 31km, 새벽 출발)', '시골 알베르게 정통 경험'],
     stages: [
-      { day: 2, date: '6/16 (화)', from: 'Porto', to: 'Vairão', km: 27, lat: 41.3411, lng: -8.6694 },
-      { day: 3, date: '6/17 (수)', from: 'Vairão', to: 'Barcelos', km: 29, lat: 41.5314, lng: -8.6150 },
-      { day: 4, date: '6/18 (목)', from: 'Barcelos', to: 'Ponte de Lima', km: 33, lat: 41.7674, lng: -8.5840 },
-      { day: 5, date: '6/19 (금)', from: 'Ponte de Lima', to: 'Rubiães', km: 18, lat: 41.9089, lng: -8.5733 },
-      { day: 6, date: '6/20 (토)', from: 'Rubiães', to: 'Tui', km: 20, lat: 42.0466, lng: -8.6448, note: '🇪🇸 스페인 진입' },
-      { day: 7, date: '6/21 (일)', from: 'Tui', to: 'Redondela (O Porriño 통과)', km: 31, lat: 42.2839, lng: -8.6094, note: '⚠️ 최장일 31km' },
-      { day: 8, date: '6/22 (월)', from: 'Redondela', to: 'Pontevedra', km: 19, lat: 42.4310, lng: -8.6440 },
-      { day: 9, date: '6/23 (화)', from: 'Pontevedra', to: 'Caldas de Reis', km: 22, lat: 42.6050, lng: -8.6420 },
-      { day: 10, date: '6/24 (수)', from: 'Caldas', to: 'Padrón', km: 19, lat: 42.7400, lng: -8.6600 },
-      { day: 11, date: '6/25 (목)', from: 'Padrón', to: 'Santiago', km: 24, lat: 42.8805, lng: -8.5457, note: '⭐ 산티아고 도착' },
+      { day: 3, date: '6/14 (일)', from: 'Porto', to: 'Vairão', km: 27, lat: 41.3411, lng: -8.6694 },
+      { day: 4, date: '6/15 (월)', from: 'Vairão', to: 'Barcelos', km: 29, lat: 41.5314, lng: -8.6150 },
+      { day: 5, date: '6/16 (화)', from: 'Barcelos', to: 'Ponte de Lima', km: 33, lat: 41.7674, lng: -8.5840 },
+      { day: 6, date: '6/17 (수)', from: 'Ponte de Lima', to: 'Rubiães', km: 18, lat: 41.9089, lng: -8.5733 },
+      { day: 7, date: '6/18 (목)', from: 'Rubiães', to: 'Tui', km: 20, lat: 42.0466, lng: -8.6448, note: '🇪🇸 스페인 진입' },
+      { day: 8, date: '6/19 (금)', from: 'Tui', to: 'Redondela (O Porriño 통과)', km: 31, lat: 42.2839, lng: -8.6094, note: '⚠️ 최장일 31km' },
+      { day: 9, date: '6/20 (토)', from: 'Redondela', to: 'Pontevedra', km: 19, lat: 42.4310, lng: -8.6440 },
+      { day: 10, date: '6/21 (일)', from: 'Pontevedra', to: 'Caldas de Reis', km: 22, lat: 42.6050, lng: -8.6420 },
+      { day: 11, date: '6/22 (월)', from: 'Caldas', to: 'Padrón', km: 19, lat: 42.7400, lng: -8.6600 },
+      { day: 12, date: '6/23 (화)', from: 'Padrón', to: 'Santiago', km: 24, lat: 42.8805, lng: -8.5457, note: '⭐ 산티아고 도착' },
     ],
   },
   coastal: {
@@ -344,51 +365,36 @@ export interface SwissVariant {
 export const SWISS_VARIANTS: Record<'lucerne' | 'matterhorn', SwissVariant> = {
   lucerne: {
     key: 'lucerne',
-    label: '루체른 안 (현재)',
+    label: '🏔️ 루체른 구간',
     emoji: '🏔️',
     color: '#16A34A',
-    desc: 'Lucerne(Pilatus) + Interlaken(Jungfraujoch) · 호수·정통 스위스',
-    days: 4,
-    highlights: [
-      '🌉 카펠교 + Lake Lucerne 크루즈',
-      '🏔️ Mt. Pilatus Golden Round Trip',
-      '🚂 GoldenPass 파노라마 열차',
-      '⛰️ 융프라우요호 Top of Europe',
-    ],
+    desc: 'Day 13-14 · Lucerne + Mt. Pilatus',
+    days: 2,
+    highlights: ['🌉 카펠교 + Lake Lucerne 크루즈', '🏔️ Mt. Pilatus Golden Round Trip (2,128m)', '🦁 사자 기념비', '🧀 정통 스위스 퐁듀'],
     tradeoffs: {
-      pro: ['이동 거리 짧음', '루체른 중세 도시 매력', '카펠교·사자기념비 명소', '호수 크루즈 여유'],
-      con: ['Matterhorn 못 봄', 'Mt. Pilatus는 인지도 ↓ 명소'],
+      pro: ['중세 도시 매력', '호수 + 산 결합', '취리히 가까움'],
+      con: ['차량 통행 도시'],
     },
     stages: [
-      { day: 12, date: '6/26 (금)', title: 'Santiago → 취리히 → Lucerne', city: 'Lucerne', lat: 47.0502, lng: 8.3093, note: '큰아들 합류' },
-      { day: 13, date: '6/27 (토)', title: 'Mt. Pilatus Golden Round + 호수', city: 'Mt. Pilatus', lat: 46.9789, lng: 8.2528 },
-      { day: 14, date: '6/28 (일)', title: 'GoldenPass → Interlaken', city: 'Interlaken', lat: 46.6863, lng: 7.8632 },
-      { day: 15, date: '6/29 (월)', title: '⛰️ 융프라우요호 (Top of Europe)', city: 'Jungfraujoch', lat: 46.5470, lng: 7.9854 },
+      { day: 13, date: '6/24 (수)', title: 'Santiago → 취리히 → Lucerne', city: 'Lucerne', lat: 47.0502, lng: 8.3093, note: '큰아들 합류' },
+      { day: 14, date: '6/25 (목)', title: 'Mt. Pilatus Golden Round + 호수', city: 'Mt. Pilatus', lat: 46.9789, lng: 8.2528 },
     ],
   },
   matterhorn: {
     key: 'matterhorn',
-    label: '마테호른 안',
+    label: '⛰️ 마테호른 구간',
     emoji: '⛰️',
     color: '#DC2626',
-    desc: 'Zermatt(Matterhorn) + Interlaken(Jungfraujoch) · 알프스 정점',
-    days: 4,
-    highlights: [
-      '⛰️ Matterhorn 클래식 뷰 (Gornergrat 3,089m)',
-      '🪞 Stellisee 호수 Matterhorn 반영 (Sunnegga)',
-      '🏔️ Klein Matterhorn 3,883m (유럽 최고 케이블카) 옵션',
-      '🚙 차량 없는 알프스 청정 마을',
-      '⛰️ 융프라우요호 Top of Europe',
-    ],
+    desc: 'Day 15-16 · Zermatt + Matterhorn (Gornergrat)',
+    days: 2,
+    highlights: ['⛰️ Matterhorn 클래식 뷰 (Gornergrat 3,089m)', '🪞 Stellisee 호수 Matterhorn 반영 (Sunnegga)', '🚙 차량 없는 청정 알프스 마을', '🧀 체르마트 정통 퐁듀'],
     tradeoffs: {
-      pro: ['Matterhorn — 세계에서 가장 유명한 산', '알프스 정점 경험 (해발 3,000m+)', '체르마트 차량없는 청정 마을', '융프라우+마테호른 = 스위스 정점 콤보'],
-      con: ['이동 거리 ↑ (취리히→체르마트 3h)', 'Lucerne·Pilatus 포기', '체르마트 숙박비 ↑ (CHF 350-500/박)', '날씨 의존도 ↑ (구름 시 못 봄)'],
+      pro: ['세계 최유명 산', '알프스 정점 경험', '차량 없는 청정 마을'],
+      con: ['숙박비 ↑ (CHF 350+/박)', '날씨 의존도 ↑'],
     },
     stages: [
-      { day: 12, date: '6/26 (금)', title: 'Santiago → 취리히 → Zermatt', city: 'Zermatt', lat: 46.0207, lng: 7.7491, note: '큰아들 합류, Visp 환승' },
-      { day: 13, date: '6/27 (토)', title: '⛰️ Gornergrat + Sunnegga (Matterhorn)', city: 'Gornergrat', lat: 45.9836, lng: 7.7855 },
-      { day: 14, date: '6/28 (일)', title: 'Zermatt → Interlaken (3h)', city: 'Interlaken', lat: 46.6863, lng: 7.8632 },
-      { day: 15, date: '6/29 (월)', title: '⛰️ 융프라우요호 (Top of Europe)', city: 'Jungfraujoch', lat: 46.5470, lng: 7.9854 },
+      { day: 15, date: '6/26 (금)', title: 'Lucerne → Zermatt (3.5h)', city: 'Zermatt', lat: 46.0207, lng: 7.7491 },
+      { day: 16, date: '6/27 (토)', title: '⛰️ Gornergrat + Sunnegga (Matterhorn)', city: 'Gornergrat', lat: 45.9836, lng: 7.7855 },
     ],
   },
 };
@@ -449,7 +455,7 @@ export const FOODS: Food[] = [
 ];
 
 export const ACCOMMODATIONS: Accommodation[] = [
-  { phase: 'porto', city: '포르토', name: 'The Editory Boulevard Aliados', type: '부티크 호텔', price: '€95/박 (1박, 부부)', desc: '6/15 1박 · 부부 더블룸 · Swiss Air 18:15 도착 후 1박. 시내 중심, 조식 포함.', emoji: '🏨' },
+  { phase: 'porto', city: '포르토', name: 'The Editory Boulevard Aliados', type: '부티크 호텔', price: '€95/박 (2박, 부부)', desc: '6/12-13 2박 · 부부 더블룸 · Day 1 야간 도착, Day 2 포르토 종일 관광.', emoji: '🏨' },
   { phase: 'camino', city: 'Vairão', name: 'Albergue do Mosteiro de Vairão', type: '알베르게', price: '€10/박', desc: '수도원 알베르게. 첫날 정통 순례자 경험.', emoji: '🛏️' },
   { phase: 'camino', city: 'Barcelos', name: 'Albergue Cidade de Barcelos', type: '알베르게', price: '€8/박', desc: '시내 중심, 시장 근처. 깨끗하고 가성비 좋음.', emoji: '🛏️' },
   { phase: 'camino', city: 'Ponte de Lima', name: 'Albergue de Peregrinos', type: '공립 알베르게', price: '€7/박', desc: '강변, 마을 외곽. 일찍 도착 권장.', emoji: '🛏️' },
@@ -461,28 +467,29 @@ export const ACCOMMODATIONS: Accommodation[] = [
   { phase: 'camino', city: 'Caldas de Reis', name: 'Albergue Municipal', type: '공립 알베르게', price: '€8/박', desc: '♨️ 온천 마을 — 도착 후 온천욕 가능.', emoji: '🛏️' },
   { phase: 'camino', city: 'Padrón', name: 'Albergue de Padrón', type: '공립 알베르게', price: '€8/박', desc: '강변, 시장 근처. 파드론 고추 꼭 먹기.', emoji: '🛏️' },
   { phase: 'camino', city: '산티아고', name: 'Hotel Costa Vella', type: '부티크 호텔', price: '€110/박 (부부)', desc: '⭐ 6/25 — 순례 완주 자축! 부부 더블룸, 구시가지·정원 뷰.', emoji: '🏨' },
-  { phase: 'swiss', city: '루체른', name: 'Hotel des Balances 또는 Schweizerhof', type: '부티크 호텔', price: 'CHF 280/박 × 2박 (3명, family room)', desc: '6/26-27 2박 · 3명 (부부 + 큰아들) · 카펠교 도보권, 호수 뷰.', emoji: '🏨' },
-  { phase: 'swiss', city: '인터라켄', name: 'Hotel Interlaken 또는 Royal St Georges', type: '부티크 호텔', price: 'CHF 250/박 × 2박 (3명, family room)', desc: '6/28-29 2박 · 융프라우 조망, 두 호수(Brienz·Thun) 사이.', emoji: '🏨' },
+  { phase: 'swiss', city: '루체른', name: 'Hotel des Balances 또는 Schweizerhof', type: '부티크 호텔', price: 'CHF 280/박 × 2박 (3명, family room)', desc: '6/24-25 2박 · 3명 · 카펠교 도보권, 호수 뷰.', emoji: '🏨' },
+  { phase: 'swiss', city: '체르마트', name: 'Hotel Schweizerhof Zermatt 또는 Cervo Mountain Resort', type: '부티크 호텔', price: 'CHF 400/박 × 2박 (3명, family room) ⭐ NEW', desc: '6/26-27 2박 · 마테호른 뷰 객실 · 차량 없는 청정 마을.', emoji: '🏨' },
+  { phase: 'swiss', city: '인터라켄', name: 'Hotel Interlaken 또는 Royal St Georges', type: '부티크 호텔', price: 'CHF 250/박 × 2박 (3명, family room)', desc: '6/28-29 2박 · 융프라우 조망, 두 호수 사이.', emoji: '🏨' },
   { phase: 'london', city: '캠브리지', name: 'University Arms', type: '럭셔리 호텔', price: '£260/박 × 2 rooms × 1박 (4명)', desc: '🎓 6/30 1박 · 가족 4명 2 rooms · Parker\'s Piece 앞 클래식 호텔.', emoji: '🏨' },
   { phase: 'paris', city: '파리', name: 'Hôtel des Grands Boulevards', type: '부티크 호텔', price: '€230/박 × 2 rooms × 7박 (3명)', desc: '7/1-7 7박 · 3명 (부부 + 큰아들) · 9구 중심. ⭐ 파리 8일 연장 (Mont-Saint-Michel + 지베르니 포함).', emoji: '🏨' },
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩12,000,000', amtNum: 12000000, detail: '✅ Swiss LX ICN→OPO×2 (₩1.99M, 예매완료) + SCQ→ZRH×2 (₩0.8M) + 큰아들 ICN→ZRH×1 (~₩1.6M) + ZRH→LHR×3 (₩0.6M) + 둘째 KE0908 LHR→ICN×1 (₩1.97M) + Eurostar LON→PAR×3 (₩0.54M) + KE5904 CDG→ICN×3 (₩5.5M)', pct: 30, color: '#2563EB' },
-  { id: 'accommodation', cat: '🏨 숙소', amt: '₩8,400,000', amtNum: 8400000, detail: '18박 · 포르토 1박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명, +4박 연장)', pct: 21, color: '#EA580C' },
-  { id: 'food', cat: '🍽️ 식비', amt: '₩6,800,000', amtNum: 6800000, detail: '카미노 11일×2명×₩50K + 🇨🇭 스위스 4일×3명×₩120K + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K (대폭 연장)', pct: 17, color: '#16A34A' },
+  { id: 'flight', cat: '✈️ 항공권', amt: '₩12,300,000', amtNum: 12300000, detail: 'Swiss LX ICN→OPO×2 (₩2.0M + 변경수수료) + SCQ→ZRH×2 (₩0.8M) + 큰아들 ICN→ZRH×1 (~₩1.6M) + ZRH→LHR×3 (₩0.6M) + 둘째 KE0908 LHR→ICN×1 (₩1.97M) + Eurostar LON→PAR×3 (₩0.54M) + KE5904 CDG→ICN×3 (₩5.5M)', pct: 28, color: '#2563EB' },
+  { id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000, detail: '21박 · 포르토 2박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 체르마트 2박(3명, 비쌈) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명)', pct: 23, color: '#EA580C' },
+  { id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000, detail: '포르토 2일×2명 + 카미노 11일×2명×₩50K + 🇨🇭 스위스 6일×3명×₩120K (체르마트 비쌈) + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K', pct: 17, color: '#16A34A' },
   { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
-  { id: 'transport', cat: '🚄 교통', amt: '₩1,800,000', amtNum: 1800000, detail: 'Swiss Travel Pass 4-day × 3명 (~₩1.3M) + Versailles RER C + 시내 이동 + LHR→Cambridge + 카미노 짐 운반', pct: 5, color: '#7C3AED' },
-  { id: 'admission', cat: '🎫 체험·입장료', amt: '₩2,000,000', amtNum: 2000000, detail: '🏔️ Mt. Pilatus + 융프라우요호 (3명) + 베르사유·루브르·오르세·에펠탑·l\'Orangerie + 펀팅 + 🌻 지베르니 + 🏰 Mont-Saint-Michel TGV·셔틀·입장 (3명, ~₩500K)', pct: 6, color: '#F59E0B' },
+  { id: 'transport', cat: '🚄 교통', amt: '₩2,400,000', amtNum: 2400000, detail: 'Swiss Travel Pass 6-day × 3명 (~₩1.8M) + Versailles RER C + 시내 이동 + LHR→Cambridge + 카미노 짐 운반', pct: 5, color: '#7C3AED' },
+  { id: 'admission', cat: '🎫 체험·입장료', amt: '₩2,500,000', amtNum: 2500000, detail: '🏔️ Mt. Pilatus + ⛰️ Gornergrat (마테호른) + 융프라우요호 (3명) + 베르사유·루브르·오르세·에펠탑·l\'Orangerie + 🌻 지베르니 + 🏰 Mont-Saint-Michel', pct: 6, color: '#F59E0B' },
   { id: 'graduation', cat: '🎓 졸업식', amt: '₩800,000', amtNum: 800000, detail: '가족 사진·축하 만찬·선물·가운 대여', pct: 2, color: '#DB2777' },
   { id: 'insurance', cat: '🛡️ 보험·eSIM·ETA', amt: '₩500,000', amtNum: 500000, detail: '여행자 보험 부부 2명 (하이킹 커버) + eSIM 4명 + UK ETA 4명 (£40)', pct: 2, color: '#C2185B' },
   { id: 'misc', cat: '💝 기타·예비', amt: '₩2,000,000', amtNum: 2000000, detail: '기념품·쇼핑·예비비 (스위스 물가 높음 고려)', pct: 6, color: '#475569' },
 ];
 
 export const FLIGHTS: FlightData[] = [
-  { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.15 (월) 09:30 → 18:15', note: '👫 부부 2명 · 🇨🇭 Swiss Air LX (ZRH 50분 환승) · 16h 45m · Economy Basic Plus · ✅ 실제 예매가 ₩1,988,000 (₩994,000/인)' },
-  { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.26 (금) 오후', note: '👫 부부 2명 · 🇪🇸 Iberia (MAD 환승) · ~5h · 약 ₩400,000 × 2 = ₩800,000' },
-  { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.26 (금) 별도 비행', note: '🧑 큰아들 1명 · 🇰🇷 Asiana OZ542 또는 🇨🇭 Swiss 직항 · ~13h · 약 ₩1,600,000' },
+  { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 09:30 → 18:15', note: '👫 부부 2명 · 🇨🇭 Swiss Air LX (ZRH 환승) · 16h 45m · Economy Basic Plus · ⚠️ 기존 6/15 예매 → 6/12 변경 필요 (~₩2.0M)' },
+  { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '👫 부부 2명 · 🇪🇸 Iberia (MAD 환승) · ~5h · 약 ₩400,000 × 2 = ₩800,000' },
+  { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.24 (수) 별도 비행', note: '🧑 큰아들 1명 · 🇰🇷 Asiana OZ542 또는 🇨🇭 Swiss 직항 · ~13h · 약 ₩1,600,000' },
   { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 오전', note: '👨‍👩‍👦 3명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · ~₩200,000 × 3 = ₩600,000' },
   { type: '귀국-둘째', from: 'LHR 런던', to: 'ICN 인천', date: '2026.07.01 (수) 저녁', note: '👤 둘째 1명 · 🇰🇷 KE0908 19:35 → 7/2 16:15 ICN 도착 · 직항 12h 40m · ₩1,965,200' },
   { type: '경유', from: 'London 세인트팬크라스', to: 'Paris 가르 뒤 노르', date: '2026.07.01 (수) 졸업식 후 저녁', note: '👨‍👩‍👦 3명 · 🚄 Eurostar · 2h 20m · ₩180,000 × 3 = ₩540,000' },
@@ -511,7 +518,7 @@ export const CHECKLIST: ChecklistCategory[] = [
   {
     title: '🚨 즉시 예약·준비 (D-10)',
     items: [
-      '✅ Swiss Air LX ICN→OPO 부부 2인 예매완료 (6/15 월 09:30→18:15, Economy Basic Plus, ₩1,988,000/2인)',
+      '⚠️ Swiss Air LX ICN→OPO 날짜 변경 (6/15 → 6/12 금, 09:30→18:15) · Swiss Air 콜센터 문의',
       '✈️ SCQ→ZRH 항공권 부부 2인 예매 (6/26, Iberia MAD 환승, ~₩400K/인)',
       '✈️ 큰아들 ICN→ZRH 항공권 1인 예매 (6/26 도착, Asiana OZ542 또는 Swiss, ~₩1.6M)',
       '✈️ ZRH→LHR 항공권 3인 예매 (6/30 오전, Swiss/BA, ~₩200K/인)',
@@ -522,15 +529,17 @@ export const CHECKLIST: ChecklistCategory[] = [
       '🚂 Swiss Travel Pass 4-day 3인 (CHF 280/인 × 3 = ~₩1.3M)',
       '🛂 UK ETA 4명 신청 (£10/인 × 4, 48-72h 승인)',
       '🇨🇭 스위스는 신고불요 (Schengen) — 그러나 카미노→스위스→영국 동선 환승 시간 확인',
-      '🏨 포르토 부티크 호텔 1박 예약 (6/15, 부부 더블룸)',
+      '🏨 포르토 부티크 호텔 2박 예약 (6/12-13, 부부 더블룸)',
       '🏨 산티아고 Hotel Costa Vella 1박 예약 (6/25, 부부)',
-      '🏨 루체른 호텔 2박 예약 (6/26-27, 3명 family room)',
+      '🏨 루체른 호텔 2박 예약 (6/24-25, 3명 family room)',
+      '🏨 ⭐ 체르마트 호텔 2박 예약 (6/26-27, 3명, 마테호른 뷰)',
       '🏨 인터라켄 호텔 2박 예약 (6/28-29, 3명 family room)',
       '🏨 캠브리지 University Arms 1박 예약 (6/30, 4명 2 rooms)',
       '🏨 파리 Hôtel des Grands Boulevards 7박 예약 (7/1-7, 3명 2 rooms) ⭐ 8일 연장',
       '🛏️ 카미노 사립 알베르게 핵심 예약 (Ponte de Lima, Tui, Pontevedra, Padrón)',
       '🎫 융프라우요호 사전 예매 3인 (CHF 232/인 × 3, 6/29)',
-      '🎫 Mt. Pilatus Golden Round 3인 (CHF 78/인 × 3, 6/27)',
+      '🎫 Mt. Pilatus Golden Round 3인 (CHF 78/인 × 3, 6/25)',
+      '🎫 ⭐ Gornergrat 톱니바퀴 열차 3인 (CHF 132/인 × 3, 6/27 — 마테호른)',
       '🎫 베르사유 궁전 입장권 3명 사전 예매 (7/3 금요일)',
       '🎫 루브르 박물관 입장권 3명 사전 예매 (7/4 토요일)',
       '🎫 오르세 미술관 입장권 3명 사전 예매 (7/2 목요일)',
@@ -539,7 +548,7 @@ export const CHECKLIST: ChecklistCategory[] = [
       '🏰 Mont-Saint-Michel TGV + 셔틀 + 입장권 3명 (7/6 월, ~₩170K/인)',
       '📦 카미노 짐 운반 서비스 알아보기 (Tuitrans·Correos, €6/일)',
       '🛡️ 여행자 보험 가입 (하이킹 커버, 부부 2명)',
-      '🏢 휴가 신청 (회사, 6/15-7/9 — 7/10 금 출근 또는 7/13 월 출근 권장)',
+      '🏢 휴가 신청 (회사, 6/12-7/9 — 7/10 금 출근 또는 7/13 월 출근 권장)',
       '🎓 캠브리지 졸업식 일정·드레스코드 확인 (둘째와 통화)',
     ],
   },

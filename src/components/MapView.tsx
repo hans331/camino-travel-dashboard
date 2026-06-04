@@ -183,7 +183,7 @@ export default function MapView({ selectedPhase }: MapViewProps) {
     <div>
       <div className="section-header">
         <h2><span>🗺️</span> 여행 지도</h2>
-        <p>포르토 → 카미노(10일) → 산티아고 → 🇨🇭 스위스 → 캠브리지 졸업식 → 파리(8일·MSM) → 인천 · 25일 (6/15~7/9)</p>
+        <p>포르토(2일) → 카미노(10일) → 🇨🇭 스위스 6일 (🏔️ Lucerne + ⛰️ Matterhorn + 융프라우요호) → 캠브리지 → 파리(8일·MSM) → 인천 · 28일 (6/12~7/9)</p>
       </div>
 
       {/* Camino route variant selector */}
