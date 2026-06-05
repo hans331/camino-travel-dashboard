@@ -214,7 +214,7 @@ export const SCHEDULE: DayData[] = [
   },
   {
     day: 20, date: '7/1 (수)', phase: 'london', title: '🎓 졸업식 + 가족 분리 (둘째 귀국 / 3명 → 파리)',
-    icon: '🎓', desc: '오전 ⭐ Senate House에서 캠브리지 졸업식 + 가족 사진. 점심 콜리지 가든 파티 + 펀팅. 오후 둘째 캠브리지 출발 → 🇬🇧 LGW (개트윅) 21:10 → 칭다오 (JD484) → 7/2 ICN 21:35 (QW901, ₩964,900, 트립닷컴). 3명: → London St Pancras → 🚄 Eurostar → 파리 저녁 도착 + 첫 비스트로 만찬.',
+    icon: '🎓', desc: '오전 ⭐ Senate House에서 캠브리지 졸업식 + 가족 사진. 점심 콜리지 가든 파티 + 펀팅. 오후 4명 함께 캠브리지→London King\'s Cross 도착 (~17시). 거기서 갈림길 — 둘째: 옆 St Pancras에서 🚂 Thameslink 직행 → LGW 18시 도착 → JD484 21:10 → 칭다오 → 7/2 ICN 21:35 (QW901, ₩964,900). 3명: 같은 St Pancras (도보 5분)에서 🚄 Eurostar 저녁편 → 파리 Gare du Nord 도착 + 첫 비스트로 만찬. ⭐ King\'s Cross↔St Pancras 도보 5분 옆 건물 — 환승 간단.',
     food: '졸업 축하 점심 · Eurostar 스낵 · 파리 비스트로 저녁', stay: '파리 부티크 호텔 (3명, 2 rooms)',
     lat: 52.2068, lng: 0.1181,
     transit: '🎓 졸업식 → 둘째 ✈️ LGW→칭다오→ICN · 3명 🚄 Eurostar →Paris',
@@ -544,7 +544,7 @@ export const TRANSPORTS: Transport[] = [
   { route: '인터라켄 → 취리히 (6/30)', method: '🚂 IC 직행', time: '2h', price: 'CHF 60 × 3', tip: '오전 출발 권장' },
   { route: '취리히 → 런던 (6/30)', method: '✈️ Swiss/BA 직항', time: '1h 45m', price: '~₩200K × 3', tip: '오후 비행, LHR 도착 후 Cambridge 이동' },
   { route: 'LHR → 캠브리지 (6/30)', method: '🚇 Elizabeth Line + 🚂 LNER', time: '~2.5h (Paddington→Kings Cross→Cambridge)', price: '£12 + £40 × 3', tip: '둘째는 캠브리지서 합류' },
-  { route: '캠브리지 → London → 파리 (7/1 졸업식 후)', method: '🚂 기차 + 🚄 Eurostar', time: '~4h', price: '£25 + £100 × 3', tip: '⚠️ 졸업식 오후 일정. 사전 예매 필수' },
+  { route: '3명: 캠브리지 → King\'s Cross → St Pancras → 파리 (7/1)', method: '🚂 GTR 기차 (Cambridge→King\'s Cross 50분) + 도보 5분 + 🚄 Eurostar 저녁편', time: '~4h', price: '£25 + £100 × 3', tip: '⭐ King\'s Cross 도착 후 둘째와 같은 St Pancras에서 갈림 (둘째 Thameslink LGW행 / 3명 Eurostar 파리행). 사전 예매 필수' },
   { route: '둘째: 캠브리지 → LGW 개트윅 (7/1 졸업식 후)', method: '🚂 Cambridge→London King\'s Cross + Thameslink 직행 (St Pancras→Gatwick)', time: '~2.5h', price: '£35-55', tip: '⚠️ JD484 21:10 — 18시까지 LGW 도착 목표 (3h 여유). Thameslink Gatwick 직행이 편리.' },
   { route: 'CDG → 파리 시내 (7/1)', method: '🚇 RER B', time: '45-60분', price: '€11.4 × 3', tip: 'Navigo Découverte 주간권 €30 권장' },
   { route: '파리 → 베르사유 왕복 (7/3)', method: '🚂 RER C', time: '45분', price: '€7.5 편도', tip: '베르사유 궁전 입장권 별도 사전 예매' },
