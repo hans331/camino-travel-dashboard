@@ -283,7 +283,7 @@ export default function Checklist() {
 
           {group.items.map((item) => {
             const itemAtts = attachments[item.id] || [];
-            const hasContent = expandedMemo.has(item.id) || item.memo || itemAtts.length > 0;
+            const isExpanded = expandedMemo.has(item.id);
             return (
               <div key={item.id} className="checklist-item">
                 <input
@@ -303,7 +303,7 @@ export default function Checklist() {
                       </span>
                     )}
                   </span>
-                  {hasContent && (
+                  {isExpanded && (
                     <>
                       <textarea
                         className="checklist-memo"
