@@ -1444,6 +1444,89 @@ body {
   line-height: 1.6;
 }
 
+/* Cambridge → 공항 비교 카드 */
+.airport-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.airport-compare-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.airport-compare-card.is-recommended {
+  border: 2px solid var(--primary);
+  background: linear-gradient(135deg, var(--accent-cream) 0%, var(--bg-card) 60%);
+}
+
+.airport-compare-badge {
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  background: var(--primary);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.35);
+}
+
+.airport-compare-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+.airport-compare-method {
+  font-size: 0.96rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+.airport-compare-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 12px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-soft);
+}
+
+.airport-compare-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  text-align: center;
+}
+
+.airport-compare-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.airport-compare-stats strong {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.airport-compare-note {
+  font-size: 0.94rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+
 /* ============ CHECKLIST ============ */
 .checklist-category {
   margin-bottom: 32px;
