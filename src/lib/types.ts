@@ -127,3 +127,13 @@ export interface ChecklistItemDB {
   sort_order: number;
   created_at: string;
 }
+
+export interface ChecklistAttachment {
+  id: string;
+  item_id: string;
+  file_path: string;
+  file_name: string;
+  file_size: number;
+  mime_type: string;
+  uploaded_at: string;
+}
