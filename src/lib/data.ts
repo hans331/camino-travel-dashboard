@@ -78,15 +78,15 @@ export const SCHEDULE: DayData[] = [
   // ===== PORTO (Day 1-2) — 2일 =====
   {
     day: 1, date: '6/12 (금)', phase: 'porto', title: '👫 부부 출발: 인천 → 포르토 (Swiss Air)',
-    icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/25 스위스 합류, 둘째 6/24 ZRH 합류). 🇨🇭 Swiss Air LX ICN 09:30 → ZRH (50분 환승) → OPO 18:15 도착 (16h 45m, Economy Basic Plus). 6/15 예매 ₩1,988,000 → 6/12로 변경 결제 완료. 저녁 호텔 체크인 + 동 루이스 1세 다리 야경 + ⭐ 포르토 대성당에서 순례자 크리덴셜 수령 + 리베이라 가벼운 저녁.',
-    food: '기내식 + 리베이라 강변 비스트로 (프란세지냐 또는 생선)', stay: '포르토 부티크 호텔',
+    icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/25 스위스 합류, 둘째 6/24 ZRH 합류). 🇩🇪 Lufthansa LH713 ICN 12:20 → FRA 18:40 (A350-900, 13h 20m) → 2h 25m 환승 → LH1180 FRA 21:05 → OPO 22:55 도착 (A321NEO, 총 18h 35m, Economy Basic Plus, ₩2,311,000/2인, 예약번호 Y6RCMU). ⚠️ 22:55 늦은 도착 → 공항 픽업·호텔 체크인 후 휴식. 시내 관광·크리덴셜 수령은 Day 2로.',
+    food: '기내식 (ICN-FRA: 다과+기내식, FRA-OPO: 다과)', stay: '포르토 부티크 호텔',
     lat: 41.1579, lng: -8.6291,
-    transit: '✈️ ICN 09:30 → OPO 18:15 (16h 45m, Swiss LX)',
+    transit: '✈️ ICN 12:20 → OPO 22:55 (18h 35m, LH713+LH1180 FRA 환승)',
     restaurants: ['Cafe Santiago (프란세지냐 원조)', 'Cervejaria Brasão'],
   },
   {
     day: 2, date: '6/13 (토)', phase: 'porto', title: '🍷 포르토 시내 관광 종일',
-    icon: '🍷', desc: '여유로운 포르토 탐방 — 동 루이스 1세 다리, 리베이라 지구 워킹, 도루강 크루즈, 빌라 노바 데 가이아 포트와인 셀러 투어 (Taylor\'s/Graham\'s), 클레리고스 탑, Cafe Majestic, Livraria Lello 서점.',
+    icon: '🍷', desc: '여유로운 포르토 탐방 — ⭐ 포르토 대성당에서 순례자 크리덴셜 수령 (개관시간 확인 필수) → 동 루이스 1세 다리, 리베이라 지구 워킹, 도루강 크루즈, 빌라 노바 데 가이아 포트와인 셀러 투어 (Taylor\'s/Graham\'s), 클레리고스 탑, Cafe Majestic, Livraria Lello 서점.',
     food: '프란세지냐, 비파나, 포트와인', stay: '포르토 부티크 호텔',
     lat: 41.1409, lng: -8.6132,
     restaurants: ['Cafe Santiago', 'Cafe Majestic', "Taylor's Port Cellar", 'Cervejaria Brasão'],
@@ -511,7 +511,7 @@ export const ACCOMMODATIONS: Accommodation[] = [
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,621,000', amtNum: 10621000, detail: '⏳ Swiss Air LX ICN→OPO×2 (₩1,988,000, 6/12 변경 결제완료 ZRH 환승) + Iberia SCQ→ZRH×2 (~₩0.8M 추정) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ZRH→LHR×4 (~₩0.8M) + 둘째 KE0908 LHR→ICN (~₩1.97M) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
+  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,944,000', amtNum: 10944000, detail: '✅ LH713+LH1180 ICN→OPO×2 (₩2,311,000, FRA 환승, Y6RCMU 예매완료) + Iberia SCQ→ZRH×2 (~₩0.8M 추정) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ZRH→LHR×4 (~₩0.8M) + 둘째 KE0908 LHR→ICN (~₩1.97M) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
   { id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000, detail: '21박 · 포르토 2박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 체르마트 2박(3명, 비쌈) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명)', pct: 23, color: '#EA580C' },
   { id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000, detail: '포르토 2일×2명 + 카미노 11일×2명×₩50K + 🇨🇭 스위스 6일×3명×₩120K (체르마트 비쌈) + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K', pct: 17, color: '#16A34A' },
   { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
@@ -523,7 +523,7 @@ export const BUDGET: BudgetItem[] = [
 ];
 
 export const FLIGHTS: FlightData[] = [
-  { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 09:30 → 18:15', note: '✅ 변경 결제 완료 (⏳ 항공사 시스템 반영 대기) · 👫 부부 2명 · 🇨🇭 Swiss Air LX (ZRH 환승) · 16h 45m · Economy Basic Plus · 기존 6/15 예매 ₩1,988,000을 6/12로 날짜 변경' },
+  { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 12:20 → 22:55', note: '✅ 예매완료 · 👫 부부 2명 · 🇩🇪 Lufthansa LH713 (A350-900, ICN 12:20→FRA 18:40, 13h 20m) + LH1180 (A321NEO, FRA 21:05→OPO 22:55, 2h 50m) · FRA 환승 2h 25m · 총 18h 35m · Economy Basic Plus · 좌석 30J·30K/20E·20F · ₩2,311,000/2인 · 예약번호 Y6RCMU' },
   { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '👫 부부 2명 · 🇪🇸 Iberia (MAD 환승) · ~5h · 약 ₩400,000 × 2 = ₩800,000' },
   { type: '합류', from: 'LON 런던', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '🧑 둘째 1명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · 약 ₩250,000 (캠브리지에서 LHR 또는 LCY 이동)' },
   { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.25 (목) 11:05 → 17:25', note: '✅ 예매완료 🧑 큰아들 1명 · 🇰🇷 KE917 직항 (B787-10) · 13h 20m · ₩1,273,500 · 일반석 스탠다드' },
@@ -555,7 +555,7 @@ export const CHECKLIST: ChecklistCategory[] = [
   {
     title: '항공권 예매 (7건, 출발일 순)',
     items: [
-      'Day 1 · 6/12 (금) ⏳ 부부 ICN→ZRH→OPO · Swiss Air LX 09:30→18:15 (ZRH 환승, Economy Basic Plus, ₩1,988,000/2인) — 6/15→6/12 변경 결제완료, 항공사 시스템 반영 대기',
+      'Day 1 · 6/12 (금) ✅ 부부 ICN→FRA→OPO · LH713+LH1180 12:20→22:55 (FRA 환승, A350-900+A321NEO, Economy Basic Plus, 좌석 30J·30K/20E·20F, ₩2,311,000/2인, 예약번호 Y6RCMU) 예매완료',
       'Day 13 · 6/24 (수) ❌ 부부 SCQ→MAD→ZRH · Iberia 오후편 (MAD 환승, ~5h) — 카미노 완주 후 스위스 이동',
       'Day 13 · 6/24 (수) ❌ 둘째 LHR/LGW→ZRH · Swiss Air 또는 BA 오후편 (1h 45m) — Cambridge에서 공항 이동 별도',
       'Day 14 · 6/25 (목) ✅ 큰아들 ICN→ZRH · KE917 11:05→17:25 (B787-10 직항, ₩1,273,500) 예매완료',
