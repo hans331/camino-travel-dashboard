@@ -32,7 +32,8 @@ export const AIRPORTS: Airport[] = [
   { code: 'SCQ', name: '산티아고 공항', city: '산티아고 데 콤포스텔라', lat: 42.8963, lng: -8.4151, role: '🛫 부부 SCQ→MAD→ZRH (6/24)' },
   { code: 'MAD', name: '마드리드 공항', city: '마드리드', lat: 40.4983, lng: -3.5676, isLayover: true, role: '🔄 Iberia 환승 (6/24)' },
   { code: 'ZRH', name: '취리히 공항', city: '취리히', lat: 47.4647, lng: 8.5492, role: '🤝 가족 만남 거점 · 큰아들 KE917 도착 (6/25)' },
-  { code: 'LHR', name: '런던 히드로 공항', city: '런던', lat: 51.4700, lng: -0.4543, role: '🔄 둘째 LON→ZRH (6/24) · 가족 ZRH→LHR→Cambridge (6/30) · 둘째 KE0908 귀국 (7/1)' },
+  { code: 'LHR', name: '런던 히드로 공항', city: '런던', lat: 51.4700, lng: -0.4543, role: '🔄 둘째 LON→ZRH (6/24, LHR 또는 LGW 미정) · 가족 ZRH→LHR→Cambridge (6/30)' },
+  { code: 'LGW', name: '런던 개트윅 공항', city: '런던', lat: 51.1537, lng: -0.1821, role: '🛫 둘째 귀국 LGW→칭다오→ICN (7/1 21:10, JD484+QW901)' },
   { code: 'MUC', name: '뮌헨 공항', city: '뮌헨', lat: 48.3537, lng: 11.7860, isLayover: true, role: '🔄 LH2229→LH718 환승 (7/8 귀국)' },
   { code: 'CDG', name: '파리 샤를드골 공항', city: '파리', lat: 49.0097, lng: 2.5479, role: '🛫 가족 3명 LH 귀국 (7/8 12:00)' },
 ];
@@ -213,10 +214,10 @@ export const SCHEDULE: DayData[] = [
   },
   {
     day: 20, date: '7/1 (수)', phase: 'london', title: '🎓 졸업식 + 가족 분리 (둘째 귀국 / 3명 → 파리)',
-    icon: '🎓', desc: '오전 ⭐ Senate House에서 캠브리지 졸업식 + 가족 사진. 점심 콜리지 가든 파티 + 펀팅. 오후 16시경 캠브리지 출발 — 둘째: → LHR → ICN 귀국편 (KE0908 19:35). 3명: → London → Eurostar → 파리 저녁 도착 + 첫 비스트로 만찬.',
+    icon: '🎓', desc: '오전 ⭐ Senate House에서 캠브리지 졸업식 + 가족 사진. 점심 콜리지 가든 파티 + 펀팅. 오후 둘째 캠브리지 출발 → 🇬🇧 LGW (개트윅) 21:10 → 칭다오 (JD484) → 7/2 ICN 21:35 (QW901, ₩964,900, 트립닷컴). 3명: → London St Pancras → 🚄 Eurostar → 파리 저녁 도착 + 첫 비스트로 만찬.',
     food: '졸업 축하 점심 · Eurostar 스낵 · 파리 비스트로 저녁', stay: '파리 부티크 호텔 (3명, 2 rooms)',
     lat: 52.2068, lng: 0.1181,
-    transit: '🎓 졸업식 → 둘째 ✈️ LHR→ICN · 3명 🚄 Eurostar →Paris',
+    transit: '🎓 졸업식 → 둘째 ✈️ LGW→칭다오→ICN · 3명 🚄 Eurostar →Paris',
     restaurants: ['Bistrot Paul Bert (파리)', 'Le Comptoir du Relais', 'The Eagle (펍)'],
   },
 
@@ -511,7 +512,7 @@ export const ACCOMMODATIONS: Accommodation[] = [
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,944,000', amtNum: 10944000, detail: '✅ LH713+LH1180 ICN→OPO×2 (₩2,311,000, FRA 환승, Y6RCMU 예매완료) + Iberia SCQ→ZRH×2 (~₩0.8M 추정) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ZRH→LHR×4 (~₩0.8M) + 둘째 KE0908 LHR→ICN (~₩1.97M) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
+  { id: 'flight', cat: '✈️ 항공권', amt: '₩9,940,000', amtNum: 9940000, detail: '✅ LH713+LH1180 ICN→OPO×2 (₩2,311,000, FRA 환승, Y6RCMU 예매완료) + Iberia SCQ→ZRH×2 (~₩0.8M 추정) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ZRH→LHR×4 (~₩0.8M) + ✅ 둘째 JD484+QW901 LGW→칭다오→ICN (₩964,900 트립닷컴 예매완료) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
   { id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000, detail: '21박 · 포르토 2박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 체르마트 2박(3명, 비쌈) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명)', pct: 23, color: '#EA580C' },
   { id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000, detail: '포르토 2일×2명 + 카미노 11일×2명×₩50K + 🇨🇭 스위스 6일×3명×₩120K (체르마트 비쌈) + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K', pct: 17, color: '#16A34A' },
   { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
@@ -528,7 +529,7 @@ export const FLIGHTS: FlightData[] = [
   { type: '합류', from: 'LON 런던', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '🧑 둘째 1명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · 약 ₩250,000 (캠브리지에서 LHR 또는 LCY 이동)' },
   { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.25 (목) 11:05 → 17:25', note: '✅ 예매완료 🧑 큰아들 1명 · 🇰🇷 KE917 직항 (B787-10) · 13h 20m · ₩1,273,500 · 일반석 스탠다드' },
   { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 오전', note: '👨‍👩‍👦 3명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · ~₩200,000 × 3 = ₩600,000' },
-  { type: '귀국-둘째', from: 'LHR 런던', to: 'ICN 인천', date: '2026.07.01 (수) 저녁', note: '👤 둘째 1명 · 🇰🇷 KE0908 19:35 → 7/2 16:15 ICN 도착 · 직항 12h 40m · ₩1,965,200' },
+  { type: '귀국-둘째', from: 'LGW 런던 개트윅', to: 'ICN 인천', date: '2026.07.01 (수) 21:10 → 07.02 (목) 21:35', note: '✅ 예매완료 · 👤 둘째 1명 · 🇨🇳 베이징캐피탈 JD484 LGW→칭다오 + 🇨🇳 칭다오항공 QW901 칭다오→ICN · 칭다오 4h 10m 환승 (⚠️ 수하물 직통연결 불가, 재수속 필요) · 위탁 23kg×2 / 휴대 5kg×1 · ₩964,900 · 트립닷컴 1658113130253589 / PNR NXSQX0' },
   { type: '경유', from: 'London 세인트팬크라스', to: 'Paris 가르 뒤 노르', date: '2026.07.01 (수) 졸업식 후 저녁', note: '👨‍👩‍👦 3명 · 🚄 Eurostar · 2h 20m · ₩180,000 × 3 = ₩540,000' },
   { type: '귀국', from: 'CDG 파리', to: 'ICN 인천', date: '2026.07.08 (수) 12:00 → 07.09 (목) 09:55', note: '✅ 예매완료 👨‍👩‍👦 3명 · 🇩🇪 Lufthansa LH2229 + LH718 (MUC 환승, 2h 25m) · 14h 55m · Economy Green (위탁 23kg, 휴대 8kg) · €2,198.97 (3인 합계) = ₩3,958,146 @ ₩1,800/EUR' },
 ];
@@ -544,7 +545,7 @@ export const TRANSPORTS: Transport[] = [
   { route: '취리히 → 런던 (6/30)', method: '✈️ Swiss/BA 직항', time: '1h 45m', price: '~₩200K × 3', tip: '오후 비행, LHR 도착 후 Cambridge 이동' },
   { route: 'LHR → 캠브리지 (6/30)', method: '🚇 Elizabeth Line + 🚂 LNER', time: '~2.5h (Paddington→Kings Cross→Cambridge)', price: '£12 + £40 × 3', tip: '둘째는 캠브리지서 합류' },
   { route: '캠브리지 → London → 파리 (7/1 졸업식 후)', method: '🚂 기차 + 🚄 Eurostar', time: '~4h', price: '£25 + £100 × 3', tip: '⚠️ 졸업식 오후 일정. 사전 예매 필수' },
-  { route: '둘째: 캠브리지 → LHR (7/1 졸업식 후)', method: '🚂 기차 + Elizabeth Line', time: '2-3시간', price: '£30-50', tip: '⚠️ KE0908 19:35 — 17시까지 LHR 도착 목표' },
+  { route: '둘째: 캠브리지 → LGW 개트윅 (7/1 졸업식 후)', method: '🚂 Cambridge→London King\'s Cross + Thameslink 직행 (St Pancras→Gatwick)', time: '~2.5h', price: '£35-55', tip: '⚠️ JD484 21:10 — 18시까지 LGW 도착 목표 (3h 여유). Thameslink Gatwick 직행이 편리.' },
   { route: 'CDG → 파리 시내 (7/1)', method: '🚇 RER B', time: '45-60분', price: '€11.4 × 3', tip: 'Navigo Découverte 주간권 €30 권장' },
   { route: '파리 → 베르사유 왕복 (7/3)', method: '🚂 RER C', time: '45분', price: '€7.5 편도', tip: '베르사유 궁전 입장권 별도 사전 예매' },
   { route: '파리 → 지베르니 왕복 (7/5)', method: '🚂 SNCF + 셔틀', time: '1h 기차 + 15min 셔틀', price: '€20-30 왕복', tip: '🌻 모네의 정원 — 일요일 추천, 사전 예매 필수' },
@@ -560,7 +561,7 @@ export const CHECKLIST: ChecklistCategory[] = [
       'Day 13 · 6/24 (수) ❌ 둘째 LHR/LGW→ZRH · Swiss Air 또는 BA 오후편 (1h 45m) — Cambridge에서 공항 이동 별도',
       'Day 14 · 6/25 (목) ✅ 큰아들 ICN→ZRH · KE917 11:05→17:25 (B787-10 직항, ₩1,273,500) 예매완료',
       'Day 19 · 6/30 (화) ❌ 가족 4명 ZRH→LHR · Swiss Air 또는 BA 오전편 (1h 45m) — 졸업식 전날 영국 입국',
-      'Day 20 · 7/1 (수) ❌ 둘째 LHR→ICN · KE0908 19:35→7/2 16:15 — 졸업식 당일 저녁 출국',
+      'Day 20 · 7/1 (수) ✅ 둘째 LGW→칭다오→ICN · JD484+QW901 21:10→7/2 21:35 (칭다오 4h 10m 환승, 수하물 재수속, ₩964,900, 트립닷컴 1658113130253589) 예매완료',
       'Day 27 · 7/8 (수) ✅ 3명 CDG→MUC→ICN · Lufthansa LH2229+LH718 12:00→7/9 09:55 (MUC 환승, Economy Green, €2,198.97 = ₩3,958,146) 예매완료',
     ],
   },
@@ -577,7 +578,7 @@ export const CHECKLIST: ChecklistCategory[] = [
       'Day 17 · 6/28 (일) 🚂 Zermatt→Interlaken 기차 4명 (~2h 20m, Visp 환승)',
       'Day 19 · 6/30 (화) 🚂 Interlaken→ZRH 공항 기차 4명 (~2h, 공항 직결)',
       'Day 19 · 6/30 (화) 🚂 LHR→Cambridge 이동 4명 (King\'s Cross 경유 또는 National Express 직행 버스, ~2h)',
-      'Day 20 · 7/1 (수) 🚂 둘째 Cambridge→LHR 1명 (오후 16시경 출발, KE0908 19:35 탑승 최소 3h 여유)',
+      'Day 20 · 7/1 (수) 🚂 둘째 Cambridge→LGW 개트윅 1명 (오후 15-16시 출발, King\'s Cross 경유 + Thameslink 직행, ~2.5h, JD484 21:10 탑승 최소 3h 여유)',
       'Day 20 · 7/1 (수) 🚄 Eurostar London St Pancras→Paris Gare du Nord 3명 (저녁편, 2h 20m) — 졸업식 후',
     ],
   },
