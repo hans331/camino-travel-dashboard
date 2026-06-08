@@ -512,7 +512,7 @@ export const ACCOMMODATIONS: Accommodation[] = [
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,031,000', amtNum: 10031000, detail: '✅ LH713+LH1180 ICN→OPO×2 (₩2,311,000, FRA 환승, Y6RCMU 예매완료) + ⚠️ Vueling SCQ→BCN→ZRH×2 (₩890,600 예매완료, 아빠 이름 정정 중) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ZRH→LHR×4 (~₩0.8M) + ✅ 둘째 JD484+QW901 LGW→칭다오→ICN (₩964,900 트립닷컴 예매완료) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
+  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,807,000', amtNum: 10807000, detail: '✅ LH713+LH1180 ICN→OPO×2 (₩2,311,000, FRA 환승, Y6RCMU 예매완료) + ⚠️ Vueling SCQ→BCN→ZRH×2 (₩890,600 예매완료, 아빠 이름 정정 중) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ✅ 가족 ZRH→LHR×4 12:05 직항 (₩1,575,600 예매완료) + ✅ 둘째 JD484+QW901 LGW→칭다오→ICN (₩964,900 트립닷컴 예매완료) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
   { id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000, detail: '21박 · 포르토 2박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 체르마트 2박(3명, 비쌈) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명)', pct: 23, color: '#EA580C' },
   { id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000, detail: '포르토 2일×2명 + 카미노 11일×2명×₩50K + 🇨🇭 스위스 6일×3명×₩120K (체르마트 비쌈) + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K', pct: 17, color: '#16A34A' },
   { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
@@ -528,7 +528,7 @@ export const FLIGHTS: FlightData[] = [
   { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 15:10 → 20:25', note: '⚠️ 예매완료 (아빠 이름 정정 요청 접수 완료, 트립닷컴 응답 대기) · 👫 부부 2명 · 🇪🇸 부엘링 VY1673 (SCQ→BCN, 1h 40m) + VY6248 (BCN→ZRH, 1h 55m) · BCN 환승 1h 40m · 수하물 직통 ✅ 위탁 25kg/인 · ₩890,600/2인 · 트립닷컴 1658113176342997' },
   { type: '합류', from: 'LON 런던', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '🧑 둘째 1명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · 약 ₩250,000 (캠브리지에서 LHR 또는 LCY 이동)' },
   { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.25 (목) 11:05 → 17:25', note: '✅ 예매완료 🧑 큰아들 1명 · 🇰🇷 KE917 직항 (B787-10) · 13h 20m · ₩1,273,500 · 일반석 스탠다드' },
-  { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 오전', note: '👨‍👩‍👦 3명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · ~₩200,000 × 3 = ₩600,000' },
+  { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 12:05 → 13:00', note: '✅ 예매완료 · 👨‍👩‍👧‍👦 가족 4명 · 🛫 ZRH→LHR T2 직항 · 1h 55m · ₩393,900/인 × 4 = ₩1,575,600 · 12:05 출발 (아내 기상 7시 가능) — 항공사·예약번호 PDF 도착 후 보완 예정' },
   { type: '귀국-둘째', from: 'LGW 런던 개트윅', to: 'ICN 인천', date: '2026.07.01 (수) 21:10 → 07.02 (목) 21:35', note: '✅ 예매완료 · 👤 둘째 1명 · 🇨🇳 베이징캐피탈 JD484 LGW→칭다오 + 🇨🇳 칭다오항공 QW901 칭다오→ICN · 칭다오 4h 10m 환승 (⚠️ 수하물 직통연결 불가, 재수속 필요) · 위탁 23kg×2 / 휴대 5kg×1 · ₩964,900 · 트립닷컴 1658113130253589 / PNR NXSQX0' },
   { type: '경유', from: 'London 세인트팬크라스', to: 'Paris 가르 뒤 노르', date: '2026.07.01 (수) 졸업식 후 저녁', note: '👨‍👩‍👦 3명 · 🚄 Eurostar · 2h 20m · ₩180,000 × 3 = ₩540,000' },
   { type: '귀국', from: 'CDG 파리', to: 'ICN 인천', date: '2026.07.08 (수) 12:00 → 07.09 (목) 09:55', note: '✅ 예매완료 👨‍👩‍👦 3명 · 🇩🇪 Lufthansa LH2229 + LH718 (MUC 환승, 2h 25m) · 14h 55m · Economy Green (위탁 23kg, 휴대 8kg) · €2,198.97 (3인 합계) = ₩3,958,146 @ ₩1,800/EUR' },
@@ -560,7 +560,7 @@ export const CHECKLIST: ChecklistCategory[] = [
       'Day 13 · 6/24 (수) ⚠️ 부부 SCQ→BCN→ZRH · Vueling VY1673+VY6248 15:10→20:25 (BCN 환승 1h 40m, 수하물 직통, 위탁 25kg/인, ₩890,600/2인, 트립닷컴 1658113176342997). 어머니 OK / 아빠 이름 정정 요청 접수 완료 (JEONGKYEOM CHOI → CHULLYOUNG CHOI), 트립닷컴 응답 대기 중',
       'Day 13 · 6/24 (수) ❌ 둘째 LHR/LGW→ZRH · Swiss Air 또는 BA 오후편 (1h 45m) — Cambridge에서 공항 이동 별도',
       'Day 14 · 6/25 (목) ✅ 큰아들 ICN→ZRH · KE917 11:05→17:25 (B787-10 직항, ₩1,273,500) 예매완료',
-      'Day 19 · 6/30 (화) ❌ 가족 4명 ZRH→LHR · Swiss Air 또는 BA 오전편 (1h 45m) — 졸업식 전날 영국 입국',
+      'Day 19 · 6/30 (화) ✅ 가족 4명 ZRH→LHR · 12:05→13:00 직항 (1h 55m) · ₩1,575,600/4인 (₩393,900/인) 예매완료 — 항공사·예약번호 PDF 도착 후 보완 예정',
       'Day 20 · 7/1 (수) ✅ 둘째 LGW→칭다오→ICN · JD484+QW901 21:10→7/2 21:35 (칭다오 4h 10m 환승, 수하물 재수속, ₩964,900, 트립닷컴 1658113130253589) 예매완료',
       'Day 27 · 7/8 (수) ✅ 3명 CDG→MUC→ICN · Lufthansa LH2229+LH718 12:00→7/9 09:55 (MUC 환승, Economy Green, €2,198.97 = ₩3,958,146) 예매완료',
     ],
@@ -576,7 +576,7 @@ export const CHECKLIST: ChecklistCategory[] = [
       'Day 14 · 6/25 (목) 🚂 ZRH→Lucerne 기차 큰아들 1명 (17:25 도착 후 저녁, ~1h)',
       'Day 15 · 6/26 (금) 🚂 Lucerne→Zermatt 기차 4명 (~3.5h, Bern/Visp 환승) — 산악 풍경 구간',
       'Day 17 · 6/28 (일) 🚂 Zermatt→Interlaken 기차 4명 (~2h 20m, Visp 환승)',
-      'Day 19 · 6/30 (화) 🚂 Interlaken→ZRH 공항 기차 4명 (~2h, 공항 직결)',
+      'Day 19 · 6/30 (화) 🚂 Interlaken→ZRH 공항 기차 4명 (~2h, 공항 직결, 12:05 ZRH 출발이면 8:00 호텔 출발, 9:30 ZRH 도착 → 체크인 2h 여유)',
       'Day 19 · 6/30 (화) 🚂 LHR→Cambridge 이동 4명 (King\'s Cross 경유 또는 National Express 직행 버스, ~2h)',
       'Day 20 · 7/1 (수) 🚂 둘째 Cambridge→LGW 개트윅 1명 (오후 15-16시 출발, King\'s Cross 경유 + Thameslink 직행, ~2.5h, JD484 21:10 탑승 최소 3h 여유)',
       'Day 20 · 7/1 (수) 🚄 Eurostar London St Pancras→Paris Gare du Nord 3명 (저녁편, 2h 20m) — 졸업식 후',
