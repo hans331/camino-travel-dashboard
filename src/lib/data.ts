@@ -525,7 +525,7 @@ export const BUDGET: BudgetItem[] = [
 
 export const FLIGHTS: FlightData[] = [
   { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 12:20 → 22:55', note: '✅ 예매완료 · 👫 부부 2명 · 🇩🇪 Lufthansa LH713 (A350-900, ICN 12:20→FRA 18:40, 13h 20m) + LH1180 (A321NEO, FRA 21:05→OPO 22:55, 2h 50m) · FRA 환승 2h 25m · 총 18h 35m · Economy Basic Plus · 좌석 30J·30K/20E·20F · ₩2,311,000/2인 · 예약번호 Y6RCMU' },
-  { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 15:10 → 20:25', note: '⚠️ 예매완료 (이름 정정 요청 중) · 👫 부부 2명 · 🇪🇸 부엘링 VY1673 (SCQ→BCN, 1h 40m) + VY6248 (BCN→ZRH, 1h 55m) · BCN 환승 1h 40m · 수하물 직통 ✅ 위탁 25kg/인 · ₩890,600/2인 · 트립닷컴 1658113176342997 · 아빠 이름 둘째로 잘못 등록 (정정 요청 필요)' },
+  { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 15:10 → 20:25', note: '⚠️ 예매완료 (아빠 이름 정정 요청 접수 완료, 트립닷컴 응답 대기) · 👫 부부 2명 · 🇪🇸 부엘링 VY1673 (SCQ→BCN, 1h 40m) + VY6248 (BCN→ZRH, 1h 55m) · BCN 환승 1h 40m · 수하물 직통 ✅ 위탁 25kg/인 · ₩890,600/2인 · 트립닷컴 1658113176342997' },
   { type: '합류', from: 'LON 런던', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '🧑 둘째 1명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · 약 ₩250,000 (캠브리지에서 LHR 또는 LCY 이동)' },
   { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.25 (목) 11:05 → 17:25', note: '✅ 예매완료 🧑 큰아들 1명 · 🇰🇷 KE917 직항 (B787-10) · 13h 20m · ₩1,273,500 · 일반석 스탠다드' },
   { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 오전', note: '👨‍👩‍👦 3명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · ~₩200,000 × 3 = ₩600,000' },
@@ -557,7 +557,7 @@ export const CHECKLIST: ChecklistCategory[] = [
     title: '항공권 예매 (7건, 출발일 순)',
     items: [
       'Day 1 · 6/12 (금) ✅ 부부 ICN→FRA→OPO · LH713+LH1180 12:20→22:55 (FRA 환승, A350-900+A321NEO, Economy Basic Plus, 좌석 30J·30K/20E·20F, ₩2,311,000/2인, 예약번호 Y6RCMU) 예매완료',
-      'Day 13 · 6/24 (수) ⚠️ 부부 SCQ→BCN→ZRH · Vueling VY1673+VY6248 15:10→20:25 (BCN 환승 1h 40m, 수하물 직통, 위탁 25kg/인, ₩890,600/2인, 트립닷컴 1658113176342997). 어머니 OK / 아빠 이름 정정 요청 중 (현재 둘째 JEONGKYEOM CHOI로 잘못 등록 → CHULLYOUNG CHOI로 변경 필요)',
+      'Day 13 · 6/24 (수) ⚠️ 부부 SCQ→BCN→ZRH · Vueling VY1673+VY6248 15:10→20:25 (BCN 환승 1h 40m, 수하물 직통, 위탁 25kg/인, ₩890,600/2인, 트립닷컴 1658113176342997). 어머니 OK / 아빠 이름 정정 요청 접수 완료 (JEONGKYEOM CHOI → CHULLYOUNG CHOI), 트립닷컴 응답 대기 중',
       'Day 13 · 6/24 (수) ❌ 둘째 LHR/LGW→ZRH · Swiss Air 또는 BA 오후편 (1h 45m) — Cambridge에서 공항 이동 별도',
       'Day 14 · 6/25 (목) ✅ 큰아들 ICN→ZRH · KE917 11:05→17:25 (B787-10 직항, ₩1,273,500) 예매완료',
       'Day 19 · 6/30 (화) ❌ 가족 4명 ZRH→LHR · Swiss Air 또는 BA 오전편 (1h 45m) — 졸업식 전날 영국 입국',
