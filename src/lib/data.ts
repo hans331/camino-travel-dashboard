@@ -32,7 +32,7 @@ export const AIRPORTS: Airport[] = [
   { code: 'SCQ', name: '산티아고 공항', city: '산티아고 데 콤포스텔라', lat: 42.8963, lng: -8.4151, role: '🛫 부부 SCQ→MAD→ZRH (6/24)' },
   { code: 'MAD', name: '마드리드 공항', city: '마드리드', lat: 40.4983, lng: -3.5676, isLayover: true, role: '🔄 Iberia 환승 (6/24)' },
   { code: 'ZRH', name: '취리히 공항', city: '취리히', lat: 47.4647, lng: 8.5492, role: '🤝 가족 만남 거점 · 큰아들 KE917 도착 (6/25)' },
-  { code: 'LHR', name: '런던 히드로 공항', city: '런던', lat: 51.4700, lng: -0.4543, role: '🛫 둘째 LHR→ZRH 6/24 LX333 · 🛬 가족 ZRH→LHR 6/30 LX332' },
+  { code: 'LHR', name: '런던 히드로 공항', city: '런던', lat: 51.4700, lng: -0.4543, role: '🛫 둘째 LHR→ZRH 6/23 LX333 · 🛬 가족 ZRH→LHR 6/30 LX332' },
   { code: 'LGW', name: '런던 개트윅 공항', city: '런던', lat: 51.1537, lng: -0.1821, role: '🛫 둘째 귀국 LGW→칭다오→ICN (7/1 21:10, JD484+QW901)' },
   { code: 'MUC', name: '뮌헨 공항', city: '뮌헨', lat: 48.3537, lng: 11.7860, isLayover: true, role: '🔄 LH2229→LH718 환승 (7/8 귀국)' },
   { code: 'CDG', name: '파리 샤를드골 공항', city: '파리', lat: 49.0097, lng: 2.5479, role: '🛫 가족 3명 LH 귀국 (7/8 12:00)' },
@@ -149,19 +149,20 @@ export const SCHEDULE: DayData[] = [
     lat: 42.7400, lng: -8.6600, dist: '19km',
   },
   {
-    day: 12, date: '6/23 (화)', phase: 'camino', title: '⭐ Day 9: Padrón → Santiago de Compostela 도착!',
-    icon: '⭐', desc: '대망의 마지막 구간! 산티아고 대성당이 보이는 순간 감동. 12시 순례자 미사 참석. Compostela 증명서 발급.',
-    food: '타르타 데 산티아고, 풀포 아 페이라', stay: '산티아고 부티크 호텔 (자축 한 잔!)',
+    day: 12, date: '6/23 (화)', phase: 'camino', title: '⭐ Day 9: Padrón → Santiago + 둘째 스위스 도착',
+    icon: '⭐', desc: '🥾 부부: 대망의 마지막 구간! 산티아고 대성당이 보이는 순간 감동. 12시 순례자 미사 참석. Compostela 증명서 발급. 저녁 자축 만찬. | 🛬 둘째: Cambridge 8:30 출발 → LHR T2 → Swiss LX333 13:50 → ZRH 16:35 도착 → 기차 ZRH→Lucerne 1h → 18시경 Lucerne 호텔 단독 체크인 (1박 추가) → 카펠교·구시가 야경 산책 + 저녁.',
+    food: '🥾 부부: 타르타 데 산티아고, 풀포 아 페이라 · 🇨🇭 둘째: Lucerne 비어 가든', stay: '🥾 부부: 산티아고 부티크 호텔 / 🇨🇭 둘째: Lucerne 호텔 1박 (추가 예약 필요)',
     lat: 42.8805, lng: -8.5457, dist: '24km',
+    transit: '🥾 부부 Camino 24km · 🛬 둘째 Cambridge→LHR→ZRH→Lucerne',
     restaurants: ['O Curro da Parra', 'Abastos 2.0', 'Casa Marcelo'],
   },
   // ===== SWITZERLAND (Day 13-18) — 6일 (Lucerne + Matterhorn + Interlaken 통합) =====
   {
-    day: 13, date: '6/24 (수)', phase: 'swiss', title: '🇨🇭 산티아고 → 취리히 + 둘째 합류 → 루체른 (3명)',
-    icon: '✈️', desc: '부부 Vueling SCQ 15:10 → BCN 16:50 → ZRH 20:25 (BCN 환승 1h 40m, 수하물 직통). 둘째 8:30 Cambridge 출발 → LHR T2 → Swiss LX333 13:50 → ZRH 16:35. ⭐ ZRH 공항에서 3명 만남 (둘째 16:35 도착 → 부부 20:25 도착, 둘째가 공항에서 ~4h 대기 또는 미리 루체른으로 이동 후 부부 합류). 기차로 루체른 (1h). 저녁 카펠교·구시가 산책 + 환영 만찬.',
+    day: 13, date: '6/24 (수)', phase: 'swiss', title: '🇨🇭 부부 SCQ→ZRH 합류 → 루체른 (3명, 둘째는 이미 스위스)',
+    icon: '✈️', desc: '🥾 부부: 산티아고 시내 마지막 오전 + 점심 후 → Vueling SCQ 15:10 → BCN 16:50 → ZRH 20:25 (BCN 환승 1h 40m, 수하물 직통, 어머니 OK / 아빠 이름 정정 진행). | 🇨🇭 둘째: 종일 Lucerne 또는 근교 단독 관광 (Mt. Pilatus 또는 Lake Lucerne 보트 등). | 저녁 ZRH→Lucerne 기차 1h → 21시경 호텔에서 ⭐ 3명 합류 환영 만찬!',
     food: '기내식 + 루체른 정통 스위스 만찬 (Wirtshaus Galliker)', stay: '루체른 호텔 (3명, family room)',
     lat: 47.0502, lng: 8.3093,
-    transit: '🛬 둘째 LHR→ZRH 16:35 · 🛬 부부 SCQ→BCN→ZRH 20:25 · 🚂 →Lucerne 1h',
+    transit: '🛬 부부 SCQ→BCN→ZRH 20:25 · 🚂 →Lucerne 21시 · 🇨🇭 둘째 종일 Lucerne 단독 관광',
     restaurants: ['Wirtshaus Galliker', 'Restaurant Schwanen'],
   },
   {
@@ -512,7 +513,7 @@ export const ACCOMMODATIONS: Accommodation[] = [
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,807,000', amtNum: 10807000, detail: '✅ LH713+LH1180 ICN→OPO×2 (₩2,311,000, FRA 환승, Y6RCMU 예매완료) + ⚠️ Vueling SCQ→BCN→ZRH×2 (₩890,600 예매완료, 아빠 이름 정정 중) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ✅ 가족 ZRH→LHR×4 12:05 직항 (₩1,575,600 예매완료) + ✅ 둘째 JD484+QW901 LGW→칭다오→ICN (₩964,900 트립닷컴 예매완료) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
+  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,850,000', amtNum: 10850000, detail: '✅ LH713+LH1180 ICN→OPO×2 (₩2,311,000, FRA 환승, Y6RCMU 예매완료) + ⚠️ Vueling SCQ→BCN→ZRH×2 (₩890,600 예매완료, 아빠 이름 정정 중) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + ✅ 둘째 LX333 LHR→ZRH 6/23 (₩292,900 예매완료, 하루 앞당김) + ✅ 가족 ZRH→LHR×4 12:05 직항 (₩1,575,600 예매완료) + ✅ 둘째 JD484+QW901 LGW→칭다오→ICN (₩964,900 트립닷컴 예매완료) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 예매완료)', pct: 25, color: '#2563EB' },
   { id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000, detail: '21박 · 포르토 2박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 체르마트 2박(3명, 비쌈) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명)', pct: 23, color: '#EA580C' },
   { id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000, detail: '포르토 2일×2명 + 카미노 11일×2명×₩50K + 🇨🇭 스위스 6일×3명×₩120K (체르마트 비쌈) + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K', pct: 17, color: '#16A34A' },
   { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
@@ -526,7 +527,7 @@ export const BUDGET: BudgetItem[] = [
 export const FLIGHTS: FlightData[] = [
   { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 12:20 → 22:55', note: '✅ 예매완료 · 👫 부부 2명 · 🇩🇪 Lufthansa LH713 (A350-900, ICN 12:20→FRA 18:40, 13h 20m) + LH1180 (A321NEO, FRA 21:05→OPO 22:55, 2h 50m) · FRA 환승 2h 25m · 총 18h 35m · Economy Basic Plus · 좌석 30J·30K/20E·20F · ₩2,311,000/2인 · 예약번호 Y6RCMU' },
   { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 15:10 → 20:25', note: '⚠️ 예매완료 (아빠 이름 정정 요청 접수 완료, 트립닷컴 응답 대기) · 👫 부부 2명 · 🇪🇸 부엘링 VY1673 (SCQ→BCN, 1h 40m) + VY6248 (BCN→ZRH, 1h 55m) · BCN 환승 1h 40m · 수하물 직통 ✅ 위탁 25kg/인 · ₩890,600/2인 · 트립닷컴 1658113176342997' },
-  { type: '합류', from: 'LHR 런던', to: 'ZRH 취리히', date: '2026.06.24 (수) 13:50 → 16:35', note: '✅ 예매완료 · 🧑 둘째 1명 · 🇨🇭 Swiss LX333 (Airbaltic BT 공동운항) LHR T2→ZRH 직항 · 1h 45m · 휴대 8kg + 개인물품 (위탁 없음) · 트립닷컴 1658113179193237 / PNR XVPYSC' },
+  { type: '합류', from: 'LHR 런던', to: 'ZRH 취리히', date: '2026.06.23 (화) 13:50 → 16:35', note: '✅ 예매완료 · 🧑 둘째 1명 (하루 일찍 출발, 스위스 1일 단독 관광 후 가족 합류) · 🇨🇭 Swiss LX333 (Airbaltic BT 공동운항) LHR T2→ZRH 직항 · 1h 45m · 개인물품만 (휴대·위탁 없음) · ₩292,900 · 트립닷컴 1658113179296149 / PNR XW2NMU' },
   { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.25 (목) 11:05 → 17:25', note: '✅ 예매완료 🧑 큰아들 1명 · 🇰🇷 KE917 직항 (B787-10) · 13h 20m · ₩1,273,500 · 일반석 스탠다드' },
   { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 12:05 → 13:00', note: '✅ 예매완료 · 👨‍👩‍👧‍👦 가족 4명 · 🇨🇭 Swiss LX332 (Airbaltic BT 공동운항) ZRH→LHR T2 직항 · 1h 55m · 위탁 23kg/인 + 휴대 8kg/인 포함 · ₩393,900/인 × 4 = ₩1,575,600 · 트립닷컴 1658113176589013 / PNR XTVN7K' },
   { type: '귀국-둘째', from: 'LGW 런던 개트윅', to: 'ICN 인천', date: '2026.07.01 (수) 21:10 → 07.02 (목) 21:35', note: '✅ 예매완료 · 👤 둘째 1명 · 🇨🇳 베이징캐피탈 JD484 LGW→칭다오 + 🇨🇳 칭다오항공 QW901 칭다오→ICN · 칭다오 4h 10m 환승 (⚠️ 수하물 직통연결 불가, 재수속 필요) · 위탁 23kg×2 / 휴대 5kg×1 · ₩964,900 · 트립닷컴 1658113130253589 / PNR NXSQX0' },
@@ -558,7 +559,7 @@ export const CHECKLIST: ChecklistCategory[] = [
     items: [
       'Day 1 · 6/12 (금) ✅ 부부 ICN→FRA→OPO · LH713+LH1180 12:20→22:55 (FRA 환승, A350-900+A321NEO, Economy Basic Plus, 좌석 30J·30K/20E·20F, ₩2,311,000/2인, 예약번호 Y6RCMU) 예매완료',
       'Day 13 · 6/24 (수) ⚠️ 부부 SCQ→BCN→ZRH · Vueling VY1673+VY6248 15:10→20:25 (BCN 환승 1h 40m, 수하물 직통, 위탁 25kg/인, ₩890,600/2인, 트립닷컴 1658113176342997). 어머니 OK / 아빠 이름 정정 요청 접수 완료 (JEONGKYEOM CHOI → CHULLYOUNG CHOI), 트립닷컴 응답 대기 중',
-      'Day 13 · 6/24 (수) ✅ 둘째 LHR→ZRH · Swiss LX333 (Airbaltic BT 공동운항) 13:50→16:35 직항 (1h 45m) · 휴대 8kg + 개인물품 (위탁 없음) · 트립닷컴 1658113179193237 / PNR XVPYSC · 예매완료',
+      'Day 12 · 6/23 (화) ✅ 둘째 LHR→ZRH · Swiss LX333 (Airbaltic BT 공동운항) 13:50→16:35 직항 (1h 45m) · 개인물품 1개만 (휴대·위탁 없음) · ₩292,900/인 · 트립닷컴 1658113179296149 / PNR XW2NMU · 예매완료 (하루 앞당겨 스위스 1일 단독 관광)',
       'Day 14 · 6/25 (목) ✅ 큰아들 ICN→ZRH · KE917 11:05→17:25 (B787-10 직항, ₩1,273,500) 예매완료',
       'Day 19 · 6/30 (화) ✅ 가족 4명 ZRH→LHR · Swiss LX332 (Airbaltic BT 공동운항) 12:05→13:00 직항 (1h 55m) · 위탁 23kg/인, 휴대 8kg/인 · ₩1,575,600/4인 (₩393,900/인) · 트립닷컴 1658113176589013 / PNR XTVN7K · 예매완료',
       'Day 20 · 7/1 (수) ✅ 둘째 LGW→칭다오→ICN · JD484+QW901 21:10→7/2 21:35 (칭다오 4h 10m 환승, 수하물 재수속, ₩964,900, 트립닷컴 1658113130253589) 예매완료',
@@ -571,7 +572,7 @@ export const CHECKLIST: ChecklistCategory[] = [
       '🎫 Swiss Travel Pass 6일권 신청 (CHF 379/인 × 3-4명) — 스위스 全 기차+버스+산악열차 50% 할인, 출국 전 온라인 구매',
       'Day 6 · 6/17 (수) 🚤 Caminha→A Guarda 페리 (Río Miño 도하, ~€2) — 시간표 확인 필수 (계절·날씨 영향)',
       'Day 6 · 6/17 (수) 🚌 A Guarda→Tui 버스 (~1h, Monbus) — 중앙길 전환',
-      'Day 13 · 6/24 (수) 🚂 둘째 Cambridge→LHR T2 1명 (LX333 13:50 출발 → 3h 전 10:50 LHR 도착 목표 → 8:30 Cambridge 출발: King\'s Cross 50min + Piccadilly Line 60min, ~2h)',
+      'Day 12 · 6/23 (화) 🚂 둘째 Cambridge→LHR T2 1명 (LX333 13:50 출발 → 3h 전 10:50 LHR 도착 목표 → 8:30 Cambridge 출발: King\'s Cross 50min + Piccadilly Line 60min, ~2h)',
       'Day 13 · 6/24 (수) 🚂 ZRH→Lucerne 기차 3명 (저녁, ~1h, Swiss Pass 포함)',
       'Day 14 · 6/25 (목) 🚂 ZRH→Lucerne 기차 큰아들 1명 (17:25 도착 후 저녁, ~1h)',
       'Day 15 · 6/26 (금) 🚂 Lucerne→Zermatt 기차 4명 (~3.5h, Bern/Visp 환승) — 산악 풍경 구간',
