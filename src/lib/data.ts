@@ -512,7 +512,7 @@ export const ACCOMMODATIONS: Accommodation[] = [
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩9,940,000', amtNum: 9940000, detail: '✅ LH713+LH1180 ICN→OPO×2 (₩2,311,000, FRA 환승, Y6RCMU 예매완료) + Iberia SCQ→ZRH×2 (~₩0.8M 추정) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ZRH→LHR×4 (~₩0.8M) + ✅ 둘째 JD484+QW901 LGW→칭다오→ICN (₩964,900 트립닷컴 예매완료) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
+  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,031,000', amtNum: 10031000, detail: '✅ LH713+LH1180 ICN→OPO×2 (₩2,311,000, FRA 환승, Y6RCMU 예매완료) + ⚠️ Vueling SCQ→BCN→ZRH×2 (₩890,600 예매완료, 아빠 이름 정정 중) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + 둘째 LON→ZRH (~₩0.25M) + ZRH→LHR×4 (~₩0.8M) + ✅ 둘째 JD484+QW901 LGW→칭다오→ICN (₩964,900 트립닷컴 예매완료) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 = €2,198.97 @ ₩1,800/EUR 예매완료)', pct: 25, color: '#2563EB' },
   { id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000, detail: '21박 · 포르토 2박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 체르마트 2박(3명, 비쌈) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명)', pct: 23, color: '#EA580C' },
   { id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000, detail: '포르토 2일×2명 + 카미노 11일×2명×₩50K + 🇨🇭 스위스 6일×3명×₩120K (체르마트 비쌈) + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K', pct: 17, color: '#16A34A' },
   { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
@@ -525,7 +525,7 @@ export const BUDGET: BudgetItem[] = [
 
 export const FLIGHTS: FlightData[] = [
   { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 12:20 → 22:55', note: '✅ 예매완료 · 👫 부부 2명 · 🇩🇪 Lufthansa LH713 (A350-900, ICN 12:20→FRA 18:40, 13h 20m) + LH1180 (A321NEO, FRA 21:05→OPO 22:55, 2h 50m) · FRA 환승 2h 25m · 총 18h 35m · Economy Basic Plus · 좌석 30J·30K/20E·20F · ₩2,311,000/2인 · 예약번호 Y6RCMU' },
-  { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '👫 부부 2명 · 🇪🇸 Iberia (MAD 환승) · ~5h · 약 ₩400,000 × 2 = ₩800,000' },
+  { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 15:10 → 20:25', note: '⚠️ 예매완료 (이름 정정 요청 중) · 👫 부부 2명 · 🇪🇸 부엘링 VY1673 (SCQ→BCN, 1h 40m) + VY6248 (BCN→ZRH, 1h 55m) · BCN 환승 1h 40m · 수하물 직통 ✅ 위탁 25kg/인 · ₩890,600/2인 · 트립닷컴 1658113176342997 · 아빠 이름 둘째로 잘못 등록 (정정 요청 필요)' },
   { type: '합류', from: 'LON 런던', to: 'ZRH 취리히', date: '2026.06.24 (수) 오후', note: '🧑 둘째 1명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · 약 ₩250,000 (캠브리지에서 LHR 또는 LCY 이동)' },
   { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.25 (목) 11:05 → 17:25', note: '✅ 예매완료 🧑 큰아들 1명 · 🇰🇷 KE917 직항 (B787-10) · 13h 20m · ₩1,273,500 · 일반석 스탠다드' },
   { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 오전', note: '👨‍👩‍👦 3명 · 🇨🇭 Swiss/🇬🇧 BA 직항 · 1h 45m · ~₩200,000 × 3 = ₩600,000' },
@@ -557,7 +557,7 @@ export const CHECKLIST: ChecklistCategory[] = [
     title: '항공권 예매 (7건, 출발일 순)',
     items: [
       'Day 1 · 6/12 (금) ✅ 부부 ICN→FRA→OPO · LH713+LH1180 12:20→22:55 (FRA 환승, A350-900+A321NEO, Economy Basic Plus, 좌석 30J·30K/20E·20F, ₩2,311,000/2인, 예약번호 Y6RCMU) 예매완료',
-      'Day 13 · 6/24 (수) ❌ 부부 SCQ→MAD→ZRH · Iberia 오후편 (MAD 환승, ~5h) — 카미노 완주 후 스위스 이동',
+      'Day 13 · 6/24 (수) ⚠️ 부부 SCQ→BCN→ZRH · Vueling VY1673+VY6248 15:10→20:25 (BCN 환승 1h 40m, 수하물 직통, 위탁 25kg/인, ₩890,600/2인, 트립닷컴 1658113176342997). 어머니 OK / 아빠 이름 정정 요청 중 (현재 둘째 JEONGKYEOM CHOI로 잘못 등록 → CHULLYOUNG CHOI로 변경 필요)',
       'Day 13 · 6/24 (수) ❌ 둘째 LHR/LGW→ZRH · Swiss Air 또는 BA 오후편 (1h 45m) — Cambridge에서 공항 이동 별도',
       'Day 14 · 6/25 (목) ✅ 큰아들 ICN→ZRH · KE917 11:05→17:25 (B787-10 직항, ₩1,273,500) 예매완료',
       'Day 19 · 6/30 (화) ❌ 가족 4명 ZRH→LHR · Swiss Air 또는 BA 오전편 (1h 45m) — 졸업식 전날 영국 입국',
