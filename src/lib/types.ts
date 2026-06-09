@@ -120,9 +120,23 @@ export interface Transport {
   tip: string;
 }
 
+export interface ChecklistItemTemplate {
+  label: string;       // DB-friendly summary string (also used for seed); 표시할 핵심 내용
+  day?: string;        // "Day 1" / "Day 12-13"
+  date?: string;       // "6/12 (금)" / "6/14 ~ 6/17"
+  target?: string;     // 👫 부부 · 🧑 둘째 · 🇰🇷 큰아들 · 👨‍👩‍👦‍👦 가족 등 대상
+  count?: string;      // "2명" / "4명"
+  route?: string;      // 항공권/기차 노선
+  code?: string;       // 항공편명/PNR/예약번호
+  time?: string;       // "12:20→22:55" / "13:50→16:35"
+  price?: string;      // "₩2,311,000" / "CHF 379/인 × 4"
+  status?: 'confirmed' | 'pending'; // ✅ 예매완료 / ⏳ 미정
+  note?: string;       // 부가 설명 (좌석·환승·주의사항 등)
+}
+
 export interface ChecklistCategory {
   title: string;
-  items: string[];
+  items: ChecklistItemTemplate[];
 }
 
 // DB types

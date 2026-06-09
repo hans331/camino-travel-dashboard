@@ -3,10 +3,13 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { CHECKLIST } from '@/lib/data';
 import { supabase } from '@/lib/supabase';
-import type { ChecklistItemDB, ChecklistAttachment } from '@/lib/types';
+import type { ChecklistItemDB, ChecklistAttachment, ChecklistItemTemplate } from '@/lib/types';
 
-const CATEGORY_ICONS = ['✈️', '🚂', '🏨', '🛂', '🎫', '🥾', '🇨🇭', '👕', '💊', '📱'];
 const ATTACHMENT_BUCKET = 'attachments';
+
+function getTemplate(categoryIndex: number, sortOrder: number): ChecklistItemTemplate | undefined {
+  return CHECKLIST[categoryIndex]?.items[sortOrder];
+}
 
 function formatFileSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -71,10 +74,10 @@ export default function Checklist() {
   async function initializeFromStatic() {
     const newItems: Omit<ChecklistItemDB, 'id' | 'created_at'>[] = [];
     CHECKLIST.forEach((cat, catIdx) => {
-      cat.items.forEach((label, itemIdx) => {
+      cat.items.forEach((tpl, itemIdx) => {
         newItems.push({
           category_index: catIdx,
-          label,
+          label: tpl.label,
           checked: false,
           memo: '',
           is_custom: false,
@@ -244,7 +247,6 @@ export default function Checklist() {
   // Group items by category
   const grouped = CHECKLIST.map((cat, idx) => ({
     title: cat.title,
-    icon: CATEGORY_ICONS[idx],
     items: items.filter((item) => item.category_index === idx),
     index: idx,
   }));
@@ -252,6 +254,13 @@ export default function Checklist() {
   const totalItems = items.length;
   const checkedItems = items.filter((i) => i.checked).length;
   const progressPct = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+
+  // Per-category progress
+  function categoryProgress(catIdx: number) {
+    const catItems = items.filter((i) => i.category_index === catIdx);
+    const done = catItems.filter((i) => i.checked).length;
+    return { done, total: catItems.length };
+  }
 
   return (
     <div>
@@ -275,110 +284,185 @@ export default function Checklist() {
         </span>
       </div>
 
-      {grouped.map((group) => (
-        <div key={group.index} className="checklist-category">
-          <div className="checklist-category-title">
-            {group.icon} {group.title}
-          </div>
+      {grouped.map((group) => {
+        const { done, total } = categoryProgress(group.index);
+        const catPct = total > 0 ? Math.round((done / total) * 100) : 0;
 
-          {group.items.map((item) => {
-            const itemAtts = attachments[item.id] || [];
-            const isExpanded = expandedMemo.has(item.id);
-            return (
-              <div key={item.id} className="checklist-item">
-                <input
-                  type="checkbox"
-                  checked={item.checked}
-                  onChange={() => toggleCheck(item.id, item.checked)}
-                />
-                <div style={{ flex: 1 }}>
-                  <span
-                    className={`checklist-label ${item.checked ? 'checked' : ''}`}
-                    onClick={() => toggleMemoExpand(item.id)}
+        return (
+          <div key={group.index} className="checklist-category">
+            <div className="checklist-category-header">
+              <div className="checklist-category-title">{group.title}</div>
+              <div className="checklist-category-progress">
+                <span className="checklist-category-progress-num">
+                  {done} / {total}
+                </span>
+                <div className="checklist-category-progress-bar">
+                  <div
+                    className="checklist-category-progress-fill"
+                    style={{ width: `${catPct}%` }}
+                  />
+                </div>
+                <span className="checklist-category-progress-pct">{catPct}%</span>
+              </div>
+            </div>
+
+            <div className="checklist-rows">
+              {group.items.map((item) => {
+                const itemAtts = attachments[item.id] || [];
+                const isExpanded = expandedMemo.has(item.id);
+                const tpl = item.is_custom ? undefined : getTemplate(item.category_index, item.sort_order);
+                const status = tpl?.status;
+
+                return (
+                  <div
+                    key={item.id}
+                    className={`checklist-row ${item.checked ? 'is-checked' : ''} ${status ? `status-${status}` : ''}`}
                   >
-                    {item.label}
-                    {itemAtts.length > 0 && (
-                      <span className="checklist-attachment-badge">
-                        📎 {itemAtts.length}
-                      </span>
-                    )}
-                  </span>
-                  {isExpanded && (
-                    <>
-                      <textarea
-                        className="checklist-memo"
-                        value={item.memo}
-                        placeholder="메모..."
-                        rows={2}
-                        onChange={(e) => updateMemo(item.id, e.target.value)}
+                    <div className="checklist-row-main">
+                      <input
+                        type="checkbox"
+                        className="checklist-row-check"
+                        checked={item.checked}
+                        onChange={() => toggleCheck(item.id, item.checked)}
                       />
 
-                      {itemAtts.length > 0 && (
-                        <div className="checklist-attachments">
-                          {itemAtts.map((att) => (
-                            <div key={att.id} className="checklist-attachment-row">
-                              <a
-                                href={publicUrl(att.file_path)}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="checklist-attachment-link"
-                                download={att.file_name}
-                              >
-                                <span className="checklist-attachment-icon">{fileIcon(att.mime_type)}</span>
-                                <span className="checklist-attachment-name">{att.file_name}</span>
-                                <span className="checklist-attachment-size">{formatFileSize(att.file_size)}</span>
-                              </a>
-                              <button
-                                className="checklist-attachment-delete"
-                                onClick={() => deleteAttachment(att)}
-                                title="첨부 삭제"
-                              >
-                                ✕
-                              </button>
-                            </div>
-                          ))}
-                        </div>
+                      {/* Status badge column */}
+                      <div className="checklist-col-status">
+                        {status === 'confirmed' && (
+                          <span className="checklist-status-pill confirmed">✅ 완료</span>
+                        )}
+                        {status === 'pending' && (
+                          <span className="checklist-status-pill pending">⏳ 예정</span>
+                        )}
+                      </div>
+
+                      {/* Date column (Day + date) */}
+                      <div className="checklist-col-date">
+                        {tpl?.day && <div className="checklist-day-tag">{tpl.day}</div>}
+                        {tpl?.date && <div className="checklist-date-text">{tpl.date}</div>}
+                      </div>
+
+                      {/* Target/count column */}
+                      <div className="checklist-col-target">
+                        {tpl?.target && <div className="checklist-target-text">{tpl.target}</div>}
+                        {tpl?.count && <div className="checklist-count-text">{tpl.count}</div>}
+                      </div>
+
+                      {/* Main label + metadata */}
+                      <div className="checklist-col-main">
+                        <button
+                          type="button"
+                          className={`checklist-label-btn ${item.checked ? 'checked' : ''}`}
+                          onClick={() => toggleMemoExpand(item.id)}
+                        >
+                          <span className="checklist-label-text">
+                            {tpl?.label ?? item.label}
+                          </span>
+                          {itemAtts.length > 0 && (
+                            <span className="checklist-attachment-badge">📎 {itemAtts.length}</span>
+                          )}
+                        </button>
+
+                        {tpl && (tpl.route || tpl.code || tpl.time || tpl.price || tpl.note) && (
+                          <div className="checklist-meta">
+                            {tpl.route && (
+                              <span className="checklist-meta-chip route">🛤 {tpl.route}</span>
+                            )}
+                            {tpl.code && (
+                              <span className="checklist-meta-chip code">🆔 {tpl.code}</span>
+                            )}
+                            {tpl.time && (
+                              <span className="checklist-meta-chip time">⏱ {tpl.time}</span>
+                            )}
+                            {tpl.price && (
+                              <span className="checklist-meta-chip price">💶 {tpl.price}</span>
+                            )}
+                            {tpl.note && (
+                              <span className="checklist-meta-note">📝 {tpl.note}</span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {item.is_custom && (
+                        <button
+                          className="checklist-delete-btn"
+                          onClick={() => deleteItem(item.id)}
+                          title="삭제"
+                        >
+                          ✕
+                        </button>
                       )}
+                    </div>
 
-                      <label className="checklist-attachment-upload">
-                        <input
-                          type="file"
-                          accept="application/pdf,image/*"
-                          disabled={uploadingId === item.id}
-                          onChange={(e) => {
-                            const f = e.target.files?.[0];
-                            if (f) uploadAttachment(item.id, f);
-                            e.target.value = '';
-                          }}
+                    {isExpanded && (
+                      <div className="checklist-row-expanded">
+                        <textarea
+                          className="checklist-memo"
+                          value={item.memo}
+                          placeholder="메모..."
+                          rows={2}
+                          onChange={(e) => updateMemo(item.id, e.target.value)}
                         />
-                        <span>
-                          {uploadingId === item.id ? '⏳ 업로드 중...' : '📎 파일 첨부 (PDF·사진)'}
-                        </span>
-                      </label>
-                    </>
-                  )}
-                </div>
-                {item.is_custom && (
-                  <button
-                    className="checklist-delete-btn"
-                    onClick={() => deleteItem(item.id)}
-                    title="삭제"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-            );
-          })}
 
-          <button
-            className="checklist-add-btn"
-            onClick={() => addItem(group.index)}
-          >
-            + 추가
-          </button>
-        </div>
-      ))}
+                        {itemAtts.length > 0 && (
+                          <div className="checklist-attachments">
+                            {itemAtts.map((att) => (
+                              <div key={att.id} className="checklist-attachment-row">
+                                <a
+                                  href={publicUrl(att.file_path)}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="checklist-attachment-link"
+                                  download={att.file_name}
+                                >
+                                  <span className="checklist-attachment-icon">{fileIcon(att.mime_type)}</span>
+                                  <span className="checklist-attachment-name">{att.file_name}</span>
+                                  <span className="checklist-attachment-size">{formatFileSize(att.file_size)}</span>
+                                </a>
+                                <button
+                                  className="checklist-attachment-delete"
+                                  onClick={() => deleteAttachment(att)}
+                                  title="첨부 삭제"
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        <label className="checklist-attachment-upload">
+                          <input
+                            type="file"
+                            accept="application/pdf,image/*"
+                            disabled={uploadingId === item.id}
+                            onChange={(e) => {
+                              const f = e.target.files?.[0];
+                              if (f) uploadAttachment(item.id, f);
+                              e.target.value = '';
+                            }}
+                          />
+                          <span>
+                            {uploadingId === item.id ? '⏳ 업로드 중...' : '📎 파일 첨부 (PDF·사진)'}
+                          </span>
+                        </label>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            <button
+              className="checklist-add-btn"
+              onClick={() => addItem(group.index)}
+            >
+              + 추가
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 }
