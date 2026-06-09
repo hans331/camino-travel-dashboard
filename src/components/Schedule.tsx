@@ -36,6 +36,9 @@ const PHASE_SUMMARIES: PhaseSummary[] = [
 ];
 
 function DayCard({ day }: { day: DayData }) {
+  const hasTimeline = day.timeline && day.timeline.length > 0;
+  const confirmedCount = day.timeline?.filter((e) => e.status === 'confirmed').length ?? 0;
+
   return (
     <div className="card day-card" data-phase={day.phase}>
       <div className="day-card-header">
@@ -49,6 +52,39 @@ function DayCard({ day }: { day: DayData }) {
           {day.date}{day.dist ? ` · ${day.dist}` : ''}
         </span>
       </div>
+
+      {hasTimeline && (
+        <div className="day-timeline">
+          <div className="day-timeline-head">
+            <span className="day-timeline-label">⏱ 하루 시간표</span>
+            {confirmedCount > 0 && (
+              <span className="day-timeline-count">
+                ✅ 확정 {confirmedCount}건
+              </span>
+            )}
+          </div>
+          <ol className="day-timeline-list">
+            {day.timeline!.map((ev, i) => (
+              <li
+                key={i}
+                className={`day-timeline-item ${ev.status === 'confirmed' ? 'is-confirmed' : 'is-pending'}`}
+              >
+                <span className="day-timeline-time">{ev.time}</span>
+                <span className="day-timeline-emoji">{ev.emoji}</span>
+                <div className="day-timeline-body">
+                  <div className="day-timeline-line">
+                    <span className="day-timeline-text">{ev.label}</span>
+                    {ev.status === 'confirmed' && (
+                      <span className="day-timeline-badge confirmed">예매</span>
+                    )}
+                  </div>
+                  {ev.detail && <div className="day-timeline-detail">{ev.detail}</div>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
 
       <div className="day-card-body">
         <p>{day.desc}</p>

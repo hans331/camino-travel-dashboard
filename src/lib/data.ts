@@ -65,8 +65,8 @@ export const PHASES = {
 } as const;
 
 export const NAV_ITEMS = [
-  { id: 'map', label: '지도', icon: '🗺️' },
   { id: 'schedule', label: '일정', icon: '📅' },
+  { id: 'map', label: '지도', icon: '🗺️' },
   { id: 'camino', label: '카미노', icon: '🐚' },
   { id: 'taste', label: '맛집·체험', icon: '🍷' },
   { id: 'accommodation', label: '숙소', icon: '🏠' },
@@ -84,6 +84,12 @@ export const SCHEDULE: DayData[] = [
     lat: 41.1579, lng: -8.6291,
     transit: '✈️ ICN 12:20 → OPO 22:55 (18h 35m, LH713+LH1180 FRA 환승)',
     restaurants: ['Cafe Santiago (프란세지냐 원조)', 'Cervejaria Brasão'],
+    timeline: [
+      { time: '12:20', emoji: '🛫', label: 'LH713 ICN 출발 (A350-900)', status: 'confirmed', detail: '👫 부부 · Economy Basic Plus · 좌석 30J·30K · PNR Y6RCMU' },
+      { time: '18:40', emoji: '🛬', label: 'FRA 도착 (13h 20m)', status: 'confirmed', detail: '환승 대기 2h 25m' },
+      { time: '21:05', emoji: '🛫', label: 'LH1180 FRA 출발 (A321NEO)', status: 'confirmed', detail: '좌석 20E·20F' },
+      { time: '22:55', emoji: '🏨', label: 'OPO 포르토 도착', status: 'confirmed', detail: '공항 픽업 → 호텔 체크인' },
+    ],
   },
   {
     day: 2, date: '6/13 (토)', phase: 'porto', title: '🍷 포르토 시내 관광 종일',
@@ -155,6 +161,15 @@ export const SCHEDULE: DayData[] = [
     lat: 42.8805, lng: -8.5457, dist: '24km',
     transit: '🥾 부부 Camino 24km · 🛬 둘째 Cambridge→LHR→ZRH→Lucerne',
     restaurants: ['O Curro da Parra', 'Abastos 2.0', 'Casa Marcelo'],
+    timeline: [
+      { time: '06:00', emoji: '🥾', label: '🥾 부부 Padrón → Santiago 출발 (24km 마지막 구간)', status: 'pending' },
+      { time: '08:30', emoji: '🚂', label: '🧑 둘째 Cambridge 출발 → LHR T2 이동', status: 'pending' },
+      { time: '12:00', emoji: '⛪', label: '🥾 부부 산티아고 도착 + 정오 순례자 미사 (Botafumeiro)', status: 'pending' },
+      { time: '13:50', emoji: '🛫', label: '🧑 LX333 LHR T2 → ZRH 출발 (1h 45m)', status: 'confirmed', detail: 'Swiss · PNR XW2NMU · 개인물품만' },
+      { time: '16:35', emoji: '🛬', label: '🧑 ZRH 도착', status: 'confirmed' },
+      { time: '18:00', emoji: '🏨', label: '🧑 Lucerne 호텔 단독 체크인 (1박 추가)', status: 'pending', detail: '⚠️ 호텔 추가 예약 필요' },
+      { time: '저녁', emoji: '🍽️', label: '🥾 부부 산티아고 자축 만찬 · 🇨🇭 둘째 Lucerne 야경 + 비어 가든', status: 'pending' },
+    ],
   },
   // ===== SWITZERLAND (Day 13-18) — 6일 (Lucerne + Matterhorn + Interlaken 통합) =====
   {
@@ -164,6 +179,15 @@ export const SCHEDULE: DayData[] = [
     lat: 47.0502, lng: 8.3093,
     transit: '🛬 부부 SCQ→BCN→ZRH 20:25 · 🚂 →Lucerne 21시 · 🇨🇭 둘째 종일 Lucerne 단독 관광',
     restaurants: ['Wirtshaus Galliker', 'Restaurant Schwanen'],
+    timeline: [
+      { time: '오전', emoji: '🇨🇭', label: '🧑 둘째 종일 Lucerne 단독 관광 (Mt. Pilatus / Lake Lucerne)', status: 'pending' },
+      { time: '15:10', emoji: '🛫', label: '👫 VY1673 SCQ → BCN 출발', status: 'confirmed', detail: 'Vueling · ⚠️ 아빠 이름 정정 진행' },
+      { time: '16:50', emoji: '🛬', label: '👫 BCN 도착 (환승 1h 40m, 수하물 직통)', status: 'confirmed' },
+      { time: '18:30', emoji: '🛫', label: '👫 VY6248 BCN → ZRH 출발', status: 'confirmed' },
+      { time: '20:25', emoji: '🛬', label: '👫 ZRH 도착', status: 'confirmed' },
+      { time: '21:00', emoji: '🚂', label: 'ZRH → Lucerne 기차 (~1h)', status: 'pending' },
+      { time: '22:00', emoji: '🍽️', label: '⭐ Lucerne 호텔에서 3명 합류 환영 만찬', status: 'pending' },
+    ],
   },
   {
     day: 14, date: '6/25 (목)', phase: 'swiss', title: '🏔️ Mt. Pilatus + 🇰🇷 큰아들 합류 (저녁, 4명 완성!)',
@@ -172,6 +196,14 @@ export const SCHEDULE: DayData[] = [
     lat: 46.9789, lng: 8.2528,
     transit: '🇰🇷 큰아들 KE917 ICN→ZRH 13h 20m (17:25 도착) + 🚂 ZRH→Lucerne 1h',
     restaurants: ['Pilatus Kulm 산정', 'Old Swiss House', 'Wirtshaus Galliker (환영)'],
+    timeline: [
+      { time: '08:00', emoji: '🏔️', label: 'Mt. Pilatus Golden Round Trip 시작 (3명, ~5h)', status: 'pending' },
+      { time: '11:05', emoji: '🛫', label: '🇰🇷 큰아들 KE917 ICN 출발 (B787-10 직항)', status: 'confirmed' },
+      { time: '14:00', emoji: '⛵', label: '오후 Lake Lucerne 보트 크루즈 + 카펠교', status: 'pending' },
+      { time: '17:25', emoji: '🛬', label: '🇰🇷 큰아들 ZRH 도착 (13h 20m)', status: 'confirmed' },
+      { time: '18:30', emoji: '🚂', label: '큰아들 ZRH → Lucerne 기차 (~1h)', status: 'pending' },
+      { time: '19:30', emoji: '🍽️', label: '⭐ 가족 4명 완성 — 환영 만찬 (라클렛/퐁듀)', status: 'pending' },
+    ],
   },
   {
     day: 15, date: '6/26 (금)', phase: 'swiss', title: '🚂 루체른 → 체르마트 (가족 4명 함께, 3.5h)',
@@ -212,6 +244,15 @@ export const SCHEDULE: DayData[] = [
     lat: 52.2053, lng: 0.1218,
     transit: '🚂 →ZRH 2h · ✈️ ZRH→LHR 1h45 · 🚂 →Cambridge 2.5h',
     restaurants: ['Midsummer House (미슐랭 2★)', 'Restaurant 22', 'The Eagle (역사적 펍)'],
+    timeline: [
+      { time: '08:00', emoji: '🏨', label: 'Interlaken 호텔 체크아웃', status: 'pending' },
+      { time: '08:30', emoji: '🚂', label: 'Interlaken → ZRH 공항 기차 (~2h)', status: 'pending' },
+      { time: '12:05', emoji: '🛫', label: '✈️ LX332 ZRH → LHR 출발 (1h 55m)', status: 'confirmed', detail: 'Swiss · 4명 · 위탁 23kg+휴대 8kg/인 · PNR XTVN7K' },
+      { time: '13:00', emoji: '🛬', label: 'LHR T2 도착', status: 'confirmed' },
+      { time: '14:30', emoji: '🚂', label: 'LHR → Cambridge (Elizabeth Line + LNER, ~2.5h)', status: 'pending' },
+      { time: '17:00', emoji: '🏨', label: 'Cambridge University Arms 체크인 (2 rooms)', status: 'pending' },
+      { time: '19:00', emoji: '🍽️', label: '졸업식 전야 가족 만찬', status: 'pending' },
+    ],
   },
   {
     day: 20, date: '7/1 (수)', phase: 'london', title: '🎓 졸업식 + 가족 분리 (둘째 귀국 / 3명 → 파리)',
@@ -220,6 +261,15 @@ export const SCHEDULE: DayData[] = [
     lat: 52.2068, lng: 0.1181,
     transit: '🎓 졸업식 → 둘째 ✈️ LGW→칭다오→ICN · 3명 🚄 Eurostar →Paris',
     restaurants: ['Bistrot Paul Bert (파리)', 'Le Comptoir du Relais', 'The Eagle (펍)'],
+    timeline: [
+      { time: '오전', emoji: '🎓', label: 'Senate House 졸업식 + 가족 사진', status: 'pending' },
+      { time: '점심', emoji: '🥂', label: '콜리지 가든 파티 + 펀팅', status: 'pending' },
+      { time: '15:00', emoji: '🚂', label: 'Cambridge → London King\'s Cross 기차 (50min)', status: 'pending' },
+      { time: '17:00', emoji: '🔀', label: 'King\'s Cross 도착 — 가족 분리 (St Pancras 도보 5분)', status: 'pending' },
+      { time: '17:30', emoji: '🚂', label: '🧑 둘째 Thameslink St Pancras → LGW (~45min)', status: 'pending' },
+      { time: '저녁', emoji: '🚄', label: '👨‍👩‍👦 3명 Eurostar London → Paris (2h 20m)', status: 'pending' },
+      { time: '21:10', emoji: '🛫', label: '🧑 JD484 LGW → 칭다오 출발', status: 'confirmed', detail: '베이징캐피탈 · 칭다오 4h 10m 환승 · PNR NXSQX0' },
+    ],
   },
 
   // ===== PARIS (Day 21-28) — 8일 (7박), Mont-Saint-Michel 포함 =====
@@ -272,6 +322,13 @@ export const SCHEDULE: DayData[] = [
     lat: 49.0097, lng: 2.5479,
     transit: '✈️ CDG 12:00 → MUC 13:30 → ICN 09:55+1 (LH2229+LH718, 14h 55m)',
     restaurants: ['Du Pain et des Idées (아침)'],
+    timeline: [
+      { time: '08:00', emoji: '🏨', label: '파리 호텔 체크아웃 + 크루아상 마지막', status: 'pending' },
+      { time: '09:00', emoji: '🚇', label: 'RER B → CDG (45-60min)', status: 'pending' },
+      { time: '12:00', emoji: '🛫', label: 'LH2229 CDG 출발 → MUC', status: 'confirmed', detail: 'Lufthansa · 3명 · Economy Green · 위탁 23kg/휴대 8kg' },
+      { time: '13:30', emoji: '🛬', label: 'MUC 도착 (환승 2h 25m)', status: 'confirmed' },
+      { time: '15:55', emoji: '🛫', label: 'LH718 MUC 출발 → ICN', status: 'confirmed' },
+    ],
   },
   {
     day: 28, date: '7/9 (목)', phase: 'paris', title: '🏠 인천 도착 (오전!)',
@@ -279,6 +336,11 @@ export const SCHEDULE: DayData[] = [
     food: '오랜만의 한식 — 도착 후 첫 끼 (점심)', stay: '집',
     lat: 37.4602, lng: 126.4407,
     transit: '🛬 ICN 09:55 도착',
+    timeline: [
+      { time: '09:55', emoji: '🛬', label: 'ICN 도착 (LH718)', status: 'confirmed' },
+      { time: '11:00', emoji: '🏠', label: '입국·짐 찾기 → 귀가', status: 'pending' },
+      { time: '점심', emoji: '🍚', label: '오랜만의 한식 — 첫 끼', status: 'pending' },
+    ],
   },
 ];
 
@@ -513,15 +575,111 @@ export const ACCOMMODATIONS: Accommodation[] = [
 ];
 
 export const BUDGET: BudgetItem[] = [
-  { id: 'flight', cat: '✈️ 항공권', amt: '₩10,850,000', amtNum: 10850000, detail: '✅ LH713+LH1180 ICN→OPO×2 (₩2,311,000, FRA 환승, Y6RCMU 예매완료) + ⚠️ Vueling SCQ→BCN→ZRH×2 (₩890,600 예매완료, 아빠 이름 정정 중) + ✅ 큰아들 KE917 ICN→ZRH (₩1,273,500 예매완료) + ✅ 둘째 LX333 LHR→ZRH 6/23 (₩292,900 예매완료, 하루 앞당김) + ✅ 가족 ZRH→LHR×4 12:05 직항 (₩1,575,600 예매완료) + ✅ 둘째 JD484+QW901 LGW→칭다오→ICN (₩964,900 트립닷컴 예매완료) + Eurostar LON→PAR×3 (~₩0.54M) + ✅ LH2229+LH718 CDG→ICN×3 (₩3,958,146 예매완료)', pct: 25, color: '#2563EB' },
-  { id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000, detail: '21박 · 포르토 2박(부부) + 카미노 9박(알베르게) + 산티아고 1박(부부) + 🇨🇭 루체른 2박(3명) + 체르마트 2박(3명, 비쌈) + 인터라켄 2박(3명) + 캠브리지 1박(4명) + 파리 7박(3명)', pct: 23, color: '#EA580C' },
-  { id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000, detail: '포르토 2일×2명 + 카미노 11일×2명×₩50K + 🇨🇭 스위스 6일×3명×₩120K (체르마트 비쌈) + 캠브리지 2일×4명×₩100K + 파리 8일×3명×₩90K', pct: 17, color: '#16A34A' },
-  { id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000, detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트', pct: 3, color: '#0891B2' },
-  { id: 'transport', cat: '🚄 교통', amt: '₩2,400,000', amtNum: 2400000, detail: 'Swiss Travel Pass 6-day × 3명 (~₩1.8M) + Versailles RER C + 시내 이동 + LHR→Cambridge + 카미노 짐 운반', pct: 5, color: '#7C3AED' },
-  { id: 'admission', cat: '🎫 체험·입장료', amt: '₩2,500,000', amtNum: 2500000, detail: '🏔️ Mt. Pilatus + ⛰️ Gornergrat (마테호른) + 융프라우요호 (3명) + 베르사유·루브르·오르세·에펠탑·l\'Orangerie + 🌻 지베르니 + 🏰 Mont-Saint-Michel', pct: 6, color: '#F59E0B' },
-  { id: 'graduation', cat: '🎓 졸업식', amt: '₩800,000', amtNum: 800000, detail: '가족 사진·축하 만찬·선물·가운 대여', pct: 2, color: '#DB2777' },
-  { id: 'insurance', cat: '🛡️ 보험·eSIM·ETA', amt: '₩500,000', amtNum: 500000, detail: '여행자 보험 부부 2명 (하이킹 커버) + eSIM 4명 + UK ETA 4명 (£40)', pct: 2, color: '#C2185B' },
-  { id: 'misc', cat: '💝 기타·예비', amt: '₩2,000,000', amtNum: 2000000, detail: '기념품·쇼핑·예비비 (스위스 물가 높음 고려)', pct: 6, color: '#475569' },
+  {
+    id: 'flight', cat: '✈️ 항공권', amt: '₩11,266,946', amtNum: 11266946,
+    detail: '7건 예매완료 + Eurostar 미예매. 예매 합계 ₩10,267,046 + 예상 ₩540,000(Eurostar)',
+    pct: 25, color: '#2563EB',
+    breakdown: [
+      { label: '👫 부부 ICN→FRA→OPO (LH713+LH1180, 6/12)', amt: 2311000, status: 'confirmed', note: 'Economy Basic Plus · 좌석 30J·30K/20E·20F · PNR Y6RCMU' },
+      { label: '🧑 둘째 LHR→ZRH (Swiss LX333, 6/23)', amt: 292900, status: 'confirmed', note: '직항 1h 45m · 개인물품만 · PNR XW2NMU' },
+      { label: '👫 부부 SCQ→BCN→ZRH (Vueling, 6/24)', amt: 890600, status: 'confirmed', note: '⚠️ 아빠 이름 정정 진행 · 위탁 25kg/인 · TRIP 1658113176342997' },
+      { label: '🇰🇷 큰아들 ICN→ZRH (KE917, 6/25)', amt: 1273500, status: 'confirmed', note: 'B787-10 직항 13h 20m · Economy Standard' },
+      { label: '👨‍👩‍👦‍👦 가족 4명 ZRH→LHR (Swiss LX332, 6/30)', amt: 1575600, status: 'confirmed', note: '직항 1h 55m · 위탁 23kg+휴대 8kg/인 · PNR XTVN7K' },
+      { label: '🧑 둘째 LGW→칭다오→ICN (JD484+QW901, 7/1)', amt: 964900, status: 'confirmed', note: '칭다오 4h 10m 환승 · 수하물 재수속 · PNR NXSQX0' },
+      { label: '👨‍👩‍👦 3명 CDG→MUC→ICN (LH2229+LH718, 7/8)', amt: 3958146, status: 'confirmed', note: 'Economy Green · €2,198.97 @ ₩1,800/EUR' },
+      { label: '🚄 Eurostar London → Paris (3명, 7/1)', amt: 540000, status: 'pending', note: '저녁편 미예매 (졸업식 이후 시간 확정 필요)' },
+    ],
+  },
+  {
+    id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000,
+    detail: '21박 전부 미예매. 도시·인원·박수 확정, 호텔 단가 추정',
+    pct: 23, color: '#EA580C',
+    breakdown: [
+      { label: '🇵🇹 포르토 2박 (부부)', amt: 285000, status: 'pending', note: 'The Editory Boulevard Aliados · €95×2박' },
+      { label: '🐚 카미노 알베르게 9박 (부부)', amt: 145000, status: 'pending', note: '평균 €8/박×9 (사립 펜션 가능)' },
+      { label: '🐚 산티아고 부티크 1박 (부부)', amt: 165000, status: 'pending', note: 'Hotel Costa Vella · €110' },
+      { label: '🇨🇭 루체른 2박 (3→4명)', amt: 1010000, status: 'pending', note: 'family room · CHF 280×2박' },
+      { label: '⛰️ 체르마트 2박 (4명, 마테호른 뷰)', amt: 1440000, status: 'pending', note: 'CHF 400×2박 (성수기 비쌈)' },
+      { label: '🇨🇭 인터라켄 2박 (4명)', amt: 900000, status: 'pending', note: 'CHF 250×2박' },
+      { label: '🇬🇧 캠브리지 1박 (4명, 2 rooms)', amt: 700000, status: 'pending', note: 'University Arms · £260×2 rooms×1박' },
+      { label: '🇫🇷 파리 7박 (3명, 2 rooms)', amt: 5555000, status: 'pending', note: 'Hôtel des Grands Boulevards · €230×7박' },
+    ],
+  },
+  {
+    id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000,
+    detail: '단계별 인원·일수 × 1일 예산 (전부 미정)',
+    pct: 17, color: '#16A34A',
+    breakdown: [
+      { label: '🇵🇹 포르토 2일×2명 × ₩90K', amt: 360000, status: 'pending' },
+      { label: '🐚 카미노 11일×2명 × ₩50K', amt: 1100000, status: 'pending', note: '알베르게 + 시골 식당 기준' },
+      { label: '🇨🇭 스위스 6일×3-4명 × ₩120K', amt: 2520000, status: 'pending', note: '체르마트 비쌈, 라클렛/퐁듀 포함' },
+      { label: '🇬🇧 캠브리지 2일×4명 × ₩100K', amt: 800000, status: 'pending', note: '졸업 만찬 포함' },
+      { label: '🇫🇷 파리 8일×3명 × ₩115K', amt: 2820000, status: 'pending', note: '비스트로 + Mont-Saint-Michel 등 외식' },
+    ],
+  },
+  {
+    id: 'gear', cat: '🥾 카미노 장비', amt: '₩1,000,000', amtNum: 1000000,
+    detail: '부부 2명 × ₩500K — 등산화·배낭·침낭·스틱·발 관리키트',
+    pct: 3, color: '#0891B2',
+    breakdown: [
+      { label: '🥾 등산화 × 2', amt: 400000, status: 'pending', note: '⚠️ D-14부터 길들이기 필수' },
+      { label: '🎒 배낭 35-40L × 2 + 트레킹 스틱 4', amt: 400000, status: 'pending' },
+      { label: '💤 침낭·라이너·헤드랜턴·발관리 키트', amt: 200000, status: 'pending' },
+    ],
+  },
+  {
+    id: 'transport', cat: '🚄 교통', amt: '₩2,400,000', amtNum: 2400000,
+    detail: 'Swiss Travel Pass + 시내 이동 + 카미노 짐 운반 (전부 미예매)',
+    pct: 5, color: '#7C3AED',
+    breakdown: [
+      { label: '🇨🇭 Swiss Travel Pass 6일 × 4명', amt: 2280000, status: 'pending', note: 'CHF 379/인 · 산악열차 25-50% 할인 포함' },
+      { label: '🐚 카미노 짐 운반 (Tuitrans/Correos)', amt: 100000, status: 'pending', note: '€6-8/일 × 10일' },
+      { label: '🇫🇷 파리 Navigo 주간권 × 3명', amt: 135000, status: 'pending', note: '€30×3' },
+      { label: '🇬🇧 LHR ↔ Cambridge + 시내 (4명)', amt: 250000, status: 'pending' },
+    ],
+  },
+  {
+    id: 'admission', cat: '🎫 체험·입장료', amt: '₩2,500,000', amtNum: 2500000,
+    detail: '스위스 산악열차 + 파리 미술관·궁전·당일치기 (전부 미예매)',
+    pct: 6, color: '#F59E0B',
+    breakdown: [
+      { label: '🏔️ Mt. Pilatus Golden Round × 4', amt: 480000, status: 'pending', note: 'CHF 78/인 (Swiss Pass 50% 할인)' },
+      { label: '⛰️ Gornergrat (마테호른) × 4', amt: 815000, status: 'pending', note: 'CHF 132/인' },
+      { label: '🏔️ 융프라우요호 × 4', amt: 1300000, status: 'pending', note: 'CHF 232/인 (Swiss Pass 25% 할인)' },
+      { label: '🇫🇷 파리 6개 명소 × 3', amt: 540000, status: 'pending', note: '오르세·루브르·에펠탑·베르사유·l\'Orangerie·지베르니' },
+      { label: '🏰 Mont-Saint-Michel TGV+셔틀+입장 × 3', amt: 510000, status: 'pending', note: '~₩170K/인' },
+    ],
+  },
+  {
+    id: 'graduation', cat: '🎓 졸업식', amt: '₩800,000', amtNum: 800000,
+    detail: '가족 사진·가운 대여·축하 만찬·선물 (전부 미예매)',
+    pct: 2, color: '#DB2777',
+    breakdown: [
+      { label: '📸 가족 졸업 사진 (프로 촬영)', amt: 300000, status: 'pending' },
+      { label: '👔 학사 가운 대여', amt: 100000, status: 'pending' },
+      { label: '🥂 졸업 축하 만찬 + 선물', amt: 400000, status: 'pending' },
+    ],
+  },
+  {
+    id: 'insurance', cat: '🛡️ 보험·eSIM·ETA', amt: '₩500,000', amtNum: 500000,
+    detail: '여행자 보험·eSIM·UK ETA (일부 확정)',
+    pct: 2, color: '#C2185B',
+    breakdown: [
+      { label: '🇬🇧 UK ETA × 4명', amt: 72000, status: 'confirmed', note: '£10×4 = £40' },
+      { label: '🛡️ 여행자 보험 (하이킹 커버, 부부)', amt: 200000, status: 'pending', note: '카미노 산악 커버 필수' },
+      { label: '📡 eSIM × 4명 (유럽+UK+스위스)', amt: 228000, status: 'pending', note: 'Airalo/Holafly' },
+    ],
+  },
+  {
+    id: 'misc', cat: '💝 기타·예비', amt: '₩2,000,000', amtNum: 2000000,
+    detail: '기념품·쇼핑·예비비 (전부 미정)',
+    pct: 6, color: '#475569',
+    breakdown: [
+      { label: '🎁 기념품·선물 (가족·지인)', amt: 800000, status: 'pending' },
+      { label: '🛍️ 쇼핑 (파리·런던)', amt: 600000, status: 'pending' },
+      { label: '⚠️ 예비비 (응급·환율 변동)', amt: 600000, status: 'pending', note: '스위스 물가 높음 고려' },
+    ],
+  },
 ];
 
 export const FLIGHTS: FlightData[] = [

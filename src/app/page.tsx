@@ -14,7 +14,7 @@ import Checklist from '@/components/Checklist';
 const MapView = dynamic(() => import('@/components/MapView'), { ssr: false });
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState('map');
+  const [activeTab, setActiveTab] = useState('schedule');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
 

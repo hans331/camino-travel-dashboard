@@ -19,6 +19,14 @@ export interface Airport {
   role: string; // 어떤 일정에 사용되는지
 }
 
+export interface TimelineEvent {
+  time: string; // "12:20" or "12:20→18:40" or "오후"
+  emoji: string;
+  label: string;
+  status?: 'confirmed' | 'pending'; // 예매·확정 여부
+  detail?: string; // optional sub-line (PNR, 항공편명 등)
+}
+
 export interface DayData {
   day: number;
   date: string;
@@ -33,6 +41,7 @@ export interface DayData {
   dist?: string;
   transit?: string; // 비행/기차/Eurostar 등 이동 시간 (캘린더에 표시)
   restaurants?: string[];
+  timeline?: TimelineEvent[]; // 시간별 주요 이벤트 (특히 항공권 확정 시간)
 }
 
 export interface CaminoStage {
@@ -77,6 +86,13 @@ export interface Accommodation {
   emoji: string;
 }
 
+export interface BudgetLineItem {
+  label: string;
+  amt: number;
+  status: 'confirmed' | 'pending';
+  note?: string; // 항공편명·PNR·예약일 등 (확정 시)
+}
+
 export interface BudgetItem {
   id: string;
   cat: string;
@@ -85,6 +101,7 @@ export interface BudgetItem {
   detail: string;
   pct: number;
   color: string;
+  breakdown?: BudgetLineItem[]; // 확정 vs 미정 분리 표시
 }
 
 export interface FlightData {
