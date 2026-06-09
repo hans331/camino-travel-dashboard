@@ -77,6 +77,15 @@ export default function BudgetTable() {
     }, 500);
   }, [saveActual]);
 
+  // Resolve a line's actual amount.
+  // - 확정(confirmed) 항목: 사용자가 입력하지 않았으면 예산 금액을 그대로 실제 사용으로 자동 반영
+  // - 미정(pending) 항목: 사용자가 입력한 값만 반영, 미입력은 0
+  const resolveLineActual = useCallback((itemId: string, idx: number, b: { amt: number; status: 'confirmed' | 'pending' }): number => {
+    const explicit = actuals[lineKey(itemId, idx)];
+    if (explicit !== undefined) return explicit;
+    return b.status === 'confirmed' ? b.amt : 0;
+  }, [actuals]);
+
   // Compute category actual from sum of its line actuals (falls back to legacy
   // category-key entry if no breakdown exists).
   const categoryActual = useCallback((item: BudgetItem): number => {
@@ -84,10 +93,10 @@ export default function BudgetTable() {
       return actuals[item.id] ?? 0;
     }
     return item.breakdown.reduce(
-      (sum, _, idx) => sum + (actuals[lineKey(item.id, idx)] ?? 0),
+      (sum, b, idx) => sum + resolveLineActual(item.id, idx, b),
       0
     );
-  }, [actuals]);
+  }, [actuals, resolveLineActual]);
 
   const totals = useMemo(() => {
     let plannedConfirmed = 0;
@@ -293,7 +302,9 @@ export default function BudgetTable() {
                   </div>
                   {breakdown.map((b, i) => {
                     const key = lineKey(item.id, i);
-                    const lineActual = actuals[key] ?? 0;
+                    const explicitActual = actuals[key];
+                    const lineActual = resolveLineActual(item.id, i, b);
+                    const isAutoConfirmed = explicitActual === undefined && b.status === 'confirmed';
                     const lineDiff = b.amt - lineActual;
                     const lineRatio = b.amt > 0 && lineActual > 0
                       ? Math.round((lineActual / b.amt) * 100)
@@ -301,7 +312,7 @@ export default function BudgetTable() {
                     return (
                       <div
                         key={i}
-                        className={`budget-breakdown-row ${b.status === 'confirmed' ? 'is-confirmed' : 'is-pending'}`}
+                        className={`budget-breakdown-row ${b.status === 'confirmed' ? 'is-confirmed' : 'is-pending'} ${isAutoConfirmed ? 'is-auto' : ''}`}
                       >
                         <span className={`status-pill ${b.status}`}>
                           {b.status === 'confirmed' ? '✅ 확정' : '⏳ 미정'}
@@ -314,18 +325,23 @@ export default function BudgetTable() {
                         <div className="budget-breakdown-actual">
                           <input
                             type="text"
-                            className="budget-input budget-line-input"
+                            className={`budget-input budget-line-input ${isAutoConfirmed ? 'is-auto' : ''}`}
                             value={lineActual > 0 ? lineActual.toLocaleString('ko-KR') : ''}
-                            placeholder="₩0"
+                            placeholder={b.status === 'confirmed' ? '예매가 자동 반영' : '₩0'}
                             onChange={(e) => handleLineChange(item.id, i, e.target.value)}
+                            onFocus={(e) => isAutoConfirmed && e.target.select()}
                             aria-label={`${b.label} 실제 사용`}
+                            title={isAutoConfirmed ? '예매 확정 → 예산과 동일 자동 반영. 클릭하면 직접 수정 가능.' : undefined}
                             inputMode="numeric"
                           />
+                          {isAutoConfirmed && <span className="auto-tag" title="자동 반영">✨ 자동</span>}
                         </div>
                         <div className="budget-breakdown-diff">
-                          {lineActual > 0
+                          {explicitActual !== undefined && explicitActual > 0
                             ? <DiffCell diff={lineDiff} ratio={lineRatio} />
-                            : <span className="diff-cell empty">─</span>}
+                            : isAutoConfirmed
+                              ? <span className="diff-cell zero">±₩0</span>
+                              : <span className="diff-cell empty">─</span>}
                         </div>
                       </div>
                     );
