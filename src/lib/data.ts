@@ -262,13 +262,16 @@ export const SCHEDULE: DayData[] = [
     transit: '🎓 졸업식 → 둘째 ✈️ LGW→칭다오→ICN · 3명 🚄 Eurostar →Paris',
     restaurants: ['Bistrot Paul Bert (파리)', 'Le Comptoir du Relais', 'The Eagle (펍)'],
     timeline: [
-      { time: '오전', emoji: '🎓', label: 'Senate House 졸업식 + 가족 사진', status: 'pending' },
-      { time: '점심', emoji: '🥂', label: '콜리지 가든 파티 + 펀팅', status: 'pending' },
-      { time: '15:00', emoji: '🚂', label: 'Cambridge → London King\'s Cross 기차 (50min)', status: 'pending' },
-      { time: '17:00', emoji: '🔀', label: 'King\'s Cross 도착 — 가족 분리 (St Pancras 도보 5분)', status: 'pending' },
-      { time: '17:30', emoji: '🚂', label: '🧑 둘째 Thameslink St Pancras → LGW (~45min)', status: 'pending' },
-      { time: '저녁', emoji: '🚄', label: '👨‍👩‍👦 3명 Eurostar London → Paris (2h 20m)', status: 'pending' },
+      { time: '11:00', emoji: '🎓', label: 'Senate House 졸업식 시작', status: 'pending' },
+      { time: '12:30', emoji: '📸', label: '졸업식 끝 + 가족 사진 + 가운 반납', status: 'pending' },
+      { time: '13:00', emoji: '🥂', label: '콜리지 가든 파티 + 점심 (formal hall)', status: 'pending' },
+      { time: '14:30', emoji: '🛶', label: '펀팅 또는 캠브리지 마지막 산책', status: 'pending' },
+      { time: '15:30', emoji: '🚂', label: 'Cambridge → London King\'s Cross 기차 (50min)', status: 'pending' },
+      { time: '16:30', emoji: '🔀', label: 'St Pancras 도착 — 가족 작별 (도보 5분)', status: 'pending' },
+      { time: '17:00', emoji: '🚂', label: '🧑 둘째 Thameslink St Pancras → LGW (~45min)', status: 'pending' },
+      { time: '19:01', emoji: '🚄', label: '👨‍👩‍👦 3명 Eurostar St Pancras → Paris', status: 'confirmed', detail: 'Eurostar Standard · Coach 5 · 2h 18m · €351 (€117×3) = ₩626,439' },
       { time: '21:10', emoji: '🛫', label: '🧑 JD484 LGW → 칭다오 출발', status: 'confirmed', detail: '베이징캐피탈 · 칭다오 4h 10m 환승 · PNR NXSQX0' },
+      { time: '22:19', emoji: '🛬', label: '👨‍👩‍👦 3명 Paris Gare du Nord 도착 → 호텔 23시', status: 'confirmed' },
     ],
   },
 
@@ -576,9 +579,9 @@ export const ACCOMMODATIONS: Accommodation[] = [
 
 export const BUDGET: BudgetItem[] = [
   {
-    id: 'flight', cat: '✈️ 항공권', amt: '₩11,266,946', amtNum: 11266946,
-    detail: '7건 예매완료 + Eurostar 미예매. 예매 합계 ₩10,267,046 + 예상 ₩540,000(Eurostar)',
-    pct: 25, color: '#2563EB',
+    id: 'flight', cat: '✈️ 항공권', amt: '₩11,893,085', amtNum: 11893085,
+    detail: '✅ 8건 모두 예매완료 (Eurostar 포함) · 합계 ₩11,893,085',
+    pct: 26, color: '#2563EB',
     breakdown: [
       { label: '👫 부부 ICN→FRA→OPO (LH713+LH1180, 6/12)', amt: 2311000, status: 'confirmed', note: 'Economy Basic Plus · 좌석 30J·30K/20E·20F · PNR Y6RCMU' },
       { label: '🧑 둘째 LHR→ZRH (Swiss LX333, 6/23)', amt: 292900, status: 'confirmed', note: '직항 1h 45m · 개인물품만 · PNR XW2NMU' },
@@ -586,8 +589,8 @@ export const BUDGET: BudgetItem[] = [
       { label: '🇰🇷 큰아들 ICN→ZRH (KE917, 6/25)', amt: 1273500, status: 'confirmed', note: 'B787-10 직항 13h 20m · Economy Standard' },
       { label: '👨‍👩‍👦‍👦 가족 4명 ZRH→LHR (Swiss LX332, 6/30)', amt: 1575600, status: 'confirmed', note: '직항 1h 55m · 위탁 23kg+휴대 8kg/인 · PNR XTVN7K' },
       { label: '🧑 둘째 LGW→칭다오→ICN (JD484+QW901, 7/1)', amt: 964900, status: 'confirmed', note: '칭다오 4h 10m 환승 · 수하물 재수속 · PNR NXSQX0' },
+      { label: '🚄 Eurostar London → Paris (3명, 7/1)', amt: 626439, status: 'confirmed', note: '19:01 → 22:19 · Eurostar Standard · Coach 5 · €351 (€117×3)' },
       { label: '👨‍👩‍👦 3명 CDG→MUC→ICN (LH2229+LH718, 7/8)', amt: 3958146, status: 'confirmed', note: 'Economy Green · €2,198.97 @ ₩1,800/EUR' },
-      { label: '🚄 Eurostar London → Paris (3명, 7/1)', amt: 540000, status: 'pending', note: '저녁편 미예매 (졸업식 이후 시간 확정 필요)' },
     ],
   },
   {
@@ -689,7 +692,7 @@ export const FLIGHTS: FlightData[] = [
   { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.25 (목) 11:05 → 17:25', note: '✅ 예매완료 🧑 큰아들 1명 · 🇰🇷 KE917 직항 (B787-10) · 13h 20m · ₩1,273,500 · 일반석 스탠다드' },
   { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 12:05 → 13:00', note: '✅ 예매완료 · 👨‍👩‍👧‍👦 가족 4명 · 🇨🇭 Swiss LX332 (Airbaltic BT 공동운항) ZRH→LHR T2 직항 · 1h 55m · 위탁 23kg/인 + 휴대 8kg/인 포함 · ₩393,900/인 × 4 = ₩1,575,600 · 트립닷컴 1658113176589013 / PNR XTVN7K' },
   { type: '귀국-둘째', from: 'LGW 런던 개트윅', to: 'ICN 인천', date: '2026.07.01 (수) 21:10 → 07.02 (목) 21:35', note: '✅ 예매완료 · 👤 둘째 1명 · 🇨🇳 베이징캐피탈 JD484 LGW→칭다오 + 🇨🇳 칭다오항공 QW901 칭다오→ICN · 칭다오 4h 10m 환승 (⚠️ 수하물 직통연결 불가, 재수속 필요) · 위탁 23kg×2 / 휴대 5kg×1 · ₩964,900 · 트립닷컴 1658113130253589 / PNR NXSQX0' },
-  { type: '경유', from: 'London 세인트팬크라스', to: 'Paris 가르 뒤 노르', date: '2026.07.01 (수) 졸업식 후 저녁', note: '👨‍👩‍👦 3명 · 🚄 Eurostar · 2h 20m · ₩180,000 × 3 = ₩540,000' },
+  { type: '경유', from: 'London 세인트팬크라스', to: 'Paris 가르 뒤 노르', date: '2026.07.01 (수) 19:01 → 22:19', note: '✅ 예매완료 · 👨‍👩‍👦 3명 · 🚄 Eurostar Standard · 2h 18m · €351 (€117×3) = ₩626,439 · Coach 5' },
   { type: '귀국', from: 'CDG 파리', to: 'ICN 인천', date: '2026.07.08 (수) 12:00 → 07.09 (목) 09:55', note: '✅ 예매완료 👨‍👩‍👦 3명 · 🇩🇪 Lufthansa LH2229 + LH718 (MUC 환승, 2h 25m) · 14h 55m · Economy Green (위탁 23kg, 휴대 8kg) · €2,198.97 (3인 합계) = ₩3,958,146 @ ₩1,800/EUR' },
 ];
 
@@ -738,7 +741,7 @@ export const CHECKLIST: ChecklistCategory[] = [
       { label: '🚂 Interlaken → ZRH 공항', day: 'Day 19', date: '6/30 (화)', target: '👨‍👩‍👦‍👦 가족', count: '4명', route: 'Interlaken → ZRH', time: '~2h (8:00 출발)', status: 'pending', note: '공항 직결 · LX332 12:05 출발 위해 9:30 ZRH 도착 → 체크인 2h 여유' },
       { label: '🚂 LHR → Cambridge', day: 'Day 19', date: '6/30 (화)', target: '👨‍👩‍👦‍👦 가족', count: '4명', route: 'LHR → Cambridge', time: '~2h', status: 'pending', note: 'King\'s Cross 경유 또는 National Express 직행 버스' },
       { label: '🚂 둘째 Cambridge → LGW 개트윅', day: 'Day 20', date: '7/1 (수)', target: '🧑 둘째', count: '1명', route: 'Cambridge → LGW', time: '~2.5h (오후 15-16시)', status: 'pending', note: 'JD484 21:10 탑승 3h 여유 · King\'s Cross + Thameslink 직행' },
-      { label: '🚄 Eurostar London → Paris (저녁편)', day: 'Day 20', date: '7/1 (수)', target: '👨‍👩‍👦 3명', count: '3명', route: 'St Pancras → Gare du Nord', time: '2h 20m', status: 'pending', note: '졸업식 후 저녁편' },
+      { label: '🚄 Eurostar London → Paris', day: 'Day 20', date: '7/1 (수)', target: '👨‍👩‍👦 3명', count: '3명', route: 'St Pancras → Gare du Nord', code: 'Eurostar Standard', time: '19:01 → 22:19 (2h 18m)', price: '₩626,439', status: 'confirmed', note: 'Coach 5 · €351 (€117×3)' },
     ],
   },
   {
@@ -758,8 +761,36 @@ export const CHECKLIST: ChecklistCategory[] = [
   {
     title: '🛂 비자·서류·ETA·금융',
     items: [
-      { label: '🇬🇧 UK ETA 신청 (gov.uk/apply-uk-eta)', target: '👨‍👩‍👦‍👦 가족', count: '4명', price: '£40 (£10×4)', status: 'confirmed', note: '48-72h 승인' },
-      { label: '🇪🇺 EU Schengen 90일 무비자', target: '👨‍👩‍👦‍👦 가족', count: '4명', note: '한국 여권 기준 별도 비자 불요 (체크만)', status: 'pending' },
+      {
+        label: '🇬🇧 UK ETA 신청 (gov.uk/apply-uk-eta)',
+        target: '👨‍👩‍👦‍👦 가족', count: '4명', price: '£40 (£10×4)', status: 'confirmed',
+        note: '48-72h 승인 · 출발 최소 1주 전 권장',
+        link: { url: 'https://www.gov.uk/apply-uk-eta', label: 'UK ETA 공식 신청 페이지 열기' },
+        instructions: [
+          '📱 ① UK ETA 앱 설치 권장 (Google Play / App Store에서 "UK ETA" 검색). 웹보다 빠르고 사진 촬영 편리.',
+          '👤 ② 신청자 정보 입력: 영문 이름·생년월일·국적·여권번호·여권 만료일 (여권과 정확히 일치해야 함, 한 글자라도 다르면 거부)',
+          '📸 ③ 여권 스캔 (앱에서 NFC 자동 인식) + 본인 셀카 사진 (밝은 곳, 정면, 안경·모자 X)',
+          '✉️ ④ 이메일 주소 입력 (승인 통지받을 곳) + 전화번호',
+          '❓ ⑤ 질문 답변: 영국에서의 형사 처벌 여부, 테러·정치단체 가입 여부 등 (전부 No)',
+          '💳 ⑥ 결제: £10/인 (신용/체크카드, 4명이면 별도 4건 신청 필요)',
+          '⏰ ⑦ 승인 대기: 보통 24-72h, 이메일로 결과 통지. 거부 시 visa 신청 안내',
+          '✅ ⑧ ETA는 여권에 전자 연동 — 별도 출력 불필요 · 유효기간 2년 (출국 6/12 기준 28년 6월까지 유효)',
+        ],
+      },
+      {
+        label: '🇪🇺 EU Schengen 90일 무비자 (체크만)',
+        target: '👨‍👩‍👦‍👦 가족', count: '4명', status: 'pending',
+        note: '한국 여권 기준 별도 비자 불필요 · ETIAS 시행 전이면 무서류 입국 가능 · 출발 전 ETIAS 시행 여부만 재확인',
+        link: { url: 'https://travel-europe.europa.eu/etias_en', label: 'EU ETIAS 공식 페이지 (시행 시점 확인)' },
+        instructions: [
+          '📅 ① 현재(2026-06 기준) ETIAS 시행 일정 최종 확인 — 위 링크에서 "When does ETIAS apply?" 체크',
+          '✅ ② 시행 전이면 한국 여권으로 별도 신청 불필요. 90일 무비자 입국. 여권 + 왕복 항공권만 준비',
+          '🆕 ③ 시행 후라면 ETIAS 신청 필요: €7/인 (만 18-70세) · 온라인 신청 · 보통 몇 분 이내 자동 승인 · 유효기간 3년 또는 여권 만료일',
+          '📋 ④ ETIAS 신청 시: 여권·이메일·결제카드·기본 인적사항만. 사진 불요',
+          '⚠️ ⑤ 입국 시 준비: 왕복 항공권 인쇄본, 호텔 예약 확인서, 여행자 보험 증명, 충분한 자금 증명 (현금 또는 카드 명세서)',
+          '🛂 ⑥ 첫 Schengen 입국지: 6/12 OPO (포르토, 포르투갈) — 여기서 입국 도장. 이후 카미노·스위스·프랑스 자유 이동',
+        ],
+      },
       { label: '📕 여권 유효기간 6개월 이상 확인', target: '👨‍👩‍👦‍👦 가족', count: '4명', status: 'pending' },
       { label: '🛡️ 여행자 보험 가입', target: '👨‍👩‍👦‍👦 가족', count: '4명', note: '하이킹·산악·의료 커버 포함', status: 'pending' },
       { label: '🐚 순례자 크리덴셜 (Credencial del Peregrino)', date: '6/14 첫날', target: '👫 부부', count: '2명', note: '포르토 대성당에서 수령', status: 'pending' },

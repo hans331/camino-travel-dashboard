@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { BUDGET } from '@/lib/data';
 import { supabase } from '@/lib/supabase';
+import type { BudgetItem } from '@/lib/types';
 
 function formatKRW(n: number): string {
   return '₩' + n.toLocaleString('ko-KR');
@@ -11,6 +12,24 @@ function formatKRW(n: number): string {
 function formatMan(n: number): string {
   const man = Math.round(n / 10000);
   return `${man.toLocaleString('ko-KR')}만`;
+}
+
+function lineKey(itemId: string, idx: number): string {
+  return `${itemId}:${idx}`;
+}
+
+function DiffCell({ diff, ratio }: { diff: number; ratio: number | null }) {
+  if (diff === 0 && ratio === null) {
+    return <span className="diff-cell empty">─</span>;
+  }
+  const cls = diff >= 0 ? 'diff-positive' : 'diff-negative';
+  const sign = diff >= 0 ? '-' : '+';
+  return (
+    <span className={`diff-cell ${cls}`}>
+      <span className="diff-amount">{sign}{formatKRW(Math.abs(diff))}</span>
+      {ratio !== null && <span className="diff-ratio">({ratio}%)</span>}
+    </span>
+  );
 }
 
 export default function BudgetTable() {
@@ -35,76 +54,131 @@ export default function BudgetTable() {
     fetchActuals();
   }, []);
 
-  const saveActual = useCallback(async (category: string, amount: number) => {
+  const saveActual = useCallback(async (key: string, amount: number) => {
     await supabase
       .from('budget_actuals')
       .upsert(
-        { category, actual_amount: amount, updated_at: new Date().toISOString() },
+        { category: key, actual_amount: amount, updated_at: new Date().toISOString() },
         { onConflict: 'category' }
       );
   }, []);
 
-  const handleChange = useCallback((id: string, value: string) => {
+  const handleLineChange = useCallback((itemId: string, idx: number, value: string) => {
+    const key = lineKey(itemId, idx);
     const num = parseInt(value.replace(/[^0-9]/g, ''), 10) || 0;
 
-    setActuals((prev) => ({ ...prev, [id]: num }));
+    setActuals((prev) => ({ ...prev, [key]: num }));
 
-    if (debounceTimers.current[id]) {
-      clearTimeout(debounceTimers.current[id]);
+    if (debounceTimers.current[key]) {
+      clearTimeout(debounceTimers.current[key]);
     }
-    debounceTimers.current[id] = setTimeout(() => {
-      saveActual(id, num);
+    debounceTimers.current[key] = setTimeout(() => {
+      saveActual(key, num);
     }, 500);
   }, [saveActual]);
 
+  // Compute category actual from sum of its line actuals (falls back to legacy
+  // category-key entry if no breakdown exists).
+  const categoryActual = useCallback((item: BudgetItem): number => {
+    if (!item.breakdown || item.breakdown.length === 0) {
+      return actuals[item.id] ?? 0;
+    }
+    return item.breakdown.reduce(
+      (sum, _, idx) => sum + (actuals[lineKey(item.id, idx)] ?? 0),
+      0
+    );
+  }, [actuals]);
+
   const totals = useMemo(() => {
-    let confirmed = 0;
-    let pending = 0;
+    let plannedConfirmed = 0;
+    let plannedPending = 0;
+    let plannedTotal = 0;
+    let actualTotal = 0;
+
     for (const item of BUDGET) {
+      plannedTotal += item.amtNum;
       if (item.breakdown && item.breakdown.length > 0) {
         for (const b of item.breakdown) {
-          if (b.status === 'confirmed') confirmed += b.amt;
-          else pending += b.amt;
+          if (b.status === 'confirmed') plannedConfirmed += b.amt;
+          else plannedPending += b.amt;
         }
       } else {
-        pending += item.amtNum;
+        plannedPending += item.amtNum;
       }
+      actualTotal += categoryActual(item);
     }
-    return { confirmed, pending, total: confirmed + pending };
-  }, []);
 
-  const totalBudget = BUDGET.reduce((s, b) => s + b.amtNum, 0);
-  const totalActual = BUDGET.reduce((s, b) => s + (actuals[b.id] ?? 0), 0);
-  const totalDiff = totalBudget - totalActual;
-  const confirmedPct = Math.round((totals.confirmed / totals.total) * 100);
+    return {
+      plannedConfirmed,
+      plannedPending,
+      plannedTotal,
+      actualTotal,
+      diff: plannedTotal - actualTotal,
+    };
+  }, [categoryActual]);
+
+  const confirmedPct = totals.plannedTotal > 0
+    ? Math.round((totals.plannedConfirmed / totals.plannedTotal) * 100)
+    : 0;
+  const usedPct = totals.plannedTotal > 0
+    ? Math.round((totals.actualTotal / totals.plannedTotal) * 100)
+    : 0;
 
   const toggle = (id: string) => {
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  const expandAll = () => {
+    const all: Record<string, boolean> = {};
+    for (const item of BUDGET) all[item.id] = true;
+    setExpanded(all);
+  };
+
+  const collapseAll = () => setExpanded({});
+
   return (
     <div>
       <div className="section-header">
         <h2>💰 예산</h2>
-        <p>예산 항목별 ✅ 확정 vs ⏳ 미정 구분 · 클릭하면 세부 내역 펼침</p>
+        <p>각 세부 항목별 <strong>예산 / 실제</strong> 입력 · 카테고리·총액 자동 합산 · 차이는 실시간 계산</p>
       </div>
 
-      {/* Top stat cards — confirmed vs pending */}
+      {/* Top stat cards */}
       <div className="budget-summary">
         <div className="budget-summary-card is-confirmed">
-          <div className="budget-summary-label">✅ 확정 (예매·발권 완료)</div>
-          <div className="budget-summary-value">{formatKRW(totals.confirmed)}</div>
-          <div className="budget-summary-sub">{formatMan(totals.confirmed)}원 · 전체의 {confirmedPct}%</div>
+          <div className="budget-summary-label">✅ 확정 예산 (예매·발권)</div>
+          <div className="budget-summary-value">{formatKRW(totals.plannedConfirmed)}</div>
+          <div className="budget-summary-sub">{formatMan(totals.plannedConfirmed)}원 · {confirmedPct}%</div>
         </div>
         <div className="budget-summary-card is-pending">
-          <div className="budget-summary-label">⏳ 미정 (예상치)</div>
-          <div className="budget-summary-value">{formatKRW(totals.pending)}</div>
-          <div className="budget-summary-sub">{formatMan(totals.pending)}원 · 전체의 {100 - confirmedPct}%</div>
+          <div className="budget-summary-label">⏳ 미정 예산 (예상치)</div>
+          <div className="budget-summary-value">{formatKRW(totals.plannedPending)}</div>
+          <div className="budget-summary-sub">{formatMan(totals.plannedPending)}원 · {100 - confirmedPct}%</div>
         </div>
         <div className="budget-summary-card is-total">
           <div className="budget-summary-label">📊 총 예산</div>
-          <div className="budget-summary-value">{formatKRW(totals.total)}</div>
-          <div className="budget-summary-sub">{formatMan(totals.total)}원</div>
+          <div className="budget-summary-value">{formatKRW(totals.plannedTotal)}</div>
+          <div className="budget-summary-sub">{formatMan(totals.plannedTotal)}원</div>
+        </div>
+        <div className="budget-summary-card is-actual">
+          <div className="budget-summary-label">💵 실제 사용 합계</div>
+          <div className="budget-summary-value">{formatKRW(totals.actualTotal)}</div>
+          <div className="budget-summary-sub">
+            {totals.actualTotal > 0 ? `${formatMan(totals.actualTotal)}원 · 예산 대비 ${usedPct}%` : '아직 입력 없음'}
+          </div>
+        </div>
+        <div className={`budget-summary-card is-diff ${totals.diff >= 0 ? 'is-under' : 'is-over'}`}>
+          <div className="budget-summary-label">
+            {totals.diff >= 0 ? '✨ 예산 잔여' : '⚠️ 예산 초과'}
+          </div>
+          <div className={`budget-summary-value ${totals.diff >= 0 ? 'positive' : 'negative'}`}>
+            {totals.diff >= 0 ? '' : '+'}{formatKRW(Math.abs(totals.diff))}
+          </div>
+          <div className="budget-summary-sub">
+            {totals.actualTotal > 0
+              ? `${totals.diff >= 0 ? '남음' : '오버'} · ${formatMan(Math.abs(totals.diff))}원`
+              : '예산 = 총액'}
+          </div>
         </div>
       </div>
 
@@ -123,17 +197,27 @@ export default function BudgetTable() {
           />
         </div>
         <div className="budget-progress-labels">
-          <span><span className="dot confirmed" /> 확정 {confirmedPct}%</span>
-          <span><span className="dot pending" /> 미정 {100 - confirmedPct}%</span>
+          <span><span className="dot confirmed" /> 확정 예산 {confirmedPct}%</span>
+          <span><span className="dot pending" /> 미정 예산 {100 - confirmedPct}%</span>
+          {totals.actualTotal > 0 && (
+            <span><span className="dot used" /> 실제 사용 {usedPct}%</span>
+          )}
         </div>
+      </div>
+
+      <div className="budget-controls">
+        <button className="budget-control-btn" onClick={expandAll}>📂 모두 펼치기</button>
+        <button className="budget-control-btn" onClick={collapseAll}>📁 모두 접기</button>
       </div>
 
       {/* Detailed budget items */}
       <div className="budget-list">
         {BUDGET.map((item) => {
-          const actual = actuals[item.id] ?? 0;
-          const diff = item.amtNum - actual;
-          const ratio = actual > 0 ? Math.round((actual / item.amtNum) * 100) : 0;
+          const itemActual = categoryActual(item);
+          const itemDiff = item.amtNum - itemActual;
+          const itemRatio = item.amtNum > 0 && itemActual > 0
+            ? Math.round((itemActual / item.amtNum) * 100)
+            : null;
           const isOpen = expanded[item.id] ?? false;
           const breakdown = item.breakdown ?? [];
           const itemConfirmed = breakdown.filter((b) => b.status === 'confirmed').reduce((s, b) => s + b.amt, 0);
@@ -167,26 +251,26 @@ export default function BudgetTable() {
                   )}
                 </div>
                 <div className="budget-item-head-right">
-                  <div className="budget-item-amt">{item.amt}</div>
-                  <div className="budget-item-actual-wrap">
-                    <label>실제</label>
-                    <input
-                      type="text"
-                      className="budget-input"
-                      value={actual > 0 ? actual.toLocaleString('ko-KR') : ''}
-                      placeholder="0"
-                      onClick={(e) => e.stopPropagation()}
-                      onChange={(e) => handleChange(item.id, e.target.value)}
-                    />
-                  </div>
-                  {actual > 0 && (
-                    <div className="budget-item-diff">
-                      <span className={diff >= 0 ? 'diff-positive' : 'diff-negative'}>
-                        {diff >= 0 ? '-' : '+'}{formatKRW(Math.abs(diff))}
-                      </span>
-                      <span className="budget-item-ratio">({ratio}%)</span>
+                  <div className="budget-item-totals">
+                    <div className="budget-item-total-cell">
+                      <span className="budget-item-total-label">예산</span>
+                      <span className="budget-item-total-value">{item.amt}</span>
                     </div>
-                  )}
+                    <div className="budget-item-total-cell">
+                      <span className="budget-item-total-label">실제 합계</span>
+                      <span className="budget-item-total-value actual">
+                        {itemActual > 0 ? formatKRW(itemActual) : '─'}
+                      </span>
+                    </div>
+                    <div className="budget-item-total-cell">
+                      <span className="budget-item-total-label">차이</span>
+                      <span className="budget-item-total-value">
+                        {itemActual > 0
+                          ? <DiffCell diff={itemDiff} ratio={itemRatio} />
+                          : <span className="diff-cell empty">─</span>}
+                      </span>
+                    </div>
+                  </div>
                   <svg
                     className={`budget-item-chevron ${isOpen ? 'rot' : ''}`}
                     width="20" height="20" viewBox="0 0 24 24"
@@ -200,21 +284,52 @@ export default function BudgetTable() {
 
               {isOpen && breakdown.length > 0 && (
                 <div className="budget-breakdown">
-                  {breakdown.map((b, i) => (
-                    <div
-                      key={i}
-                      className={`budget-breakdown-row ${b.status === 'confirmed' ? 'is-confirmed' : 'is-pending'}`}
-                    >
-                      <span className={`status-pill ${b.status}`}>
-                        {b.status === 'confirmed' ? '✅ 확정' : '⏳ 미정'}
-                      </span>
-                      <div className="budget-breakdown-main">
-                        <div className="budget-breakdown-label">{b.label}</div>
-                        {b.note && <div className="budget-breakdown-note">{b.note}</div>}
+                  <div className="budget-breakdown-header">
+                    <span>상태</span>
+                    <span>항목</span>
+                    <span>예산</span>
+                    <span>실제 사용</span>
+                    <span>차이</span>
+                  </div>
+                  {breakdown.map((b, i) => {
+                    const key = lineKey(item.id, i);
+                    const lineActual = actuals[key] ?? 0;
+                    const lineDiff = b.amt - lineActual;
+                    const lineRatio = b.amt > 0 && lineActual > 0
+                      ? Math.round((lineActual / b.amt) * 100)
+                      : null;
+                    return (
+                      <div
+                        key={i}
+                        className={`budget-breakdown-row ${b.status === 'confirmed' ? 'is-confirmed' : 'is-pending'}`}
+                      >
+                        <span className={`status-pill ${b.status}`}>
+                          {b.status === 'confirmed' ? '✅ 확정' : '⏳ 미정'}
+                        </span>
+                        <div className="budget-breakdown-main">
+                          <div className="budget-breakdown-label">{b.label}</div>
+                          {b.note && <div className="budget-breakdown-note">{b.note}</div>}
+                        </div>
+                        <div className="budget-breakdown-planned">{formatKRW(b.amt)}</div>
+                        <div className="budget-breakdown-actual">
+                          <input
+                            type="text"
+                            className="budget-input budget-line-input"
+                            value={lineActual > 0 ? lineActual.toLocaleString('ko-KR') : ''}
+                            placeholder="₩0"
+                            onChange={(e) => handleLineChange(item.id, i, e.target.value)}
+                            aria-label={`${b.label} 실제 사용`}
+                            inputMode="numeric"
+                          />
+                        </div>
+                        <div className="budget-breakdown-diff">
+                          {lineActual > 0
+                            ? <DiffCell diff={lineDiff} ratio={lineRatio} />
+                            : <span className="diff-cell empty">─</span>}
+                        </div>
                       </div>
-                      <div className="budget-breakdown-amt">{formatKRW(b.amt)}</div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -227,16 +342,20 @@ export default function BudgetTable() {
           <div className="budget-grand-amounts">
             <div>
               <span className="budget-grand-mini">예산</span>
-              <span className="budget-grand-value">{formatKRW(totalBudget)}</span>
+              <span className="budget-grand-value">{formatKRW(totals.plannedTotal)}</span>
             </div>
             <div>
-              <span className="budget-grand-mini">실제</span>
-              <span className="budget-grand-value">{formatKRW(totalActual)}</span>
+              <span className="budget-grand-mini">실제 사용</span>
+              <span className="budget-grand-value">
+                {totals.actualTotal > 0 ? formatKRW(totals.actualTotal) : '─'}
+              </span>
             </div>
             <div>
               <span className="budget-grand-mini">차이</span>
-              <span className={`budget-grand-value ${totalDiff >= 0 ? 'diff-positive' : 'diff-negative'}`}>
-                {totalDiff >= 0 ? '-' : '+'}{formatKRW(Math.abs(totalDiff))}
+              <span className={`budget-grand-value ${totals.diff >= 0 ? 'diff-positive' : 'diff-negative'}`}>
+                {totals.actualTotal > 0
+                  ? `${totals.diff >= 0 ? '-' : '+'}${formatKRW(Math.abs(totals.diff))}`
+                  : '─'}
               </span>
             </div>
           </div>

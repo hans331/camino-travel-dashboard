@@ -132,6 +132,8 @@ export interface ChecklistItemTemplate {
   price?: string;      // "₩2,311,000" / "CHF 379/인 × 4"
   status?: 'confirmed' | 'pending'; // ✅ 예매완료 / ⏳ 미정
   note?: string;       // 부가 설명 (좌석·환승·주의사항 등)
+  link?: { url: string; label: string }; // 신청 페이지 등 외부 링크
+  instructions?: string[]; // 신청·작성 단계별 가이드 (펼침 영역에 표시)
 }
 
 export interface ChecklistCategory {
