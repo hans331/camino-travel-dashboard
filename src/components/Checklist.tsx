@@ -3,13 +3,22 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { CHECKLIST } from '@/lib/data';
 import { supabase } from '@/lib/supabase';
-import type { ChecklistItemDB, ChecklistAttachment, ChecklistItemTemplate } from '@/lib/types';
+import type { ChecklistItemDB, ChecklistAttachment, ChecklistItemTemplate, ChecklistState } from '@/lib/types';
 
 const ATTACHMENT_BUCKET = 'attachments';
 
 function getTemplate(categoryIndex: number, sortOrder: number): ChecklistItemTemplate | undefined {
   return CHECKLIST[categoryIndex]?.items[sortOrder];
 }
+
+const STATE_META: Record<ChecklistState, { label: string; emoji: string; cls: string }> = {
+  'pending':     { label: '예정',     emoji: '⏳', cls: 'state-pending' },
+  'in-progress': { label: '진행중',   emoji: '🔄', cls: 'state-in-progress' },
+  'attention':   { label: '확인필요', emoji: '⚠️', cls: 'state-attention' },
+  'completed':   { label: '완료',     emoji: '✅', cls: 'state-completed' },
+};
+
+const STATE_OPTIONS: ChecklistState[] = ['pending', 'in-progress', 'attention', 'completed'];
 
 function formatFileSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -93,10 +102,12 @@ export default function Checklist() {
     const newItems: Omit<ChecklistItemDB, 'id' | 'created_at'>[] = [];
     CHECKLIST.forEach((cat, catIdx) => {
       cat.items.forEach((tpl, itemIdx) => {
+        const state: ChecklistState = tpl.status ?? 'pending';
         newItems.push({
           category_index: catIdx,
           label: tpl.label,
-          checked: false,
+          checked: state === 'completed', // keep legacy in sync
+          state,
           memo: '',
           is_custom: false,
           sort_order: itemIdx,
@@ -126,16 +137,17 @@ export default function Checklist() {
     await initializeFromStatic();
   }, []);
 
-  const toggleCheck = useCallback(async (id: string, checked: boolean) => {
-    const newChecked = !checked;
+  const updateState = useCallback(async (id: string, newState: ChecklistState) => {
     setItems((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, checked: newChecked } : item
+        item.id === id
+          ? { ...item, state: newState, checked: newState === 'completed' }
+          : item
       )
     );
     await supabase
       .from('checklist_items')
-      .update({ checked: newChecked })
+      .update({ state: newState, checked: newState === 'completed' })
       .eq('id', id);
   }, []);
 
@@ -270,13 +282,13 @@ export default function Checklist() {
   }));
 
   const totalItems = items.length;
-  const checkedItems = items.filter((i) => i.checked).length;
+  const checkedItems = items.filter((i) => i.state === 'completed').length;
   const progressPct = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
 
   // Per-category progress
   function categoryProgress(catIdx: number) {
     const catItems = items.filter((i) => i.category_index === catIdx);
-    const done = catItems.filter((i) => i.checked).length;
+    const done = catItems.filter((i) => i.state === 'completed').length;
     return { done, total: catItems.length };
   }
 
@@ -348,29 +360,60 @@ export default function Checklist() {
                 const itemAtts = attachments[item.id] || [];
                 const isExpanded = expandedMemo.has(item.id);
                 const tpl = item.is_custom ? undefined : getTemplate(item.category_index, item.sort_order);
-                const status = tpl?.status;
+                const currentState: ChecklistState = item.state ?? 'pending';
+                const meta = STATE_META[currentState];
+                const hasMemo = !!(item.memo && item.memo.trim());
 
                 return (
                   <div
                     key={item.id}
-                    className={`checklist-row ${item.checked ? 'is-checked' : ''} ${status ? `status-${status}` : ''}`}
+                    className={`checklist-row ${currentState === 'completed' ? 'is-checked' : ''} ${meta.cls}`}
                   >
                     <div className="checklist-row-main">
-                      <input
-                        type="checkbox"
-                        className="checklist-row-check"
-                        checked={item.checked}
-                        onChange={() => toggleCheck(item.id, item.checked)}
-                      />
-
-                      {/* Status badge column */}
+                      {/* State dropdown — replaces checkbox + status pill */}
                       <div className="checklist-col-status">
-                        {status === 'confirmed' && (
-                          <span className="checklist-status-pill confirmed">✅ 완료</span>
-                        )}
-                        {status === 'pending' && (
-                          <span className="checklist-status-pill pending">⏳ 예정</span>
-                        )}
+                        <details className="state-selector">
+                          <summary
+                            className={`state-pill ${meta.cls}`}
+                            aria-label={`상태 변경 — 현재: ${meta.label}`}
+                          >
+                            <span className="state-emoji">{meta.emoji}</span>
+                            <span className="state-text">{meta.label}</span>
+                            <svg className="state-caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                              <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                            {hasMemo && (
+                              <span className="memo-indicator" title="메모 있음">📝</span>
+                            )}
+                          </summary>
+                          <div className="state-menu">
+                            {STATE_OPTIONS.map((opt) => {
+                              const m = STATE_META[opt];
+                              return (
+                                <button
+                                  key={opt}
+                                  type="button"
+                                  className={`state-option ${m.cls} ${opt === currentState ? 'is-current' : ''}`}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    updateState(item.id, opt);
+                                    // close the details element
+                                    const details = e.currentTarget.closest('details');
+                                    if (details) details.open = false;
+                                  }}
+                                >
+                                  <span className="state-emoji">{m.emoji}</span>
+                                  <span className="state-text">{m.label}</span>
+                                  {opt === currentState && (
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                                      <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                  )}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </details>
                       </div>
 
                       {/* Date column (Day + date) */}
@@ -389,7 +432,7 @@ export default function Checklist() {
                       <div className="checklist-col-main">
                         <button
                           type="button"
-                          className={`checklist-label-btn ${item.checked ? 'checked' : ''}`}
+                          className={`checklist-label-btn ${currentState === 'completed' ? 'checked' : ''}`}
                           onClick={() => toggleMemoExpand(item.id)}
                         >
                           <span className="checklist-label-text">

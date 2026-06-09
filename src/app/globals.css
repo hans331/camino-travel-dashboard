@@ -1689,66 +1689,217 @@ body {
   background: var(--bg-soft);
 }
 
-.checklist-row.status-confirmed {
+.checklist-row.state-pending {
+  border-left: 3px solid var(--secondary);
+}
+
+.checklist-row.state-in-progress {
+  border-left: 3px solid #2563EB;
+}
+
+.checklist-row.state-attention {
+  border-left: 3px solid #DC2626;
+  background: linear-gradient(90deg, rgba(220, 38, 38, 0.04), var(--bg-card) 40%);
+}
+
+.checklist-row.state-completed {
   border-left: 3px solid var(--primary);
 }
 
-.checklist-row.status-pending {
-  border-left: 3px solid var(--secondary);
+[data-theme="dark"] .checklist-row.state-attention {
+  background: linear-gradient(90deg, rgba(220, 38, 38, 0.12), var(--bg-card) 40%);
 }
 
 .checklist-row-main {
   display: grid;
-  grid-template-columns: 28px 64px 110px 130px 1fr auto;
+  grid-template-columns: 130px 64px 110px 1fr auto;
   gap: 12px;
   align-items: start;
   padding: 12px 14px;
 }
 
-.checklist-row-check {
-  width: 22px;
-  height: 22px;
-  margin: 2px 0 0 0;
-  accent-color: var(--primary);
-  cursor: pointer;
-}
-
 .checklist-col-status {
   display: flex;
   align-items: flex-start;
-  padding-top: 2px;
+  padding-top: 0;
+  position: relative;
 }
 
-.checklist-status-pill {
+/* === 4-state dropdown selector === */
+.state-selector {
+  position: relative;
+  display: inline-block;
+}
+
+.state-selector summary {
+  list-style: none;
+}
+.state-selector summary::-webkit-details-marker {
+  display: none;
+}
+
+.state-pill {
   display: inline-flex;
   align-items: center;
-  font-size: 0.74rem;
+  gap: 6px;
+  font-size: 0.82rem;
   font-weight: 800;
-  padding: 3px 9px;
+  padding: 5px 10px;
   border-radius: var(--radius-pill);
   white-space: nowrap;
   letter-spacing: -0.2px;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: all 0.15s ease;
+  user-select: none;
 }
 
-.checklist-status-pill.confirmed {
-  background: rgba(22, 163, 74, 0.14);
-  color: var(--primary-dark);
+.state-pill:hover {
+  filter: brightness(0.97);
+  transform: translateY(-1px);
 }
 
-.checklist-status-pill.pending {
+.state-pill .state-emoji {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.state-pill .state-text {
+  letter-spacing: -0.2px;
+}
+
+.state-pill .state-caret {
+  opacity: 0.7;
+  margin-left: 2px;
+}
+
+.state-pill.state-pending {
   background: rgba(245, 158, 11, 0.16);
   color: #B45309;
+  border-color: rgba(245, 158, 11, 0.25);
 }
 
-[data-theme="dark"] .checklist-status-pill.confirmed {
+.state-pill.state-in-progress {
+  background: rgba(37, 99, 235, 0.14);
+  color: #1E40AF;
+  border-color: rgba(37, 99, 235, 0.25);
+}
+
+.state-pill.state-attention {
+  background: rgba(220, 38, 38, 0.15);
+  color: #B91C1C;
+  border-color: rgba(220, 38, 38, 0.3);
+  animation: state-attention-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes state-attention-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12); }
+}
+
+.state-pill.state-completed {
+  background: rgba(22, 163, 74, 0.14);
+  color: var(--primary-dark);
+  border-color: rgba(22, 163, 74, 0.25);
+}
+
+[data-theme="dark"] .state-pill.state-pending {
+  background: rgba(245, 158, 11, 0.22);
+  color: var(--secondary-light);
+}
+[data-theme="dark"] .state-pill.state-in-progress {
+  background: rgba(59, 130, 246, 0.25);
+  color: #93C5FD;
+}
+[data-theme="dark"] .state-pill.state-attention {
+  background: rgba(220, 38, 38, 0.30);
+  color: #FCA5A5;
+}
+[data-theme="dark"] .state-pill.state-completed {
   background: rgba(22, 163, 74, 0.25);
   color: var(--primary-light);
 }
 
-[data-theme="dark"] .checklist-status-pill.pending {
-  background: rgba(245, 158, 11, 0.22);
-  color: var(--secondary-light);
+.memo-indicator {
+  font-size: 0.85rem;
+  margin-left: 2px;
+  line-height: 1;
+  animation: memo-bob 1.6s ease-in-out infinite;
 }
+
+@keyframes memo-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
+}
+
+.state-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18), 0 4px 10px rgba(15, 23, 42, 0.10);
+  min-width: 160px;
+}
+
+[data-theme="dark"] .state-menu {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.state-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.state-option:hover {
+  background: var(--bg-soft);
+}
+
+.state-option.is-current {
+  background: var(--bg-soft);
+}
+
+[data-theme="dark"] .state-option:hover,
+[data-theme="dark"] .state-option.is-current {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.state-option .state-emoji {
+  font-size: 1rem;
+}
+
+.state-option .state-text {
+  flex: 1;
+}
+
+.state-option.state-pending  { color: #B45309; }
+.state-option.state-in-progress { color: #1E40AF; }
+.state-option.state-attention { color: #B91C1C; }
+.state-option.state-completed { color: var(--primary-dark); }
+
+[data-theme="dark"] .state-option.state-pending  { color: var(--secondary-light); }
+[data-theme="dark"] .state-option.state-in-progress { color: #93C5FD; }
+[data-theme="dark"] .state-option.state-attention { color: #FCA5A5; }
+[data-theme="dark"] .state-option.state-completed { color: var(--primary-light); }
 
 .checklist-col-date {
   display: flex;
@@ -1973,24 +2124,12 @@ body {
 
 @media (max-width: 900px) {
   .checklist-row-main {
-    grid-template-columns: 24px 1fr;
+    grid-template-columns: 1fr;
     gap: 10px;
     padding: 12px;
   }
-  .checklist-col-status,
-  .checklist-col-date,
-  .checklist-col-target {
-    grid-column: 2;
-  }
-  .checklist-col-main {
-    grid-column: 2;
-  }
-  .checklist-row-main > *:last-child:not(.checklist-col-main) {
-    grid-column: 2;
-    justify-self: end;
-  }
   .checklist-col-status {
-    margin-top: -4px;
+    justify-self: flex-start;
   }
   .checklist-col-date,
   .checklist-col-target {
@@ -1999,7 +2138,10 @@ body {
     align-items: center;
   }
   .checklist-row-expanded {
-    padding-left: 34px;
+    padding-left: 14px;
+  }
+  .state-menu {
+    min-width: 180px;
   }
 }
 

@@ -719,13 +719,13 @@ export const CHECKLIST: ChecklistCategory[] = [
   {
     title: '✈️ 항공권 예매 (7건, 출발일 순)',
     items: [
-      { label: '👫 부부 ICN → FRA → OPO', day: 'Day 1', date: '6/12 (금)', target: '👫 부부', count: '2명', route: 'ICN → FRA → OPO', code: 'LH713+LH1180', time: '12:20 → 22:55', price: '₩2,311,000', status: 'confirmed', note: 'FRA 환승 2h 25m · A350-900+A321NEO · Economy Basic Plus · 좌석 30J·30K/20E·20F · PNR Y6RCMU' },
-      { label: '🧑 둘째 LHR → ZRH (Swiss 직항)', day: 'Day 12', date: '6/23 (화)', target: '🧑 둘째', count: '1명', route: 'LHR → ZRH', code: 'LX333', time: '13:50 → 16:35', price: '₩292,900', status: 'confirmed', note: '직항 1h 45m · Airbaltic BT 공동운항 · 개인물품 1개만 · PNR XW2NMU (하루 앞당겨 스위스 1일 단독 관광)' },
-      { label: '👫 부부 SCQ → BCN → ZRH (Vueling)', day: 'Day 13', date: '6/24 (수)', target: '👫 부부', count: '2명', route: 'SCQ → BCN → ZRH', code: 'VY1673+VY6248', time: '15:10 → 20:25', price: '₩890,600', status: 'confirmed', note: '⚠️ 아빠 이름 정정 진행 중 (트립닷컴 응답 대기) · BCN 환승 1h 40m, 수하물 직통 · 위탁 25kg/인 · TRIP 1658113176342997' },
-      { label: '🇰🇷 큰아들 ICN → ZRH (KE 직항)', day: 'Day 14', date: '6/25 (목)', target: '🇰🇷 큰아들', count: '1명', route: 'ICN → ZRH', code: 'KE917', time: '11:05 → 17:25', price: '₩1,273,500', status: 'confirmed', note: 'B787-10 직항 13h 20m · Economy Standard' },
-      { label: '👨‍👩‍👦‍👦 가족 ZRH → LHR (Swiss 직항)', day: 'Day 19', date: '6/30 (화)', target: '👨‍👩‍👦‍👦 가족', count: '4명', route: 'ZRH → LHR T2', code: 'LX332', time: '12:05 → 13:00', price: '₩1,575,600', status: 'confirmed', note: '직항 1h 55m · 위탁 23kg+휴대 8kg/인 · ₩393,900/인 · PNR XTVN7K' },
-      { label: '🧑 둘째 LGW → 칭다오 → ICN', day: 'Day 20', date: '7/1 (수)', target: '🧑 둘째', count: '1명', route: 'LGW → TAO → ICN', code: 'JD484+QW901', time: '21:10 → 7/2 21:35', price: '₩964,900', status: 'confirmed', note: '칭다오 4h 10m 환승 · 수하물 재수속 필요 · PNR NXSQX0' },
-      { label: '👨‍👩‍👦 3명 CDG → MUC → ICN (LH 귀국)', day: 'Day 27', date: '7/8 (수)', target: '👨‍👩‍👦 가족', count: '3명', route: 'CDG → MUC → ICN', code: 'LH2229+LH718', time: '12:00 → 7/9 09:55', price: '₩3,958,146', status: 'confirmed', note: 'MUC 환승 2h 25m · Economy Green (위탁 23kg/휴대 8kg) · €2,198.97 @ ₩1,800/EUR' },
+      { label: '👫 부부 ICN → FRA → OPO', day: 'Day 1', date: '6/12 (금)', target: '👫 부부', count: '2명', route: 'ICN → FRA → OPO', code: 'LH713+LH1180', time: '12:20 → 22:55', price: '₩2,311,000', status: 'completed', note: 'FRA 환승 2h 25m · A350-900+A321NEO · Economy Basic Plus · 좌석 30J·30K/20E·20F · PNR Y6RCMU' },
+      { label: '🧑 둘째 LHR → ZRH (Swiss 직항)', day: 'Day 12', date: '6/23 (화)', target: '🧑 둘째', count: '1명', route: 'LHR → ZRH', code: 'LX333', time: '13:50 → 16:35', price: '₩292,900', status: 'completed', note: '직항 1h 45m · Airbaltic BT 공동운항 · 개인물품 1개만 · PNR XW2NMU (하루 앞당겨 스위스 1일 단독 관광)' },
+      { label: '👫 부부 SCQ → BCN → ZRH (Vueling)', day: 'Day 13', date: '6/24 (수)', target: '👫 부부', count: '2명', route: 'SCQ → BCN → ZRH', code: 'VY1673+VY6248', time: '15:10 → 20:25', price: '₩890,600', status: 'completed', note: '⚠️ 아빠 이름 정정 진행 중 (트립닷컴 응답 대기) · BCN 환승 1h 40m, 수하물 직통 · 위탁 25kg/인 · TRIP 1658113176342997' },
+      { label: '🇰🇷 큰아들 ICN → ZRH (KE 직항)', day: 'Day 14', date: '6/25 (목)', target: '🇰🇷 큰아들', count: '1명', route: 'ICN → ZRH', code: 'KE917', time: '11:05 → 17:25', price: '₩1,273,500', status: 'completed', note: 'B787-10 직항 13h 20m · Economy Standard' },
+      { label: '👨‍👩‍👦‍👦 가족 ZRH → LHR (Swiss 직항)', day: 'Day 19', date: '6/30 (화)', target: '👨‍👩‍👦‍👦 가족', count: '4명', route: 'ZRH → LHR T2', code: 'LX332', time: '12:05 → 13:00', price: '₩1,575,600', status: 'completed', note: '직항 1h 55m · 위탁 23kg+휴대 8kg/인 · ₩393,900/인 · PNR XTVN7K' },
+      { label: '🧑 둘째 LGW → 칭다오 → ICN', day: 'Day 20', date: '7/1 (수)', target: '🧑 둘째', count: '1명', route: 'LGW → TAO → ICN', code: 'JD484+QW901', time: '21:10 → 7/2 21:35', price: '₩964,900', status: 'completed', note: '칭다오 4h 10m 환승 · 수하물 재수속 필요 · PNR NXSQX0' },
+      { label: '👨‍👩‍👦 3명 CDG → MUC → ICN (LH 귀국)', day: 'Day 27', date: '7/8 (수)', target: '👨‍👩‍👦 가족', count: '3명', route: 'CDG → MUC → ICN', code: 'LH2229+LH718', time: '12:00 → 7/9 09:55', price: '₩3,958,146', status: 'completed', note: 'MUC 환승 2h 25m · Economy Green (위탁 23kg/휴대 8kg) · €2,198.97 @ ₩1,800/EUR' },
     ],
   },
   {
@@ -742,7 +742,7 @@ export const CHECKLIST: ChecklistCategory[] = [
       { label: '🚂 Interlaken → ZRH 공항', day: 'Day 19', date: '6/30 (화)', target: '👨‍👩‍👦‍👦 가족', count: '4명', route: 'Interlaken → ZRH', time: '~2h (8:00 출발)', status: 'pending', note: '공항 직결 · LX332 12:05 출발 위해 9:30 ZRH 도착 → 체크인 2h 여유' },
       { label: '🚂 LHR → Cambridge', day: 'Day 19', date: '6/30 (화)', target: '👨‍👩‍👦‍👦 가족', count: '4명', route: 'LHR → Cambridge', time: '~2h', status: 'pending', note: 'King\'s Cross 경유 또는 National Express 직행 버스' },
       { label: '🚂 둘째 Cambridge → LGW 개트윅', day: 'Day 20', date: '7/1 (수)', target: '🧑 둘째', count: '1명', route: 'Cambridge → LGW', time: '~2.5h (오후 15-16시)', status: 'pending', note: 'JD484 21:10 탑승 3h 여유 · King\'s Cross + Thameslink 직행' },
-      { label: '🚄 Eurostar London → Paris', day: 'Day 20', date: '7/1 (수)', target: '👨‍👩‍👦 3명', count: '3명', route: 'St Pancras → Gare du Nord', code: 'Eurostar Standard', time: '19:01 → 22:19 (2h 18m)', price: '₩626,439', status: 'confirmed', note: 'Coach 5 · €351 (€117×3)' },
+      { label: '🚄 Eurostar London → Paris', day: 'Day 20', date: '7/1 (수)', target: '👨‍👩‍👦 3명', count: '3명', route: 'St Pancras → Gare du Nord', code: 'Eurostar Standard', time: '19:01 → 22:19 (2h 18m)', price: '₩626,439', status: 'completed', note: 'Coach 5 · €351 (€117×3)' },
     ],
   },
   {
@@ -764,7 +764,7 @@ export const CHECKLIST: ChecklistCategory[] = [
     items: [
       {
         label: '🇬🇧 UK ETA 신청 (gov.uk/apply-uk-eta)',
-        target: '👨‍👩‍👦‍👦 가족', count: '4명', price: '£40 (£10×4)', status: 'confirmed',
+        target: '👨‍👩‍👦‍👦 가족', count: '4명', price: '£40 (£10×4)', status: 'completed',
         note: '48-72h 승인 · 출발 최소 1주 전 권장',
         link: { url: 'https://www.gov.uk/apply-uk-eta', label: 'UK ETA 공식 신청 페이지 열기' },
         instructions: [

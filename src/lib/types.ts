@@ -120,6 +120,8 @@ export interface Transport {
   tip: string;
 }
 
+export type ChecklistState = 'pending' | 'in-progress' | 'attention' | 'completed';
+
 export interface ChecklistItemTemplate {
   label: string;       // DB-friendly summary string (also used for seed); 표시할 핵심 내용
   day?: string;        // "Day 1" / "Day 12-13"
@@ -130,7 +132,7 @@ export interface ChecklistItemTemplate {
   code?: string;       // 항공편명/PNR/예약번호
   time?: string;       // "12:20→22:55" / "13:50→16:35"
   price?: string;      // "₩2,311,000" / "CHF 379/인 × 4"
-  status?: 'confirmed' | 'pending'; // ✅ 예매완료 / ⏳ 미정
+  status?: ChecklistState; // 기본 상태 — DB 값 없을 때 fallback
   note?: string;       // 부가 설명 (좌석·환승·주의사항 등)
   link?: { url: string; label: string }; // 신청 페이지 등 외부 링크
   instructions?: string[]; // 신청·작성 단계별 가이드 (펼침 영역에 표시)
@@ -154,7 +156,8 @@ export interface ChecklistItemDB {
   id: string;
   category_index: number;
   label: string;
-  checked: boolean;
+  checked: boolean;            // legacy; new code uses `state`
+  state: ChecklistState;       // 4-stage status
   memo: string;
   is_custom: boolean;
   sort_order: number;
