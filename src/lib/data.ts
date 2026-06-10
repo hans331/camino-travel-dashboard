@@ -259,7 +259,7 @@ export const SCHEDULE: DayData[] = [
   {
     day: 20, date: '7/1 (수)', phase: 'london', title: '🎓 졸업식 + 가족 분리 (둘째 귀국 / 3명 → 파리)',
     icon: '🎓', desc: '오전 ⭐ Senate House에서 캠브리지 졸업식 + 가족 사진. 점심 콜리지 가든 파티 + 펀팅. 오후 4명 함께 캠브리지→London King\'s Cross 도착 (~17시). 거기서 갈림길 — 둘째: 옆 St Pancras에서 🚂 Thameslink 직행 → LGW 18시 도착 → JD484 21:10 → 칭다오 → 7/2 ICN 21:35 (QW901, ₩964,900). 3명: 같은 St Pancras (도보 5분)에서 🚄 Eurostar 저녁편 → 파리 Gare du Nord 도착 + 첫 비스트로 만찬. ⭐ King\'s Cross↔St Pancras 도보 5분 옆 건물 — 환승 간단.',
-    food: '졸업 축하 점심 · Eurostar 스낵 · 파리 비스트로 저녁', stay: '파리 부티크 호텔 (3명, 2 rooms)',
+    food: '졸업 축하 점심 · Eurostar 스낵 · 파리 비스트로 저녁', stay: '⚠️ Clichy 88m² 아파트 (예약 요청 중, 호스트 답변 6/11 19:30 대기) · 침실 3개+욕실 2개+큰 창 view',
     lat: 52.2068, lng: 0.1181,
     transit: '🎓 졸업식 → 둘째 ✈️ LGW→칭다오→ICN · 3명 🚄 Eurostar →Paris',
     restaurants: ['Bistrot Paul Bert (파리)', 'Le Comptoir du Relais', 'The Eagle (펍)'],
@@ -273,7 +273,9 @@ export const SCHEDULE: DayData[] = [
       { time: '17:00', emoji: '🚂', label: '🧑 둘째 Thameslink St Pancras → LGW (~45min)', status: 'pending' },
       { time: '19:01', emoji: '🚄', label: '👨‍👩‍👦 3명 Eurostar St Pancras → Paris', status: 'confirmed', detail: 'Eurostar Standard · Coach 5 · 2h 18m · €351 (€117×3) = ₩626,439' },
       { time: '21:10', emoji: '🛫', label: '🧑 JD484 LGW → 칭다오 출발', status: 'confirmed', detail: '베이징캐피탈 · 칭다오 4h 10m 환승 · PNR NXSQX0' },
-      { time: '22:19', emoji: '🛬', label: '👨‍👩‍👦 3명 Paris Gare du Nord 도착 → 호텔 23시', status: 'confirmed' },
+      { time: '22:19', emoji: '🛬', label: '👨‍👩‍👦 3명 Paris Gare du Nord 도착', status: 'confirmed' },
+      { time: '22:45', emoji: '🚖', label: 'Gare du Nord → Clichy 아파트 (Uber ~€20, 15-20분)', status: 'pending', detail: 'Métro 13 환승 가능하나 야간+짐 = 택시 추천' },
+      { time: '23:15', emoji: '🏨', label: 'Clichy 아파트 체크인 (호스트 Niko 미팅)', status: 'pending', detail: '⚠️ 호스트와 도착 시간 사전 컨펌 필수' },
     ],
   },
 
@@ -281,42 +283,42 @@ export const SCHEDULE: DayData[] = [
   {
     day: 21, date: '7/2 (목)', phase: 'paris', title: '🎨 오르세 · 에펠탑 · 세느강',
     icon: '🎨', desc: '오전 ⭐ 오르세 미술관 (인상파의 성지: 모네·고흐·세잔). 점심 후 에펠탑 + 트로카데로 전망. 늦은 오후 세느강 유람선 + 일몰. 라탱지구·생제르맹 저녁.',
-    food: '오르세 카페 점심 · 크루아상 · 에스카르고 · 뵈프 부르기뇽', stay: '파리 부티크 호텔',
+    food: '오르세 카페 점심 · 크루아상 · 에스카르고 · 뵈프 부르기뇽', stay: '⚠️ Clichy 88m² 아파트 (예약 요청 중) — 같은 숙소 연박',
     lat: 48.8600, lng: 2.3266,
     restaurants: ['Café de Flore', "L'Ami Jean", 'Le Procope'],
   },
   {
     day: 22, date: '7/3 (금)', phase: 'paris', title: '👑 베르사유 궁전 당일치기',
     icon: '👑', desc: 'RER C로 베르사유 도착 (45분). 궁전 + 정원 + 트리아농 전체 관람 (사전 예매 필수). 평일이라 토요일보다 한산. 저녁 파리 복귀 후 마레지구 비스트로.',
-    food: '베르사유 정원 피크닉 + 마레지구 저녁', stay: '파리 부티크 호텔',
+    food: '베르사유 정원 피크닉 + 마레지구 저녁', stay: '⚠️ Clichy 88m² 아파트 (예약 요청 중) — 같은 숙소 연박',
     lat: 48.8048, lng: 2.1203,
     restaurants: ['Breizh Café', "L'As du Fallafel"],
   },
   {
     day: 23, date: '7/4 (토)', phase: 'paris', title: '🖼️ 루브르 + 마레 + 노트르담',
     icon: '🖼️', desc: '오전 루브르 박물관 (모나리자·비너스·니케). 점심 후 마레지구 산책 + 보주 광장 + 피카소 미술관. 늦은 오후 노트르담 + 생트샤펠 + 라탱지구.',
-    food: '루브르 카페 점심 · 마레 팔라펠 · 라탱지구 저녁', stay: '파리 부티크 호텔',
+    food: '루브르 카페 점심 · 마레 팔라펠 · 라탱지구 저녁', stay: '⚠️ Clichy 88m² 아파트 (예약 요청 중) — 같은 숙소 연박',
     lat: 48.8606, lng: 2.3376,
     restaurants: ['Bouillon Chartier', 'Le Marais Lounge'],
   },
   {
     day: 24, date: '7/5 (일)', phase: 'paris', title: '🌻 지베르니 당일치기 (모네의 정원)',
     icon: '🌻', desc: '⭐ 파리 → 지베르니 (1h 기차 + 셔틀). 모네의 집과 수련 연못 — 인상파의 발상지. 노르망디 시골 풍경. 저녁 파리 복귀, 노천 카페.',
-    food: '지베르니 인근 비스트로 점심 · 파리 노천 카페 저녁', stay: '파리 부티크 호텔',
+    food: '지베르니 인근 비스트로 점심 · 파리 노천 카페 저녁', stay: '⚠️ Clichy 88m² 아파트 (예약 요청 중) — 같은 숙소 연박',
     lat: 49.0758, lng: 1.5331,
     restaurants: ['Hôtel Baudy (지베르니, 모네 단골)', 'Le Café Marly'],
   },
   {
     day: 25, date: '7/6 (월)', phase: 'paris', title: '🏰 Mont-Saint-Michel 당일치기',
     icon: '🏰', desc: '⭐ 파리 → Mont-Saint-Michel (TGV 2h + 셔틀 1h 15m). 노르망디 바다 위 수도원 — 프랑스 최고 명소. 새벽 출발 → 저녁 귀환 (왕복 ~12h). 입장권·셔틀·TGV 사전 예매 필수.',
-    food: 'TGV 도시락 · La Mère Poulard 오믈렛 (현지 명물) · 늦은 파리 저녁', stay: '파리 부티크 호텔',
+    food: 'TGV 도시락 · La Mère Poulard 오믈렛 (현지 명물) · 늦은 파리 저녁', stay: '⚠️ Clichy 88m² 아파트 (예약 요청 중) — 같은 숙소 연박',
     lat: 48.6361, lng: -1.5114,
     restaurants: ['La Mère Poulard (Mont-Saint-Michel)', 'Le Pré Salé'],
   },
   {
     day: 26, date: '7/7 (화)', phase: 'paris', title: '🎭 몽마르뜨 + l\'Orangerie + 쇼핑',
     icon: '🎭', desc: '오전 몽마르뜨·사크레쾨르 + 예술가 광장 + 마지막 마카롱(Pierre Hermé). 점심 후 l\'Orangerie (모네 수련 대벽화) + Tuileries 정원. 저녁 Galeries Lafayette 옥상 + 쇼핑.',
-    food: 'Pink Mamma 점심 · 마카롱 · 마지막 비스트로 만찬', stay: '파리 부티크 호텔',
+    food: 'Pink Mamma 점심 · 마카롱 · 마지막 비스트로 만찬', stay: '⚠️ Clichy 88m² 아파트 (예약 요청 중) — 같은 숙소 연박',
     lat: 48.8867, lng: 2.3431,
     restaurants: ['Pink Mamma', 'Pierre Hermé', 'Bouillon Pigalle'],
   },
@@ -576,7 +578,7 @@ export const ACCOMMODATIONS: Accommodation[] = [
   { phase: 'swiss', city: '체르마트', name: 'Hotel Schweizerhof Zermatt 또는 Cervo Mountain Resort', type: '부티크 호텔', price: 'CHF 400/박 × 2박 (3명, family room) ⭐ NEW', desc: '6/26-27 2박 · 마테호른 뷰 객실 · 차량 없는 청정 마을.', emoji: '🏨' },
   { phase: 'swiss', city: '인터라켄', name: 'Hotel Interlaken 또는 Royal St Georges', type: '부티크 호텔', price: 'CHF 250/박 × 2박 (3명, family room)', desc: '6/28-29 2박 · 융프라우 조망, 두 호수 사이.', emoji: '🏨' },
   { phase: 'london', city: '캠브리지', name: 'University Arms', type: '럭셔리 호텔', price: '£260/박 × 2 rooms × 1박 (4명)', desc: '🎓 6/30 1박 · 가족 4명 2 rooms · Parker\'s Piece 앞 클래식 호텔.', emoji: '🏨' },
-  { phase: 'paris', city: '파리', name: 'Hôtel des Grands Boulevards', type: '부티크 호텔', price: '€230/박 × 2 rooms × 7박 (3명)', desc: '7/1-7 7박 · 3명 (부부 + 큰아들) · 9구 중심. ⭐ 파리 8일 연장 (Mont-Saint-Michel + 지베르니 포함).', emoji: '🏨' },
+  { phase: 'paris', city: '파리', name: 'Clichy 88m² Appartement (4 pièces grande terrasse)', type: '단독 아파트 (Booking.com)', price: '₩2,487,672 / 7박 (3명, 환불불가)', desc: '⚠️ 예약 요청 중 (호스트 답변 6/11 19:30 대기) · 23 Rue Gustave Eiffel, 92110 Clichy-la-Garenne · 88m² 침실 3개 + 욕실 2개 + 큰 테라스 · 7층 with elevator + 컨시어지 + 큰 창 녹지 view · ★9.3 (31 리뷰), 청결 9.5, 편안함 9.5 · Île de la Jatte 인상파 트레일 도보 25분.', emoji: '🏨' },
 ];
 
 export const BUDGET: BudgetItem[] = [
@@ -597,8 +599,8 @@ export const BUDGET: BudgetItem[] = [
     ],
   },
   {
-    id: 'accommodation', cat: '🏨 숙소', amt: '₩10,345,384', amtNum: 10345384,
-    detail: '21박 중 포르토 2박 + 산티아고 1박 예매완료 ✅ · 나머지 18박 미예매',
+    id: 'accommodation', cat: '🏨 숙소', amt: '₩7,278,056', amtNum: 7278056,
+    detail: '21박 중 포르토 2박 + 산티아고 1박 예매완료 ✅ · 파리 7박 예약 요청 중 ⏳ (Clichy 결정 시 ~₩3M 절감) · 나머지 11박 미예매',
     pct: 23, color: '#EA580C',
     breakdown: [
       { label: '🇵🇹 포르토 SANTA RITA Guesthouse B&B (Vila Nova de Gaia) 2박', amt: 354271, status: 'confirmed', note: '✅ 부킹닷컴 예매 · 더블룸 전용 외부욕실 · 조식포함 · 발코니+정원 전망 · ⚠️ 환불불가 · R. Santa Rita 58, Vila Nova de Gaia (강 건너편, 포트와인 셀러 옆)' },
@@ -608,7 +610,7 @@ export const BUDGET: BudgetItem[] = [
       { label: '⛰️ 체르마트 2박 (4명, 마테호른 뷰)', amt: 1440000, status: 'pending', note: 'CHF 400×2박 (성수기 비쌈)' },
       { label: '🇨🇭 인터라켄 2박 (4명)', amt: 900000, status: 'pending', note: 'CHF 250×2박' },
       { label: '🇬🇧 캠브리지 1박 (4명, 2 rooms)', amt: 700000, status: 'pending', note: 'University Arms · £260×2 rooms×1박' },
-      { label: '🇫🇷 파리 7박 (3명, 2 rooms)', amt: 5555000, status: 'pending', note: 'Hôtel des Grands Boulevards · €230×7박' },
+      { label: '🇫🇷 파리 Clichy 88m² 아파트 7박 (3명)', amt: 2487672, status: 'pending', note: '⚠️ 예약 요청 중 (호스트 답변 6/11 19:30 대기) · 환불 불가 · 88m² 침실 3+욕실 2+테라스 · 23 Rue Gustave Eiffel · ★9.3 · 기존 호텔 예산 대비 ~₩3M 절감' },
     ],
   },
   {
@@ -762,7 +764,7 @@ export const CHECKLIST: ChecklistCategory[] = [
       { label: '⛰️ 체르마트 호텔 2박 (마테호른 뷰)', day: 'Day 15-16', date: '6/26-27', target: '👨‍👩‍👦‍👦 가족', count: '4명', note: '⭐ Schweizerhof Zermatt 또는 Cervo Mountain', status: 'pending' },
       { label: '🇨🇭 인터라켄 호텔 2박 (family room)', day: 'Day 17-18', date: '6/28-29', target: '👨‍👩‍👦‍👦 가족', count: '4명', note: 'Hotel Interlaken 또는 Royal St Georges', status: 'pending' },
       { label: '🇬🇧 캠브리지 University Arms', day: 'Day 19', date: '6/30', target: '👨‍👩‍👦‍👦 가족', count: '4명 · 2 rooms', note: 'Parker\'s Piece 앞 럭셔리 호텔', status: 'pending' },
-      { label: '🇫🇷 파리 Hôtel des Grands Boulevards 7박', day: 'Day 20-27', date: '7/1-7', target: '👨‍👩‍👦 가족', count: '3명 · 2 rooms', note: '9구 마레/오페라 도보권', status: 'pending' },
+      { label: '🇫🇷 파리 Clichy 88m² 아파트 7박 (4 pièces grande terrasse)', day: 'Day 20-27', date: '7/1-7', target: '👨‍👩‍👦 가족', count: '3명 · 단독 아파트', price: '₩2,487,672 (환불X)', status: 'in-progress', note: '⚠️ 예약 요청 중 (호스트 Niko 답변 6/11 19:30 대기) · 23 Rue Gustave Eiffel, 92110 Clichy-la-Garenne · 7층 + 컨시어지 + 큰 창 녹지 view + Île de la Jatte 도보 25분 · 게스트명 CHOI CHULLYOUNG' },
     ],
   },
   {
