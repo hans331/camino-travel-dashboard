@@ -2056,6 +2056,112 @@ body {
   margin-top: 10px;
 }
 
+/* ============ CHECKLIST — Booking info card ============ */
+.checklist-booking {
+  background: linear-gradient(180deg, rgba(22, 163, 74, 0.06), rgba(22, 163, 74, 0.02));
+  border: 1px solid rgba(22, 163, 74, 0.25);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+
+[data-theme="dark"] .checklist-booking {
+  background: linear-gradient(180deg, rgba(22, 163, 74, 0.14), rgba(22, 163, 74, 0.06));
+  border-color: rgba(22, 163, 74, 0.4);
+}
+
+.checklist-booking-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 10px;
+  letter-spacing: -0.3px;
+}
+
+[data-theme="dark"] .checklist-booking-title {
+  color: var(--primary-light);
+}
+
+.checklist-booking-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 14px;
+}
+
+.booking-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.booking-cell.wide { grid-column: span 2; }
+.booking-cell.wide-full { grid-column: 1 / -1; }
+
+.booking-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.booking-value {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.booking-value.mono {
+  font-family: ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, monospace;
+  font-size: 0.95rem;
+  letter-spacing: -0.2px;
+  user-select: all;
+  cursor: text;
+}
+
+.booking-value.linkish {
+  color: #1E40AF;
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+  font-weight: 700;
+}
+
+.booking-value.linkish:hover {
+  color: #1d4ed8;
+}
+
+[data-theme="dark"] .booking-value.linkish {
+  color: #93C5FD;
+}
+
+.booking-value.note {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  background: rgba(245, 158, 11, 0.10);
+  padding: 8px 10px;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
+[data-theme="dark"] .booking-value.note {
+  background: rgba(245, 158, 11, 0.16);
+}
+
+.checklist-booking-badge {
+  display: inline-flex;
+  font-size: 0.85rem;
+  margin-left: 4px;
+}
+
+@media (max-width: 640px) {
+  .checklist-booking-grid { grid-template-columns: 1fr; }
+  .booking-cell.wide, .booking-cell.wide-full { grid-column: 1; }
+}
+
 .checklist-link-btn {
   display: inline-flex;
   align-items: center;

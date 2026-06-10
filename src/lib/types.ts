@@ -122,6 +122,19 @@ export interface Transport {
 
 export type ChecklistState = 'pending' | 'in-progress' | 'attention' | 'completed';
 
+export interface BookingInfo {
+  ref?: string;          // 예약번호 / PNR / Confirmation Number
+  pin?: string;          // PIN / 확인 코드
+  phone?: string;        // 호스트·호텔·항공사 전화
+  email?: string;        // 호스트·호텔 이메일
+  contactName?: string;  // 컨택 담당자·서비스명 ("Be my Guest" 등)
+  checkInTime?: string;  // "14:00-20:00"
+  checkOutTime?: string; // "08:00-11:00"
+  accessNote?: string;   // 입실 안내 (키박스 위치·직원 미팅 등)
+  address?: string;      // 정확한 주소
+  platform?: string;     // 예매 플랫폼 ("Booking.com", "트립닷컴" 등)
+}
+
 export interface ChecklistItemTemplate {
   label: string;       // DB-friendly summary string (also used for seed); 표시할 핵심 내용
   day?: string;        // "Day 1" / "Day 12-13"
@@ -129,13 +142,14 @@ export interface ChecklistItemTemplate {
   target?: string;     // 👫 부부 · 🧑 둘째 · 🇰🇷 큰아들 · 👨‍👩‍👦‍👦 가족 등 대상
   count?: string;      // "2명" / "4명"
   route?: string;      // 항공권/기차 노선
-  code?: string;       // 항공편명/PNR/예약번호
+  code?: string;       // 항공편명/PNR/예약번호 (간단 표기)
   time?: string;       // "12:20→22:55" / "13:50→16:35"
   price?: string;      // "₩2,311,000" / "CHF 379/인 × 4"
   status?: ChecklistState; // 기본 상태 — DB 값 없을 때 fallback
   note?: string;       // 부가 설명 (좌석·환승·주의사항 등)
   link?: { url: string; label: string }; // 신청 페이지 등 외부 링크
   instructions?: string[]; // 신청·작성 단계별 가이드 (펼침 영역에 표시)
+  booking?: BookingInfo; // 예약 세부 정보 (펼침 영역 카드형 표시)
 }
 
 export interface ChecklistCategory {

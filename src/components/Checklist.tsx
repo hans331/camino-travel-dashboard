@@ -467,6 +467,9 @@ export default function Checklist() {
                           <span className="checklist-label-text">
                             {tpl?.label ?? item.label}
                           </span>
+                          {tpl?.booking && (tpl.booking.ref || tpl.booking.phone) && (
+                            <span className="checklist-booking-badge" title="예약 정보 있음">📋</span>
+                          )}
                           {itemAtts.length > 0 && (
                             <span className="checklist-attachment-badge">📎 {itemAtts.length}</span>
                           )}
@@ -506,6 +509,85 @@ export default function Checklist() {
 
                     {isExpanded && (
                       <div className="checklist-row-expanded">
+                        {tpl?.booking && (
+                          <div className="checklist-booking">
+                            <div className="checklist-booking-title">📋 예약 정보</div>
+                            <div className="checklist-booking-grid">
+                              {tpl.booking.ref && (
+                                <div className="booking-cell">
+                                  <span className="booking-label">예약번호</span>
+                                  <span className="booking-value mono">{tpl.booking.ref}</span>
+                                </div>
+                              )}
+                              {tpl.booking.pin && (
+                                <div className="booking-cell">
+                                  <span className="booking-label">PIN</span>
+                                  <span className="booking-value mono">{tpl.booking.pin}</span>
+                                </div>
+                              )}
+                              {tpl.booking.phone && (
+                                <div className="booking-cell">
+                                  <span className="booking-label">📞 전화</span>
+                                  <a href={`tel:${tpl.booking.phone.replace(/\s/g, '')}`} className="booking-value mono linkish">
+                                    {tpl.booking.phone}
+                                  </a>
+                                </div>
+                              )}
+                              {tpl.booking.email && (
+                                <div className="booking-cell">
+                                  <span className="booking-label">✉️ 이메일</span>
+                                  <a href={`mailto:${tpl.booking.email}`} className="booking-value linkish">
+                                    {tpl.booking.email}
+                                  </a>
+                                </div>
+                              )}
+                              {tpl.booking.contactName && (
+                                <div className="booking-cell wide">
+                                  <span className="booking-label">컨택</span>
+                                  <span className="booking-value">{tpl.booking.contactName}</span>
+                                </div>
+                              )}
+                              {tpl.booking.checkInTime && (
+                                <div className="booking-cell">
+                                  <span className="booking-label">체크인</span>
+                                  <span className="booking-value">{tpl.booking.checkInTime}</span>
+                                </div>
+                              )}
+                              {tpl.booking.checkOutTime && (
+                                <div className="booking-cell">
+                                  <span className="booking-label">체크아웃</span>
+                                  <span className="booking-value">{tpl.booking.checkOutTime}</span>
+                                </div>
+                              )}
+                              {tpl.booking.platform && (
+                                <div className="booking-cell wide">
+                                  <span className="booking-label">플랫폼</span>
+                                  <span className="booking-value">{tpl.booking.platform}</span>
+                                </div>
+                              )}
+                              {tpl.booking.address && (
+                                <div className="booking-cell wide-full">
+                                  <span className="booking-label">📍 주소</span>
+                                  <a
+                                    href={`https://maps.google.com/?q=${encodeURIComponent(tpl.booking.address)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="booking-value linkish"
+                                  >
+                                    {tpl.booking.address}
+                                  </a>
+                                </div>
+                              )}
+                              {tpl.booking.accessNote && (
+                                <div className="booking-cell wide-full">
+                                  <span className="booking-label">⚠️ 입실 안내</span>
+                                  <span className="booking-value note">{tpl.booking.accessNote}</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
                         {tpl?.link && (
                           <a
                             href={tpl.link.url}
