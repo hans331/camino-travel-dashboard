@@ -181,7 +181,7 @@ export const SCHEDULE: DayData[] = [
     restaurants: ['Wirtshaus Galliker', 'Restaurant Schwanen'],
     timeline: [
       { time: '오전', emoji: '🇨🇭', label: '🧑 둘째 종일 Lucerne 단독 관광 (Mt. Pilatus / Lake Lucerne)', status: 'pending' },
-      { time: '15:10', emoji: '🛫', label: '👫 VY1673 SCQ → BCN 출발', status: 'confirmed', detail: 'Vueling · ⚠️ 아빠 이름 정정 진행' },
+      { time: '15:10', emoji: '🛫', label: '👫 VY1673 SCQ → BCN 출발', status: 'confirmed', detail: 'Vueling · ✅ 아빠 이름 정정 완료 (6/10, 수수료 ₩111,854)' },
       { time: '16:50', emoji: '🛬', label: '👫 BCN 도착 (환승 1h 40m, 수하물 직통)', status: 'confirmed' },
       { time: '18:30', emoji: '🛫', label: '👫 VY6248 BCN → ZRH 출발', status: 'confirmed' },
       { time: '20:25', emoji: '🛬', label: '👫 ZRH 도착', status: 'confirmed' },
@@ -579,13 +579,14 @@ export const ACCOMMODATIONS: Accommodation[] = [
 
 export const BUDGET: BudgetItem[] = [
   {
-    id: 'flight', cat: '✈️ 항공권', amt: '₩11,893,085', amtNum: 11893085,
-    detail: '✅ 8건 모두 예매완료 (Eurostar 포함) · 합계 ₩11,893,085',
+    id: 'flight', cat: '✈️ 항공권', amt: '₩12,004,939', amtNum: 12004939,
+    detail: '✅ 8건 모두 예매완료 + Vueling 이름 변경 수수료 ₩111,854 (6/10 결제) · 합계 ₩12,004,939',
     pct: 26, color: '#2563EB',
     breakdown: [
       { label: '👫 부부 ICN→FRA→OPO (LH713+LH1180, 6/12)', amt: 2311000, status: 'confirmed', note: 'Economy Basic Plus · 좌석 30J·30K/20E·20F · PNR Y6RCMU' },
       { label: '🧑 둘째 LHR→ZRH (Swiss LX333, 6/23)', amt: 292900, status: 'confirmed', note: '직항 1h 45m · 개인물품만 · PNR XW2NMU' },
-      { label: '👫 부부 SCQ→BCN→ZRH (Vueling, 6/24)', amt: 890600, status: 'confirmed', note: '⚠️ 아빠 이름 정정 진행 · 위탁 25kg/인 · TRIP 1658113176342997' },
+      { label: '👫 부부 SCQ→BCN→ZRH (Vueling, 6/24)', amt: 890600, status: 'confirmed', note: '✅ 아빠 이름 정정 완료 (수수료 별도 라인) · 위탁 25kg/인 · TRIP 1658113176342997' },
+      { label: '🔧 Vueling 아빠 이름 변경 수수료', amt: 111854, status: 'confirmed', note: '2026-06-10 결제 · JEONGKYEOM CHOI → CHULLYOUNG CHOI 정정' },
       { label: '🇰🇷 큰아들 ICN→ZRH (KE917, 6/25)', amt: 1273500, status: 'confirmed', note: 'B787-10 직항 13h 20m · Economy Standard' },
       { label: '👨‍👩‍👦‍👦 가족 4명 ZRH→LHR (Swiss LX332, 6/30)', amt: 1575600, status: 'confirmed', note: '직항 1h 55m · 위탁 23kg+휴대 8kg/인 · PNR XTVN7K' },
       { label: '🧑 둘째 LGW→칭다오→ICN (JD484+QW901, 7/1)', amt: 964900, status: 'confirmed', note: '칭다오 4h 10m 환승 · 수하물 재수속 · PNR NXSQX0' },
@@ -688,7 +689,7 @@ export const BUDGET: BudgetItem[] = [
 
 export const FLIGHTS: FlightData[] = [
   { type: '출발', from: 'ICN 인천', to: 'OPO 포르토', date: '2026.06.12 (금) 12:20 → 22:55', note: '✅ 예매완료 · 👫 부부 2명 · 🇩🇪 Lufthansa LH713 (A350-900, ICN 12:20→FRA 18:40, 13h 20m) + LH1180 (A321NEO, FRA 21:05→OPO 22:55, 2h 50m) · FRA 환승 2h 25m · 총 18h 35m · Economy Basic Plus · 좌석 30J·30K/20E·20F · ₩2,311,000/2인 · 예약번호 Y6RCMU' },
-  { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 15:10 → 20:25', note: '⚠️ 예매완료 (아빠 이름 정정 요청 접수 완료, 트립닷컴 응답 대기) · 👫 부부 2명 · 🇪🇸 부엘링 VY1673 (SCQ→BCN, 1h 40m) + VY6248 (BCN→ZRH, 1h 55m) · BCN 환승 1h 40m · 수하물 직통 ✅ 위탁 25kg/인 · ₩890,600/2인 · 트립닷컴 1658113176342997' },
+  { type: '경유', from: 'SCQ 산티아고', to: 'ZRH 취리히', date: '2026.06.24 (수) 15:10 → 20:25', note: '✅ 예매완료 + 아빠 이름 정정 완료 (6/10, 수수료 ₩111,854 별도) · 👫 부부 2명 · 🇪🇸 부엘링 VY1673 (SCQ→BCN, 1h 40m) + VY6248 (BCN→ZRH, 1h 55m) · BCN 환승 1h 40m · 수하물 직통 ✅ 위탁 25kg/인 · ₩890,600 + 수수료 ₩111,854 = ₩1,002,454 · 트립닷컴 1658113176342997' },
   { type: '합류', from: 'LHR 런던', to: 'ZRH 취리히', date: '2026.06.23 (화) 13:50 → 16:35', note: '✅ 예매완료 · 🧑 둘째 1명 (하루 일찍 출발, 스위스 1일 단독 관광 후 가족 합류) · 🇨🇭 Swiss LX333 (Airbaltic BT 공동운항) LHR T2→ZRH 직항 · 1h 45m · 개인물품만 (휴대·위탁 없음) · ₩292,900 · 트립닷컴 1658113179296149 / PNR XW2NMU' },
   { type: '합류', from: 'ICN 인천', to: 'ZRH 취리히', date: '2026.06.25 (목) 11:05 → 17:25', note: '✅ 예매완료 🧑 큰아들 1명 · 🇰🇷 KE917 직항 (B787-10) · 13h 20m · ₩1,273,500 · 일반석 스탠다드' },
   { type: '경유', from: 'ZRH 취리히', to: 'LHR 런던', date: '2026.06.30 (화) 12:05 → 13:00', note: '✅ 예매완료 · 👨‍👩‍👧‍👦 가족 4명 · 🇨🇭 Swiss LX332 (Airbaltic BT 공동운항) ZRH→LHR T2 직항 · 1h 55m · 위탁 23kg/인 + 휴대 8kg/인 포함 · ₩393,900/인 × 4 = ₩1,575,600 · 트립닷컴 1658113176589013 / PNR XTVN7K' },
@@ -721,7 +722,7 @@ export const CHECKLIST: ChecklistCategory[] = [
     items: [
       { label: '👫 부부 ICN → FRA → OPO', day: 'Day 1', date: '6/12 (금)', target: '👫 부부', count: '2명', route: 'ICN → FRA → OPO', code: 'LH713+LH1180', time: '12:20 → 22:55', price: '₩2,311,000', status: 'completed', note: 'FRA 환승 2h 25m · A350-900+A321NEO · Economy Basic Plus · 좌석 30J·30K/20E·20F · PNR Y6RCMU' },
       { label: '🧑 둘째 LHR → ZRH (Swiss 직항)', day: 'Day 12', date: '6/23 (화)', target: '🧑 둘째', count: '1명', route: 'LHR → ZRH', code: 'LX333', time: '13:50 → 16:35', price: '₩292,900', status: 'completed', note: '직항 1h 45m · Airbaltic BT 공동운항 · 개인물품 1개만 · PNR XW2NMU (하루 앞당겨 스위스 1일 단독 관광)' },
-      { label: '👫 부부 SCQ → BCN → ZRH (Vueling)', day: 'Day 13', date: '6/24 (수)', target: '👫 부부', count: '2명', route: 'SCQ → BCN → ZRH', code: 'VY1673+VY6248', time: '15:10 → 20:25', price: '₩890,600', status: 'completed', note: '⚠️ 아빠 이름 정정 진행 중 (트립닷컴 응답 대기) · BCN 환승 1h 40m, 수하물 직통 · 위탁 25kg/인 · TRIP 1658113176342997' },
+      { label: '👫 부부 SCQ → BCN → ZRH (Vueling)', day: 'Day 13', date: '6/24 (수)', target: '👫 부부', count: '2명', route: 'SCQ → BCN → ZRH', code: 'VY1673+VY6248', time: '15:10 → 20:25', price: '₩1,002,454', status: 'completed', note: '✅ 아빠 이름 정정 완료 (6/10, 수수료 ₩111,854 별도 결제) · ₩890,600 + ₩111,854 = ₩1,002,454 · BCN 환승 1h 40m, 수하물 직통 · 위탁 25kg/인 · TRIP 1658113176342997' },
       { label: '🇰🇷 큰아들 ICN → ZRH (KE 직항)', day: 'Day 14', date: '6/25 (목)', target: '🇰🇷 큰아들', count: '1명', route: 'ICN → ZRH', code: 'KE917', time: '11:05 → 17:25', price: '₩1,273,500', status: 'completed', note: 'B787-10 직항 13h 20m · Economy Standard' },
       { label: '👨‍👩‍👦‍👦 가족 ZRH → LHR (Swiss 직항)', day: 'Day 19', date: '6/30 (화)', target: '👨‍👩‍👦‍👦 가족', count: '4명', route: 'ZRH → LHR T2', code: 'LX332', time: '12:05 → 13:00', price: '₩1,575,600', status: 'completed', note: '직항 1h 55m · 위탁 23kg+휴대 8kg/인 · ₩393,900/인 · PNR XTVN7K' },
       { label: '🧑 둘째 LGW → 칭다오 → ICN', day: 'Day 20', date: '7/1 (수)', target: '🧑 둘째', count: '1명', route: 'LGW → TAO → ICN', code: 'JD484+QW901', time: '21:10 → 7/2 21:35', price: '₩964,900', status: 'completed', note: '칭다오 4h 10m 환승 · 수하물 재수속 필요 · PNR NXSQX0' },
