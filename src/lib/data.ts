@@ -79,7 +79,7 @@ export const SCHEDULE: DayData[] = [
   // ===== PORTO (Day 1-2) — 2일 =====
   {
     day: 1, date: '6/12 (금)', phase: 'porto', title: '👫 부부 출발: 인천 → 포르토 (Swiss Air)',
-    icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/25 스위스 합류, 둘째 6/24 ZRH 합류). 🇩🇪 Lufthansa LH713 ICN 12:20 → FRA 18:40 (A350-900, 13h 20m) → 2h 25m 환승 → LH1180 FRA 21:05 → OPO 22:55 도착 (A321NEO, 총 18h 35m, Economy Basic Plus, ₩2,311,000/2인, 예약번호 Y6RCMU). ⚠️ 22:55 늦은 도착 → 공항 픽업·호텔 체크인 후 휴식. 시내 관광·크리덴셜 수령은 Day 2로.',
+    icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/25 스위스 합류, 둘째 6/24 ZRH 합류). 🇩🇪 Lufthansa LH713 ICN 12:20 → FRA 18:40 (A350-900, 13h 20m) → 2h 25m 환승 → LH1180 FRA 21:05 → OPO 22:55 도착 (A321NEO, 총 18h 35m, Economy Basic Plus, ₩2,311,000/2인, 예약번호 Y6RCMU). ⚠️ 22:55 늦은 도착 → 🚖 Uber 호출 (OPO → Vila Nova de Gaia, ~€25-30, 30-40분) → SANTA RITA Guesthouse 늦은 체크인 (~00:15-00:30). 호텔에 늦은 도착 사전 통보 + 휴식. 시내 관광·크리덴셜 수령은 Day 2로.',
     food: '기내식 (ICN-FRA: 다과+기내식, FRA-OPO: 다과)', stay: 'SANTA RITA Guesthouse B&B (Vila Nova de Gaia, 강 건너편 — 포트와인 셀러 옆) · 더블룸 조식포함 ₩354,271/2박',
     lat: 41.1280, lng: -8.6080,
     transit: '✈️ ICN 12:20 → OPO 22:55 (18h 35m, LH713+LH1180 FRA 환승) → 🚖 Uber OPO→Vila Nova de Gaia ~€30, 30-40분',
@@ -88,7 +88,9 @@ export const SCHEDULE: DayData[] = [
       { time: '12:20', emoji: '🛫', label: 'LH713 ICN 출발 (A350-900)', status: 'confirmed', detail: '👫 부부 · Economy Basic Plus · 좌석 30J·30K · PNR Y6RCMU' },
       { time: '18:40', emoji: '🛬', label: 'FRA 도착 (13h 20m)', status: 'confirmed', detail: '환승 대기 2h 25m' },
       { time: '21:05', emoji: '🛫', label: 'LH1180 FRA 출발 (A321NEO)', status: 'confirmed', detail: '좌석 20E·20F' },
-      { time: '22:55', emoji: '🏨', label: 'OPO 포르토 도착', status: 'confirmed', detail: '공항 픽업 → 호텔 체크인' },
+      { time: '22:55', emoji: '🛬', label: 'OPO 포르토 도착 (Schengen 첫 입국 · 도장 받기)', status: 'confirmed', detail: '입국·짐 ~30분 예상' },
+      { time: '23:35', emoji: '🚖', label: 'OPO 공항 → Uber 호출 (Vila Nova de Gaia行)', status: 'pending', detail: 'Uber 또는 Bolt · ~€25-30 · 30-40분 · 한국에서 미리 앱 설치 + 카드 등록' },
+      { time: '00:15', emoji: '🏨', label: 'SANTA RITA Guesthouse 체크인 (Day 2 새벽)', status: 'pending', detail: '⚠️ 호텔에 늦은 도착 사전 통보 필수 (booking.com → 도착 시간 업데이트)' },
     ],
   },
   {
@@ -632,11 +634,12 @@ export const BUDGET: BudgetItem[] = [
     ],
   },
   {
-    id: 'transport', cat: '🚄 교통', amt: '₩2,400,000', amtNum: 2400000,
-    detail: 'Swiss Travel Pass + 시내 이동 + 카미노 짐 운반 (전부 미예매)',
+    id: 'transport', cat: '🚄 교통', amt: '₩2,445,000', amtNum: 2445000,
+    detail: 'Swiss Travel Pass + OPO Uber + 시내 이동 + 카미노 짐 운반 (전부 미예매)',
     pct: 5, color: '#7C3AED',
     breakdown: [
       { label: '🇨🇭 Swiss Travel Pass 6일 × 4명', amt: 2280000, status: 'pending', note: 'CHF 379/인 · 산악열차 25-50% 할인 포함' },
+      { label: '🚖 Uber OPO→Vila Nova de Gaia (6/12 야간)', amt: 45000, status: 'pending', note: '€25-30 · 22:55 도착 직행' },
       { label: '🐚 카미노 짐 운반 (Tuitrans/Correos)', amt: 100000, status: 'pending', note: '€6-8/일 × 10일' },
       { label: '🇫🇷 파리 Navigo 주간권 × 3명', amt: 135000, status: 'pending', note: '€30×3' },
       { label: '🇬🇧 LHR ↔ Cambridge + 시내 (4명)', amt: 250000, status: 'pending' },
@@ -699,7 +702,8 @@ export const FLIGHTS: FlightData[] = [
 ];
 
 export const TRANSPORTS: Transport[] = [
-  { route: '포르토 공항 → 시내', method: '🚇 메트로 E선', time: '30분', price: '€2.6', tip: '24시간권 €7 권장' },
+  { route: 'OPO 공항 → Vila Nova de Gaia 호텔 (6/12 야간)', method: '🚖 Uber 또는 Bolt', time: '30-40분', price: '€25-30 (~₩45K) / 2인', tip: '⭐ 22:55 도착·메트로 환승 복잡·짐 있음 → Uber 직행 강추. 한국에서 미리 앱 설치+카드 등록. Bolt가 보통 Uber보다 €2-5 저렴' },
+  { route: 'Vila Nova de Gaia ↔ 포르토 시내 (6/13)', method: '🚇 메트로 D선 (Jardim do Morro) 또는 🚶 동 루이스 1세 다리 도보', time: '도보 15-20분 / 메트로 5분', price: '€2 (메트로 1회권) 또는 무료(도보)', tip: '다리 도보는 도루강 뷰 + 포트와인 셀러 산책 코스. 짐 없을 때 도보 추천' },
   { route: '산티아고 → 취리히 (6/26)', method: '✈️ Iberia (MAD 환승)', time: '5-6h', price: '~₩400K × 2', tip: '부부 2명 동시 예매. 환승 1회' },
   { route: '취리히 공항 → 루체른 (6/26)', method: '🚂 IC/IR 직행 열차', time: '1h', price: 'CHF 25 × 3', tip: 'Swiss Travel Pass 적용 가능' },
   { route: '루체른 → 인터라켄 (6/28)', method: '🚂 GoldenPass Line', time: '~2h (파노라마)', price: 'CHF 35-60 × 3', tip: '⭐ 사전 좌석 예약 권장 (창가/파노라마칸)' },
@@ -732,6 +736,7 @@ export const CHECKLIST: ChecklistCategory[] = [
   {
     title: '🚂 기차·페리·육상 교통',
     items: [
+      { label: '🚖 Uber/Bolt 앱 설치 + 카드 등록 (OPO 도착 대비)', day: 'Day 1', date: '6/12 (금)', target: '👫 부부', count: '2명', route: 'OPO → Vila Nova de Gaia', price: '€25-30 (~₩45K)', status: 'pending', note: '⚠️ 출국 전 한국에서 미리 설치 + 결제수단 등록 (해외에서 SMS 인증 문제 회피). 22:55 도착이라 직행 Uber 필수. Bolt가 보통 €2-5 저렴' },
       { label: 'Swiss Travel Pass 6일권 신청', target: '👨‍👩‍👦‍👦 가족', count: '3-4명', price: 'CHF 379/인', status: 'pending', note: '🎫 스위스 全 기차+버스+산악열차 50% 할인 · 출국 전 온라인 구매' },
       { label: '🚤 Caminha → A Guarda 페리 (Río Miño)', day: 'Day 6', date: '6/17 (수)', target: '👫 부부', count: '2명', route: 'Caminha → A Guarda', price: '~€2', status: 'pending', note: '시간표 확인 필수 (계절·날씨 영향)' },
       { label: '🚌 A Guarda → Tui 버스 (Monbus)', day: 'Day 6', date: '6/17 (수)', target: '👫 부부', count: '2명', route: 'A Guarda → Tui', time: '~1h', status: 'pending', note: '중앙길 전환' },
