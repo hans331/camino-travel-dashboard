@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase';
 import type { ChecklistItemDB, ChecklistAttachment, ChecklistItemTemplate, ChecklistState } from '@/lib/types';
 
 const ATTACHMENT_BUCKET = 'attachments';
+const COLLAPSED_KEY = 'camino-checklist-collapsed-cats';
 
 function getTemplate(categoryIndex: number, sortOrder: number): ChecklistItemTemplate | undefined {
   return CHECKLIST[categoryIndex]?.items[sortOrder];
@@ -40,22 +41,50 @@ export default function Checklist() {
   const [collapsedCategories, setCollapsedCategories] = useState<Set<number>>(new Set());
   const debounceTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
+  // Restore collapsed category state from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem(COLLAPSED_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved) as number[];
+        if (Array.isArray(parsed)) {
+          setCollapsedCategories(new Set(parsed.filter((n) => typeof n === 'number')));
+        }
+      } catch {
+        // ignore corrupt storage
+      }
+    }
+  }, []);
+
+  const persistCollapsed = useCallback((next: Set<number>) => {
+    try {
+      localStorage.setItem(COLLAPSED_KEY, JSON.stringify(Array.from(next)));
+    } catch {
+      // ignore quota / private mode errors
+    }
+  }, []);
+
   const toggleCategory = useCallback((idx: number) => {
     setCollapsedCategories((prev) => {
       const next = new Set(prev);
       if (next.has(idx)) next.delete(idx);
       else next.add(idx);
+      persistCollapsed(next);
       return next;
     });
-  }, []);
+  }, [persistCollapsed]);
 
   const expandAllCategories = useCallback(() => {
-    setCollapsedCategories(new Set());
-  }, []);
+    const next = new Set<number>();
+    setCollapsedCategories(next);
+    persistCollapsed(next);
+  }, [persistCollapsed]);
 
   const collapseAllCategories = useCallback(() => {
-    setCollapsedCategories(new Set(CHECKLIST.map((_, i) => i)));
-  }, []);
+    const next = new Set(CHECKLIST.map((_, i) => i));
+    setCollapsedCategories(next);
+    persistCollapsed(next);
+  }, [persistCollapsed]);
 
   // Fetch or initialize checklist items
   useEffect(() => {
