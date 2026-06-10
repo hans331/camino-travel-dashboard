@@ -80,9 +80,9 @@ export const SCHEDULE: DayData[] = [
   {
     day: 1, date: '6/12 (금)', phase: 'porto', title: '👫 부부 출발: 인천 → 포르토 (Swiss Air)',
     icon: '✈️', desc: '👫 부부만 먼저 출발 (큰아들 6/25 스위스 합류, 둘째 6/24 ZRH 합류). 🇩🇪 Lufthansa LH713 ICN 12:20 → FRA 18:40 (A350-900, 13h 20m) → 2h 25m 환승 → LH1180 FRA 21:05 → OPO 22:55 도착 (A321NEO, 총 18h 35m, Economy Basic Plus, ₩2,311,000/2인, 예약번호 Y6RCMU). ⚠️ 22:55 늦은 도착 → 공항 픽업·호텔 체크인 후 휴식. 시내 관광·크리덴셜 수령은 Day 2로.',
-    food: '기내식 (ICN-FRA: 다과+기내식, FRA-OPO: 다과)', stay: '포르토 부티크 호텔',
-    lat: 41.1579, lng: -8.6291,
-    transit: '✈️ ICN 12:20 → OPO 22:55 (18h 35m, LH713+LH1180 FRA 환승)',
+    food: '기내식 (ICN-FRA: 다과+기내식, FRA-OPO: 다과)', stay: 'SANTA RITA Guesthouse B&B (Vila Nova de Gaia, 강 건너편 — 포트와인 셀러 옆) · 더블룸 조식포함 ₩354,271/2박',
+    lat: 41.1280, lng: -8.6080,
+    transit: '✈️ ICN 12:20 → OPO 22:55 (18h 35m, LH713+LH1180 FRA 환승) → 🚖 Uber OPO→Vila Nova de Gaia ~€30, 30-40분',
     restaurants: ['Cafe Santiago (프란세지냐 원조)', 'Cervejaria Brasão'],
     timeline: [
       { time: '12:20', emoji: '🛫', label: 'LH713 ICN 출발 (A350-900)', status: 'confirmed', detail: '👫 부부 · Economy Basic Plus · 좌석 30J·30K · PNR Y6RCMU' },
@@ -94,7 +94,7 @@ export const SCHEDULE: DayData[] = [
   {
     day: 2, date: '6/13 (토)', phase: 'porto', title: '🍷 포르토 시내 관광 종일',
     icon: '🍷', desc: '여유로운 포르토 탐방 — ⭐ 포르토 대성당에서 순례자 크리덴셜 수령 (개관시간 확인 필수) → 동 루이스 1세 다리, 리베이라 지구 워킹, 도루강 크루즈, 빌라 노바 데 가이아 포트와인 셀러 투어 (Taylor\'s/Graham\'s), 클레리고스 탑, Cafe Majestic, Livraria Lello 서점.',
-    food: '프란세지냐, 비파나, 포트와인', stay: '포르토 부티크 호텔',
+    food: '프란세지냐, 비파나, 포트와인', stay: 'SANTA RITA Guesthouse B&B (Vila Nova de Gaia) — 같은 숙소 연박 · 조식포함',
     lat: 41.1409, lng: -8.6132,
     restaurants: ['Cafe Santiago', 'Cafe Majestic', "Taylor's Port Cellar", 'Cervejaria Brasão'],
   },
@@ -595,11 +595,11 @@ export const BUDGET: BudgetItem[] = [
     ],
   },
   {
-    id: 'accommodation', cat: '🏨 숙소', amt: '₩10,200,000', amtNum: 10200000,
-    detail: '21박 전부 미예매. 도시·인원·박수 확정, 호텔 단가 추정',
+    id: 'accommodation', cat: '🏨 숙소', amt: '₩10,269,271', amtNum: 10269271,
+    detail: '21박 중 포르토 2박 예매완료 ✅ · 나머지 19박 미예매',
     pct: 23, color: '#EA580C',
     breakdown: [
-      { label: '🇵🇹 포르토 2박 (부부)', amt: 285000, status: 'pending', note: 'The Editory Boulevard Aliados · €95×2박' },
+      { label: '🇵🇹 포르토 SANTA RITA Guesthouse B&B (Vila Nova de Gaia) 2박', amt: 354271, status: 'confirmed', note: '✅ 부킹닷컴 예매 · 더블룸 전용 외부욕실 · 조식포함 · 발코니+정원 전망 · ⚠️ 환불불가 · R. Santa Rita 58, Vila Nova de Gaia (강 건너편, 포트와인 셀러 옆)' },
       { label: '🐚 카미노 알베르게 9박 (부부)', amt: 145000, status: 'pending', note: '평균 €8/박×9 (사립 펜션 가능)' },
       { label: '🐚 산티아고 부티크 1박 (부부)', amt: 165000, status: 'pending', note: 'Hotel Costa Vella · €110' },
       { label: '🇨🇭 루체른 2박 (3→4명)', amt: 1010000, status: 'pending', note: 'family room · CHF 280×2박' },
@@ -749,7 +749,7 @@ export const CHECKLIST: ChecklistCategory[] = [
   {
     title: '🏨 호텔·숙소 예약 (9건, 총 26박)',
     items: [
-      { label: '🇵🇹 포르토 The Editory Boulevard Aliados', day: 'Day 1-2', date: '6/12-13', target: '👫 부부', count: '2명 · 더블룸', note: '2박 · The Editory Boulevard Aliados 또는 동급', status: 'pending' },
+      { label: '🇵🇹 포르토 SANTA RITA Guesthouse B&B', day: 'Day 1-2', date: '6/12-13', target: '👫 부부', count: '2명 · 더블룸', price: '₩354,271 (€199)', status: 'completed', note: '✅ 부킹닷컴 예매 · Vila Nova de Gaia (강 건너편, 포트와인 셀러 옆) · 더블룸 전용 외부욕실 · 조식포함 · 발코니+정원 · ⚠️ 환불불가 · 게스트명 CHOI CHULLYOUNG · 주소: R. Santa Rita 58, 4430-219 Vila Nova de Gaia' },
       { label: '🌊 해안길 알베르게/펜션 4박', day: 'Day 3-6', date: '6/14-17', target: '👫 부부', count: '2명 · 더블룸', note: 'Vila do Conde · Esposende · Viana do Castelo · Caminha · 사립 펜션 권장', status: 'pending' },
       { label: '🌳 중앙길 알베르게/펜션 5박', day: 'Day 7-11', date: '6/18-22', target: '👫 부부', count: '2명 · 더블룸', note: 'Tui · Redondela · Pontevedra · Caldas de Reis · Padrón · 사립 펜션 권장', status: 'pending' },
       { label: '⭐ 산티아고 Hotel Costa Vella (자축)', day: 'Day 12', date: '6/23', target: '👫 부부', count: '2명', note: '카미노 완주 자축 1박', status: 'pending' },
