@@ -140,8 +140,8 @@ export const SCHEDULE: DayData[] = [
   },
   {
     day: 9, date: '6/20 (토)', phase: 'camino', title: '카미노 Day 7 (중앙): Amieiro Longo → Redondela 도심 → Pontevedra ~22km',
-    icon: '🐚', desc: 'Amieiro Longo 출발 → Redondela 도심 통과 (3km, 아침 카페 가능) → Arcade (Ponte Sampaio 역사 다리, 굴 산지) → Pontevedra. 구시가지 매우 아름다움, 저녁 광장 타파스 산책.',
-    food: '아침: Redondela 카페 (조식 대체) · 점심: Arcade 굴 · 저녁: 폰테베드라 타파스 투어, 라콘', stay: '알베르게 Virxe Peregrina',
+    icon: '🐚', desc: 'Amieiro Longo 출발 → Redondela 도심 통과 (3km, 아침 카페) → Arcade (Ponte Sampaio 역사 다리, 굴 산지) → Pontevedra 구시가. 호스트 대면 체크인 14–18시 — 새벽 6시 출발 권장. 저녁 광장 타파스 산책.',
+    food: '아침: Redondela 카페 · 점심: Arcade 굴 · 저녁: Praza da Ferrería 타파스, 라콘', stay: '✅ MORC-beds & rooms ★ (Rua San Martiño 5, 구시가) · 더블룸 + 공용 욕실 (알베르게 체험)',
     lat: 42.4310, lng: -8.6440, dist: '~22km',
   },
   {
@@ -583,6 +583,9 @@ export const ACCOMMODATIONS: Accommodation[] = [
   { phase: 'camino', city: 'Amieiro Longo (Redondela)', name: 'Casa Amieiro ★★★', type: '단독 1베드룸 아파트 (카미노 본선 위)', price: '₩176,350 / 1박 (부부)', desc: '✅ 예매완료 · 💪 6/19 카미노 Day 6 종착 — Tui → Amieiro Longo ~28km (Redondela 도심 3km 전, 카미노 본선 통과 마을) · Rúa Amieiro 10, Planta baja, 36800 Redondela · 단독 아파트 (4인 정원, 부부 둘만 사용) · 풀 주방 + 세탁기 + 욕조/샤워 + 무료 주차 · 조식 ❌ (주방 + 커피머신 활용) · 체크인 14:00-24:00 · ⚠️ 환불 불가 (23h grace)', emoji: '🏠',
     breakfast: { status: 'none', note: '주방 + 커피머신 있어 자체 조리 또는 다음날 Redondela 도심 통과 시 카페' },
     booked: { lat: 42.2680, lng: -8.6160, address: 'Rúa Amieiro 10, Planta baja, 36800 Redondela, Pontevedra, Spain', dates: '6/19', nights: 1, pax: 2, bookingRef: '6796463776' } },
+  { phase: 'camino', city: 'Pontevedra', name: 'MORC-beds & rooms (home sharing) ★', type: 'Home sharing — 알베르게 체험 (부부 사적 침실 + 공용 욕실)', price: '₩157,111 / 1박 (부부, Genius 10%)', desc: '✅ 예매완료 · 🐚 6/20 카미노 Day 7 종착 — Amieiro Longo→Pontevedra ~22km · Rua San Martiño 5, 2º, 36002 Pontevedra (구시가 중심, Virxe Peregrina·Praza da Ferrería 도보 2-5분) · 더블룸 + 대형 더블침대 · 공용 욕실 (알베르게 분위기) · 전용 주방 · 평점 9.6/10 (544 리뷰) · 조식 ❌ · ⚠️ 환불 불가 · 호스트 대면 체크인 14:00-18:00 (시간 엄수) · 체크아웃 07:30-10:00', emoji: '🛏️',
+    breakfast: { status: 'none', note: '구시가 카페 도보 1분' },
+    booked: { lat: 42.4334, lng: -8.6442, address: 'Rua San Martiño 5, 2º, 36002 Pontevedra, Spain', dates: '6/20', nights: 1, pax: 2, bookingRef: '6051632446' } },
   { phase: 'camino', city: 'Barcelos', name: 'Albergue Cidade de Barcelos', type: '알베르게', price: '€8/박', desc: '시내 중심, 시장 근처. 깨끗하고 가성비 좋음.', emoji: '🛏️' },
   { phase: 'camino', city: 'Ponte de Lima', name: 'Albergue de Peregrinos', type: '공립 알베르게', price: '€7/박', desc: '강변, 마을 외곽. 일찍 도착 권장.', emoji: '🛏️' },
   { phase: 'camino', city: 'Rubiães', name: 'Albergue São Pedro de Rubiães', type: '공립 알베르게', price: '€6/박', desc: '작은 마을 — 미리 도착해 침대 확보.', emoji: '🛏️' },
@@ -633,8 +636,8 @@ export const BUDGET: BudgetItem[] = [
     ],
   },
   {
-    id: 'accommodation', cat: '🏨 숙소', amt: '₩8,823,531', amtNum: 8823531,
-    detail: '포르토 2박 + 카미노 Day 1-6 (Costa Verde·Ofir·Areias Claras·A Guarda Convento·Tui Amoriño·Amieiro Longo Casa Amieiro) + 산티아고 1박 + 둘째 6/23 1박 + 루체른 2박 + 체르마트 2박 + 인터라켄 2박 + 캠브리지 1박 + 파리 7박 예매완료 ✅ (총 24박 확정 ₩8,523,531) · 카미노 잔여 3박 ₩300,000 (사립 펜션 평균 가정)',
+    id: 'accommodation', cat: '🏨 숙소', amt: '₩8,880,642', amtNum: 8880642,
+    detail: '포르토 2박 + 카미노 Day 1-7 (Costa Verde·Ofir·Areias Claras·A Guarda Convento·Tui Amoriño·Amieiro Longo Casa Amieiro·Pontevedra MORC) + 산티아고 1박 + 둘째 6/23 1박 + 루체른 2박 + 체르마트 2박 + 인터라켄 2박 + 캠브리지 1박 + 파리 7박 예매완료 ✅ (총 25박 확정 ₩8,680,642) · 카미노 잔여 2박 ₩200,000 (사립 펜션 평균 가정)',
     pct: 23, color: '#EA580C',
     breakdown: [
       { label: '🇵🇹 포르토 SANTA RITA Guesthouse B&B (Vila Nova de Gaia) 2박', amt: 354271, status: 'confirmed', note: '✅ 부킹닷컴 예매 · 더블룸 전용 외부욕실 · 조식포함 · 발코니+정원 전망 · ⚠️ 환불불가 · R. Santa Rita 58, Vila Nova de Gaia (강 건너편, 포트와인 셀러 옆)' },
@@ -644,7 +647,8 @@ export const BUDGET: BudgetItem[] = [
       { label: '🛥️ 카미노 Day 4 (6/17) A Guarda — Hotel Monumento Convento de San Benito ★★ ⭐ 스페인 입국', amt: 218421, status: 'confirmed', note: '✅ 부킹닷컴 · 6347680101 (PIN 4630) · +34 986 61 11 66 · Plaza de San Benito s/n, 36780 A Guarda · 16C 베네딕트 수도원 개조 역사 호텔 · 더블룸 🌊 바다 전망 + 조식 포함 · 페리 부두에서 도보 30분/택시 €5 · 다음날 새벽 → Tui 30km 강변 도보' },
       { label: '🥾 카미노 Day 5 (6/18) Tui — Hotel Amoriño ★★★', amt: 222676, status: 'confirmed', note: '✅ 부킹닷컴 · 5026083954 (PIN 1369) · +34 623 13 38 54 · Rúa Arraial, 36700 Tui (구시가 · 대성당 도보권) · 디럭스 더블/트윈룸 🏊 수영장 전망 · 조식 포함 · ⚠️ 환불 불가 (예약 후 23h grace) · A Guarda→Tui 30km 강변 도보 종착 · 다음날 Tui→Redondela 31km 통합' },
       { label: '💪 카미노 Day 6 (6/19) Amieiro Longo — Casa Amieiro ★★★ (단독 아파트)', amt: 176350, status: 'confirmed', note: '✅ 부킹닷컴 · 6796463776 (PIN 3611) · +34 627 83 02 90 · Rúa Amieiro 10, Planta baja, 36800 Redondela (Amieiro Longo · 카미노 본선 통과 동네, Redondela 도심 3km 전) · 단독 1베드룸 아파트 (4인 정원) · 풀 주방+세탁기+욕조 · 조식 ❌ (주방 활용) · ⚠️ 환불 불가 (23h grace) · Tui→여기 ~28km (30km 컷 부합!)' },
-      { label: '🐚 카미노 잔여 3박 (부부) — 미예매', amt: 300000, status: 'pending', note: '사립 펜션 평균 ~₩100k/박 × 3박 (Pontevedra·Caldas·Padrón)' },
+      { label: '🐚 카미노 Day 7 (6/20) Pontevedra — MORC-beds & rooms ★ (home sharing, 알베르게 체험)', amt: 157111, status: 'confirmed', note: '✅ 부킹닷컴 Genius (10% 할인) · 6051632446 (PIN 9443) · +34 607 36 08 12 · Rua San Martiño 5, 2º, 36002 Pontevedra (구시가 중심, Virxe Peregrina·Praza da Ferrería 도보 2-5분) · 더블룸 + 대형 더블침대 · 공용 욕실 · 전용 주방 · 9.6/10 (544 리뷰) · 조식 ❌ · ⚠️ 환불 불가 · 호스트 대면 체크인 14:00-18:00 (시간 엄수)' },
+      { label: '🐚 카미노 잔여 2박 (부부) — 미예매', amt: 200000, status: 'pending', note: '사립 펜션 평균 ~₩100k/박 × 2박 (Caldas·Padrón)' },
       { label: '⭐ 산티아고 Libredón Rooms 1박 (자축)', amt: 241113, status: 'confirmed', note: '✅ 부킹닷컴 예매 · Plaza de Fonseca 5 (대성당 광장 중 하나, 도보 30초!) · 수페리어 트윈룸 정원 전망 · 전용 욕실+발코니 · 짐 보관 OK (포르토에서 캐리어 직송 가능)' },
       { label: '🇨🇭 루체른 Visionary Hospitality 2박 (4명, 아파트)', amt: 1198404, status: 'confirmed', note: '✅ 부킹닷컴 Genius · 38 Bertiswilstrasse, 6023 Rothenburg (역 북쪽 8.6km) · 단독 사용 아파트 (정원 6인) · 발코니·주방·세탁기 · 6/24-26 · 무료 취소' },
       { label: '🧑 둘째 단독 6/23 1박 — Capsule Hotel Lucerne Old Town', amt: 182214, status: 'confirmed', note: '✅ 부킹닷컴 Genius (10% 할인) · 33 Zürichstrasse, 6004 Lucerne · 캡슐룸 고층 · 1명 · LX333 ZRH 16:35 도착 → 시내 카펠교 야경 + 비어가든' },
