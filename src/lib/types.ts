@@ -84,6 +84,22 @@ export interface Accommodation {
   price: string;
   desc: string;
   emoji: string;
+  /** 조식 제공 여부 */
+  breakfast?: {
+    status: 'included' | 'paid' | 'none';
+    price?: string;  // 유료 시 "₩36,780/인"
+    note?: string;   // "영국식", "Picnic €5 옵션" 등
+  };
+  /** 확정 예매된 숙소 — 지도 마커 표시 */
+  booked?: {
+    lat: number;
+    lng: number;
+    address: string;
+    dates: string;          // "6/12-13", "6/24-26"
+    bookingRef?: string;
+    nights: number;
+    pax: number;
+  };
 }
 
 export interface BudgetLineItem {

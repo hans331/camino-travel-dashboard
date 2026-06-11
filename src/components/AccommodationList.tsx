@@ -71,8 +71,23 @@ export default function AccommodationList() {
                   <div>
                     <span className="accom-type">{acc.type}</span>
                     <span className="accom-price">{acc.price}</span>
+                    {acc.breakfast && (
+                      <span style={{
+                        display: 'inline-block', marginLeft: 8, padding: '2px 8px',
+                        borderRadius: 12, fontSize: '0.78rem', fontWeight: 600,
+                        background: acc.breakfast.status === 'included' ? '#DCFCE7' : acc.breakfast.status === 'paid' ? '#FED7AA' : '#E5E7EB',
+                        color: acc.breakfast.status === 'included' ? '#15803D' : acc.breakfast.status === 'paid' ? '#9A3412' : '#4B5563',
+                      }}>
+                        🥐 {acc.breakfast.status === 'included' ? '조식 포함' : acc.breakfast.status === 'paid' ? `조식 유료${acc.breakfast.price ? ` (${acc.breakfast.price})` : ''}` : '조식 미제공'}
+                      </span>
+                    )}
                   </div>
                   <p className="accom-desc">{acc.desc}</p>
+                  {acc.breakfast?.note && (
+                    <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: 4 }}>
+                      🥐 <em>{acc.breakfast.note}</em>
+                    </p>
+                  )}
                 </div>
               </div>
             ))}

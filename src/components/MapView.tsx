@@ -8,8 +8,8 @@ import {
   InfoWindow,
   useMap,
 } from '@vis.gl/react-google-maps';
-import { SCHEDULE, PHASES, MEETING_POINTS, AIRPORTS } from '@/lib/data';
-import type { DayData, MeetingPoint, Airport } from '@/lib/types';
+import { SCHEDULE, PHASES, MEETING_POINTS, AIRPORTS, ACCOMMODATIONS } from '@/lib/data';
+import type { DayData, MeetingPoint, Airport, Accommodation } from '@/lib/types';
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '';
 const MAP_ID = 'travel-dashboard-map';
@@ -133,13 +133,19 @@ export default function MapView({ selectedPhase }: MapViewProps) {
   const [selectedDay, setSelectedDay] = useState<DayData | null>(null);
   const [selectedMeeting, setSelectedMeeting] = useState<MeetingPoint | null>(null);
   const [selectedAirport, setSelectedAirport] = useState<Airport | null>(null);
+  const [selectedHotel, setSelectedHotel] = useState<Accommodation | null>(null);
 
   const displayDays = useMemo(() => buildDisplayDays(), []);
+  const bookedHotels = useMemo(
+    () => ACCOMMODATIONS.filter((a): a is Accommodation & { booked: NonNullable<Accommodation['booked']> } => !!a.booked),
+    []
+  );
 
   const clearAll = () => {
     setSelectedDay(null);
     setSelectedMeeting(null);
     setSelectedAirport(null);
+    setSelectedHotel(null);
   };
 
   const handleMarkerClick = useCallback((day: DayData) => {
@@ -155,6 +161,11 @@ export default function MapView({ selectedPhase }: MapViewProps) {
   const handleAirportClick = useCallback((ap: Airport) => {
     clearAll();
     setSelectedAirport(ap);
+  }, []);
+
+  const handleHotelClick = useCallback((h: Accommodation) => {
+    clearAll();
+    setSelectedHotel(h);
   }, []);
 
   return (
@@ -205,7 +216,7 @@ export default function MapView({ selectedPhase }: MapViewProps) {
           </div>
         ))}
         <div className="legend-item" style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontWeight: 500 }}>
-          마커 클릭 → 일정 상세
+          마커 클릭 → 상세 (🏨/🛏️ = 예약 호텔, 숫자 = 일정)
         </div>
       </div>
 
@@ -263,6 +274,67 @@ export default function MapView({ selectedPhase }: MapViewProps) {
                 <span className="meeting-marker">{mp.emoji}</span>
               </AdvancedMarker>
             ))}
+
+            {/* Confirmed hotel markers — booked accommodations */}
+            {bookedHotels.map((h, i) => (
+              <AdvancedMarker
+                key={`hotel-${i}`}
+                position={{ lat: h.booked.lat, lng: h.booked.lng }}
+                onClick={() => handleHotelClick(h)}
+                title={`✅ ${h.name} (${h.booked.dates})`}
+              >
+                <span className={`hotel-marker ${h.phase}`} style={{
+                  fontSize: '18px',
+                  background: PHASES[h.phase]?.color ?? '#666',
+                  color: '#fff',
+                  width: 28,
+                  height: 28,
+                  borderRadius: '50%',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '2px solid #fff',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
+                }}>{h.emoji}</span>
+              </AdvancedMarker>
+            ))}
+
+            {selectedHotel?.booked && (
+              <InfoWindow
+                position={{ lat: selectedHotel.booked.lat, lng: selectedHotel.booked.lng }}
+                onCloseClick={() => setSelectedHotel(null)}
+                pixelOffset={[0, -28]}
+              >
+                <div className="map-info-window">
+                  <h3>✅ {selectedHotel.emoji} {selectedHotel.name}</h3>
+                  <p style={{ color: '#888', fontSize: '0.78rem', fontWeight: 600 }}>
+                    📅 {selectedHotel.booked.dates} · {selectedHotel.booked.nights}박 · {selectedHotel.booked.pax}명
+                  </p>
+                  <p style={{ fontSize: '0.85rem', color: '#333' }}>
+                    📍 {selectedHotel.booked.address}
+                  </p>
+                  <p style={{ fontSize: '0.92rem', fontWeight: 600, color: '#16A34A' }}>
+                    💰 {selectedHotel.price}
+                  </p>
+                  {selectedHotel.breakfast && (
+                    <p style={{ fontSize: '0.85rem', color: '#444' }}>
+                      🥐 {selectedHotel.breakfast.status === 'included' && <strong style={{color:'#16A34A'}}>조식 포함</strong>}
+                      {selectedHotel.breakfast.status === 'paid' && <strong style={{color:'#EA580C'}}>조식 유료{selectedHotel.breakfast.price ? ` (${selectedHotel.breakfast.price})` : ''}</strong>}
+                      {selectedHotel.breakfast.status === 'none' && <strong style={{color:'#888'}}>조식 미제공</strong>}
+                      {selectedHotel.breakfast.note && <span style={{color:'#666'}}> · {selectedHotel.breakfast.note}</span>}
+                    </p>
+                  )}
+                  {selectedHotel.booked.bookingRef && (
+                    <p style={{ fontSize: '0.8rem', color: '#666' }}>
+                      🎫 예약번호: <code>{selectedHotel.booked.bookingRef}</code>
+                    </p>
+                  )}
+                  <p style={{ fontSize: '0.82rem', color: '#444', marginTop: 6 }}>
+                    {selectedHotel.desc}
+                  </p>
+                </div>
+              </InfoWindow>
+            )}
 
             {selectedMeeting && (
               <InfoWindow
