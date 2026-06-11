@@ -14,6 +14,7 @@ import type { DayData, MeetingPoint, Airport, Accommodation } from '@/lib/types'
 // 실제 카미노 트레일 GeoJSON 파일 — pilgrimdb.github.io (해안) + OSM relation 12786090 (중앙)
 const CAMINO_GEOJSON_URLS = [
   '/camino-routes/coastal-porto-caminha.geojson',
+  '/camino-routes/aguarda-tui-miño.geojson',
   '/camino-routes/central-tui-santiago.geojson',
 ];
 

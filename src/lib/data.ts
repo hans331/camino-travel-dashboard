@@ -796,8 +796,7 @@ export const CHECKLIST: ChecklistCategory[] = [
     items: [
       { label: '🚖 Uber/Bolt 앱 설치 + 카드 등록 (OPO 도착 대비)', day: 'Day 1', date: '6/12 (금)', target: '👫 부부', count: '2명', route: 'OPO → Vila Nova de Gaia', price: '€25-30 (~₩45K)', status: 'pending', note: '⚠️ 출국 전 한국에서 미리 설치 + 결제수단 등록 (해외에서 SMS 인증 문제 회피). 22:55 도착이라 직행 Uber 필수. Bolt가 보통 €2-5 저렴' },
       { label: 'Swiss Travel Pass 6일권 신청', target: '👨‍👩‍👦‍👦 가족', count: '3-4명', price: 'CHF 379/인', status: 'pending', note: '🎫 스위스 全 기차+버스+산악열차 50% 할인 · 출국 전 온라인 구매' },
-      { label: '🚤 Caminha → A Guarda 페리 (Río Miño)', day: 'Day 6', date: '6/17 (수)', target: '👫 부부', count: '2명', route: 'Caminha → A Guarda', price: '~€2', status: 'pending', note: '시간표 확인 필수 (계절·날씨 영향)' },
-      { label: '🚌 A Guarda → Tui 버스 (Monbus)', day: 'Day 6', date: '6/17 (수)', target: '👫 부부', count: '2명', route: 'A Guarda → Tui', time: '~1h', status: 'pending', note: '중앙길 전환' },
+      { label: '🚤 Caminha → A Guarda 페리 (Río Miño)', day: 'Day 6', date: '6/17 (수)', target: '👫 부부', count: '2명', route: 'Caminha → A Guarda', price: '~€2', status: 'pending', note: '오후 16-18시편 추천 (전날 횡단으로 결정) · 시간표 사전 확인 필수' },
       { label: '🚂 둘째 Cambridge → LHR T2', day: 'Day 12', date: '6/23 (화)', target: '🧑 둘째', count: '1명', route: 'Cambridge → LHR T2', time: '08:30 출발, ~2h', status: 'pending', note: 'LX333 13:50 출발 3h 전 도착 목표 (10:50 LHR) · King\'s Cross 50min + Piccadilly Line 60min' },
       { label: '🚂 ZRH → Lucerne (저녁)', day: 'Day 13', date: '6/24 (수)', target: '👫👨‍👩‍👦 3명', count: '3명', route: 'ZRH → Lucerne', time: '~1h', status: 'pending', note: 'Swiss Pass 포함' },
       { label: '🚂 ZRH → Lucerne (큰아들)', day: 'Day 14', date: '6/25 (목)', target: '🇰🇷 큰아들', count: '1명', route: 'ZRH → Lucerne', time: '17:25 도착 후 ~1h', status: 'pending' },

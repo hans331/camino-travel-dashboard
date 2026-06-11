@@ -1,0 +1,28 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "A Guarda → Tui (Senda del Miño)",
+        "note": "Manual approximation along PO-552 riverside road, ~30km"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-8.8786, 41.9028],
+          [-8.8587, 41.9072],
+          [-8.8284, 41.9180],
+          [-8.7980, 41.9320],
+          [-8.7651, 41.9576],
+          [-8.7458, 41.9989],
+          [-8.7250, 42.0040],
+          [-8.7106, 42.0046],
+          [-8.6850, 42.0240],
+          [-8.6571, 42.0335],
+          [-8.6438, 42.0467]
+        ]
+      }
+    }
+  ]
+}
