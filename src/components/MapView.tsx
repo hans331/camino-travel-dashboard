@@ -7,6 +7,7 @@ import {
   AdvancedMarker,
   InfoWindow,
   useMap,
+  useMapsLibrary,
 } from '@vis.gl/react-google-maps';
 import { SCHEDULE, PHASES, MEETING_POINTS, AIRPORTS, ACCOMMODATIONS } from '@/lib/data';
 import type { DayData, MeetingPoint, Airport, Accommodation } from '@/lib/types';
@@ -58,42 +59,109 @@ function getPhaseGroups(days: DayData[]) {
   return groups;
 }
 
+// Camino 도보 segment 는 Google Directions API (walking mode) 로 실제 경로 fetch.
+// 직선 거리 대비 walking 거리 비율이 너무 크면 (페리 등) 점선 fallback.
+const WALKING_MAX_METERS = 50000;
+const dashedIcon = {
+  icon: { path: 'M 0,-1 0,1', strokeOpacity: 1, scale: 2 },
+  offset: '0',
+  repeat: '10px',
+};
+const flightDashIcon = {
+  icon: { path: 'M 0,-1 0,1', strokeOpacity: 1, scale: 3 },
+  offset: '0',
+  repeat: '12px',
+};
+
 function PolylineRenderer({ days }: { days: DayData[] }) {
   const map = useMap();
+  const routesLib = useMapsLibrary('routes');
   const polylinesRef = useRef<google.maps.Polyline[]>([]);
 
   useEffect(() => {
-    if (!map) return;
+    if (!map || !routesLib) return;
 
     polylinesRef.current.forEach((pl) => pl.setMap(null));
     polylinesRef.current = [];
 
-    const groups = getPhaseGroups(days);
-    for (const group of groups) {
-      const isFlight = group.phase === 'london' || group.phase === 'paris';
+    const directionsService = new routesLib.DirectionsService();
+    let cancelled = false;
+
+    const drawStraight = (
+      path: { lat: number; lng: number }[],
+      color: string,
+      style: 'solid' | 'dashed' | 'flight',
+    ) => {
       const polyline = new google.maps.Polyline({
-        path: group.coords,
-        strokeColor: group.color,
-        strokeOpacity: isFlight ? 0 : 0.9,
-        strokeWeight: 5,
+        path,
+        strokeColor: color,
+        strokeOpacity: style === 'solid' ? 0.9 : 0,
+        strokeWeight: style === 'solid' ? 5 : 3,
         geodesic: true,
         map,
-        icons: isFlight
-          ? [{
-              icon: { path: 'M 0,-1 0,1', strokeOpacity: 1, scale: 3 },
-              offset: '0',
-              repeat: '12px',
-            }]
-          : undefined,
+        icons: style === 'flight' ? [flightDashIcon] : style === 'dashed' ? [dashedIcon] : undefined,
       });
       polylinesRef.current.push(polyline);
-    }
+    };
+
+    const drawWalkingSegment = async (
+      origin: { lat: number; lng: number },
+      destination: { lat: number; lng: number },
+      color: string,
+    ) => {
+      try {
+        const result = await directionsService.route({
+          origin,
+          destination,
+          travelMode: google.maps.TravelMode.WALKING,
+        });
+        if (cancelled) return;
+        const route = result.routes[0];
+        const path = route?.overview_path;
+        const distanceMeters = route?.legs?.[0]?.distance?.value ?? Infinity;
+        if (path && path.length > 0 && distanceMeters < WALKING_MAX_METERS) {
+          const polyline = new google.maps.Polyline({
+            path,
+            strokeColor: color,
+            strokeOpacity: 0.9,
+            strokeWeight: 5,
+            map,
+          });
+          polylinesRef.current.push(polyline);
+          return;
+        }
+      } catch {
+        // fall through to dashed fallback
+      }
+      if (!cancelled) drawStraight([origin, destination], color, 'dashed');
+    };
+
+    const run = async () => {
+      const groups = getPhaseGroups(days);
+      for (const group of groups) {
+        if (cancelled) return;
+        const isFlight = group.phase === 'london' || group.phase === 'paris';
+        const isWalking = group.phase === 'camino';
+
+        if (isWalking && group.coords.length >= 2) {
+          for (let i = 0; i < group.coords.length - 1; i++) {
+            if (cancelled) return;
+            await drawWalkingSegment(group.coords[i], group.coords[i + 1], group.color);
+          }
+        } else {
+          drawStraight(group.coords, group.color, isFlight ? 'flight' : 'solid');
+        }
+      }
+    };
+
+    run();
 
     return () => {
+      cancelled = true;
       polylinesRef.current.forEach((pl) => pl.setMap(null));
       polylinesRef.current = [];
     };
-  }, [map, days]);
+  }, [map, routesLib, days]);
 
   return null;
 }
