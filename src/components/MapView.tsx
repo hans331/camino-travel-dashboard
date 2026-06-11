@@ -7,10 +7,15 @@ import {
   AdvancedMarker,
   InfoWindow,
   useMap,
-  useMapsLibrary,
 } from '@vis.gl/react-google-maps';
 import { SCHEDULE, PHASES, MEETING_POINTS, AIRPORTS, ACCOMMODATIONS } from '@/lib/data';
 import type { DayData, MeetingPoint, Airport, Accommodation } from '@/lib/types';
+
+// 실제 카미노 트레일 GeoJSON 파일 — pilgrimdb.github.io (해안) + OSM relation 12786090 (중앙)
+const CAMINO_GEOJSON_URLS = [
+  '/camino-routes/coastal-porto-caminha.geojson',
+  '/camino-routes/central-tui-santiago.geojson',
+];
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '';
 const MAP_ID = 'travel-dashboard-map';
@@ -59,111 +64,156 @@ function getPhaseGroups(days: DayData[]) {
   return groups;
 }
 
-// Camino 도보 segment 는 Google Directions API (walking mode) 로 실제 경로 fetch.
-// 직선 거리 대비 walking 거리 비율이 너무 크면 (페리 등) 점선 fallback.
-const WALKING_MAX_METERS = 50000;
-const dashedIcon = {
-  icon: { path: 'M 0,-1 0,1', strokeOpacity: 1, scale: 2 },
-  offset: '0',
-  repeat: '10px',
-};
 const flightDashIcon = {
   icon: { path: 'M 0,-1 0,1', strokeOpacity: 1, scale: 3 },
   offset: '0',
   repeat: '12px',
 };
 
+type GeoJsonFeatureCollection = {
+  type: 'FeatureCollection';
+  features: Array<{
+    type: 'Feature';
+    geometry: { type: 'LineString'; coordinates: [number, number][] };
+  }>;
+};
+
 function PolylineRenderer({ days }: { days: DayData[] }) {
   const map = useMap();
-  const routesLib = useMapsLibrary('routes');
   const polylinesRef = useRef<google.maps.Polyline[]>([]);
 
   useEffect(() => {
-    if (!map || !routesLib) return;
+    if (!map) return;
 
     polylinesRef.current.forEach((pl) => pl.setMap(null));
     polylinesRef.current = [];
-
-    const directionsService = new routesLib.DirectionsService();
     let cancelled = false;
 
-    const drawStraight = (
-      path: { lat: number; lng: number }[],
-      color: string,
-      style: 'solid' | 'dashed' | 'flight',
-    ) => {
+    const caminoColor = PHASES.camino?.color ?? '#16A34A';
+
+    // 1. Camino phase 외 구간 (스위스·영국·프랑스·포르토 도시) 은 기존 직선 polyline
+    const groups = getPhaseGroups(days);
+    for (const group of groups) {
+      if (group.phase === 'camino') continue;
+      const isFlight = group.phase === 'london' || group.phase === 'paris';
       const polyline = new google.maps.Polyline({
-        path,
-        strokeColor: color,
-        strokeOpacity: style === 'solid' ? 0.9 : 0,
-        strokeWeight: style === 'solid' ? 5 : 3,
+        path: group.coords,
+        strokeColor: group.color,
+        strokeOpacity: isFlight ? 0 : 0.9,
+        strokeWeight: 5,
         geodesic: true,
         map,
-        icons: style === 'flight' ? [flightDashIcon] : style === 'dashed' ? [dashedIcon] : undefined,
+        icons: isFlight ? [flightDashIcon] : undefined,
       });
       polylinesRef.current.push(polyline);
-    };
+    }
 
-    const drawWalkingSegment = async (
-      origin: { lat: number; lng: number },
-      destination: { lat: number; lng: number },
-      color: string,
-    ) => {
-      try {
-        const result = await directionsService.route({
-          origin,
-          destination,
-          travelMode: google.maps.TravelMode.WALKING,
-        });
-        if (cancelled) return;
-        const route = result.routes[0];
-        const path = route?.overview_path;
-        const distanceMeters = route?.legs?.[0]?.distance?.value ?? Infinity;
-        if (path && path.length > 0 && distanceMeters < WALKING_MAX_METERS) {
+    // 2. Camino 트레일은 실제 GeoJSON 데이터 (pilgrimdb + OSM) 로 렌더
+    Promise.all(
+      CAMINO_GEOJSON_URLS.map((url) =>
+        fetch(url)
+          .then((r) => r.ok ? r.json() as Promise<GeoJsonFeatureCollection> : null)
+          .catch(() => null),
+      ),
+    ).then((collections) => {
+      if (cancelled) return;
+      for (const fc of collections) {
+        if (!fc) continue;
+        for (const feature of fc.features) {
+          const coords = feature.geometry.coordinates;
+          if (!coords || coords.length < 2) continue;
+          const path = coords.map(([lng, lat]) => ({ lat, lng }));
           const polyline = new google.maps.Polyline({
             path,
-            strokeColor: color,
-            strokeOpacity: 0.9,
-            strokeWeight: 5,
+            strokeColor: caminoColor,
+            strokeOpacity: 0.85,
+            strokeWeight: 4,
             map,
           });
           polylinesRef.current.push(polyline);
-          return;
-        }
-      } catch {
-        // fall through to dashed fallback
-      }
-      if (!cancelled) drawStraight([origin, destination], color, 'dashed');
-    };
-
-    const run = async () => {
-      const groups = getPhaseGroups(days);
-      for (const group of groups) {
-        if (cancelled) return;
-        const isFlight = group.phase === 'london' || group.phase === 'paris';
-        const isWalking = group.phase === 'camino';
-
-        if (isWalking && group.coords.length >= 2) {
-          for (let i = 0; i < group.coords.length - 1; i++) {
-            if (cancelled) return;
-            await drawWalkingSegment(group.coords[i], group.coords[i + 1], group.color);
-          }
-        } else {
-          drawStraight(group.coords, group.color, isFlight ? 'flight' : 'solid');
         }
       }
-    };
-
-    run();
+    });
 
     return () => {
       cancelled = true;
       polylinesRef.current.forEach((pl) => pl.setMap(null));
       polylinesRef.current = [];
     };
-  }, [map, routesLib, days]);
+  }, [map, days]);
 
   return null;
+}
+
+// 모바일·데스크탑 위치 추적 — 사용자가 토글 활성화 시 현재 위치 마커 + 정확도 원
+function UserLocationMarker({ enabled }: { enabled: boolean }) {
+  const map = useMap();
+  const [position, setPosition] = useState<{ lat: number; lng: number; accuracy: number } | null>(null);
+  const circleRef = useRef<google.maps.Circle | null>(null);
+
+  useEffect(() => {
+    if (!enabled) {
+      setPosition(null);
+      return;
+    }
+    if (typeof navigator === 'undefined' || !navigator.geolocation) return;
+    const watchId = navigator.geolocation.watchPosition(
+      (pos) => {
+        setPosition({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+          accuracy: pos.coords.accuracy,
+        });
+      },
+      (err) => {
+        console.warn('Geolocation error:', err.message);
+      },
+      { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 },
+    );
+    return () => navigator.geolocation.clearWatch(watchId);
+  }, [enabled]);
+
+  useEffect(() => {
+    if (!map || !position) {
+      circleRef.current?.setMap(null);
+      circleRef.current = null;
+      return;
+    }
+    if (!circleRef.current) {
+      circleRef.current = new google.maps.Circle({
+        map,
+        center: { lat: position.lat, lng: position.lng },
+        radius: position.accuracy,
+        strokeColor: '#1E40AF',
+        strokeOpacity: 0.4,
+        strokeWeight: 1,
+        fillColor: '#3B82F6',
+        fillOpacity: 0.15,
+      });
+    } else {
+      circleRef.current.setCenter({ lat: position.lat, lng: position.lng });
+      circleRef.current.setRadius(position.accuracy);
+    }
+    return () => {
+      circleRef.current?.setMap(null);
+      circleRef.current = null;
+    };
+  }, [map, position]);
+
+  if (!position) return null;
+  return (
+    <AdvancedMarker position={{ lat: position.lat, lng: position.lng }} title="📍 내 위치">
+      <span style={{
+        display: 'inline-block',
+        width: 18,
+        height: 18,
+        borderRadius: '50%',
+        background: '#3B82F6',
+        border: '3px solid #fff',
+        boxShadow: '0 0 0 2px #1E40AF, 0 2px 6px rgba(0,0,0,0.4)',
+      }} />
+    </AdvancedMarker>
+  );
 }
 
 interface FitBoundsProps {
@@ -202,6 +252,7 @@ export default function MapView({ selectedPhase }: MapViewProps) {
   const [selectedMeeting, setSelectedMeeting] = useState<MeetingPoint | null>(null);
   const [selectedAirport, setSelectedAirport] = useState<Airport | null>(null);
   const [selectedHotel, setSelectedHotel] = useState<Accommodation | null>(null);
+  const [trackLocation, setTrackLocation] = useState(false);
 
   const displayDays = useMemo(() => buildDisplayDays(), []);
   const bookedHotels = useMemo(
@@ -249,13 +300,14 @@ export default function MapView({ selectedPhase }: MapViewProps) {
           🐚 <strong>카미노 10일 — 하이브리드 루트 (확정)</strong>
         </div>
         <div className="camino-route-info" style={{ borderLeftColor: PHASES.camino.color }}>
-          <div className="camino-route-info-desc">🌊+🌳 해안 4일 (Porto→Caminha) + 🛥️ 페리 전환 + 🌳 중앙 5일 (Tui→Santiago) · 228km</div>
+          <div className="camino-route-info-desc">🌊 해안 4일 (Porto→Caminha) + 🛥️ 페리 + 🥾 강변 1일 (A Guarda→Tui) + 🌳 중앙 5일 (Tui→Santiago) · ~250km</div>
           <ul className="camino-route-info-highlights">
             <li>🌊 Day 1-4: 대서양 해안 (Vila do Conde, Esposende, Viana, Caminha)</li>
-            <li>🛥️ Day 5: Caminha 페리 → A Guarda 스페인 진입 + 버스 → Tui</li>
+            <li>🛥️ Day 4 오후: Caminha 페리 → A Guarda 스페인 진입 (전날 횡단)</li>
+            <li>🥾 Day 5: A Guarda → Tui 30km (미뉴 강변 Senda del Miño)</li>
             <li>🌳 Day 6-10: 중앙길 (Tui → Pontevedra → Padrón → Santiago)</li>
             <li>💪 Day 6 통합일 31km (Tui→Redondela, 새벽 출발)</li>
-            <li>⭐ 해안의 시원함 + 중앙길의 그늘 = 양쪽 장점</li>
+            <li>⭐ 해안의 시원함 + 강변 풍경 + 중앙길의 그늘 = 세 가지 장점</li>
           </ul>
         </div>
       </div>
@@ -286,6 +338,23 @@ export default function MapView({ selectedPhase }: MapViewProps) {
         <div className="legend-item" style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontWeight: 500 }}>
           마커 클릭 → 상세 (🏨/🛏️ = 예약 호텔, 숫자 = 일정)
         </div>
+        <button
+          type="button"
+          onClick={() => setTrackLocation((v) => !v)}
+          style={{
+            border: `2px solid ${trackLocation ? '#1E40AF' : '#cbd5e1'}`,
+            background: trackLocation ? '#3B82F6' : '#fff',
+            color: trackLocation ? '#fff' : '#1e293b',
+            padding: '6px 12px',
+            borderRadius: 8,
+            fontWeight: 600,
+            fontSize: '0.85rem',
+            cursor: 'pointer',
+          }}
+          aria-pressed={trackLocation}
+        >
+          📍 {trackLocation ? '내 위치 표시 중' : '내 위치 보기'}
+        </button>
       </div>
 
       <div className="map-container">
@@ -302,6 +371,7 @@ export default function MapView({ selectedPhase }: MapViewProps) {
           >
             <FitBounds days={displayDays} selectedPhase={selectedPhase} />
             <PolylineRenderer days={displayDays} />
+            <UserLocationMarker enabled={trackLocation} />
 
             {displayDays.map((day) => (
               <AdvancedMarker
