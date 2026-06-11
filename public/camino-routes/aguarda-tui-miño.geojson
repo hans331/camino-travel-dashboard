@@ -4,6 +4,22 @@
     {
       "type": "Feature",
       "properties": {
+        "name": "Caminha → A Guarda (Río Miño ferry)",
+        "style": "ferry",
+        "note": "Cais de Caminha → A Pasaxe → A Guarda center"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-8.8429, 41.8735],
+          [-8.8595, 41.9078],
+          [-8.8786, 41.9028]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "name": "A Guarda → Tui (Senda del Miño)",
         "note": "Manual approximation along PO-552 riverside road, ~30km"
       },

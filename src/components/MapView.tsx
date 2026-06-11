@@ -12,11 +12,15 @@ import { SCHEDULE, PHASES, MEETING_POINTS, AIRPORTS, ACCOMMODATIONS } from '@/li
 import type { DayData, MeetingPoint, Airport, Accommodation } from '@/lib/types';
 
 // 실제 카미노 트레일 GeoJSON 파일 — pilgrimdb.github.io (해안) + OSM relation 12786090 (중앙)
+// Camino 도보 트레일 (실선 녹색 walk)
 const CAMINO_GEOJSON_URLS = [
   '/camino-routes/coastal-porto-caminha.geojson',
   '/camino-routes/aguarda-tui-miño.geojson',
   '/camino-routes/central-tui-santiago.geojson',
 ];
+
+// 항공/철도/페리/지상 transit (스타일별 점선)
+const TRANSIT_GEOJSON_URL = '/camino-routes/transits.geojson';
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '';
 const MAP_ID = 'travel-dashboard-map';
@@ -29,6 +33,8 @@ function buildDisplayDays(): DayData[] {
   return SCHEDULE;
 }
 
+// Phase별 groups — 각 phase 시작 시 이전 phase 와의 자동 직선 연결 제거.
+// (cross-phase 이동은 별도 transits.geojson 으로 공항 경유 표시)
 function getPhaseGroups(days: DayData[]) {
   const groups: { phase: string; color: string; coords: { lat: number; lng: number }[] }[] = [];
   let currentPhase = '';
@@ -48,9 +54,7 @@ function getPhaseGroups(days: DayData[]) {
         });
       }
       currentPhase = day.phase;
-      currentCoords = currentCoords.length > 0
-        ? [currentCoords[currentCoords.length - 1], { lat: day.lat, lng: day.lng }]
-        : [{ lat: day.lat, lng: day.lng }];
+      currentCoords = [{ lat: day.lat, lng: day.lng }];
     } else {
       currentCoords.push({ lat: day.lat, lng: day.lng });
     }
@@ -65,16 +69,28 @@ function getPhaseGroups(days: DayData[]) {
   return groups;
 }
 
-const flightDashIcon = {
-  icon: { path: 'M 0,-1 0,1', strokeOpacity: 1, scale: 3 },
+// Dashed icon factory (Google Maps Polyline icons spec)
+const dashIcon = (scale: number) => ({
+  icon: { path: 'M 0,-1 0,1', strokeOpacity: 1, scale },
   offset: '0',
-  repeat: '12px',
+  repeat: `${scale * 4}px`,
+});
+
+type RouteStyle = 'walk' | 'ferry' | 'flight' | 'train' | 'ground';
+
+const STYLE_PRESETS: Record<RouteStyle, { color: string; weight: number; dashScale: number | null }> = {
+  walk:   { color: '#16A34A', weight: 4,  dashScale: null }, // solid (camino)
+  ferry:  { color: '#0EA5E9', weight: 3,  dashScale: 2 },    // sky blue dashed
+  flight: { color: '#F59E0B', weight: 3,  dashScale: 3 },    // amber dashed
+  train:  { color: '#3B82F6', weight: 3,  dashScale: 2 },    // blue dashed
+  ground: { color: '#64748B', weight: 3,  dashScale: 2 },    // slate dashed (Uber/car)
 };
 
 type GeoJsonFeatureCollection = {
   type: 'FeatureCollection';
   features: Array<{
     type: 'Feature';
+    properties?: { style?: RouteStyle; name?: string };
     geometry: { type: 'LineString'; coordinates: [number, number][] };
   }>;
 };
@@ -90,26 +106,34 @@ function PolylineRenderer({ days }: { days: DayData[] }) {
     polylinesRef.current = [];
     let cancelled = false;
 
-    const caminoColor = PHASES.camino?.color ?? '#16A34A';
+    const drawStyledPolyline = (
+      path: { lat: number; lng: number }[],
+      style: RouteStyle,
+      colorOverride?: string,
+    ) => {
+      const preset = STYLE_PRESETS[style];
+      const color = colorOverride ?? preset.color;
+      const polyline = new google.maps.Polyline({
+        path,
+        strokeColor: color,
+        strokeOpacity: preset.dashScale === null ? 0.9 : 0,
+        strokeWeight: preset.weight,
+        geodesic: true,
+        map,
+        icons: preset.dashScale !== null ? [dashIcon(preset.dashScale)] : undefined,
+      });
+      polylinesRef.current.push(polyline);
+    };
 
-    // 1. Camino phase 외 구간 (스위스·영국·프랑스·포르토 도시) 은 기존 직선 polyline
+    // 1. Phase 내 일자 간 직선 (스위스 동선·파리 내부·런던 내부 등). cross-phase 연결은 제거됨.
     const groups = getPhaseGroups(days);
     for (const group of groups) {
       if (group.phase === 'camino') continue;
-      const isFlight = group.phase === 'london' || group.phase === 'paris';
-      const polyline = new google.maps.Polyline({
-        path: group.coords,
-        strokeColor: group.color,
-        strokeOpacity: isFlight ? 0 : 0.9,
-        strokeWeight: 5,
-        geodesic: true,
-        map,
-        icons: isFlight ? [flightDashIcon] : undefined,
-      });
-      polylinesRef.current.push(polyline);
+      if (group.coords.length < 2) continue;
+      drawStyledPolyline(group.coords, 'walk', group.color);
     }
 
-    // 2. Camino 트레일은 실제 GeoJSON 데이터 (pilgrimdb + OSM) 로 렌더
+    // 2. Camino 트레일 GeoJSON — feature.properties.style 에 따라 (없으면 walk)
     Promise.all(
       CAMINO_GEOJSON_URLS.map((url) =>
         fetch(url)
@@ -124,17 +148,26 @@ function PolylineRenderer({ days }: { days: DayData[] }) {
           const coords = feature.geometry.coordinates;
           if (!coords || coords.length < 2) continue;
           const path = coords.map(([lng, lat]) => ({ lat, lng }));
-          const polyline = new google.maps.Polyline({
-            path,
-            strokeColor: caminoColor,
-            strokeOpacity: 0.85,
-            strokeWeight: 4,
-            map,
-          });
-          polylinesRef.current.push(polyline);
+          const style: RouteStyle = feature.properties?.style ?? 'walk';
+          drawStyledPolyline(path, style);
         }
       }
     });
+
+    // 3. Cross-phase transit (항공/철도/페리/지상) — 공항 경유 표시
+    fetch(TRANSIT_GEOJSON_URL)
+      .then((r) => r.ok ? r.json() as Promise<GeoJsonFeatureCollection> : null)
+      .catch(() => null)
+      .then((fc) => {
+        if (cancelled || !fc) return;
+        for (const feature of fc.features) {
+          const coords = feature.geometry.coordinates;
+          if (!coords || coords.length < 2) continue;
+          const path = coords.map(([lng, lat]) => ({ lat, lng }));
+          const style: RouteStyle = feature.properties?.style ?? 'flight';
+          drawStyledPolyline(path, style);
+        }
+      });
 
     return () => {
       cancelled = true;
