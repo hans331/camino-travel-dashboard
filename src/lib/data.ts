@@ -682,7 +682,9 @@ export const BUDGET: BudgetItem[] = [
     detail: 'Swiss Travel Pass + OPO Uber + 카미노 캐리어 운반 (TopSantiago ✅) + 시내 이동',
     pct: 5, color: '#7C3AED',
     breakdown: [
-      { label: '🇨🇭 Swiss Travel Pass 6일 × 4명', amt: 2280000, status: 'pending', note: 'CHF 379/인 · 산악열차 25-50% 할인 포함' },
+      { label: '🇨🇭 둘째 Swiss Travel Pass Youth 8일', amt: 527000, status: 'confirmed', note: '✅ 2026-06-14 SBB 공식 구매 · CHF 311 · 유효 6/23-7/1 05:00' },
+      { label: '🇨🇭 부부+큰아들 Saver 6일 (3명)', amt: 1700000, status: 'pending', note: 'CHF 386/인 × 3 Saver 묶음 · 6/25 시작' },
+      { label: '🚂 부부 6/24 ZRH→Luzern 점-점', amt: 90000, status: 'pending', note: 'CHF 27×2 SuperSaver · Saver 패스 시작 전 1시간 이동' },
       { label: '🚖 Uber OPO→Vila Nova de Gaia (6/12 야간)', amt: 45000, status: 'pending', note: '€25-30 · 22:55 도착 직행' },
       { label: '🐚 카미노 캐리어 픽업 × 2개 — TopSantiago', amt: 249001, status: 'confirmed', note: '✅ 예매완료 (topsantiago.com) · 부부 캐리어 2개 Porto→Santiago 구간 단위 운반 · 배송 추적: topsantiago.com/admin/' },
       { label: '🇫🇷 파리 Navigo 주간권 × 3명', amt: 135000, status: 'pending', note: '€30×3' },
@@ -795,7 +797,28 @@ export const CHECKLIST: ChecklistCategory[] = [
     title: '🚂 기차·페리·육상 교통',
     items: [
       { label: '🚖 Uber/Bolt 앱 설치 + 카드 등록 (OPO 도착 대비)', day: 'Day 1', date: '6/12 (금)', target: '👫 부부', count: '2명', route: 'OPO → Vila Nova de Gaia', price: '€25-30 (~₩45K)', status: 'pending', note: '⚠️ 출국 전 한국에서 미리 설치 + 결제수단 등록 (해외에서 SMS 인증 문제 회피). 22:55 도착이라 직행 Uber 필수. Bolt가 보통 €2-5 저렴' },
-      { label: 'Swiss Travel Pass 6일권 신청', target: '👨‍👩‍👦‍👦 가족', count: '3-4명', price: 'CHF 379/인', status: 'pending', note: '🎫 스위스 全 기차+버스+산악열차 50% 할인 · 출국 전 온라인 구매' },
+      {
+        label: '🇨🇭 둘째 Swiss Travel Pass Youth 8일 (Continuous)',
+        day: 'Day 12-19', date: '6/23-30', target: '🧑 둘째', count: '1명', code: 'CHF 311', price: 'CHF 311 (~₩527K)', status: 'completed',
+        note: '✅ 2026-06-14 SBB 공식 구매 · Youth 16-24.99 · 2등석 · 유효 23.06.2026 → 01.07.2026 05:00 · 융프라우요호 25% 할인 + Pilatus·Gornergrat 50% 할인 + Lake Lucerne 보트·박물관·시내교통 무료',
+        link: { url: 'https://www.sbb.ch/en/travelcards-and-tickets/tickets-for-switzerland/swiss-travel-pass.html', label: 'SBB Swiss Travel Pass' },
+        booking: {
+          contactName: 'CHOI JEONGKYEOM (둘째, DOB 26.09.2002)',
+          platform: 'SBB.ch (공식)',
+          accessNote: '📎 e-pass PDF 첨부 → 둘째 폰 SBB Mobile 앱에 reference로 등록 또는 PDF QR 직접 사용. 검표 시 QR 보여주기.',
+        },
+      },
+      {
+        label: '🇨🇭 부부+큰아들 Swiss Travel Pass Saver 6일',
+        day: 'Day 14-19', date: '6/25-30', target: '👫🇰🇷 부부+큰아들', count: '3명 (Saver 묶음)', price: 'CHF 386/인 × 3 ≈ ~₩1.7M (예상)', status: 'pending',
+        note: '🎫 Saver 15% 할인 · 3명 한 주문에 동시 결제 필수 · 첫 활성화 6/25 동일 · 부부 첫 사용 6/25 Pilatus + 큰아들 6/25 ZRH→Lucerne · 융프라우 25% + Gornergrat 50% 할인',
+        link: { url: 'https://www.sbb.ch/en/travelcards-and-tickets/tickets-for-switzerland/swiss-travel-pass.html', label: 'SBB Swiss Travel Pass' },
+      },
+      {
+        label: '🚂 부부 6/24 ZRH 공항 → Luzern (Swiss Pass 시작 전, 점-점 티켓)',
+        day: 'Day 13', date: '6/24 (수)', target: '👫 부부', count: '2명', route: 'ZRH 공항 → Luzern', time: '21시경 출발, ~1h10m', price: 'CHF 27/인 × 2 ≈ ~₩90K (SuperSaver)', status: 'pending',
+        note: '⚠️ Saver 6일 패스 시작이 6/25라 6/24 저녁 1시간 이동만 점-점 결제. 현지 도착 후 SBB Mobile 앱에서 SuperSaver 잡기 (정상가 CHF 38, SuperSaver CHF 15-27)',
+      },
       { label: '🚤 Caminha → A Guarda 페리 (Río Miño)', day: 'Day 6', date: '6/17 (수)', target: '👫 부부', count: '2명', route: 'Caminha → A Guarda', price: '~€2', status: 'pending', note: '오후 16-18시편 추천 (전날 횡단으로 결정) · 시간표 사전 확인 필수' },
       { label: '🚂 둘째 Cambridge → LHR T2', day: 'Day 12', date: '6/23 (화)', target: '🧑 둘째', count: '1명', route: 'Cambridge → LHR T2', time: '08:30 출발, ~2h', status: 'pending', note: 'LX333 13:50 출발 3h 전 도착 목표 (10:50 LHR) · King\'s Cross 50min + Piccadilly Line 60min' },
       { label: '🚂 ZRH → Lucerne (저녁)', day: 'Day 13', date: '6/24 (수)', target: '👫👨‍👩‍👦 3명', count: '3명', route: 'ZRH → Lucerne', time: '~1h', status: 'pending', note: 'Swiss Pass 포함' },
