@@ -1189,9 +1189,9 @@ export const CHECKLIST: ChecklistCategory[] = [
     title: '🛂 비자·서류·ETA·금융',
     items: [
       {
-        label: '🇬🇧 UK ETA 신청 (모바일 앱 권장)',
-        date: '6/11 (목)', target: '👫부부+큰아들', count: '3명', price: '£60 (£20×3)', status: 'pending',
-        note: '⚠️ 둘째는 영국 거주 중이라 불필요 (3명만) · 보통 수 분~수 시간 승인, 최대 72h · 유효 2년 · 출국 전 완료 권장 (산티아고/스위스 도중 X)',
+        label: '🇬🇧 UK ETA 신청 ✅ 완료',
+        date: '6/11 (목)', target: '👫부부+큰아들', count: '3명', price: '£60 (£20×3)', status: 'completed',
+        note: '✅ 3명 모두 신청 완료 · 승인 메일 폰 캡처 보관 (6/30 LHR 입국 시 보여줄 수 있음) · 둘째는 영국 거주라 불필요 · 유효 2년',
         link: { url: 'https://apply-for-an-eta.homeoffice.gov.uk/apply/electronic-travel-authorisation', label: 'GOV.UK ETA 공식 신청 (웹 백업용)' },
         instructions: [
           '📱 ① **공식 앱 다운로드 (권장)** — 발행처: UK Home Office, 아이콘: 영국 정부 문장. 가짜 앱 주의!',
