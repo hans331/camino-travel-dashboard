@@ -331,12 +331,25 @@ export const SCHEDULE: DayData[] = [
       { time: '14:51', emoji: '🚉', label: '🏠 Interlaken Ost 복귀', status: 'confirmed' },
 
       // ===== 오후 자유시간 — Lauterbrunnen 폭포 골짜기 ⭐ =====
-      { time: '15:00-15:30', emoji: '🏨', label: '🏨 호텔 잠시 들러 옷 갈아입기 (가벼운 모드)', status: 'pending', detail: '6/30 영국 짐 정리 시작 · 컨디션 피로 시 휴식으로 대체 가능' },
-      { time: '15:35', emoji: '🚶', label: '호텔 → Interlaken Ost 역 도보', status: 'pending' },
-      { time: '15:51', emoji: '🚂', label: '🚂 Interlaken Ost → Lauterbrunnen (BOB)', status: 'pending', detail: 'STP 무료 · ~20분' },
-      { time: '16:15-17:30', emoji: '🥾', label: '⭐ Lauterbrunnen 폭포 골짜기 산책', status: 'pending', detail: '72개 폭포 골짜기 · ⭐ Staubbach Falls (297m, 마을에서 보임) · Trümmelbach 빙하폭포 (산속, CHF 14/인) — 시간되면 둘 다, 안되면 Staubbach만' },
-      { time: '17:35', emoji: '🚂', label: 'Lauterbrunnen → Interlaken Ost 복귀', status: 'pending', detail: 'STP 무료 · ~20분' },
-      { time: '18:00-18:30', emoji: '🚿', label: '호텔 — 샤워 + 옷 정돈', status: 'pending' },
+      { time: '15:00-15:30', emoji: '🏨', label: '🏨 호텔 잠시 들러 옷 갈아입기 (공통)', status: 'pending', detail: '⛅ 공통 · 우천 시 우비/판초 챙기기 + 방수 신발 · 6/30 영국 짐 정리 시작' },
+      { time: '15:35', emoji: '🚶', label: '호텔 → Interlaken Ost 역 도보 (공통)', status: 'pending', detail: '⛅ 공통 · ~15분' },
+      { time: '15:51', emoji: '🚂', label: '🚂 Interlaken Ost → Lauterbrunnen (BOB) (공통)', status: 'pending', detail: '⛅ 공통 · STP 무료 · ~22분' },
+      { time: '16:13', emoji: '🚉', label: 'Lauterbrunnen 도착 (공통)', status: 'pending', detail: '⛅ 공통 · 정문 나오면 마을 메인 거리 (Hauptstrasse)' },
+
+      // ☀️ ─── 맑음 버전 Lauterbrunnen (Staubbach + 폭포 뒤편 동굴 + 마을 산책) ───
+      { time: '☀️ 16:15-17:00', emoji: '🥾', label: '☀️ ⭐ Staubbach Falls 정면 + 폭포 뒤편 동굴', status: 'pending', detail: '☀️ 맑음 시 · 메인 거리 따라 297m 폭포 정면 사진 → 오른쪽 산기슭 계단 → ⭐ 폭포 뒤편 동굴 산책 (약간 가파름)' },
+      { time: '☀️ 17:00-17:30', emoji: '☕', label: '☀️ 카페 한 잔 + 마을 마무리', status: 'pending', detail: '☀️ 맑음 시 · Hotel Restaurant Oberland 또는 노천 카페 · 사진 마무리' },
+      { time: '☀️ 17:35', emoji: '🚂', label: '☀️ Lauterbrunnen → Interlaken Ost 복귀', status: 'pending', detail: '☀️ 맑음 시 · STP 무료 · 17:57 Ost 도착' },
+
+      // 🌧️ ─── 우천 버전 Lauterbrunnen (Staubbach 짧게 + Trümmelbach 실내) ───
+      { time: '🌧️ 16:13-16:30', emoji: '📸', label: '🌧️ Staubbach Falls 정면 사진 (짧게, 우비)', status: 'pending', detail: '🌧️ 우천 시 · 마을 메인 거리에서 정면 사진만 · ⚠️ 절벽 동굴 산책 SKIP (미끄러움 + 천둥번개 위험)' },
+      { time: '🌧️ 16:30-16:42', emoji: '🚌', label: '🌧️ 버스 #141 → Trümmelbach Falls', status: 'pending', detail: '🌧️ 우천 시 · STP 무료 · ~10분 · Lauterbrunnen 메인 정류장 (역 옆) 탑승' },
+      { time: '🌧️ 16:42-17:30', emoji: '🏔️', label: '🌧️ ⭐ Trümmelbach Falls — 산 내부 빙하 폭포 (100% 실내!)', status: 'pending', detail: '🌧️ 우천 시 · CHF 14/인 × 4 = CHF 56 · ⚠️ Pay in CHF (DCC 거절) · 엘리베이터 + 터널 + 10단 폭포 · 빙하수 초당 20,000L · ⚠️ 마지막 입장 17:30 엄수' },
+      { time: '🌧️ 17:35-17:50', emoji: '🚌', label: '🌧️ 버스 #141 → Lauterbrunnen 마을 복귀', status: 'pending', detail: '🌧️ 우천 시 · ~10분 · STP 무료' },
+      { time: '🌧️ 17:50-18:00', emoji: '☕', label: '🌧️ 마을 카페 한 잔 (몸 데우기)', status: 'pending', detail: '🌧️ 우천 시 · Hotel Restaurant Oberland 또는 Airtime Café · 따뜻한 음료 + 우비 정리' },
+      { time: '🌧️ 18:05', emoji: '🚂', label: '🌧️ Lauterbrunnen → Interlaken Ost 복귀', status: 'pending', detail: '🌧️ 우천 시 · STP 무료 · 18:27 Ost 도착' },
+
+      { time: '18:00-18:30', emoji: '🚿', label: '호텔 — 샤워 + 옷 정돈 (공통)', status: 'pending', detail: '⛅ 공통 · ☀️ 맑음 18:15부터 / 🌧️ 우천 18:45부터 (30분 늦음) · 만찬은 30분 늦춰서 19:00 또는 19:30' },
 
       // ===== 저녁 =====
       { time: '18:30-20:30', emoji: '🍽️', label: '🍽️ 인터라켄 만찬', status: 'pending', detail: 'Restaurant Airtime / Hotel Restaurant Bären / 시내 비스트로 · 알프스 만찬 마지막 밤' },
