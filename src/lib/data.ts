@@ -274,23 +274,25 @@ export const SCHEDULE: DayData[] = [
       { time: '18:10-21:00', emoji: '🍽️', label: '⭐ Harder Kulm Panorama 레스토랑 만찬', status: 'pending', detail: '⚠️ 사전 예약 권장 (4명, 창가) · 삼봉(융프라우·묀히·아이거) + Brienz·Thun 두 호수 뷰 · 일몰 ~21:30' },
       { time: '21:10', emoji: '🚠', label: 'Harder Kulm 푸니쿨라 하산', status: 'pending', detail: '⚠️ 막차 시간 jungfrau.ch에서 출발 전 재확인 (여름 시즌 보통 ~21:40)' },
       { time: '21:30-22:00', emoji: '🏨', label: '호텔 복귀', status: 'pending' },
-      { time: '22:00', emoji: '🎒', label: '🎒 6/29 융프라우 데이팩 최종 점검', status: 'pending', detail: '메리노+플리스+방수자켓+비니+장갑+선글라스+SPF50 · e-ticket 4장 · 두통약·물·초콜릿 · 06:30 기상' },
+      { time: '21:30', emoji: '🛒', label: '🛒 ⚠️ 우비/판초 + 비닐백 구매 (Interlaken Migros·Coop)', status: 'pending', detail: '⚠️ 6/29 우천 100% 예보 (11-20mm + 천둥번개) · 4명분 1회용 판초 CHF 5-10/인 또는 재사용 우비 CHF 20-40/인 · 큰 비닐백 4-5장 (카메라·폰·여권·티켓 PDF 보호용) · Migros/Coop 22시 폐점 전' },
+      { time: '22:00', emoji: '🎒', label: '🎒 6/29 융프라우 데이팩 최종 점검 (우천 대비)', status: 'pending', detail: '⚠️ 우천 대비 필수: 방수자켓·우비·비닐백·방수 신발·여분 양말 · 공통: 메리노+플리스+비니+장갑+선글라스+SPF50 · e-ticket 4장 + 캡처 백업 · 두통약·물·초콜릿 · 05:00 기상 (웹캠 체크)' },
       { time: '22:30', emoji: '🛌', label: '일찍 취침', status: 'pending', detail: '내일 06:30 기상 → 08:04 Interlaken Ost 출발 #306398' },
     ],
   },
   {
-    day: 18, date: '6/29 (월)', phase: 'swiss', title: '⛰️ 융프라우요호 + 🥾 Mönchsjoch Hütte 빙하 트레킹 (3,650m) ✅ #306398',
-    icon: '⛰️', desc: '⭐ ✅ 예매완료 #306398 (4명, STP 2nd class) · 08:04 Ost → 09:45 융프라우 (좌석예약, 10분 전 도착 필수) · 산정 체류 4h (09:45-13:45) — Sphinx 전망대 + ⭐ Mönchsjoch Hütte 왕복 트레킹 (1.7km × 2, 알프스 最高 산장 3,650m, 산장 음료·인증샷) + Bollywood 인도 카레 점심 + Lindt 기념품 + Plateau·Snow Fun 마무리 사진 · 13:45 출발 → 14:51 Ost 복귀 · 오후 Lauterbrunnen 폭포 골짜기 (Staubbach 297m). 저녁 인터라켄 만찬 + 6/30 영국 짐 정리.',
+    day: 18, date: '6/29 (월)', phase: 'swiss', title: '⛰️ 융프라우요호 ✅ #306398 (☀️/🌧️ 2개 버전 — 우천 예보 100%)',
+    icon: '⛰️', desc: '⭐ ✅ 예매완료 #306398 (4명, STP 2nd class) · 08:04 Ost → 09:45 융프라우 · 산정 체류 4h (09:45-13:45) · 13:45 출발 → 14:51 Ost 복귀. ⚠️ 6/29 우천·천둥번개 예보 (강수확률 100%, 11-20mm, 9°C) → GO 결정 (실내 위주 대안). 산정 2가지 버전: ☀️ 맑음 시 = Sphinx 짧게 → ⭐ Mönchsjoch Hütte 빙하 트레킹 (3,650m, 1.7km×2) → Bollywood → Lindt → Plateau·Snow Fun 사진. 🌧️ 우천 시 = Sphinx 길게 → ⭐ Ice Palace → Alpine Sensation 멀티미디어 → Bollywood (천천히) → Lindt → Snow Fun 짧게. 오후 Lauterbrunnen 폭포 골짜기 (비 와도 OK, 방수 차림). 저녁 인터라켄 만찬 + 6/30 영국 짐 정리. ⚠️ 우비·방수 신발·비닐백 챙기기.',
     food: '⭐ Bollywood 융프라우 산정 카레 점심 · 인터라켄 만찬', stay: '✅ SWEET HOLIDAY HOME NO.1 (단독 아파트)',
     lat: 46.5470, lng: 7.9854,
     transit: '🚂 Ost 08:04 → 융프라우 09:45 → 14:51 Ost 복귀 · 오후 🚂 Lauterbrunnen 30분',
     restaurants: ['⭐ Bollywood (Top of Europe 카레)', 'Restaurant Airtime (인터라켄)', 'Hotel Restaurant Bären'],
     timeline: [
       // ===== 오전 — 융프라우 이동 (CEST) =====
-      { time: '06:30', emoji: '🛌', label: '🛌 기상 + 스트레칭', status: 'pending', detail: '정상 -3~3°C 대비' },
+      { time: '05:00', emoji: '📱', label: '📱 ⭐ jungfrau.ch 정상 웹캠 + MeteoSwiss 체크 (☀️/🌧️ 결정)', status: 'pending', detail: '⚠️ jungfrau.ch/en-gb/live/webcams · 비/구름 시 🌧️ 우천 버전 · 맑으면 ☀️ 트레킹 버전' },
+      { time: '06:30', emoji: '🛌', label: '🛌 기상 + 스트레칭', status: 'pending', detail: '정상 9°C 예보, 우천 시 비·천둥번개 가능' },
       { time: '06:45', emoji: '🍳', label: '아파트 가벼운 아침', status: 'pending', detail: '김밥 잔여 / 빵·치즈 / 차·커피' },
-      { time: '07:15', emoji: '🎒', label: '🎒 짐 분리 — 데이팩만 (캐리어는 호텔)', status: 'pending', detail: '6/30 영국행 캐리어는 그대로 보관' },
-      { time: '07:30', emoji: '🧥', label: '🧥 양파 옷 — 메리노+플리스+방수자켓+비니·장갑', status: 'pending', detail: '산정 빙하 추위 + 강한 바람' },
+      { time: '07:15', emoji: '🎒', label: '🎒 짐 분리 — 데이팩만 (캐리어는 호텔)', status: 'pending', detail: '6/30 영국행 캐리어는 그대로 보관 · 데이팩: 우비·비닐백·물·초콜릿·SPF·선글라스·약·e-ticket' },
+      { time: '07:30', emoji: '🧥', label: '🧥 ⚠️ 우천 양파 옷 — 메리노+플리스+⭐방수자켓(필수)+우비/판초+비니·장갑', status: 'pending', detail: '⚠️ 우천 100% 예보 · 방수자켓 hood + 우비 백업 · 면 옷 금지 (젖으면 추움) · 방수 신발 + 여분 양말 · 비닐백에 카메라·폰·여권' },
       { time: '07:45', emoji: '🚶', label: '호텔(Rosenstrasse 18) → Interlaken Ost 역 도보 (~15-20분)', status: 'pending' },
       { time: '07:55', emoji: '🎫', label: '🎫 게이트 도착 — 10분 전 필수!', status: 'pending', detail: '⚠️ "with seat reservation" 파란 표지판 따라가기' },
       { time: '08:04', emoji: '🚂', label: '🚂 Interlaken Ost → Grindelwald Terminal', status: 'confirmed', detail: '✅ #306398 · ~30분 일반 산악열차' },
@@ -298,17 +300,30 @@ export const SCHEDULE: DayData[] = [
       { time: '09:13', emoji: '🚂', label: '🚂 Eigergletscher → 융프라우요호 (좌석예약)', status: 'confirmed', detail: '톱니바퀴 터널 ~30분' },
       { time: '09:45', emoji: '🏔️', label: '🏔️ 융프라우요호 도착 — Top of Europe 3,454m ⭐', status: 'confirmed', detail: '유럽 最高 기차역' },
 
-      // ===== 정상 체류 4h (09:45-13:45) — ⭐ Mönchsjoch Hütte 전체 트레킹 (3,650m) =====
-      { time: '09:45-10:00', emoji: '⏸️', label: '⏸️ 고도 적응 + 화장실 + 등산 장비 점검', status: 'pending', detail: '천천히 호흡 · 트레킹화·선글라스·장갑·SPF50 재확인 · 어지러우면 산장 못 가도 OK (단축 전환)' },
-      { time: '10:00-10:20', emoji: '🔭', label: '🔭 Sphinx 전망대 (3,571m) — 빠르게', status: 'pending', detail: '엘리베이터 30초 · ⭐ Aletsch 빙하 + 융프라우·묀히·아이거 360° · 사진 위주 (산장 트레킹이 메인이라 짧게)' },
-      { time: '10:20-10:30', emoji: '🥾', label: '본관 동쪽 출구 → 빙하 트레일 입구 (Plateau 옆)', status: 'pending', detail: '"Mönchsjochhütte" 표지판 따라 · 등산화 끈 단단히 · 트레킹 폴 (있으면) 장착' },
-      { time: '10:30-11:00', emoji: '🥾', label: '⭐ Mönchsjoch Hütte 트레킹 (편도 1.7km, 표고 +130m)', status: 'pending', detail: '🚩 빨간 깃발 루트 따라 만년설 평탄 트레일 · 카미노 페이스 약 3-3.5km/h 환산 ~30분 · 양옆 융프라우·묀히 직립 절벽 · 천천히 호흡, 빠른 걷기 X · 크레바스 위험으로 깃발 절대 벗어나지 말 것' },
-      { time: '11:00-11:25', emoji: '🏠', label: '🏠 ⭐ Mönchsjoch Hütte 도착 (3,650m) — 알프스 最高 산장', status: 'pending', detail: '따뜻한 음료 (핫초콜릿/차 CHF 5-7) · 산장 인증샷 · 화장실 · ⭐ Aletsch 빙하 上 뷰 (관광객 X, 산악인 多 분위기)' },
-      { time: '11:25-11:55', emoji: '🥾', label: '🥾 복귀 트레킹 → 융프라우요호', status: 'pending', detail: '익숙한 길 + 약간 내리막 · ~30분 · 다리 풀린 느낌 주의 (천천히)' },
-      { time: '11:55-12:50', emoji: '🍽️', label: '🍽️ ⭐ Bollywood 인도 카레 점심 — 트레킹 후 보상', status: 'pending', detail: '따뜻한 카레 + 난 + 라이스 · CHF 20-30/인 · 체온 회복 + 위 든든 + 알프스 最高 高 카레' },
-      { time: '12:50-13:10', emoji: '🍫', label: '🍫 Lindt Swiss Chocolate Heaven — 시식 + 기념품', status: 'pending', detail: '"Top of Europe" 한정판 박스 (CHF 15-50) · ⚠️ Pay in CHF (DCC USD 거절)' },
-      { time: '13:10-13:30', emoji: '🏔️', label: '🏔️ Plateau 야외 + Snow Fun 가족 사진 (마무리)', status: 'pending', detail: '융프라우 깃발 옆 가족 사진 + Snow Fun Park 만년설 가족 사진 ⭐ · Ice Palace는 패스 (진짜 빙하 트레킹이 압도)' },
-      { time: '13:35', emoji: '🎫', label: '게이트 도착 (좌석예약 10분 전)', status: 'pending', detail: '"with seat reservation" 파란 표지 · 4명 모이기' },
+      // ===== 정상 체류 4h (09:45-13:45) — ☀️ 맑음 / 🌧️ 우천 2개 버전 =====
+      // ⚠️ 새벽 05:00 jungfrau.ch 정상 웹캠 확인 후 ☀️/🌧️ 결정
+      { time: '09:45-10:00', emoji: '⏸️', label: '⏸️ 고도 적응 + 화장실 + 장비 점검 (공통)', status: 'pending', detail: '⛅ 공통 · 천천히 호흡 · 어지러우면 야외 활동 포기 · 우천 시 방수자켓 hood 점검 · 카메라 비닐백 보호' },
+
+      // ☀️ ─── 맑음 버전 (Sphinx 짧게 + Mönchsjoch Hütte 트레킹) ───
+      { time: '☀️ 10:00-10:20', emoji: '🔭', label: '☀️ Sphinx 전망대 (3,571m) — 빠르게', status: 'pending', detail: '☀️ 맑음 시 · 엘리베이터 30초 · ⭐ Aletsch 빙하 + 융프라우·묀히·아이거 360° · 사진 위주 (산장 트레킹이 메인이라 짧게)' },
+      { time: '☀️ 10:20-10:30', emoji: '🥾', label: '☀️ 본관 동쪽 출구 → 빙하 트레일 입구', status: 'pending', detail: '☀️ 맑음 시 · "Mönchsjochhütte" 표지판 따라 · 등산화 끈 단단히 · 트레킹 폴 (있으면) 장착' },
+      { time: '☀️ 10:30-11:00', emoji: '🥾', label: '☀️ ⭐ Mönchsjoch Hütte 트레킹 (편도 1.7km, +130m)', status: 'pending', detail: '☀️ 맑음 시 · 🚩 빨간 깃발 루트 따라 만년설 평탄 트레일 · 카미노 페이스 ~30분 · 양옆 융프라우·묀히 절벽 · 천천히 호흡, 깃발 절대 벗어나지 말 것 (크레바스 위험)' },
+      { time: '☀️ 11:00-11:25', emoji: '🏠', label: '☀️ ⭐ Mönchsjoch Hütte 도착 (3,650m, 알프스 最高 산장)', status: 'pending', detail: '☀️ 맑음 시 · 따뜻한 음료 (핫초콜릿/차 CHF 5-7) · 산장 인증샷 · ⭐ Aletsch 빙하 上 뷰 (산악인 多)' },
+      { time: '☀️ 11:25-11:55', emoji: '🥾', label: '☀️ 복귀 트레킹 → 융프라우요호', status: 'pending', detail: '☀️ 맑음 시 · 약간 내리막 · ~30분 · 다리 풀린 느낌 주의' },
+
+      // 🌧️ ─── 우천 버전 (Sphinx 길게 + Ice Palace + Alpine Sensation) ───
+      { time: '🌧️ 10:00-10:45', emoji: '🔭', label: '🌧️ Sphinx 전망대 — 실내 위주 길게', status: 'pending', detail: '🌧️ 우천 시 · 실내 전망실 위주 (야외 데크는 잠깐) · 운 좋으면 구름 사이로 Aletsch 빙하 일부 보일 수 있음 · 방수자켓 hood 착용' },
+      { time: '🌧️ 10:45-11:30', emoji: '🧊', label: '🌧️ ⭐ Ice Palace (얼음 궁전) — 트레킹 대체', status: 'pending', detail: '🌧️ 우천 시 · 빙하 내부 동굴 사진 명소 · 진짜 빙하 트레킹 못 가는 대신 인공 빙하 동굴 체험 · 얼음 조각상 + 미끄러움 주의' },
+      { time: '🌧️ 11:30-12:15', emoji: '🎬', label: '🌧️ ⭐ Alpine Sensation 멀티미디어 전시', status: 'pending', detail: '🌧️ 우천 시 · 융프라우 100주년 역사·과학·예술 전시 (실내 통로 따뜻함) · 멀티미디어 영상·조각·인물 ·  비 올 때 가장 좋은 대체 활동' },
+
+      // ─── 점심·기념품 (날씨 따라 시간만 다름) ───
+      { time: '☀️ 11:55-12:50', emoji: '🍽️', label: '☀️ Bollywood 인도 카레 점심', status: 'pending', detail: '☀️ 맑음 시 · 트레킹 후 보상 · CHF 20-30/인 · 따뜻한 카레로 체온 회복' },
+      { time: '🌧️ 12:15-13:15', emoji: '🍽️', label: '🌧️ Bollywood 인도 카레 점심 (천천히)', status: 'pending', detail: '🌧️ 우천 시 · 비 잠시 피하며 따뜻하게 60분 · CHF 20-30/인 · 알프스 最高 高 카레' },
+      { time: '☀️ 12:50-13:10', emoji: '🍫', label: '☀️ Lindt Swiss Chocolate Heaven', status: 'pending', detail: '☀️ 맑음 시 · "Top of Europe" 한정판 박스 (CHF 15-50) · ⚠️ Pay in CHF (DCC USD 거절)' },
+      { time: '🌧️ 13:15-13:30', emoji: '🍫', label: '🌧️ Lindt + Snow Fun 짧게', status: 'pending', detail: '🌧️ 우천 시 · Lindt 시식 + Snow Fun 지붕 있는 부분만 사진 · Pay in CHF' },
+      { time: '☀️ 13:10-13:30', emoji: '🏔️', label: '☀️ Plateau + Snow Fun 가족 사진 (마무리)', status: 'pending', detail: '☀️ 맑음 시 · 융프라우 깃발 옆 가족 사진 + Snow Fun 만년설 사진 ⭐' },
+
+      { time: '13:35', emoji: '🎫', label: '게이트 도착 (좌석예약 10분 전) (공통)', status: 'pending', detail: '⛅ 공통 · "with seat reservation" 파란 표지 · 4명 모이기' },
 
       // ===== 복귀 =====
       { time: '13:45', emoji: '🚂', label: '🚂 융프라우 → Eigergletscher 출발', status: 'confirmed' },
