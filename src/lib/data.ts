@@ -410,8 +410,8 @@ export const SCHEDULE: DayData[] = [
 
   // ===== PARIS (Day 21-28) — 8일 (7박), Mont-Saint-Michel 포함 =====
   {
-    day: 21, date: '7/2 (목)', phase: 'paris', title: '🎨 오르세 도슨트 ✅ 13:30 + 🍽️ Vendredi gourmand 저녁 ✅ + 🗼 에펠탑 야경',
-    icon: '🎨', desc: '⭐ ✅ 오르세 도슨트 13:30 예매완료 (한국어 가이드) · ✅ Vendredi gourmand 김어준 레스토랑 18:00-19:30 예매완료. 오전 늦은 시작 → 점심 → 13:30 오르세 도슨트 → 17시쯤 종료 → 시내 산책 → 18:00 ⭐ 저녁 식당 → 19:30 후 트로카데로 → 에펠탑 정상 (예약 시 20:00-20:30 슬롯 권장, 일몰 21:55).',
+    day: 21, date: '7/2 (목)', phase: 'paris', title: '🎨 오르세 도슨트 ✅ 13:30 + 🍽️ Vendredi gourmand 저녁 ✅ + 🗼 에펠탑 외부 야경',
+    icon: '🎨', desc: '⭐ ✅ 오르세 도슨트 13:30 예매완료 (한국어 가이드) · ✅ Vendredi gourmand 김어준 레스토랑 18:00-19:30 예매완료. 오전 늦은 시작 → 점심 → 13:30 오르세 도슨트 → 17시쯤 종료 → 시내 산책 → 18:00 ⭐ 저녁 식당 → 19:30 후 트로카데로 광장 + Champ de Mars 야경 사진 (외부 관람만, 정상 입장 X). 일몰 21:55 + 반짝이 조명 감상 후 22:30 호텔.',
     food: '⭐ Vendredi gourmand 김어준 레스토랑 저녁 (18:00-19:30 ✅ 예매완료) · 오르세 카페 점심', stay: '✅ Clichy 88m² 아파트 — 같은 숙소 연박',
     lat: 48.8600, lng: 2.3266,
     transit: '🚇 Métro 13 → Métro 12/RER C',
@@ -427,15 +427,12 @@ export const SCHEDULE: DayData[] = [
       { time: '16:30-17:30', emoji: '🚶', label: '오르세 자유 추가 관람 또는 강 변 산책', status: 'pending', detail: '도슨트 종료 후 사진·추가 작품 · 또는 강변 따라 Vendredi gourmand 이동' },
       { time: '17:30-18:00', emoji: '🚇', label: '식당으로 이동 (Vendredi gourmand)', status: 'pending', detail: '⚠️ 식당 정확 주소·교통편 사용자 확인 필요 (Métro 라인)' },
       { time: '18:00-19:30', emoji: '🍽️', label: '🍽️ ⭐⭐ Vendredi gourmand 김어준 레스토랑 ✅ 저녁', status: 'confirmed', detail: '✅ 예매완료 · 18:00-19:30 · 한국식·프랑스 융합 (사용자 검증 필요)' },
-      { time: '19:30-20:00', emoji: '🚇', label: '식당 → Trocadéro 이동 (Métro)', status: 'pending', detail: '⚠️ 에펠탑 정상 예약 시 시간 매칭 (권장: 20:00-20:30 슬롯)' },
-      { time: '20:00-20:30', emoji: '📸', label: '⭐⭐ Trocadéro 광장 — 에펠탑 정면 사진 + Palais de Chaillot 분수', status: 'pending', detail: '⭐ 파리 NO.1 에펠탑 사진 명소 · 가족 사진 필수' },
-      { time: '20:30-20:45', emoji: '🚶', label: 'Pont d\'Iéna 다리 건너 → 에펠탑 Pilier Sud', status: 'pending' },
-      { time: '20:45-21:00', emoji: '🎫', label: '에펠탑 입장 + 검색대', status: 'pending', detail: '⚠️ 예매 미완료 — toureiffel.paris · "Lift to top" €29.40 × 3 = €88 · 권장 슬롯 20:00-20:30 (일몰 21:55 직전)' },
-      { time: '21:00-22:00', emoji: '🗼', label: '🗼 ⭐ 정상(Sommet 276m) — 일몰 직전 황금시간', status: 'pending', detail: '⚠️ 정상 -3-5°C, 얇은 자켓 · 물·간식 미리' },
-      { time: '22:00-23:00', emoji: '🌅', label: '🌅 ⭐⭐ 일몰 (21:55) + 야경 조명 점등', status: 'pending', detail: '⭐ 매시 정각 5분간 에펠탑 반짝이 조명' },
-      { time: '23:00-23:30', emoji: '🚶', label: '하산 + Champ de Mars 야경 사진', status: 'pending', detail: '잔디밭 누워서 정면 야경 = 인스타 명소' },
-      { time: '23:30-24:00', emoji: '🚇', label: '호텔 복귀 (Uber 야간 €15-20)', status: 'pending' },
-      { time: '24:00', emoji: '🛌', label: '취침', status: 'pending', detail: '내일 7/3 베르사유 09:00 출발' },
+      { time: '19:30-20:00', emoji: '🚇', label: '식당 → Trocadéro 이동 (Métro)', status: 'pending', detail: 'Bir-Hakeim 또는 Trocadéro 역' },
+      { time: '20:00-21:00', emoji: '📸', label: '⭐⭐ Trocadéro 광장 — 에펠탑 정면 + Palais de Chaillot 분수 사진', status: 'pending', detail: '⭐ 파리 NO.1 에펠탑 사진 명소 · 가족 사진 충분히 · 분수 + 정원 산책' },
+      { time: '21:00-21:30', emoji: '🚶', label: 'Pont d\'Iéna 다리 건너 → Champ de Mars 잔디밭', status: 'pending', detail: '다리 위에서도 사진 명소 · 에펠탑 아래 거리감 체험' },
+      { time: '21:30-22:30', emoji: '🌅', label: '🌅 ⭐⭐ Champ de Mars 야경 — 일몰 (21:55) + 반짝이 조명', status: 'pending', detail: '⭐ 잔디밭 누워서 정면 야경 = 인스타 명소 · 매시 정각 5분간 반짝이 조명 (22:00·23:00) · 외부 뷰만, 정상 입장 X · 작은 돗자리·간식 있으면 OK' },
+      { time: '22:30-23:00', emoji: '🚇', label: '호텔 복귀 (Métro 또는 Uber 야간 €15-20)', status: 'pending', detail: 'Métro 6 Bir-Hakeim → Charles de Gaulle-Étoile → Métro 1 → ... 또는 Uber 직행' },
+      { time: '23:00', emoji: '🛌', label: '취침', status: 'pending', detail: '내일 7/3 베르사유 09:00 출발' },
     ],
   },
   {
@@ -934,7 +931,7 @@ export const BUDGET: BudgetItem[] = [
       { label: '🎨 오르세 도슨트 + 입장 ✅ × 3', amt: 0, status: 'confirmed', note: '✅ 예매완료 · 7/2 (목) 13:30 한국어 도슨트 · 사용자 직접 결제' },
       { label: '🍽️ Vendredi gourmand 김어준 저녁 ✅', amt: 0, status: 'confirmed', note: '✅ 예매완료 · 7/2 (목) 18:00-19:30 · 식비 카테고리 별도' },
       { label: '🎧 루브르 한국어 오디오 가이드 × 3', amt: 27000, status: 'pending', note: '⚠️ 현장 결제 €5/인 × 3 = €15 · 입장 후 안내데스크' },
-      { label: '🇫🇷 파리 2개 명소 × 3 (에펠탑·l\'Orangerie)', amt: 192000, status: 'pending', note: '🗼 에펠탑 정상 €88 (가장 시급) + 🎨 l\'Orangerie €37.50' },
+      { label: '🎨 l\'Orangerie × 3 (모네 수련)', amt: 67000, status: 'pending', note: '€12.50/인 × 3 = €37.50 (~₩67K) · 7/5 (일) 11:00 슬롯 권장 · musee-orangerie.fr · ⚠️ 에펠탑 외부 관람만 결정으로 정상 입장 ₩155K 절약' },
     ],
   },
   {
@@ -1252,7 +1249,7 @@ export const CHECKLIST: ChecklistCategory[] = [
         link: { url: 'https://www.musee-orsay.fr/en', label: '오르세 공식' },
       },
       { label: '🍽️ Vendredi gourmand 김어준 레스토랑 ✅ 저녁 예매완료', day: 'Day 21', date: '7/2 (목) 18:00-19:30', target: '👨‍👩‍👦 가족', count: '3인', status: 'completed', note: '✅ 예매완료 · 18:00-19:30 · 도슨트 직후 저녁 · 에펠탑 정상 슬롯은 20:00-20:30 권장' },
-      { label: '🗼 에펠탑 정상(Sommet) ⚠️ 예매 시급', day: 'Day 21', date: '7/2 (목)', target: '👨‍👩‍👦 가족', count: '3인', price: '€29.40/인 × 3 = €88 (~₩155K)', note: '⚠️ toureiffel.paris 사전 예매 · "Lift to top" 선택 · 권장 슬롯 18:00 (일몰 21:55 + 야경 4-5h 체류) · 정상 슬롯 매진 가장 빠름!', status: 'pending', link: { url: 'https://www.toureiffel.paris/en', label: '에펠탑 공식' } },
+      { label: '🗼 에펠탑 외부 야경 (입장 X) — 트로카데로 + Champ de Mars', day: 'Day 21', date: '7/2 (목) 20:00-22:30', target: '👨‍👩‍👦 가족', count: '3인', status: 'completed', note: '✅ 외부 관람만 결정 (정상 입장 패스, €88 절약) · 20:00 트로카데로 사진 → 21:00 Pont d\'Iéna 다리 → 21:30 Champ de Mars 잔디밭 → 21:55 일몰 + 반짝이 조명 (22:00 정각 5분)' },
       {
         label: '👑 베르사유 궁전 + 트리아농 + 분수쇼 ✅ 예매완료',
         day: 'Day 22', date: '7/3 (금)', target: '👨‍👩‍👦 가족', count: '3인', price: '€35/인 × 3 = €105 (~₩185K)', status: 'completed',
