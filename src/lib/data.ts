@@ -848,10 +848,10 @@ export const ACCOMMODATIONS: Accommodation[] = [
     breakfast: { status: 'paid', price: '₩36,780/인', note: '영국식 정찬 뷔페 (평점 8.4)' },
     booked: { lat: 52.2147, lng: 0.0828, address: '37 Eddington Avenue, Cambridge CB3 1SE', dates: '6/30', nights: 1, pax: 3 } },
   { phase: 'paris', city: '파리', name: 'Hôtel Sanso by HappyCulture (arrival 1박)', type: '호텔 (Booking.com)', price: '₩479,202 / 1박', desc: '✅ 7/1 (수) 도착 후 1박 · Grande Bibliothèque 지역 (13구) · Eurostar 22:19 도착 → Gare du Nord → Sanso · Métro 접근 편리 · 도착 다음날 7/2 오전에 Hampton By Hilton Saint Ouen으로 이동.', emoji: '🏨',
-    breakfast: { status: 'unknown', note: '조식 정보 예약 확인 필요' },
+    breakfast: { status: 'none', note: '⚠️ 조식 정보 예약 확인 필요 (아침 근처 카페 이용 가능)' },
     booked: { lat: 48.8321, lng: 2.3766, address: 'Grande Bibliothèque 지역, 파리 13구', dates: '7/1', nights: 1, pax: 3 } },
-  { phase: 'paris', city: '파리', name: 'Hampton By Hilton Paris Saint Ouen (main stay)', type: '호텔 (Booking.com)', price: '₩2,949,756 / 6박 (7/2-7/8, 3명)', desc: '✅ 예매완료 · Saint-Ouen-sur-Seine (파리 北 인접, 93구) · Métro 14 + RER C · Saint-Ouen 역 도보 1분 · Hilton 체인 · 조식 별도 옵션 · 몽마르뜨·사크레쾨르 20분 거리 · Marché aux Puces 벼룩시장 인근. ⚠️ 원래 Hampton By Hilton Saint Ouen에서 변경 · 아들친구용 추가 방 2박 (7/2-7/4) ₩658,573 별도.', emoji: '🏨',
-    breakfast: { status: 'optional', note: '⚠️ Hilton 조식 별도 옵션 (예약 확인 필요)' },
+  { phase: 'paris', city: '파리', name: 'Hampton By Hilton Paris Saint Ouen (main stay)', type: '호텔 (Booking.com)', price: '₩2,949,756 / 6박 (7/2-7/8, 3명)', desc: '✅ 예매완료 · Saint-Ouen-sur-Seine (파리 北 인접, 93구) · Métro 13 + Métro 14 + RER C · Saint-Ouen 역 도보 1분 · Hilton 체인 · 조식 별도 옵션 · 몽마르뜨·사크레쾨르 20분 거리 · Marché aux Puces 벼룩시장 인근. ⚠️ 원래 Clichy 아파트에서 변경 · 아들친구용 추가 방 2박 (7/2-7/4) ₩658,573 별도.', emoji: '🏨',
+    breakfast: { status: 'paid', note: '⚠️ Hilton 조식 별도 옵션 (현장 예약 시 유료)' },
     booked: { lat: 48.9061, lng: 2.3363, address: 'Saint-Ouen-sur-Seine (Métro 14 · RER C 도보 1분)', dates: '7/2-7/8', nights: 6, pax: 3 } },
 ];
 
