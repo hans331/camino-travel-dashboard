@@ -2162,6 +2162,13 @@ body {
   .booking-cell.wide, .booking-cell.wide-full { grid-column: 1; }
 }
 
+.day-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 20px 18px;
+}
+
 .checklist-link-btn {
   display: inline-flex;
   align-items: center;

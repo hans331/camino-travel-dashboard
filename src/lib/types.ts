@@ -42,6 +42,7 @@ export interface DayData {
   transit?: string; // 비행/기차/Eurostar 등 이동 시간 (캘린더에 표시)
   restaurants?: string[];
   timeline?: TimelineEvent[]; // 시간별 주요 이벤트 (특히 항공권 확정 시간)
+  links?: { url: string; label: string }[]; // 동선 지도·예약 페이지 등 외부 링크 버튼
 }
 
 export interface CaminoStage {

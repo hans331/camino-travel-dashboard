@@ -107,6 +107,16 @@ function DayCard({ day }: { day: DayData }) {
           ))}
         </div>
       )}
+
+      {day.links && day.links.length > 0 && (
+        <div className="day-card-links">
+          {day.links.map((l) => (
+            <a key={l.url} className="checklist-link-btn" href={l.url} target="_blank" rel="noopener noreferrer">
+              {l.label}
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

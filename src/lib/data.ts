@@ -517,6 +517,10 @@ export const SCHEDULE: DayData[] = [
     lat: 48.8867, lng: 2.3431,
     transit: '🚇 M13 Mairie de Saint-Ouen → Place de Clichy → M2 Anvers (몽마르뜨, ~25분) · M4 Barbès → Cité (노트르담, ~20분)',
     restaurants: ['Le Consulat (몽마르뜨 화가 카페)', 'La Maison Rose (사진 명소)', '⭐ Le Comptoir du Relais (생제르맹 만찬, 예약)', 'Bouillon Chartier (전통 가성비 대안)'],
+    links: [
+      { url: 'https://claude.ai/code/artifact/462baff5-33cc-4c2a-9492-94440300f209', label: '🗺️ 오늘 동선 지도 (시간대별 + 구글맵·우버 버튼)' },
+      { url: 'https://www.notredamedeparis.fr/en/visit/', label: '⛪ 노트르담 취소표 확인' },
+    ],
     timeline: [
       { time: '12:00', emoji: '📱', label: '📱 ⭐ 출발 전 노트르담 오후 슬롯 예약 (무료)', status: 'pending', detail: '⚠️ notredamedeparis.fr 또는 공식 앱에서 16:00-16:30 슬롯 · 없으면 현장 줄 20-40분 (화요일 폐관 19:00)' },
       { time: '12:10-12:35', emoji: '🚇', label: '호텔 → 몽마르뜨 이동', status: 'pending', detail: 'M13 Mairie de Saint-Ouen → Place de Clichy → M2 → Anvers (~25분) · 또는 Uber ~10분 €12-15' },
