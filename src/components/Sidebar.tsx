@@ -125,7 +125,7 @@ export default function Sidebar({ activeTab, onTabChange, onCollapsedChange, onP
               <span className="party-count">4명</span>
             </div>
             <div className="sidebar-party-row">
-              <span><span className="party-emoji">👨‍👩‍👦</span> 졸업식 후 둘째 귀국 (Day 20+)</span>
+              <span><span className="party-emoji">👨‍👩‍👦</span> 둘째 귀국 후 파리 (Day 20+)</span>
               <span className="party-count">3명</span>
             </div>
           </div>
