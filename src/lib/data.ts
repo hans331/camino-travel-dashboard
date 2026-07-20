@@ -518,7 +518,7 @@ export const SCHEDULE: DayData[] = [
     transit: '🚇 M13 Mairie de Saint-Ouen → Place de Clichy → M2 Anvers (몽마르뜨, ~25분) · M4 Barbès → Cité (노트르담, ~20분)',
     restaurants: ['Le Consulat (몽마르뜨 화가 카페)', 'La Maison Rose (사진 명소)', '⭐ Le Comptoir du Relais (생제르맹 만찬, 예약)', 'Bouillon Chartier (전통 가성비 대안)'],
     links: [
-      { url: 'https://www.notredamedeparis.fr/en/visit/', label: '⛪ 노트르담 취소표 확인' },
+      { url: 'https://www.notredamedeparis.fr/en/visit/', label: '⛪ 노트르담 대성당 (공식 사이트)' },
     ],
     timeline: [
       { time: '12:00', emoji: '📱', label: '📱 ⭐ 출발 전 노트르담 오후 슬롯 예약 (무료)', status: 'pending', detail: '⚠️ notredamedeparis.fr 또는 공식 앱에서 16:00-16:30 슬롯 · 없으면 현장 줄 20-40분 (화요일 폐관 19:00)' },
@@ -720,17 +720,18 @@ export const SWISS_VARIANTS: Record<'lucerne' | 'matterhorn', SwissVariant> = {
   },
 };
 
+// 실제 걸은 경로 (해안 4일 + Río Miño + 중앙 6일 하이브리드) · 숙소는 전부 호텔 예약 · 거리는 실제 도보(일기 기준, 경로 이탈 포함)
 export const CAMINO_STAGES: CaminoStage[] = [
-  { day: 1, from: '포르토', to: 'Vairão', km: 27, elev: '+350m / -280m', diff: 3, surface: '포장도로 60%, 흙길 40%', water: '3km마다', tip: '첫날이라 무리하지 말 것. 출발 전 발에 바셀린. 포르토 대성당 도장 필수.', albergue: 'Albergue do Mosteiro de Vairão' },
-  { day: 2, from: 'Vairão', to: 'Barcelos', km: 29, elev: '+200m / -300m', diff: 3, surface: '시골길 65%, 포장 35%', water: '5km마다', tip: '바르셀로스 수탉 전설지 방문. 시내 진입 전 길고 평탄한 구간.', albergue: 'Albergue Cidade de Barcelos' },
-  { day: 3, from: 'Barcelos', to: 'Ponte de Lima', km: 33, elev: '+450m / -400m', diff: 4, surface: '숲길 55%, 포장 45%', water: '4km마다', tip: '⚠️ 가장 긴 구간! 6시 일찍 출발 권장. 리마 강변 도착 시 감동.', albergue: 'Albergue de Ponte de Lima' },
-  { day: 4, from: 'Ponte de Lima', to: 'Rubiães', km: 18, elev: '+580m / -350m', diff: 4, surface: '돌길 60%, 포장 40%', water: '3km마다', tip: 'Alto da Portela Grande 오르막 — 짧지만 가파름. 정상에서 휴식.', albergue: 'Albergue São Pedro de Rubiães' },
-  { day: 5, from: 'Rubiães', to: 'Tui', km: 20, elev: '+280m / -420m', diff: 3, surface: '포장 50%, 흙길 50%', water: '4km마다', tip: '🇪🇸 국경 다리 통과! 여권 지참. 시간 변경 주의 (포르투갈→스페인 +1h). 투이 대성당 꼭 방문.', albergue: 'Albergue de Tui (Convento)' },
-  { day: 6, from: 'Tui', to: 'Redondela (O Porriño 통과)', km: 31, elev: '+450m / -350m', diff: 4, surface: '숲길 60%, 산업지대 + 포장 40%', water: '5km마다', tip: '⚠️ 통합 구간 31km — 새벽 6시 출발 권장. O Porriño에서 점심·휴식. Redondela까지 오후 도착.', albergue: 'Albergue de Redondela (또는 사립 펜션)' },
-  { day: 7, from: 'Redondela', to: 'Pontevedra', km: 19, elev: '+350m / -380m', diff: 3, surface: '숲길 60%, 포장 40%', water: '3km마다', tip: '폰테베드라 구시가지 매우 아름다움. 저녁에 광장 타파스 투어 필수.', albergue: 'Albergue Virxe Peregrina' },
-  { day: 8, from: 'Pontevedra', to: 'Caldas de Reis', km: 22, elev: '+200m / -180m', diff: 2, surface: '포장 50%, 흙길 50%', water: '4km마다', tip: '♨️ 온천 마을! 도착 후 온천욕으로 발 피로 풀기. 발 관리 키트 활용.', albergue: 'Albergue de Caldas de Reis' },
-  { day: 9, from: 'Caldas de Reis', to: 'Padrón', km: 19, elev: '+280m / -300m', diff: 3, surface: '유칼립투스 숲 65%, 포장 35%', water: '3km마다', tip: '🌶️ 파드론 고추 꼭 먹을 것! 산티아고가 가까워진다는 설렘.', albergue: 'Albergue de Padrón' },
-  { day: 10, from: 'Padrón', to: 'Santiago de Compostela', km: 24, elev: '+320m / -200m', diff: 3, surface: '숲길 50%, 포장 50%', water: '4km마다', tip: '⭐ 마지막 구간! 정오 순례자 미사 (Botafumeiro). Compostela 증명서 발급.', albergue: '호텔 (자축!)' },
+  { day: 1, from: '포르토', to: 'Póvoa de Varzim', km: 40, elev: '+250m / -230m', diff: 3, surface: '해안 보드워크·포장 70%, 흙길 30%', water: '해변 카페 多', tip: '⚠️ 실제 40km (계획 34km보다 김) · 첫날 비 · 대서양 해안 Senda Litoral. 포르토 대성당 도장.', albergue: '🏨 Hotel Costa Verde ★★ (바다 전망)' },
+  { day: 2, from: 'Póvoa de Varzim', to: 'Esposende (Ofir)', km: 20, elev: '+120m / -110m', diff: 2, surface: '해안 보드워크 80%, 포장 20%', water: '해변 카페', tip: '짧은 해안 구간 · Cávado 강 하구 Ofir 리조트 · 여유로운 날.', albergue: '🏨 Parque do Rio Ofir ★★★★ (수영장 리조트)' },
+  { day: 3, from: 'Esposende', to: 'Viana do Castelo (Amorosa)', km: 28, elev: '+180m / -160m', diff: 3, surface: '해안·솔숲 60%, 포장 40%', water: '4km마다', tip: '유칼립투스 말벌혹 구경 · 산길에서 길 잃고 헤맴 · 70년대풍 해변 마을.', albergue: '🏨 Hotel Areias Claras ★★ (해변 마을)' },
+  { day: 4, from: 'Viana do Castelo', to: 'A Guarda 🇪🇸', km: 28, elev: '+200m / -220m', diff: 3, surface: '해안 포장 + 🛥️ Caminha 페리', water: '4km마다', tip: '🛥️ Caminha→A Guarda 보트택시 5분 스페인 입국 · 전날 횡단으로 페리 결항 리스크 회피 · 16C 수도원 호텔.', albergue: '🏨 Convento de San Benito ★★ (16C 수도원·바다 전망)' },
+  { day: 5, from: 'A Guarda', to: 'Tui', km: 30, elev: '+280m / -240m', diff: 3, surface: 'Río Miño 강변 Senda del Miño 70%, 포장 30%', water: '3km마다', tip: '강변 30km 도보 · 국경 도시 Tui 대성당 · 여권 지참(시간 +1h).', albergue: '🏨 Hotel Amoriño ★★★ (수영장 전망)' },
+  { day: 6, from: 'Tui', to: 'Redondela (Amieiro Longo)', km: 31, elev: '+450m / -350m', diff: 4, surface: '숲길 60%, 산업지대·포장 40%', water: '5km마다', tip: '⚠️ 31km 긴 구간 · O Porriño 산업단지 통과 · 큰차 주의 · 단독 아파트에서 휴식.', albergue: '🏨 Casa Amieiro (단독 아파트·주방)' },
+  { day: 7, from: 'Redondela', to: 'Pontevedra', km: 21, elev: '+350m / -380m', diff: 3, surface: '숲길 60%, 포장 40%', water: '3km마다', tip: '무릎 통증 속 21km · 폰테베드라 구시가 광장 타파스 · 알베르게형 홈 체험.', albergue: '🏨 MORC-beds & rooms (구시가·홈스테이형)' },
+  { day: 8, from: 'Pontevedra', to: 'Caldas de Reis', km: 25, elev: '+200m / -180m', diff: 2, surface: '포장 50%, 흙길 50%', water: '4km마다', tip: '♨️ 새벽 6시 출발 · 온천 마을 · 18C 물레방앗간 부티크 호텔에서 무릎 회복.', albergue: '🏨 Torre do Rio (18C 물레방앗간·강변 정원)' },
+  { day: 9, from: 'Caldas de Reis', to: 'Padrón', km: 22, elev: '+280m / -300m', diff: 3, surface: '유칼립투스 숲 65%, 포장 35%', water: '3km마다', tip: '🌶️ 파드론 고추 · 시장통 통과(체리·자두) · 16C 대주교 별장 호텔에서 자축 전야.', albergue: '🏨 Pazo de Lestrove ★★★★ (16C 대주교 사저·수영장)' },
+  { day: 10, from: 'Padrón', to: 'Santiago de Compostela', km: 27, elev: '+320m / -200m', diff: 3, surface: '숲길 50%, 포장 50%', water: '4km마다', tip: '⭐ 마.침.내! 대성당 도착 · Compostela 증명서 · 대성당 광장 바로 옆 숙소.', albergue: '🏨 Libredón Rooms (대성당 광장 도보 30초)' },
 ];
 
 export const EXPERIENCES: Experience[] = [
@@ -805,15 +806,6 @@ export const ACCOMMODATIONS: Accommodation[] = [
   { phase: 'camino', city: 'Padrón (Lestrove)', name: 'Pazo de Lestrove by Pousadas de Compostela ★★★★', type: '4성 역사 호텔 (16C 대주교 사저 Pazo, Pousadas de Compostela 체인)', price: '', desc: '✅ 예매완료 · 🌶️ 6/22 카미노 Day 9 종착 — Caldas→Padrón 19km + 카미노 우회 0.75km · Fortunato Cruces 1, 15916 Padrón (Lestrove, Dodro) · 16세기 산티아고 대주교 옛 사저 + 50,000m² 정원·숲 + 야외 수영장 · 스탠다드 더블룸 · 조식 포함 · 미니바·전화기·엘리베이터·휠체어 접근 가능 · 산티아고 진입 전 자축 retreat', emoji: '🏰',
     breakfast: { status: 'included' },
     booked: { lat: 42.7375, lng: -8.6709, address: 'Fortunato Cruces 1, 15916 Padrón (Lestrove, Dodro), A Coruña, Spain', dates: '6/22', nights: 1, pax: 2, bookingRef: '' } },
-  { phase: 'camino', city: 'Barcelos', name: 'Albergue Cidade de Barcelos', type: '알베르게', price: '', desc: '시내 중심, 시장 근처. 깨끗하고 가성비 좋음.', emoji: '🛏️' },
-  { phase: 'camino', city: 'Ponte de Lima', name: 'Albergue de Peregrinos', type: '공립 알베르게', price: '', desc: '강변, 마을 외곽. 일찍 도착 권장.', emoji: '🛏️' },
-  { phase: 'camino', city: 'Rubiães', name: 'Albergue São Pedro de Rubiães', type: '공립 알베르게', price: '', desc: '작은 마을 — 미리 도착해 침대 확보.', emoji: '🛏️' },
-  { phase: 'camino', city: 'Tui', name: 'Albergue de Tui (Convento)', type: '수도원 알베르게', price: '', desc: '13세기 수도원 — 분위기 압도적.', emoji: '🛏️' },
-  { phase: 'camino', city: 'O Porriño', name: 'Albergue Municipal', type: '공립 알베르게', price: '', desc: '시설 신축, 주방 사용 가능.', emoji: '🛏️' },
-  { phase: 'camino', city: 'Redondela', name: 'Casa da Torre', type: '알베르게', price: '', desc: '역사 건물, 정원 있음.', emoji: '🛏️' },
-  { phase: 'camino', city: 'Pontevedra', name: 'Albergue Virxe Peregrina', type: '공립 알베르게', price: '', desc: '구시가지 중심. 저녁 타파스 동선 좋음.', emoji: '🛏️' },
-  { phase: 'camino', city: 'Caldas de Reis', name: 'Albergue Municipal', type: '공립 알베르게', price: '', desc: '♨️ 온천 마을 — 도착 후 온천욕 가능.', emoji: '🛏️' },
-  { phase: 'camino', city: 'Padrón', name: 'Albergue de Padrón', type: '공립 알베르게', price: '', desc: '강변, 시장 근처. 파드론 고추 꼭 먹기.', emoji: '🛏️' },
   { phase: 'camino', city: '산티아고', name: 'Libredón Rooms', type: '부티크 B&B', price: '', desc: '✅ 예매완료 · ⭐ 6/23 — 카미노 완주 자축! Plaza de Fonseca 5 (대성당 광장 중 하나, 도보 30초) · 수페리어 트윈룸 정원 전망 · 전용 욕실·발코니 · 짐 보관 가능 (Camino 시작 전 캐리어 직송).', emoji: '🏨',
     breakfast: { status: 'none', note: '조식 미제공 (Picnic 옵션 요청 시 · 카미노 완주 후 자축 만찬으로 시내 추천 식당 多)' },
     booked: { lat: 42.8806, lng: -8.5440, address: 'Plaza de Fonseca 5, 15782 Santiago de Compostela', dates: '6/23', nights: 1, pax: 2 } },
@@ -826,9 +818,12 @@ export const ACCOMMODATIONS: Accommodation[] = [
   { phase: 'swiss', city: '체르마트', name: '졸리몬트 아파트먼트 — Alpine Apartment', type: '아파트 (Booking.com ★★★★)', price: '', desc: '✅ 예매완료 · 6/26-27 2박 · Flecksteinweg 9, 3920 체르마트 · 4인 단독 아파트 (전용 욕실+발코니+산 전망+도시 전망) · 주방·식기세척기·세탁·DVD 등 풀옵션', emoji: '🏨',
     breakfast: { status: 'none', note: '조식 미제공 (단독 아파트 — 식기세척기·주방 풀옵션, 체르마트 정통 퐁듀 식당 多)' },
     booked: { lat: 46.0179, lng: 7.7468, address: 'Flecksteinweg 9, 3920 Zermatt', dates: '6/26-27', nights: 2, pax: 4, bookingRef: '' } },
-  { phase: 'swiss', city: '인터라켄', name: 'SWEET HOLIDAY HOME NO.1 (Genius)', type: '아파트 - 테라스 (Booking.com Genius 10%)', price: '', desc: '✅ 예매완료 · 6/28-29 2박 · 18 Rosenstrasse 1 floor, 3800 Interlaken (중심부 · 위치 점수 9.4 · 228리뷰) · 단독 아파트 + 테라스/파티오/발코니 · 전용 욕실 · 주방·소파·평면 TV·전자레인지·다리미 · 무료 취소 · ⚠️ 체크인 17:00-21:30, 체크아웃 07:00-10:00 (시간 좁음, Harder Kulm 다녀와서 21:30 전 입실)', emoji: '🏨',
+  { phase: 'swiss', city: '인터라켄', name: 'SWEET HOLIDAY HOME NO.1', type: '아파트 (⚠️ 부킹 실수취소 → 현금 재결제)', price: '', desc: '⚠️ 실제: 부킹 카드결제가 실수로 취소·환불됨 → 현장에서 현금 ₩1,196,804 재결제로 2박 숙박 (컨디션 아쉬웠음) · 6/28-29 · 18 Rosenstrasse, 3800 Interlaken (중심부) · 단독 아파트 + 테라스 · 주방·전용 욕실 · 체크인 17:00-21:30', emoji: '🏨',
     breakfast: { status: 'none', note: '조식 미제공 (단독 아파트 — 주방 풀옵션, 슈퍼 인근 · 인터라켄 비스트로 多)' },
     booked: { lat: 46.6858, lng: 7.8580, address: '18 Rosenstrasse, 3800 Interlaken, Switzerland', dates: '6/28-29', nights: 2, pax: 4 } },
+  { phase: 'swiss', city: '취리히 (뤼슐리콘)', name: 'Hotel Belvoir Lake View & Spa', type: '4성 호텔 (⚠️ 결항 대응 추가 1박)', price: '', desc: '⚠️ 계획에 없던 추가 숙소 · 6/30 아빠+둘째 ZRH→LHR 항공 결항 → 취리히 호숫가 1박 추가 · Rüschlikon (취리히 남쪽 호반) · 6/30-7/1 · 다음날 7/1 재발권 스위스항공편으로 런던 경유 파리 이동 (엄마+큰아들은 예정대로 케임브리지행). 실제 결산 ₩581,736(부킹) + 부대 ₩13,605.', emoji: '🏨',
+    breakfast: { status: 'included' },
+    booked: { lat: 47.3045, lng: 8.5490, address: 'Säumerstrasse 37, 8803 Rüschlikon, Switzerland', dates: '6/30', nights: 1, pax: 2 } },
   { phase: 'london', city: '캠브리지', name: 'Hyatt Centric Cambridge — 디럭스 패밀리룸', type: '4성급 호텔 (Booking.com)', price: '', desc: '✅ 예매완료 · 🎓 6/30 1박 · 37 Eddington Avenue, CB3 1SE (Eddington 북서 신개발지구, 시내 5.6km) · 디럭스 패밀리룸 31㎡ · 초대형 더블+소파베드 · 정원/안뜰 전망 · 무료 자전거·주차·피트니스 · 평점 8.5 (2,817리뷰).', emoji: '🏨',
     breakfast: { status: 'paid', price: '', note: '영국식 정찬 뷔페 (평점 8.4)' },
     booked: { lat: 52.2147, lng: 0.0828, address: '37 Eddington Avenue, Cambridge CB3 1SE', dates: '6/30', nights: 1, pax: 3 } },

@@ -24,7 +24,7 @@ export default function CaminoGuide() {
     <div>
       <div className="section-header">
         <h2>🐚 카미노 데 산티아고</h2>
-        <p>포르투게스 루트 (Caminho Portugues)</p>
+        <p>포르투게스 해안+중앙 하이브리드 · 실제 걸은 기록 (숙소 전부 호텔)</p>
       </div>
 
       <div className="camino-banner">
@@ -64,7 +64,7 @@ export default function CaminoGuide() {
             <dt>급수</dt>
             <dd>{stage.water}</dd>
 
-            <dt>알베르게</dt>
+            <dt>숙소</dt>
             <dd>{stage.albergue}</dd>
           </dl>
 
