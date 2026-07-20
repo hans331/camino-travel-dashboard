@@ -3,13 +3,159 @@
   "features": [
     {
       "type": "Feature",
-      "properties": { "style": "flight", "name": "인천 → 포르투 (경유: 프랑크푸르트)" },
-      "geometry": { "type": "LineString", "coordinates": [[126.4407, 37.4602], [8.5622, 50.0379], [-8.6814, 41.248]] }
+      "properties": {
+        "name": "① 인천 → 포르투 (경유: 프랑크푸르트)",
+        "style": "flight"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            126.4407,
+            37.4602
+          ],
+          [
+            8.5622,
+            50.0379
+          ],
+          [
+            -8.6814,
+            41.248
+          ]
+        ]
+      }
     },
     {
       "type": "Feature",
-      "properties": { "style": "flight", "name": "파리 → 인천 (경유: 뮌헨)" },
-      "geometry": { "type": "LineString", "coordinates": [[2.5479, 49.0097], [11.786, 48.3537], [126.4407, 37.4602]] }
+      "properties": {
+        "name": "② 산티아고 → 취리히 (경유: 바르셀로나)",
+        "style": "flight"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -8.4151,
+            42.8963
+          ],
+          [
+            2.0833,
+            41.2974
+          ],
+          [
+            8.5492,
+            47.4647
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "③ 취리히 → 루체른 (기차)",
+        "style": "train"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            8.5492,
+            47.4647
+          ],
+          [
+            8.3093,
+            47.0502
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "④ 취리히 → 런던 (스위스항공)",
+        "style": "flight"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            8.5492,
+            47.4647
+          ],
+          [
+            -0.4543,
+            51.47
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "⑤ 런던 → 케임브리지 (기차)",
+        "style": "train"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4543,
+            51.47
+          ],
+          [
+            0.1218,
+            52.2053
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "⑥ 케임브리지 → 파리 (유로스타)",
+        "style": "train"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            0.1218,
+            52.2053
+          ],
+          [
+            -0.1276,
+            51.5314
+          ],
+          [
+            2.3522,
+            48.8566
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "⑦ 파리 → 인천 (경유: 뮌헨)",
+        "style": "flight"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.5479,
+            49.0097
+          ],
+          [
+            11.786,
+            48.3537
+          ],
+          [
+            126.4407,
+            37.4602
+          ]
+        ]
+      }
     }
   ]
 }
