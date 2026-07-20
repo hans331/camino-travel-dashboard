@@ -154,13 +154,16 @@ export default function BudgetTable() {
 
     for (const item of BUDGET) {
       plannedTotal += item.amtNum;
-      if (item.breakdown && item.breakdown.length > 0) {
-        for (const b of item.breakdown) {
-          if (b.status === 'confirmed') plannedConfirmed += b.amt;
-          else plannedPending += b.amt;
+      // 결산(actual) 확정 카테고리는 breakdown이 '실제 내역'이라 예산 확정/미정 집계에서 제외
+      if (item.actual === undefined) {
+        if (item.breakdown && item.breakdown.length > 0) {
+          for (const b of item.breakdown) {
+            if (b.status === 'confirmed') plannedConfirmed += b.amt;
+            else plannedPending += b.amt;
+          }
+        } else {
+          plannedPending += item.amtNum;
         }
-      } else {
-        plannedPending += item.amtNum;
       }
       actualTotal += categoryActual(item);
     }
@@ -180,6 +183,9 @@ export default function BudgetTable() {
   const usedPct = totals.plannedTotal > 0
     ? Math.round((totals.actualTotal / totals.plannedTotal) * 100)
     : 0;
+
+  // 모든 카테고리에 결산액(actual)이 있으면 = 결산 완료 모드
+  const settled = BUDGET.every((i) => i.actual !== undefined);
 
   const toggle = (id: string) => {
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -205,63 +211,98 @@ export default function BudgetTable() {
       </div>
 
       {/* Top stat cards */}
-      <div className="budget-summary">
-        <div className="budget-summary-card is-confirmed">
-          <div className="budget-summary-label">✅ 확정 예산 (예매·발권)</div>
-          <div className="budget-summary-value">{formatKRW(totals.plannedConfirmed)}</div>
-          <div className="budget-summary-sub">{formatMan(totals.plannedConfirmed)}원 · {confirmedPct}%</div>
-        </div>
-        <div className="budget-summary-card is-pending">
-          <div className="budget-summary-label">⏳ 미정 예산 (예상치)</div>
-          <div className="budget-summary-value">{formatKRW(totals.plannedPending)}</div>
-          <div className="budget-summary-sub">{formatMan(totals.plannedPending)}원 · {100 - confirmedPct}%</div>
-        </div>
-        <div className="budget-summary-card is-total">
-          <div className="budget-summary-label">📊 총 예산</div>
-          <div className="budget-summary-value">{formatKRW(totals.plannedTotal)}</div>
-          <div className="budget-summary-sub">{formatMan(totals.plannedTotal)}원</div>
-        </div>
-        <div className="budget-summary-card is-actual">
-          <div className="budget-summary-label">💵 실제 지출 (결산)</div>
-          <div className="budget-summary-value">{formatKRW(totals.actualTotal)}</div>
-          <div className="budget-summary-sub">
-            {totals.actualTotal > 0 ? `${formatMan(totals.actualTotal)}원 · 예산 대비 ${usedPct}%` : '아직 입력 없음'}
+      {settled ? (
+        <div className="budget-summary">
+          <div className="budget-summary-card is-total">
+            <div className="budget-summary-label">📊 총 예산 (계획)</div>
+            <div className="budget-summary-value">{formatKRW(totals.plannedTotal)}</div>
+            <div className="budget-summary-sub">{formatMan(totals.plannedTotal)}원</div>
+          </div>
+          <div className="budget-summary-card is-actual">
+            <div className="budget-summary-label">💵 실제 지출 (결산)</div>
+            <div className="budget-summary-value">{formatKRW(totals.actualTotal)}</div>
+            <div className="budget-summary-sub">{formatMan(totals.actualTotal)}원 · 예산 대비 {usedPct}%</div>
+          </div>
+          <div className={`budget-summary-card is-diff ${totals.diff >= 0 ? 'is-under' : 'is-over'}`}>
+            <div className="budget-summary-label">{totals.diff >= 0 ? '✨ 예산 잔여' : '⚠️ 예산 초과'}</div>
+            <div className={`budget-summary-value ${totals.diff >= 0 ? 'positive' : 'negative'}`}>
+              {totals.diff >= 0 ? '' : '+'}{formatKRW(Math.abs(totals.diff))}
+            </div>
+            <div className="budget-summary-sub">{totals.diff >= 0 ? '남음' : '오버'} · {formatMan(Math.abs(totals.diff))}원</div>
+          </div>
+          <div className="budget-summary-card is-confirmed">
+            <div className="budget-summary-label">📈 예산 집행률</div>
+            <div className="budget-summary-value">{usedPct}%</div>
+            <div className="budget-summary-sub">결산 ÷ 예산</div>
           </div>
         </div>
-        <div className={`budget-summary-card is-diff ${totals.diff >= 0 ? 'is-under' : 'is-over'}`}>
-          <div className="budget-summary-label">
-            {totals.diff >= 0 ? '✨ 예산 잔여' : '⚠️ 예산 초과'}
+      ) : (
+        <div className="budget-summary">
+          <div className="budget-summary-card is-confirmed">
+            <div className="budget-summary-label">✅ 확정 예산 (예매·발권)</div>
+            <div className="budget-summary-value">{formatKRW(totals.plannedConfirmed)}</div>
+            <div className="budget-summary-sub">{formatMan(totals.plannedConfirmed)}원 · {confirmedPct}%</div>
           </div>
-          <div className={`budget-summary-value ${totals.diff >= 0 ? 'positive' : 'negative'}`}>
-            {totals.diff >= 0 ? '' : '+'}{formatKRW(Math.abs(totals.diff))}
+          <div className="budget-summary-card is-pending">
+            <div className="budget-summary-label">⏳ 미정 예산 (예상치)</div>
+            <div className="budget-summary-value">{formatKRW(totals.plannedPending)}</div>
+            <div className="budget-summary-sub">{formatMan(totals.plannedPending)}원 · {100 - confirmedPct}%</div>
           </div>
-          <div className="budget-summary-sub">
-            {totals.actualTotal > 0
-              ? `${totals.diff >= 0 ? '남음' : '오버'} · ${formatMan(Math.abs(totals.diff))}원`
-              : '예산 = 총액'}
+          <div className="budget-summary-card is-total">
+            <div className="budget-summary-label">📊 총 예산</div>
+            <div className="budget-summary-value">{formatKRW(totals.plannedTotal)}</div>
+            <div className="budget-summary-sub">{formatMan(totals.plannedTotal)}원</div>
+          </div>
+          <div className="budget-summary-card is-actual">
+            <div className="budget-summary-label">💵 실제 지출 (결산)</div>
+            <div className="budget-summary-value">{formatKRW(totals.actualTotal)}</div>
+            <div className="budget-summary-sub">
+              {totals.actualTotal > 0 ? `${formatMan(totals.actualTotal)}원 · 예산 대비 ${usedPct}%` : '아직 입력 없음'}
+            </div>
+          </div>
+          <div className={`budget-summary-card is-diff ${totals.diff >= 0 ? 'is-under' : 'is-over'}`}>
+            <div className="budget-summary-label">
+              {totals.diff >= 0 ? '✨ 예산 잔여' : '⚠️ 예산 초과'}
+            </div>
+            <div className={`budget-summary-value ${totals.diff >= 0 ? 'positive' : 'negative'}`}>
+              {totals.diff >= 0 ? '' : '+'}{formatKRW(Math.abs(totals.diff))}
+            </div>
+            <div className="budget-summary-sub">
+              {totals.actualTotal > 0
+                ? `${totals.diff >= 0 ? '남음' : '오버'} · ${formatMan(Math.abs(totals.diff))}원`
+                : '예산 = 총액'}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Confirmed/pending progress bar */}
+      {/* Progress bar */}
       <div className="budget-progress">
         <div className="budget-progress-bar">
-          <div
-            className="budget-progress-confirmed"
-            style={{ width: `${confirmedPct}%` }}
-            title={`확정 ${confirmedPct}%`}
-          />
-          <div
-            className="budget-progress-pending"
-            style={{ width: `${100 - confirmedPct}%` }}
-            title={`미정 ${100 - confirmedPct}%`}
-          />
+          {settled ? (
+            <div
+              className={usedPct <= 100 ? 'budget-progress-confirmed' : 'budget-progress-pending'}
+              style={{ width: `${Math.min(usedPct, 100)}%` }}
+              title={`결산 ${usedPct}%`}
+            />
+          ) : (
+            <>
+              <div className="budget-progress-confirmed" style={{ width: `${confirmedPct}%` }} title={`확정 ${confirmedPct}%`} />
+              <div className="budget-progress-pending" style={{ width: `${100 - confirmedPct}%` }} title={`미정 ${100 - confirmedPct}%`} />
+            </>
+          )}
         </div>
         <div className="budget-progress-labels">
-          <span><span className="dot confirmed" /> 확정 예산 {confirmedPct}%</span>
-          <span><span className="dot pending" /> 미정 예산 {100 - confirmedPct}%</span>
-          {totals.actualTotal > 0 && (
-            <span><span className="dot used" /> 실제 사용 {usedPct}%</span>
+          {settled ? (
+            <span><span className="dot used" /> 실제 결산 {usedPct}% <span style={{ opacity: 0.6 }}>(예산 100% 기준)</span></span>
+          ) : (
+            <>
+              <span><span className="dot confirmed" /> 확정 예산 {confirmedPct}%</span>
+              <span><span className="dot pending" /> 미정 예산 {100 - confirmedPct}%</span>
+              {totals.actualTotal > 0 && (
+                <span><span className="dot used" /> 실제 사용 {usedPct}%</span>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -350,60 +391,82 @@ export default function BudgetTable() {
                       🧾 {item.settleNote}
                     </div>
                   )}
-                  <div className="budget-breakdown-header">
-                    <span>상태</span>
-                    <span>항목</span>
-                    <span>예산</span>
-                    <span>{item.actual !== undefined ? '계획(예매)' : '실제 사용'}</span>
-                    <span>차이</span>
-                  </div>
-                  {breakdown.map((b, i) => {
-                    const key = lineKey(item.id, i);
-                    const explicitActual = actuals[key];
-                    const lineActual = resolveLineActual(item.id, i, b);
-                    const isAutoConfirmed = explicitActual === undefined && b.status === 'confirmed';
-                    const lineDiff = b.amt - lineActual;
-                    const lineRatio = b.amt > 0 && lineActual > 0
-                      ? Math.round((lineActual / b.amt) * 100)
-                      : null;
-                    return (
-                      <div
-                        key={i}
-                        className={`budget-breakdown-row ${b.status === 'confirmed' ? 'is-confirmed' : 'is-pending'} ${isAutoConfirmed ? 'is-auto' : ''}`}
-                      >
-                        <span className={`status-pill ${b.status}`}>
-                          {b.status === 'confirmed' ? '✅ 확정' : '⏳ 미정'}
-                        </span>
-                        <div className="budget-breakdown-main">
-                          <div className="budget-breakdown-label">{b.label}</div>
-                          {b.note && <div className="budget-breakdown-note">{b.note}</div>}
+                  {item.actual !== undefined ? (
+                    /* 결산 모드: 실제 결제 항목 리스트 (날짜·카드·용도 + 금액) */
+                    <div className="budget-settle-list">
+                      {breakdown.map((b, i) => (
+                        <div key={i} className="budget-settle-row">
+                          <div className="budget-settle-main">
+                            <div className="budget-settle-label">{b.label}</div>
+                            {b.note && <div className="budget-settle-meta">{b.note}</div>}
+                          </div>
+                          <div className="budget-settle-amt">{formatKRW(b.amt)}</div>
                         </div>
-                        <div className="budget-breakdown-planned">{formatKRW(b.amt)}</div>
-                        <div className="budget-breakdown-actual">
-                          <input
-                            type="text"
-                            className={`budget-input budget-line-input ${isAutoConfirmed ? 'is-auto' : ''}`}
-                            value={lineActual > 0 ? lineActual.toLocaleString('ko-KR') : ''}
-                            placeholder={b.status === 'confirmed' ? '예매가 자동 반영' : '₩0'}
-                            readOnly={item.actual !== undefined}
-                            onChange={(e) => { if (item.actual === undefined) handleLineChange(item.id, i, e.target.value); }}
-                            onFocus={(e) => isAutoConfirmed && e.target.select()}
-                            aria-label={`${b.label} 실제 사용`}
-                            title={isAutoConfirmed ? '예매 확정 → 예산과 동일 자동 반영. 클릭하면 직접 수정 가능.' : undefined}
-                            inputMode="numeric"
-                          />
-                          {isAutoConfirmed && <span className="auto-tag" title="자동 반영">✨ 자동</span>}
+                      ))}
+                      <div className="budget-settle-row is-sum">
+                        <div className="budget-settle-main">
+                          <div className="budget-settle-label">결산 합계 · {breakdown.length}건</div>
                         </div>
-                        <div className="budget-breakdown-diff">
-                          {explicitActual !== undefined && explicitActual > 0
-                            ? <DiffCell diff={lineDiff} ratio={lineRatio} />
-                            : isAutoConfirmed
-                              ? <span className="diff-cell zero">±₩0</span>
-                              : <span className="diff-cell empty">─</span>}
-                        </div>
+                        <div className="budget-settle-amt">{formatKRW(categoryActual(item))}</div>
                       </div>
-                    );
-                  })}
+                    </div>
+                  ) : (
+                    <>
+                      <div className="budget-breakdown-header">
+                        <span>상태</span>
+                        <span>항목</span>
+                        <span>예산</span>
+                        <span>실제 사용</span>
+                        <span>차이</span>
+                      </div>
+                      {breakdown.map((b, i) => {
+                        const key = lineKey(item.id, i);
+                        const explicitActual = actuals[key];
+                        const lineActual = resolveLineActual(item.id, i, b);
+                        const isAutoConfirmed = explicitActual === undefined && b.status === 'confirmed';
+                        const lineDiff = b.amt - lineActual;
+                        const lineRatio = b.amt > 0 && lineActual > 0
+                          ? Math.round((lineActual / b.amt) * 100)
+                          : null;
+                        return (
+                          <div
+                            key={i}
+                            className={`budget-breakdown-row ${b.status === 'confirmed' ? 'is-confirmed' : 'is-pending'} ${isAutoConfirmed ? 'is-auto' : ''}`}
+                          >
+                            <span className={`status-pill ${b.status}`}>
+                              {b.status === 'confirmed' ? '✅ 확정' : '⏳ 미정'}
+                            </span>
+                            <div className="budget-breakdown-main">
+                              <div className="budget-breakdown-label">{b.label}</div>
+                              {b.note && <div className="budget-breakdown-note">{b.note}</div>}
+                            </div>
+                            <div className="budget-breakdown-planned">{formatKRW(b.amt)}</div>
+                            <div className="budget-breakdown-actual">
+                              <input
+                                type="text"
+                                className={`budget-input budget-line-input ${isAutoConfirmed ? 'is-auto' : ''}`}
+                                value={lineActual > 0 ? lineActual.toLocaleString('ko-KR') : ''}
+                                placeholder={b.status === 'confirmed' ? '예매가 자동 반영' : '₩0'}
+                                onChange={(e) => handleLineChange(item.id, i, e.target.value)}
+                                onFocus={(e) => isAutoConfirmed && e.target.select()}
+                                aria-label={`${b.label} 실제 사용`}
+                                title={isAutoConfirmed ? '예매 확정 → 예산과 동일 자동 반영. 클릭하면 직접 수정 가능.' : undefined}
+                                inputMode="numeric"
+                              />
+                              {isAutoConfirmed && <span className="auto-tag" title="자동 반영">✨ 자동</span>}
+                            </div>
+                            <div className="budget-breakdown-diff">
+                              {explicitActual !== undefined && explicitActual > 0
+                                ? <DiffCell diff={lineDiff} ratio={lineRatio} />
+                                : isAutoConfirmed
+                                  ? <span className="diff-cell zero">±₩0</span>
+                                  : <span className="diff-cell empty">─</span>}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </>
+                  )}
                 </div>
               )}
             </div>

@@ -3740,6 +3740,52 @@ body {
   background: rgba(37, 99, 235, 0.12);
 }
 
+.budget-settle-list {
+  display: flex;
+  flex-direction: column;
+}
+.budget-settle-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.budget-settle-row:last-child { border-bottom: none; }
+.budget-settle-main { min-width: 0; }
+.budget-settle-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text, #1e293b);
+}
+.budget-settle-meta {
+  font-size: 12px;
+  color: var(--text-soft, #64748b);
+  margin-top: 1px;
+}
+.budget-settle-amt {
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--text, #1e293b);
+}
+.budget-settle-row.is-sum {
+  border-top: 2px solid var(--border);
+  border-bottom: none;
+  margin-top: 4px;
+  padding-top: 12px;
+}
+.budget-settle-row.is-sum .budget-settle-label,
+.budget-settle-row.is-sum .budget-settle-amt {
+  font-weight: 800;
+  font-size: 15px;
+}
+[data-theme="dark"] .budget-settle-label,
+[data-theme="dark"] .budget-settle-amt { color: #e2e8f0; }
+[data-theme="dark"] .budget-settle-meta { color: #94a3b8; }
+
 .budget-breakdown-header {
   display: grid;
   grid-template-columns: 80px 1fr 130px 150px 130px;
