@@ -891,8 +891,8 @@ export const BUDGET: BudgetItem[] = [
     id: 'food', cat: '🍽️ 식비', amt: '₩7,600,000', amtNum: 7600000,
     detail: '단계별 인원·일수 × 1일 예산 (전부 미정)',
     pct: 17, color: '#16A34A',
-    actual: 3313638,
-    settleNote: '결산 ₩3,313,638 — 포르투갈·스페인 카미노(알베르게·마트) + 스위스(Coop·Migros) + 파리 식당 (VIVA X·현대카드). 예산 대비 −₩4.29M 절감 (자취·마트 활용)',
+    actual: 3463638,
+    settleNote: '결산 ₩3,463,638 — 카미노(알베르게·마트) + 스위스(Coop·Migros 자취) + 파리 식당 + 김어준 금요미식회 ₩150K. 인당·하루: 카미노 ₩47K·스위스 ₩35K·파리 ₩60K. 예산 대비 −₩4.14M 절감(자취 효과)',
     breakdown: [
       { label: '🇵🇹 포르토 2일×2명 × ₩90K', amt: 360000, status: 'pending' },
       { label: '🐚 카미노 11일×2명 × ₩50K', amt: 1100000, status: 'pending', note: '알베르게 + 시골 식당 기준' },
@@ -921,8 +921,8 @@ export const BUDGET: BudgetItem[] = [
     id: 'admission', cat: '🎫 체험·입장료', amt: '₩2,500,000', amtNum: 2500000,
     detail: '스위스 산악열차 + 파리 미술관·궁전·당일치기 (전부 미예매)',
     pct: 6, color: '#F59E0B',
-    actual: 3069008,
-    settleNote: '결산 ₩3,069,008 — 융프라우·고르너그라트·수네가·필라투스(산악열차) + 베르사유·지베르니 모네·생트샤펠·오디오가이드·투어(MY TOP TOUR). 예산 대비 +₩0.57M',
+    actual: 4206608,
+    settleNote: '결산 ₩4,206,608 — 융프라우·고르너그라트·수네가·필라투스(산악열차) + 베르사유·지베르니 모네·생트샤펠(2명) + 루브르 입장(아들카드 €96)·루브르 오디오·오르세 도슨트·메르시파리 몽생미셀 투어(한국플랫폼 직접결제). 예산 대비 +₩1.71M',
     breakdown: [
       { label: '🏔️ Mt. Pilatus Golden Round × 4', amt: 480000, status: 'pending', note: 'CHF 78/인 (Swiss Pass 50% 할인)' },
       { label: '⛰️ Gornergrat (마테호른) × 4', amt: 815000, status: 'pending', note: 'CHF 132/인' },
