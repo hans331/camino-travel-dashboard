@@ -3725,6 +3725,21 @@ body {
   background: rgba(15, 23, 42, 0.6);
 }
 
+.budget-settle-note {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-soft, #475569);
+  background: var(--accent-soft, rgba(37, 99, 235, 0.08));
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 10px 13px;
+  margin-bottom: 4px;
+}
+[data-theme="dark"] .budget-settle-note {
+  color: #cbd5e1;
+  background: rgba(37, 99, 235, 0.12);
+}
+
 .budget-breakdown-header {
   display: grid;
   grid-template-columns: 80px 1fr 130px 150px 130px;
@@ -4024,3 +4039,58 @@ body {
   }
 }
 
+
+/* ===== Budget secret (외부 공유용 비공개 화면) ===== */
+.budget-secret {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 40px 20px;
+}
+.budget-secret-card {
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(160deg, var(--accent-cream) 0%, var(--bg-card) 70%);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 48px 34px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+}
+.budget-secret-emoji {
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 18px;
+}
+.budget-secret-title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  letter-spacing: -0.8px;
+  margin: 0 0 14px;
+}
+.budget-secret-desc {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--text-light);
+  font-weight: 500;
+  margin: 0 0 28px;
+}
+.budget-secret-unlock {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 9px 20px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.budget-secret-unlock:hover {
+  border-color: var(--primary);
+  color: var(--primary-dark);
+  background: var(--bg-soft);
+  transform: translateY(-1px);
+}

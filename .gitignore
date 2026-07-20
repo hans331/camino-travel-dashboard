@@ -41,3 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# 개인 데이터 (커밋 금지)
+2026-7-12-일기.csv
+*일기*.csv

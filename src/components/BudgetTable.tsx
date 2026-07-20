@@ -5,6 +5,39 @@ import { BUDGET } from '@/lib/data';
 import { supabase } from '@/lib/supabase';
 import type { BudgetItem } from '@/lib/types';
 
+// 예산 화면은 기본적으로 잠겨 있습니다 (외부 공유 시 지출 내역 비공개).
+// 주인만 이 암호로 열어볼 수 있고, 한 번 열면 이 브라우저에는 기억됩니다.
+const BUDGET_PASSCODE = 'camino';
+const BUDGET_UNLOCK_KEY = 'camino-budget-unlocked';
+
+function SecretBudget({ onUnlock }: { onUnlock: () => void }) {
+  const handleUnlock = () => {
+    const input = window.prompt('나만 보기 🔓 — 암호를 입력하세요');
+    if (input === null) return;
+    if (input.trim() === BUDGET_PASSCODE) {
+      onUnlock();
+    } else {
+      window.alert('암호가 맞지 않아요 🙈');
+    }
+  };
+
+  return (
+    <div className="budget-secret">
+      <div className="budget-secret-card">
+        <div className="budget-secret-emoji">🤫</div>
+        <h2 className="budget-secret-title">쉿, 비밀이에요!</h2>
+        <p className="budget-secret-desc">
+          예산·지출 내역은 우리끼리만 보는 정보라<br />
+          공유 화면에서는 살짝 감춰뒀어요. 나머지 일정은 마음껏 구경하세요! 🐚
+        </p>
+        <button className="budget-secret-unlock" onClick={handleUnlock}>
+          🔓 나만 보기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function formatKRW(n: number): string {
   return '₩' + n.toLocaleString('ko-KR');
 }
@@ -35,9 +68,22 @@ function DiffCell({ diff, ratio }: { diff: number; ratio: number | null }) {
 export default function BudgetTable() {
   const [actuals, setActuals] = useState<Record<string, number>>({});
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [unlocked, setUnlocked] = useState(false);
   const debounceTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
   useEffect(() => {
+    if (localStorage.getItem(BUDGET_UNLOCK_KEY) === '1') {
+      setUnlocked(true);
+    }
+  }, []);
+
+  const handleUnlock = useCallback(() => {
+    localStorage.setItem(BUDGET_UNLOCK_KEY, '1');
+    setUnlocked(true);
+  }, []);
+
+  useEffect(() => {
+    if (!unlocked) return;
     async function fetchActuals() {
       const { data } = await supabase
         .from('budget_actuals')
@@ -52,7 +98,7 @@ export default function BudgetTable() {
       }
     }
     fetchActuals();
-  }, []);
+  }, [unlocked]);
 
   const saveActual = useCallback(async (key: string, amount: number) => {
     await supabase
@@ -89,6 +135,8 @@ export default function BudgetTable() {
   // Compute category actual from sum of its line actuals (falls back to legacy
   // category-key entry if no breakdown exists).
   const categoryActual = useCallback((item: BudgetItem): number => {
+    // 결산 확정값이 있으면 카드 대조 실지출을 그대로 사용 (Supabase 입력보다 우선)
+    if (item.actual !== undefined) return item.actual;
     if (!item.breakdown || item.breakdown.length === 0) {
       return actuals[item.id] ?? 0;
     }
@@ -145,11 +193,15 @@ export default function BudgetTable() {
 
   const collapseAll = () => setExpanded({});
 
+  if (!unlocked) {
+    return <SecretBudget onUnlock={handleUnlock} />;
+  }
+
   return (
     <div>
       <div className="section-header">
-        <h2>💰 예산</h2>
-        <p>각 세부 항목별 <strong>예산 / 실제</strong> 입력 · 카테고리·총액 자동 합산 · 차이는 실시간 계산</p>
+        <h2>💰 결산 (예산 대비 실제 지출)</h2>
+        <p>여행 종료 후 <strong>카드 대조 결산</strong> · 하나 VIVA X·토스·현대카드 + 부킹닷컴 실결제 기준 · 예산 대비 차이 자동 계산</p>
       </div>
 
       {/* Top stat cards */}
@@ -170,7 +222,7 @@ export default function BudgetTable() {
           <div className="budget-summary-sub">{formatMan(totals.plannedTotal)}원</div>
         </div>
         <div className="budget-summary-card is-actual">
-          <div className="budget-summary-label">💵 실제 사용 합계</div>
+          <div className="budget-summary-label">💵 실제 지출 (결산)</div>
           <div className="budget-summary-value">{formatKRW(totals.actualTotal)}</div>
           <div className="budget-summary-sub">
             {totals.actualTotal > 0 ? `${formatMan(totals.actualTotal)}원 · 예산 대비 ${usedPct}%` : '아직 입력 없음'}
@@ -293,11 +345,16 @@ export default function BudgetTable() {
 
               {isOpen && breakdown.length > 0 && (
                 <div className="budget-breakdown">
+                  {item.settleNote && (
+                    <div className="budget-settle-note">
+                      🧾 {item.settleNote}
+                    </div>
+                  )}
                   <div className="budget-breakdown-header">
                     <span>상태</span>
                     <span>항목</span>
                     <span>예산</span>
-                    <span>실제 사용</span>
+                    <span>{item.actual !== undefined ? '계획(예매)' : '실제 사용'}</span>
                     <span>차이</span>
                   </div>
                   {breakdown.map((b, i) => {
@@ -328,7 +385,8 @@ export default function BudgetTable() {
                             className={`budget-input budget-line-input ${isAutoConfirmed ? 'is-auto' : ''}`}
                             value={lineActual > 0 ? lineActual.toLocaleString('ko-KR') : ''}
                             placeholder={b.status === 'confirmed' ? '예매가 자동 반영' : '₩0'}
-                            onChange={(e) => handleLineChange(item.id, i, e.target.value)}
+                            readOnly={item.actual !== undefined}
+                            onChange={(e) => { if (item.actual === undefined) handleLineChange(item.id, i, e.target.value); }}
                             onFocus={(e) => isAutoConfirmed && e.target.select()}
                             aria-label={`${b.label} 실제 사용`}
                             title={isAutoConfirmed ? '예매 확정 → 예산과 동일 자동 반영. 클릭하면 직접 수정 가능.' : undefined}

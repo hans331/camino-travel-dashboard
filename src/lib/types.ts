@@ -119,6 +119,8 @@ export interface BudgetItem {
   pct: number;
   color: string;
   breakdown?: BudgetLineItem[]; // 확정 vs 미정 분리 표시
+  actual?: number;        // 결산 실지출 (카드 대조 기준). 있으면 예산 대비 결산 표시
+  settleNote?: string;    // 결산 근거·비고 (어떤 카드/무엇으로 나갔는지)
 }
 
 export interface FlightData {
