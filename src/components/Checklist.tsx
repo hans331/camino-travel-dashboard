@@ -7,6 +7,9 @@ import type { ChecklistItemDB, ChecklistAttachment, ChecklistItemTemplate, Check
 
 const ATTACHMENT_BUCKET = 'attachments';
 const COLLAPSED_KEY = 'camino-checklist-collapsed-cats';
+// 공유 링크 보호: 기본 읽기전용. 주인만 암호로 편집 모드 (체크·메모·재설정 등 쓰기 허용)
+const EDIT_PASSCODE = 'camino';
+const EDIT_KEY = 'camino-edit-unlocked';
 
 function getTemplate(categoryIndex: number, sortOrder: number): ChecklistItemTemplate | undefined {
   return CHECKLIST[categoryIndex]?.items[sortOrder];
@@ -40,6 +43,19 @@ export default function Checklist() {
   const [expandedMemo, setExpandedMemo] = useState<Set<string>>(new Set());
   const [collapsedCategories, setCollapsedCategories] = useState<Set<number>>(new Set());
   const debounceTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+
+  // 편집 모드(주인 전용). 기본 false = 읽기전용 (공유 방문자 보호)
+  const [editable, setEditable] = useState(false);
+  const editableRef = useRef(false);
+  useEffect(() => { editableRef.current = editable; }, [editable]);
+  useEffect(() => { if (typeof window !== 'undefined' && localStorage.getItem(EDIT_KEY) === '1') setEditable(true); }, []);
+  const unlockEdit = useCallback(() => {
+    const input = window.prompt('✏️ 편집 모드 (주인만) — 암호를 입력하세요');
+    if (input === null) return;
+    if (input.trim() === EDIT_PASSCODE) { localStorage.setItem(EDIT_KEY, '1'); setEditable(true); }
+    else window.alert('암호가 맞지 않아요 🙈');
+  }, []);
+  const lockEdit = useCallback(() => { localStorage.removeItem(EDIT_KEY); setEditable(false); }, []);
 
   // Restore collapsed category state from localStorage on mount
   useEffect(() => {
@@ -155,6 +171,7 @@ export default function Checklist() {
   }
 
   const resetChecklist = useCallback(async () => {
+    if (!editableRef.current) return;
     const ok = confirm(
       '⚠️ 체크리스트를 초기 상태로 재설정합니다.\n\n현재 체크/메모/추가 항목이 모두 삭제되고, 최신 항목으로 다시 채워집니다.\n(첨부파일은 cascade로 함께 삭제됩니다)\n\n계속하시겠어요?'
     );
@@ -167,6 +184,7 @@ export default function Checklist() {
   }, []);
 
   const updateState = useCallback(async (id: string, newState: ChecklistState) => {
+    if (!editableRef.current) return;
     setItems((prev) =>
       prev.map((item) =>
         item.id === id
@@ -181,6 +199,7 @@ export default function Checklist() {
   }, []);
 
   const updateMemo = useCallback((id: string, memo: string) => {
+    if (!editableRef.current) return;
     setItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, memo } : item
@@ -211,6 +230,7 @@ export default function Checklist() {
   }, []);
 
   const addItem = useCallback(async (categoryIndex: number) => {
+    if (!editableRef.current) return;
     const label = prompt('추가할 항목 이름:');
     if (!label?.trim()) return;
 
@@ -237,6 +257,7 @@ export default function Checklist() {
   }, [items]);
 
   const deleteItem = useCallback(async (id: string) => {
+    if (!editableRef.current) return;
     setItems((prev) => prev.filter((item) => item.id !== id));
     setAttachments((prev) => {
       const next = { ...prev };
@@ -247,6 +268,7 @@ export default function Checklist() {
   }, []);
 
   const uploadAttachment = useCallback(async (itemId: string, file: File) => {
+    if (!editableRef.current) return;
     if (file.size > 20 * 1024 * 1024) {
       alert('파일 크기는 20MB 이하만 가능합니다.');
       return;
@@ -290,6 +312,7 @@ export default function Checklist() {
   }, []);
 
   const deleteAttachment = useCallback(async (att: ChecklistAttachment) => {
+    if (!editableRef.current) return;
     if (!confirm(`"${att.file_name}" 첨부파일을 삭제할까요?`)) return;
     await supabase.storage.from(ATTACHMENT_BUCKET).remove([att.file_path]);
     await supabase.from('checklist_attachments').delete().eq('id', att.id);
@@ -335,12 +358,24 @@ export default function Checklist() {
       </div>
 
       <div className="checklist-toolbar">
-        <button className="checklist-reset-btn" onClick={resetChecklist}>
-          🔄 체크리스트 새로고침 (최신 항목으로 재설정)
-        </button>
-        <span className="checklist-toolbar-hint">
-          💡 항목 이름을 <strong>클릭</strong>하면 메모창 + 파일 첨부가 열려요 · 항공권·예약 확인서 PDF/이미지를 첨부하면 휴대폰에서 바로 다운로드 가능
-        </span>
+        {editable ? (
+          <>
+            <button className="checklist-reset-btn" onClick={resetChecklist}>
+              🔄 체크리스트 새로고침 (최신 항목으로 재설정)
+            </button>
+            <button className="checklist-cat-control-btn" onClick={lockEdit}>🔒 편집 잠그기</button>
+            <span className="checklist-toolbar-hint">
+              ✏️ 편집 모드 · 항목 이름을 <strong>클릭</strong>하면 메모 + 파일 첨부가 열려요
+            </span>
+          </>
+        ) : (
+          <>
+            <span className="checklist-toolbar-hint" style={{ fontWeight: 600 }}>
+              🔒 공유용 <strong>읽기 전용</strong> — 방문자가 체크·수정·재설정을 해도 기록이 바뀌지 않아요 (안심하고 공유하세요)
+            </span>
+            <button className="checklist-cat-control-btn" onClick={unlockEdit}>✏️ 편집 모드 (주인만)</button>
+          </>
+        )}
       </div>
 
       <div className="checklist-cat-controls">
@@ -672,12 +707,14 @@ export default function Checklist() {
               })}
             </div>
 
-            <button
-              className="checklist-add-btn"
-              onClick={() => addItem(group.index)}
-            >
-              + 추가
-            </button>
+            {editable && (
+              <button
+                className="checklist-add-btn"
+                onClick={() => addItem(group.index)}
+              >
+                + 추가
+              </button>
+            )}
             </>)}
           </div>
         );
