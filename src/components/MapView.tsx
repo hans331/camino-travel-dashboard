@@ -45,6 +45,8 @@ function getPhaseGroups(days: DayData[]) {
   };
 
   for (const day of days) {
+    // phase 이동 실선은 유럽 내 좌표만 (귀국·출국편 ICN 등 대륙 밖은 transits 점선으로만 표시 → 핑크 장거리 아크 방지)
+    const inEurope = day.lng > -30 && day.lng < 60;
     if (day.phase !== currentPhase) {
       if (currentCoords.length > 0) {
         groups.push({
@@ -54,8 +56,8 @@ function getPhaseGroups(days: DayData[]) {
         });
       }
       currentPhase = day.phase;
-      currentCoords = [{ lat: day.lat, lng: day.lng }];
-    } else {
+      currentCoords = inEurope ? [{ lat: day.lat, lng: day.lng }] : [];
+    } else if (inEurope) {
       currentCoords.push({ lat: day.lat, lng: day.lng });
     }
   }
@@ -334,7 +336,7 @@ export default function MapView({ selectedPhase }: MapViewProps) {
           🐚 <strong>카미노 10일 — 하이브리드 루트 (확정)</strong>
         </div>
         <div className="camino-route-info" style={{ borderLeftColor: PHASES.camino.color }}>
-          <div className="camino-route-info-desc">🌊 해안 4일 (Porto→Caminha) + 🛥️ 페리 + 🥾 강변 1일 (A Guarda→Tui) + 🌳 중앙 5일 (Tui→Santiago) · ~250km</div>
+          <div className="camino-route-info-desc">🌊 해안 4일 (Porto→Caminha) + 🛥️ 페리 + 🥾 강변 1일 (A Guarda→Tui) + 🌳 중앙 5일 (Tui→Santiago) · 실제 ~272km (일기 기준)</div>
           <ul className="camino-route-info-highlights">
             <li>🌊 Day 1-4: 대서양 해안 (Vila do Conde, Esposende, Viana, Caminha)</li>
             <li>🛥️ Day 4 오후: Caminha 페리 → A Guarda 스페인 진입 (전날 횡단)</li>
